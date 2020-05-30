@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MachinationsCache xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.machinations.io">
+  <DiagramMappings>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>50</BaseValue>
+        <CurrentValue>50</CurrentValue>
+        <MaxValue>-1</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>19</DiagramElementID>
+      <GameObjectName
+        i:nil="true" />
+      <GameObjectPropertyName>Health</GameObjectPropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>17</BaseValue>
+        <CurrentValue>17</CurrentValue>
+        <MaxValue>296</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>102</DiagramElementID>
+      <GameObjectName
+        i:nil="true" />
+      <GameObjectPropertyName>Speed</GameObjectPropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
+  </DiagramMappings>
+</MachinationsCache>
