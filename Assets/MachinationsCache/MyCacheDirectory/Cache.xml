@@ -5,13 +5,32 @@
       <CachedElementBase>
         <BaseValue>50</BaseValue>
         <CurrentValue>50</CurrentValue>
-        <MaxValue>-1</MaxValue>
+        <MaxValue>50</MaxValue>
         <MinValue>0</MinValue>
       </CachedElementBase>
       <DiagramElementID>19</DiagramElementID>
       <GameObjectName
         i:nil="true" />
       <GameObjectPropertyName>Health</GameObjectPropertyName>
+      <StatesAssoc>
+        <Title>Exploring</Title>
+        <gameObjectStates xmlns:d5p1="http://www.rubygame.com" />
+        <gameStates xmlns:d5p1="http://www.rubygame.com">
+          <d5p1:RubyGameStates>Exploring</d5p1:RubyGameStates>
+        </gameStates>
+      </StatesAssoc>
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>12</BaseValue>
+        <CurrentValue>12</CurrentValue>
+        <MaxValue>-1</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>23</DiagramElementID>
+      <GameObjectName
+        i:nil="true" />
+      <GameObjectPropertyName>ExtraEnemies</GameObjectPropertyName>
       <StatesAssoc
         i:nil="true" />
     </MachinationsDiagramMapping>
@@ -26,8 +45,13 @@
       <GameObjectName
         i:nil="true" />
       <GameObjectPropertyName>Speed</GameObjectPropertyName>
-      <StatesAssoc
-        i:nil="true" />
+      <StatesAssoc>
+        <Title>Exploring</Title>
+        <gameObjectStates xmlns:d5p1="http://www.rubygame.com" />
+        <gameStates xmlns:d5p1="http://www.rubygame.com">
+          <d5p1:RubyGameStates>Exploring</d5p1:RubyGameStates>
+        </gameStates>
+      </StatesAssoc>
     </MachinationsDiagramMapping>
   </DiagramMappings>
 </MachinationsCache>

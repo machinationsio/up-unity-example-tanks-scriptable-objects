@@ -11,15 +11,15 @@ namespace MachinationsUP.Engines.Unity
     {
 
         /// <summary>
-        /// Notification when Machinations initialization has been completed.
+        /// Called when Machinations initialization has been completed.
         /// </summary>
         void MGLInitCompleteSO ();
 
         /// <summary>
-        /// Notification when an element has been updated in the Machinations back-end.
+        /// Called by the <see cref="MachinationsGameLayer"/> when an element has been updated in the Machinations back-end.
         /// </summary>
-        /// <param name="diagramMapping">Coordinates of the modifications.</param>
-        /// <param name="elementBase">The modification.</param>
+        /// <param name="diagramMapping">The <see cref="DiagramMapping"/> of the modified element.</param>
+        /// <param name="elementBase">The <see cref="ElementBase"/> that was sent from the backend.</param>
         void MGLUpdateSO (DiagramMapping diagramMapping = null, ElementBase elementBase = null);
 
     }

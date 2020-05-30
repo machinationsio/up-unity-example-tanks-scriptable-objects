@@ -495,6 +495,7 @@ namespace MachinationsUP.Engines.Unity
                 diagramMapping.Binder.CreateElementBaseForStateAssoc(diagramMapping.StatesAssoc, true);
                 so.MGLUpdateSO(diagramMapping, elementBase);
             }
+
             //Notify all registered Machinations Game Objects.
             foreach (MachinationsGameObject mgo in _gameObjects)
                 //When we find a registered Game Object that matches this Diagram Mapping asking it to update its Binder.
@@ -748,15 +749,16 @@ namespace MachinationsUP.Engines.Unity
         #region Public Methods
 
         /// <summary>
-        /// Declares a Manifest before a Game Object instantiation can add it to the MachinationsGameLayer.
-        /// This is used to make sure that all Game Objects are ready for use after MachinationsGameLayer Initialization.
+        /// Registers a <see cref="IMachinationsScriptableObject"/> along with its Manifest.
+        /// This is used to make sure that all Game Objects are ready for use after MGL Initialization.
         /// </summary>
-        /// <param name="manifest"></param>
-        static public void DeclareManifest (MachinationsGameObjectManifest manifest, IMachinationsScriptableObject owner)
+        /// <param name="imso">The IMachinationsScriptableObject to add.</param>
+        /// <param name="manifest">Its <see cref="MachinationsGameObjectManifest"/>.</param>
+        static public void RegisterScriptableObject (IMachinationsScriptableObject imso, MachinationsGameObjectManifest manifest)
         {
-            Debug.Log("MGL DeclareManifest: " + manifest);
-            AddTargets(manifest.GetMachinationsDiagramTargets());
-            if (!_scriptableObjects.Contains(owner)) _scriptableObjects.Add(owner);
+            Debug.Log("MGL RegisterScriptableObject: " + manifest);
+            AddTargets(manifest.GetMachinationsDiagramTargets()); //Add all the 
+            if (!_scriptableObjects.Contains(imso)) _scriptableObjects.Add(imso);
         }
 
         /// <summary>

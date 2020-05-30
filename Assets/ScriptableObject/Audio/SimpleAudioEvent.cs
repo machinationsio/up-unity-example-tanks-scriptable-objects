@@ -30,6 +30,7 @@ public class SimpleAudioEvent : AudioEvent, IMachinationsScriptableObject
     private const string M_SPEED = "Speed";
     //Binders used to transfer information to this SO.
     private Dictionary<string, ElementBinder> _binders;
+
     //Manifest that defines what the SO uses from Machinations.
     static readonly private MachinationsGameObjectManifest _manifest = new MachinationsGameObjectManifest
     {
@@ -48,49 +49,49 @@ public class SimpleAudioEvent : AudioEvent, IMachinationsScriptableObject
                 DefaultElementBase = new ElementBase(25)
             }
         },
-        /*
         CommonStatesAssociations = new List<StatesAssociation>
         {
             new StatesAssociation("Exploring", new List<GameStates>() {GameStates.Exploring})
         }
-        */
     };
-
-    public void Awake ()
-    {
-        Debug.Log("SO SimpleAudioEvent Hash[" + GetHashCode() + "] Awake.");
-    }
 
     public void OnEnable ()
     {
         Debug.Log("SO SimpleAudioEvent OnEnable.");
-        MachinationsGameLayer.DeclareManifest(_manifest, this);
+        //Register this SO with the MGL.
+        MachinationsGameLayer.RegisterScriptableObject(this, _manifest);
     }
 
+    #region IMachinationsScriptableObject
+
     /// <summary>
-    /// Map Machinations values to SO values.
+    /// Called when Machinations initialization has been completed.
     /// </summary>
     public void MGLInitCompleteSO ()
     {
-        if (MachinationsGameLayer.IsInitialized || MachinationsGameLayer.IsInOfflineMode)
-        {
-            _binders = MachinationsGameLayer.CreateBindersForManifest(_manifest);
-            //_binders[M_SPEED].UpdateStates(GameStates.Exploring, GameObjectStates.Undefined);
-            //_binders[M_HEALTH].UpdateStates(GameStates.Exploring, GameObjectStates.Undefined);
-            MGLUpdateSO();
-        }
+        _binders = MachinationsGameLayer.CreateBindersForManifest(_manifest); //Get our Binders.
+        //TODO: implement in this game proper state switching based on Night/Day. Until then, using hardcoded States.
+        _binders[M_SPEED].UpdateStates(GameStates.Exploring, GameObjectStates.Undefined);
+        _binders[M_HEALTH].UpdateStates(GameStates.Exploring, GameObjectStates.Undefined);
+        MGLUpdateSO();
     }
 
+    /// <summary>
+    /// Called by the <see cref="MachinationsGameLayer"/> when an element has been updated in the Machinations back-end.
+    /// </summary>
+    /// <param name="diagramMapping">The <see cref="DiagramMapping"/> of the modified element.</param>
+    /// <param name="elementBase">The <see cref="ElementBase"/> that was sent from the backend.</param>
     public void MGLUpdateSO (DiagramMapping diagramMapping = null, ElementBase elementBase = null)
     {
+        //TODO: the code below is hack-ish because we don't yet have a diagram for this game.
+        //This game uses Ruby diagram for now. Ideally, you'd want to interpret this based on
+        //diagramMapping.Binder, since that binder is what you have here and it's already
+        //set up to represent the current Game (Object) State.
         volume.minValue = _binders[M_SPEED].Value / 100f;
         volume.maxValue = _binders[M_HEALTH].Value / 100f;
     }
 
-    static public void UpdateFromMachinations ()
-    {
-        Debug.Log("On Update from Machinations");
-    }
+    #endregion
 
     override public void Play (AudioSource source)
     {
