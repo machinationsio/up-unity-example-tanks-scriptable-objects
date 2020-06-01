@@ -335,26 +335,61 @@ namespace MachinationsUP.Engines.Unity
         /// <param name="isRunningOffline">TRUE: the MGL is running in offline mode.</param>
         static private void NotifyAboutMGLInitComplete (bool isRunningOffline = false)
         {
-            //_gameObjects is converted into an Array because the collection MAY be modified inside Game Objects,
-            //which may create other Game Objects which will register to MGL.
-            List<MachinationsGameObject> gameObjects = new List<MachinationsGameObject>(_gameObjects.ToArray());
+            Debug.Log("MGL NotifyAboutMGLInitComplete.");
             //Notify Scriptable Objects.
             foreach (IMachinationsScriptableObject so in _scriptableObjects)
                 so.MGLInitCompleteSO();
-            //Notify Machinations Game Objects.
-            foreach (MachinationsGameObject mgo in gameObjects)
-                //TODO: check how this behaves in Ruby's adventure.
-                mgo.MGLInitComplete(isRunningOffline); //This may create new Machinations Game Objects! If so...
-            //New Machinations Game Objects created & enrolled? Propagate notification everywhere.
-            while (gameObjects.Count != _gameObjects.Count)
+
+            //_gameObjects is cloned as a new Array because the collection MAY be modified during MachinationsGameObject.MGLInitComplete.
+            //That's because Game Objects MAY create other Game Objects during MachinationsGameObject.MGLInitComplete.
+            //These new Game Objects will then enroll with the MGL, which will add them to _gameObjects.
+            List<MachinationsGameObject> gameObjectsToNotify = new List<MachinationsGameObject>(_gameObjects.ToArray());
+            //Maintain a list of Game Objects that were notified.
+            List<MachinationsGameObject> gameObjectsNotified = new List<MachinationsGameObject>();
+            //Maintain a list of all Game Objects that were created during the notification loop.
+            List<MachinationsGameObject> gameObjectsCreatedDuringNotificationLoop = new List<MachinationsGameObject>();
+
+            do
             {
+                Debug.Log("MGL NotifyAboutMGLInitComplete gameObjectsToNotify: " + gameObjectsToNotify.Count);
+
+                //Notify Machinations Game Objects.
+                foreach (MachinationsGameObject mgo in gameObjectsToNotify)
+                {
+                    //Debug.Log("MGL NotifyAboutMGLInitComplete: Notifying: " + mgo);
+
+                    //This may create new Machinations Game Objects due to them subscribing to MachinationsGameObject.OnBindersUpdated which
+                    //is called on MGLInitComplete. Game Objects may create other Game Objects at that point.
+                    //For an example: See Unity Example Ruby's Adventure @ EnemySpawner.OnBindersUpdated [rev f99963842e9666db3e697da5446e47cb5f1c4225]
+                    mgo.MGLInitComplete(isRunningOffline);
+                    gameObjectsNotified.Add(mgo);
+                }
+
+                //Debug.Log("MGL NotifyAboutMGLInitComplete gameObjectsNotified: " + gameObjectsNotified.Count);
+
+                //Clearing our task list of objects to notify.
+                gameObjectsToNotify.Clear();
+
+                //Check if any new Game Objects were created & enrolled during the above notification loop.
                 foreach (MachinationsGameObject mgo in _gameObjects)
-                    if (!gameObjects.Contains(mgo))
+                    if (!gameObjectsNotified.Contains(mgo))
                     {
-                        gameObjects.Add(mgo);
-                        mgo.MGLInitComplete(isRunningOffline);
+                        //DEBT: [working on MGO lifecycle] we've commented out adding new Game Objects to gameObjectsToNotify because
+                        //we want to only trigger MGLInitComplete on items that were already created. If they create other items,
+                        //they will instead receive MGLReady upon Enrolling.
+                        //gameObjectsToNotify.Add(mgo);
+
+                        //Keep track of how many new objects we created during the notification loop(s).
+                        gameObjectsCreatedDuringNotificationLoop.Add(mgo);
                     }
+
+                //Debug.Log("MGL NotifyAboutMGLInitComplete NEW gameObjectsToNotify: " + gameObjectsToNotify.Count);
             }
+            //New objects were created.
+            while (gameObjectsToNotify.Count > 0);
+
+            Debug.Log("MGL NotifyAboutMGLInitComplete gameObjectsCreatedDuringNotificationLoop: " +
+                      gameObjectsCreatedDuringNotificationLoop.Count);
         }
 
         /// <summary>
@@ -381,11 +416,9 @@ namespace MachinationsUP.Engines.Unity
         /// <returns></returns>
         virtual protected string GetMachinationsUniqueID (ElementBinder binder, StatesAssociation statesAssociation)
         {
-            return binder.ParentGameObject != null
-                ? binder.ParentGameObject.GameObjectName
-                : "!NoParent!" + "." +
-                  binder.GameObjectPropertyName + "." +
-                  (statesAssociation != null ? statesAssociation.Title : "N/A");
+            return (binder.ParentGameObject != null ? binder.ParentGameObject.GameObjectName : "!NoParent!") + "." +
+                   binder.GameObjectPropertyName + "." +
+                   (statesAssociation != null ? statesAssociation.Title : "N/A");
         }
 
         /// <summary>
@@ -749,19 +782,6 @@ namespace MachinationsUP.Engines.Unity
         #region Public Methods
 
         /// <summary>
-        /// Registers a <see cref="IMachinationsScriptableObject"/> along with its Manifest.
-        /// This is used to make sure that all Game Objects are ready for use after MGL Initialization.
-        /// </summary>
-        /// <param name="imso">The IMachinationsScriptableObject to add.</param>
-        /// <param name="manifest">Its <see cref="MachinationsGameObjectManifest"/>.</param>
-        static public void RegisterScriptableObject (IMachinationsScriptableObject imso, MachinationsGameObjectManifest manifest)
-        {
-            Debug.Log("MGL RegisterScriptableObject: " + manifest);
-            AddTargets(manifest.GetMachinationsDiagramTargets()); //Add all the 
-            if (!_scriptableObjects.Contains(imso)) _scriptableObjects.Add(imso);
-        }
-
-        /// <summary>
         /// Creates <see cref="ElementBinder"/> for each Game Object Property provided in the <see cref="MachinationsGameObjectManifest"/>.
         /// </summary>
         static public Dictionary<string, ElementBinder> CreateBindersForManifest (MachinationsGameObjectManifest manifest)
@@ -788,6 +808,31 @@ namespace MachinationsUP.Engines.Unity
         }
 
         /// <summary>
+        /// Registers a <see cref="MachinationsGameObjectManifest"/> to make sure that during Initialization, the MGL
+        /// (aka <see cref="MachinationsGameLayer"/> retrieves all the Manifest's necessary data so that
+        /// any Game Objects that use this Manifest can query the MGL for the needed values.
+        /// </summary>
+        static public void DeclareManifest (MachinationsGameObjectManifest manifest)
+        {
+            Debug.Log("MGL DeclareManifest: " + manifest);
+            //Add all of this Manifest's targets to the list that we will have to Initialize & monitor.
+            AddTargets(manifest.GetMachinationsDiagramTargets());
+        }
+
+        /// <summary>
+        /// Registers a <see cref="IMachinationsScriptableObject"/> along with its Manifest.
+        /// This is used to make sure that all Game Objects are ready for use after MGL Initialization.
+        /// </summary>
+        /// <param name="imso">The IMachinationsScriptableObject to add.</param>
+        /// <param name="manifest">Its <see cref="MachinationsGameObjectManifest"/>.</param>
+        static public void EnrollScriptableObject (IMachinationsScriptableObject imso, MachinationsGameObjectManifest manifest)
+        {
+            Debug.Log("MGL EnrollScriptableObject: " + manifest);
+            DeclareManifest(manifest);
+            if (!_scriptableObjects.Contains(imso)) _scriptableObjects.Add(imso);
+        }
+
+        /// <summary>
         /// Registers a MachinationsGameObject that the Game Layer can keep track of.
         /// </summary>
         /// <param name="machinationsGameObject"></param>
@@ -799,7 +844,7 @@ namespace MachinationsUP.Engines.Unity
             //If the MGL was already initialized OR is running in offline mode,
             //notifying this object that it can retrieve whatever information it needs from MGL.
             if (IsInitialized || IsInOfflineMode)
-                machinationsGameObject.MGLInitComplete();
+                machinationsGameObject.MGLReady();
         }
 
         /// <summary>

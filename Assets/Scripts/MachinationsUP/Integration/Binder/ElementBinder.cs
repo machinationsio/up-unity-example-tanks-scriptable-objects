@@ -97,6 +97,7 @@ namespace MachinationsUP.Integration.Binder
             {
                 return _currentElement;
             }
+
             //No Element exists? Clone one from the Diagram Base (if available),
             if (DiagMapping.DefaultElementBase != null)
             {
@@ -172,10 +173,11 @@ namespace MachinationsUP.Integration.Binder
         /// in the <see cref="MachinationsUP.Engines.Unity.MachinationsGameLayer"/> Init Request.</param>
         /// <param name="overwrite">TRUE: overwrite the value if it's already in the <see cref="_elements"/> Dictionary.</param>
         /// <param name="isRunningOffline">TRUE: the <see cref="MachinationsUP.Engines.Unity.MachinationsGameLayer"/> is running in offline mode.</param>
-        public void CreateElementBaseForStateAssoc (StatesAssociation statesAssociation = null, bool overwrite = false, bool isRunningOffline = false)
+        public void CreateElementBaseForStateAssoc (StatesAssociation statesAssociation = null, bool overwrite = false,
+            bool isRunningOffline = false)
         {
-            Debug.Log("CreateElementBaseForStateAssoc in ElementBinder '" + GetFullName() + "' @ statesAssociation: " +
-                      (statesAssociation != null ? statesAssociation.Title : "N/A"));
+            Debug.Log("CreateElementBaseForStateAssoc in ElementBinder [Hash: " + GetHashCode() + "] '" +
+                      GetFullName() + "' @ statesAssociation: " + (statesAssociation != null ? statesAssociation.Title : "N/A"));
             //The MachinationsGameLayer is responsible for creating ElementBase.
             ElementBase newElement = MachinationsGameLayer.Instance.CreateElement(this, statesAssociation);
             //If no element was found & running offline, just letting it slide.
@@ -192,7 +194,8 @@ namespace MachinationsUP.Integration.Binder
                 SelectCurrentElement();
             }
             else
-                throw new Exception("CreateElementBaseForStateAssoc.CreateElementBaseForStateAssoc: Element collision for Binder: " + GetFullName());
+                throw new Exception("CreateElementBaseForStateAssoc.CreateElementBaseForStateAssoc: Element collision for Binder: " +
+                                    GetFullName());
 
             //MachinationsObjects (non-GameAware) will not use StatesAssociation and will only have a single Holder per Binder.
             if (statesAssociation == null)
@@ -223,7 +226,7 @@ namespace MachinationsUP.Integration.Binder
         /// <returns></returns>
         private string GetFullName ()
         {
-            return ParentGameObject != null ? ParentGameObject.GameObjectName : "!NoParent!" + "." + DiagMapping.GameObjectPropertyName;
+            return (ParentGameObject != null ? ParentGameObject.GameObjectName : "!NoParent!") + "." + DiagMapping.GameObjectPropertyName;
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using MachinationsUP.Engines.Unity;
+﻿using System;
+using MachinationsUP.Engines.Unity;
 using MachinationsUP.GameEngineAPI.Game;
 using MachinationsUP.GameEngineAPI.GameObject;
 using MachinationsUP.GameEngineAPI.States;
@@ -22,7 +23,12 @@ namespace MachinationsUP.Integration.GameObject
         /// Default constructor.
         /// </summary>
         /// <param name="manifest">The Manifest that will be used to initialized this MachinationsGameAwareObject.</param>
-        public MachinationsGameAwareObject (MachinationsGameObjectManifest manifest) : base(manifest)
+        /// <param name="onBindersUpdated">When a <see cref="MachinationsGameObject"/> enrolls itself
+        /// using <see cref="MachinationsGameLayer.EnrollGameObject"/>, this event WILL fire if the MachinationsGameLayer
+        /// has been initialized. So, this is why it is allowed to send an EventHandler callback upon Construction.
+        /// </param>
+        public MachinationsGameAwareObject (MachinationsGameObjectManifest manifest, EventHandler onBindersUpdated = null) :
+            base(manifest, onBindersUpdated)
         {
         }
 
@@ -43,7 +49,7 @@ namespace MachinationsUP.Integration.GameObject
         /// possible <see cref="MachinationsUP.GameEngineAPI.States.StatesAssociation"/>.
         /// Complete override from <see cref="MachinationsUP.Integration.GameObject.MachinationsGameObject"/>.
         /// </summary>
-        override internal void MGLInitComplete (bool isRunningOffline)
+        override internal void MGLInitComplete (bool isRunningOffline = false)
         {
             //Go through all Binders and ask them to retrieve their ElementBase, For each StatesAssociation.
             foreach (string gameObjectPropertyName in _binders.Keys)
@@ -58,10 +64,11 @@ namespace MachinationsUP.Integration.GameObject
         }
 
         /// <summary>
-        /// Asks this Game-Aware Object to update one of its <see cref="MachinationsUP.Integration.Binder.ElementBinder"/> because new values came
-        /// from the Machinations Back-end.
+        /// Asks this Game-Aware Object to update one of its <see cref="MachinationsUP.Integration.Binder.ElementBinder"/> usually because
+        /// new values arrived from the Machinations Back-end.
         /// </summary>
-        /// <param name="diagramMapping"></param>
+        /// <param name="diagramMapping">The <see cref="DiagramMapping"/> associated with this Binder.</param>
+        /// <param name="elementBase">The <see cref="ElementBase"/> obtained by parsing the back-end update.</param>
         override internal void UpdateBinder (DiagramMapping diagramMapping, ElementBase elementBase)
         {
             //TODO: on update, shouldn't create new elements, but rather UPDATE the current element.
@@ -146,5 +153,10 @@ namespace MachinationsUP.Integration.GameObject
                    " and currentGameObjectState: " + CurrentGameObjectState + ".";
         }
 
+        override public string ToString ()
+        {
+            return DebugContext();
+        }
+        
     }
 }

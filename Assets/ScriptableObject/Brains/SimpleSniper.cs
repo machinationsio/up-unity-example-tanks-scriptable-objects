@@ -40,7 +40,7 @@ public class SimpleSniper : TankBrain, IMachinationsScriptableObject
 	public void OnEnable ()
 	{
 		//Register this SO with the MGL.
-		MachinationsGameLayer.RegisterScriptableObject(this, _manifest);
+		MachinationsGameLayer.EnrollScriptableObject(this, _manifest);
 	}
 	
 	#region IMachinationsScriptableObject

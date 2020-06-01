@@ -13,14 +13,14 @@ namespace MachinationsUP.ExampleGames.MachinationsSupport
         static void OnBeforeSceneLoadRuntimeMethod()
         {
             Debug.Log("SampleSceneStartupHandler OnBeforeSceneLoadRuntimeMethod.");
+            //Get notifications about Scene Loads.
+            SceneManager.sceneLoaded += SceneManagerOnsceneLoaded;
         }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         static void OnAfterSceneLoadRuntimeMethod()
         {
             Debug.Log("SampleSceneStartupHandler OnAfterSceneLoadRuntimeMethod.");
-            //Get notifications about Scene Loads.
-            SceneManager.sceneLoaded += SceneManagerOnsceneLoaded;
         }
 
         static private void SceneManagerOnsceneLoaded (Scene arg0, LoadSceneMode arg1)
