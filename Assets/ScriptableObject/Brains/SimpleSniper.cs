@@ -48,9 +48,10 @@ public class SimpleSniper : TankBrain, IMachinationsScriptableObject
 	/// <summary>
 	/// Called when Machinations initialization has been completed.
 	/// </summary>
-	public void MGLInitCompleteSO ()
+	/// <param name="binders">The Binders for this Object.</param>
+	public void MGLInitCompleteSO (Dictionary<string, ElementBinder> binders)
 	{
-		_binders = MachinationsGameLayer.CreateBindersForManifest(_manifest); //Get our Binders.
+		_binders = binders;
 		MGLUpdateSO();
 	}
 

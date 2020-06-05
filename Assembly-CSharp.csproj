@@ -77,6 +77,7 @@
      <Compile Include="Assets\ScriptableObject\GameSession\MainMenuController.cs" />
      <Compile Include="Assets\ScriptableObject\GameSession\PlayerInfoController.cs" />
      <Compile Include="Assets\Scripts\Camera\CameraControl.cs" />
+     <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\EnrolledScriptableObject.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\IMachinationsScriptableObject.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\MachinationsGameLayer.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ExampleGames\MachinationsSupport\Events\RubyAdventureGameEvents.cs" />

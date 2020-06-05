@@ -67,9 +67,10 @@ public class SimpleAudioEvent : AudioEvent, IMachinationsScriptableObject
     /// <summary>
     /// Called when Machinations initialization has been completed.
     /// </summary>
-    public void MGLInitCompleteSO ()
+    /// <param name="binders">The Binders for this Object.</param>
+    public void MGLInitCompleteSO (Dictionary<string, ElementBinder> binders)
     {
-        _binders = MachinationsGameLayer.CreateBindersForManifest(_manifest); //Get our Binders.
+        _binders = binders;
         //TODO: implement in this game proper state switching based on Night/Day. Until then, using hardcoded States.
         _binders[M_SPEED].UpdateStates(GameStates.Exploring, GameObjectStates.Undefined);
         _binders[M_HEALTH].UpdateStates(GameStates.Exploring, GameObjectStates.Undefined);

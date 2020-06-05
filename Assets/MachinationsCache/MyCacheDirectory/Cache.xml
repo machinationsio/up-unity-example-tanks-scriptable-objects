@@ -3,8 +3,8 @@
   <DiagramMappings>
     <MachinationsDiagramMapping>
       <CachedElementBase>
-        <BaseValue>50</BaseValue>
-        <CurrentValue>50</CurrentValue>
+        <BaseValue>15</BaseValue>
+        <CurrentValue>15</CurrentValue>
         <MaxValue>50</MaxValue>
         <MinValue>0</MinValue>
       </CachedElementBase>
