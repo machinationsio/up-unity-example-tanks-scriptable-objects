@@ -76,6 +76,8 @@
      <Compile Include="Assets\ScriptableObject\GameSession\GameState.cs" />
      <Compile Include="Assets\ScriptableObject\GameSession\MainMenuController.cs" />
      <Compile Include="Assets\ScriptableObject\GameSession\PlayerInfoController.cs" />
+     <Compile Include="Assets\ScriptableObject\ItemStats\ShellStats.cs" />
+     <Compile Include="Assets\ScriptableObject\ItemStats\TankStats.cs" />
      <Compile Include="Assets\Scripts\Camera\CameraControl.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\EnrolledScriptableObject.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\IMachinationsScriptableObject.cs" />

@@ -1,34 +1,44 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[CreateAssetMenu(menuName="Brains/Player Controlled")]
+[CreateAssetMenu(menuName = "Brains/Player Controlled")]
 public class PlayerControlledTank : TankBrain
 {
 
-	public int PlayerNumber;
-	private string m_MovementAxisName;
-	private string m_TurnAxisName;
-	private string m_FireButton;
+    public int PlayerNumber;
+    private string m_MovementAxisName;
+    private string m_TurnAxisName;
+    private string m_FireButton;
 
+    public static PlayerControlledTank Instance;
 
-	public void OnEnable()
-	{
-		m_MovementAxisName = "Vertical" + PlayerNumber;
-		m_TurnAxisName = "Horizontal" + PlayerNumber;
-		m_FireButton = "Fire" + PlayerNumber;
-	}
+    public void OnEnable ()
+    {
+        Instance = this;
+        m_MovementAxisName = "Vertical" + PlayerNumber;
+        m_TurnAxisName = "Horizontal" + PlayerNumber;
+        m_FireButton = "Fire" + PlayerNumber;
+    }
 
-	public override void Think(TankThinker tank)
-	{
-		var movement = tank.GetComponent<TankMovement>();
+    public static TankHealth PlayerControlledTankHealth;
 
-		movement.Steer(Input.GetAxis(m_MovementAxisName), Input.GetAxis(m_TurnAxisName));
+    public override void Think (TankThinker tank)
+    {
+        var movement = tank.GetComponent<TankMovement>();
 
-		var shooting = tank.GetComponent<TankShooting>();
+        movement.Steer(Input.GetAxis(m_MovementAxisName), Input.GetAxis(m_TurnAxisName));
 
-		if (Input.GetButton(m_FireButton))
-			shooting.BeginChargingShot();
-		else
-			shooting.FireChargedShot();
-	}
+        var shooting = tank.GetComponent<TankShooting>();
+
+        if (PlayerControlledTankHealth == null)
+        {
+            PlayerControlledTankHealth = tank.GetComponent<TankHealth>();
+        }
+
+        if (Input.GetButton(m_FireButton))
+            shooting.BeginChargingShot();
+        else
+            shooting.FireChargedShot();
+    }
+
 }

@@ -88,8 +88,6 @@ public class SimpleAudioEvent : AudioEvent, IMachinationsScriptableObject
         //This game uses Ruby diagram for now. Ideally, you'd want to interpret this based on
         //diagramMapping.Binder, since that binder is what you have here and it's already
         //set up to represent the current Game (Object) State.
-        volume.minValue = _binders[M_SPEED].Value / 100f;
-        volume.maxValue = _binders[M_HEALTH].Value / 100f;
     }
 
     #endregion
@@ -101,6 +99,28 @@ public class SimpleAudioEvent : AudioEvent, IMachinationsScriptableObject
         source.clip = clips[Random.Range(0, clips.Length)];
         source.volume = Random.Range(volume.minValue, volume.maxValue);
         source.pitch = Random.Range(pitch.minValue, pitch.maxValue);
+        
+        if (PlayerControlledTank.PlayerControlledTankHealth == null)
+        {
+            Debug.Log("MGLUpdateSO: NULL PLAYER TANK");
+            return;
+        }
+
+        //More than 50% life.
+        if (PlayerControlledTank.PlayerControlledTankHealth.m_CurrentHealth >
+            PlayerControlledTank.PlayerControlledTankHealth.m_TankStats.Health / 2)
+        {
+            Debug.Log("MGLUpdateSO: PlayerControlledTankHealth > 50");
+            volume.minValue = _binders[M_SPEED].Value / 100f; 
+            volume.maxValue = _binders[M_SPEED].Value / 100f;
+        }
+        else
+        {
+            Debug.Log("MGLUpdateSO: PlayerControlledTankHealth < 50");
+            volume.minValue = _binders[M_HEALTH].Value / 100f;
+            volume.maxValue = _binders[M_HEALTH].Value / 100f;
+        }
+        
         source.Play();
     }
 

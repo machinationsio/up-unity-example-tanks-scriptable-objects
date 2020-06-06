@@ -10444,7 +10444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e4cc0827b572b5408b2cd8eb8b456b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Speed: 12
+  m_TankStats: {fileID: 11400000, guid: 3f33e6a35dc521f4ba60448321ba9d53, type: 2}
   m_TurnSpeed: 180
   m_MovementAudio: {fileID: 8261418}
   m_EngineIdling: {fileID: 8300000, guid: 4932ab25b84dd7649b80af68a9660ddc, type: 3}
@@ -10462,7 +10462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 030896d0325fa3e4d8d7d4cfe2351cb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_StartingHealth: 100
+  m_TankStats: {fileID: 11400000, guid: 3f33e6a35dc521f4ba60448321ba9d53, type: 2}
   m_Slider: {fileID: 11482748}
   m_FillImage: {fileID: 11404512}
   m_FullHealthColor: {r: 0, g: 1, b: 0, a: 1}
