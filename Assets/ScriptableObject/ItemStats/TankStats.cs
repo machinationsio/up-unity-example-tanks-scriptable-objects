@@ -32,13 +32,13 @@ public class TankStats : ScriptableObject, IMachinationsScriptableObject
             new DiagramMapping
             {
                 GameObjectPropertyName = M_HEALTH,
-                DiagramElementID = 4,
+                DiagramElementID = 215,
                 DefaultElementBase = new ElementBase(105)
             },
             new DiagramMapping
             {
                 GameObjectPropertyName = M_SPEED,
-                DiagramElementID = 5,
+                DiagramElementID = 102,
                 DefaultElementBase = new ElementBase(25)
             }
         }

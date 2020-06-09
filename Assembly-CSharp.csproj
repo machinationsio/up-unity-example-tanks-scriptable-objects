@@ -82,8 +82,6 @@
      <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\EnrolledScriptableObject.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\IMachinationsScriptableObject.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\MachinationsGameLayer.cs" />
-     <Compile Include="Assets\Scripts\MachinationsUP\ExampleGames\MachinationsSupport\Events\RubyAdventureGameEvents.cs" />
-     <Compile Include="Assets\Scripts\MachinationsUP\ExampleGames\MachinationsSupport\Events\RubyAdventureGameObjectEvents.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ExampleGames\MachinationsSupport\SampleGameEngine.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ExampleGames\MachinationsSupport\SampleSceneStartupHandler.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\GameEngineAPI\Events\EventsAssociation.cs" />

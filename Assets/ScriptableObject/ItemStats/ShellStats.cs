@@ -31,20 +31,20 @@ public class ShellStats : ScriptableObject, IMachinationsScriptableObject
             new DiagramMapping
             {
                 GameObjectPropertyName = M_DAMAGE,
-                DiagramElementID = 1,
-                DefaultElementBase = new ElementBase(105)
+                DiagramElementID = 219,
+                DefaultElementBase = new ElementBase(10)
             },
             new DiagramMapping
             {
                 GameObjectPropertyName = M_RADIUS,
-                DiagramElementID = 2,
+                DiagramElementID = 225,
                 DefaultElementBase = new ElementBase(25)
             },
             new DiagramMapping
             {
                 GameObjectPropertyName = M_FORCE,
-                DiagramElementID = 3,
-                DefaultElementBase = new ElementBase(25)
+                DiagramElementID = 107,
+                DefaultElementBase = new ElementBase(90)
             }
         }
     };

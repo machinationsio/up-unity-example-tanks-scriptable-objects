@@ -26,8 +26,10 @@ public class SimpleAudioEvent : AudioEvent, IMachinationsScriptableObject
     //Machinations.
 
     //Tracked Machinations Elements.
-    private const string M_HEALTH = "Health";
-    private const string M_SPEED = "Speed";
+    private const string M_MAX_SOUND_HIGH_HEALTH = "MaxSoundHighHealth";
+
+    private const string M_MAX_SOUND_LOW_HEALTH = "MaxSoundLowHealth";
+
     //Binders used to transfer information to this SO.
     private Dictionary<string, ElementBinder> _binders;
 
@@ -38,15 +40,15 @@ public class SimpleAudioEvent : AudioEvent, IMachinationsScriptableObject
         {
             new DiagramMapping
             {
-                GameObjectPropertyName = M_HEALTH,
-                DiagramElementID = 19,
-                DefaultElementBase = new ElementBase(105)
+                GameObjectPropertyName = M_MAX_SOUND_HIGH_HEALTH,
+                DiagramElementID = 250,
+                DefaultElementBase = new ElementBase(4)
             },
             new DiagramMapping
             {
-                GameObjectPropertyName = M_SPEED,
-                DiagramElementID = 102,
-                DefaultElementBase = new ElementBase(25)
+                GameObjectPropertyName = M_MAX_SOUND_LOW_HEALTH,
+                DiagramElementID = 251,
+                DefaultElementBase = new ElementBase(6)
             }
         },
         CommonStatesAssociations = new List<StatesAssociation>
@@ -72,8 +74,8 @@ public class SimpleAudioEvent : AudioEvent, IMachinationsScriptableObject
     {
         _binders = binders;
         //TODO: implement in this game proper state switching based on Night/Day. Until then, using hardcoded States.
-        _binders[M_SPEED].UpdateStates(GameStates.Exploring, GameObjectStates.Undefined);
-        _binders[M_HEALTH].UpdateStates(GameStates.Exploring, GameObjectStates.Undefined);
+        _binders[M_MAX_SOUND_LOW_HEALTH].UpdateStates(GameStates.Exploring, GameObjectStates.Undefined);
+        _binders[M_MAX_SOUND_HIGH_HEALTH].UpdateStates(GameStates.Exploring, GameObjectStates.Undefined);
         MGLUpdateSO();
     }
 
@@ -84,10 +86,8 @@ public class SimpleAudioEvent : AudioEvent, IMachinationsScriptableObject
     /// <param name="elementBase">The <see cref="ElementBase"/> that was sent from the backend.</param>
     public void MGLUpdateSO (DiagramMapping diagramMapping = null, ElementBase elementBase = null)
     {
-        //TODO: the code below is hack-ish because we don't yet have a diagram for this game.
-        //This game uses Ruby diagram for now. Ideally, you'd want to interpret this based on
-        //diagramMapping.Binder, since that binder is what you have here and it's already
-        //set up to represent the current Game (Object) State.
+        //No update is necessary. Sound volume will be taken directly from Binders
+        //when the sound is played.
     }
 
     #endregion
@@ -96,31 +96,32 @@ public class SimpleAudioEvent : AudioEvent, IMachinationsScriptableObject
     {
         if (clips.Length == 0) return;
 
+        //Set volume for...
+        //More than 50% life.
+        if (PlayerControlledTank.PlayerControlledTankHealth.m_CurrentHealth >
+            PlayerControlledTank.PlayerControlledTankHealth.m_TankStats.Health / 2)
+        {
+            Debug.Log("MGLUpdateSO: PlayerControlledTankHealth > 50");
+            volume.minValue = (_binders[M_MAX_SOUND_HIGH_HEALTH].Value - 2) / 100f;
+            volume.maxValue = _binders[M_MAX_SOUND_HIGH_HEALTH].Value / 100f;
+        }
+        else //Less than 50% life.
+        {
+            Debug.Log("MGLUpdateSO: PlayerControlledTankHealth < 50");
+            volume.minValue = (_binders[M_MAX_SOUND_LOW_HEALTH].Value - 2) / 100f;
+            volume.maxValue = _binders[M_MAX_SOUND_LOW_HEALTH].Value / 100f;
+        }
+
         source.clip = clips[Random.Range(0, clips.Length)];
         source.volume = Random.Range(volume.minValue, volume.maxValue);
         source.pitch = Random.Range(pitch.minValue, pitch.maxValue);
-        
+
         if (PlayerControlledTank.PlayerControlledTankHealth == null)
         {
             Debug.Log("MGLUpdateSO: NULL PLAYER TANK");
             return;
         }
 
-        //More than 50% life.
-        if (PlayerControlledTank.PlayerControlledTankHealth.m_CurrentHealth >
-            PlayerControlledTank.PlayerControlledTankHealth.m_TankStats.Health / 2)
-        {
-            Debug.Log("MGLUpdateSO: PlayerControlledTankHealth > 50");
-            volume.minValue = _binders[M_SPEED].Value / 100f; 
-            volume.maxValue = _binders[M_SPEED].Value / 100f;
-        }
-        else
-        {
-            Debug.Log("MGLUpdateSO: PlayerControlledTankHealth < 50");
-            volume.minValue = _binders[M_HEALTH].Value / 100f;
-            volume.maxValue = _binders[M_HEALTH].Value / 100f;
-        }
-        
         source.Play();
     }
 

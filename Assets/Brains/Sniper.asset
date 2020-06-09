@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aimAngleThreshold: 3
   chargeTimePerDistance:
-    minValue: 0.0077800453
-    maxValue: 0.015951652
+    minValue: 0.014190301
+    maxValue: 0.022361908
   timeBetweenShots:
-    minValue: 10
-    maxValue: 11
+    minValue: 8
+    maxValue: 9

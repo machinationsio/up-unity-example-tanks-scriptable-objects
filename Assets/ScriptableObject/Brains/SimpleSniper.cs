@@ -20,7 +20,7 @@ public class SimpleSniper : TankBrain, IMachinationsScriptableObject
 	//Machinations.
 
 	//Tracked Machinations Elements.
-	private const string M_EXTRA_ENEMIES = "ExtraEnemies";
+	private const string M_SHOT_DELAY = "ShotDelay";
 	//Binders used to transfer information to this SO.
 	private Dictionary<string, ElementBinder> _binders;
 	//Manifest that defines what the SO uses from Machinations.
@@ -30,9 +30,9 @@ public class SimpleSniper : TankBrain, IMachinationsScriptableObject
 		{
 			new DiagramMapping
 			{
-				GameObjectPropertyName = M_EXTRA_ENEMIES,
-				DiagramElementID = 23,
-				DefaultElementBase = new ElementBase(5)
+				GameObjectPropertyName = M_SHOT_DELAY,
+				DiagramElementID = 245,
+				DefaultElementBase = new ElementBase(10)
 			}
 		},
 	};
@@ -62,7 +62,7 @@ public class SimpleSniper : TankBrain, IMachinationsScriptableObject
 	/// <param name="elementBase">The <see cref="ElementBase"/> that was sent from the backend.</param>
 	public void MGLUpdateSO (DiagramMapping diagramMapping = null, ElementBase elementBase = null)
 	{
-		timeBetweenShots.minValue = _binders[M_EXTRA_ENEMIES].Value - 2;
+		timeBetweenShots.minValue = _binders[M_SHOT_DELAY].Value - 2;
 		timeBetweenShots.maxValue = timeBetweenShots.minValue + 1;
 	}
 
