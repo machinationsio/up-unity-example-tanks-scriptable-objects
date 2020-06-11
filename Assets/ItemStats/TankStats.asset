@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc73da1326c8477280f4bdf210b511d3, type: 3}
   m_Name: TankStats
   m_EditorClassIdentifier: 
-  Health: 105
-  Speed: 10
+  Health: 550
+  Speed: 35

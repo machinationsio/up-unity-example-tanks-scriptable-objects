@@ -77,7 +77,7 @@ public class ShellStats : ScriptableObject, IMachinationsScriptableObject
     {
         Damage = _binders[M_DAMAGE].Value;
         Radius = _binders[M_RADIUS].Value;
-        Radius = _binders[M_FORCE].Value;
+        Force = _binders[M_FORCE].Value;
     }
     
     #endregion

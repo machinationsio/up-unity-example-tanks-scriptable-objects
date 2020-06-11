@@ -3,8 +3,8 @@
   <DiagramMappings>
     <MachinationsDiagramMapping>
       <CachedElementBase>
-        <BaseValue>13</BaseValue>
-        <CurrentValue>13</CurrentValue>
+        <BaseValue>5</BaseValue>
+        <CurrentValue>5</CurrentValue>
         <MaxValue>40</MaxValue>
         <MinValue>0</MinValue>
       </CachedElementBase>
@@ -17,9 +17,9 @@
     </MachinationsDiagramMapping>
     <MachinationsDiagramMapping>
       <CachedElementBase>
-        <BaseValue>100</BaseValue>
-        <CurrentValue>100</CurrentValue>
-        <MaxValue>1000</MaxValue>
+        <BaseValue>10000</BaseValue>
+        <CurrentValue>10000</CurrentValue>
+        <MaxValue>10000</MaxValue>
         <MinValue>0</MinValue>
       </CachedElementBase>
       <DiagramElementID>107</DiagramElementID>
@@ -31,8 +31,8 @@
     </MachinationsDiagramMapping>
     <MachinationsDiagramMapping>
       <CachedElementBase>
-        <BaseValue>5</BaseValue>
-        <CurrentValue>5</CurrentValue>
+        <BaseValue>500</BaseValue>
+        <CurrentValue>500</CurrentValue>
         <MaxValue>-1</MaxValue>
         <MinValue>0</MinValue>
       </CachedElementBase>
@@ -59,8 +59,8 @@
     </MachinationsDiagramMapping>
     <MachinationsDiagramMapping>
       <CachedElementBase>
-        <BaseValue>20</BaseValue>
-        <CurrentValue>20</CurrentValue>
+        <BaseValue>100</BaseValue>
+        <CurrentValue>100</CurrentValue>
         <MaxValue>100</MaxValue>
         <MinValue>0</MinValue>
       </CachedElementBase>
@@ -73,8 +73,8 @@
     </MachinationsDiagramMapping>
     <MachinationsDiagramMapping>
       <CachedElementBase>
-        <BaseValue>5</BaseValue>
-        <CurrentValue>5</CurrentValue>
+        <BaseValue>1</BaseValue>
+        <CurrentValue>1</CurrentValue>
         <MaxValue>10</MaxValue>
         <MinValue>0</MinValue>
       </CachedElementBase>
@@ -87,8 +87,8 @@
     </MachinationsDiagramMapping>
     <MachinationsDiagramMapping>
       <CachedElementBase>
-        <BaseValue>9</BaseValue>
-        <CurrentValue>9</CurrentValue>
+        <BaseValue>5</BaseValue>
+        <CurrentValue>5</CurrentValue>
         <MaxValue>-1</MaxValue>
         <MinValue>0</MinValue>
       </CachedElementBase>
@@ -106,8 +106,8 @@
     </MachinationsDiagramMapping>
     <MachinationsDiagramMapping>
       <CachedElementBase>
-        <BaseValue>5</BaseValue>
-        <CurrentValue>5</CurrentValue>
+        <BaseValue>9</BaseValue>
+        <CurrentValue>9</CurrentValue>
         <MaxValue>-1</MaxValue>
         <MinValue>0</MinValue>
       </CachedElementBase>

@@ -96,20 +96,24 @@ public class SimpleAudioEvent : AudioEvent, IMachinationsScriptableObject
     {
         if (clips.Length == 0) return;
 
-        //Set volume for...
-        //More than 50% life.
-        if (PlayerControlledTank.PlayerControlledTankHealth.m_CurrentHealth >
-            PlayerControlledTank.PlayerControlledTankHealth.m_TankStats.Health / 2)
+        //If the Binders were received.
+        if (_binders != null && _binders[M_MAX_SOUND_HIGH_HEALTH] != null)
         {
-            Debug.Log("MGLUpdateSO: PlayerControlledTankHealth > 50");
-            volume.minValue = (_binders[M_MAX_SOUND_HIGH_HEALTH].Value - 2) / 100f;
-            volume.maxValue = _binders[M_MAX_SOUND_HIGH_HEALTH].Value / 100f;
-        }
-        else //Less than 50% life.
-        {
-            Debug.Log("MGLUpdateSO: PlayerControlledTankHealth < 50");
-            volume.minValue = (_binders[M_MAX_SOUND_LOW_HEALTH].Value - 2) / 100f;
-            volume.maxValue = _binders[M_MAX_SOUND_LOW_HEALTH].Value / 100f;
+            //Set volume for...
+            //More than 50% life.
+            if (PlayerControlledTank.PlayerControlledTankHealth.m_CurrentHealth >
+                PlayerControlledTank.PlayerControlledTankHealth.m_TankStats.Health / 2)
+            {
+                Debug.Log("MGLUpdateSO: PlayerControlledTankHealth > 50");
+                volume.minValue = (_binders[M_MAX_SOUND_HIGH_HEALTH].Value - 2) / 100f;
+                volume.maxValue = _binders[M_MAX_SOUND_HIGH_HEALTH].Value / 100f;
+            }
+            else //Less than 50% life.
+            {
+                Debug.Log("MGLUpdateSO: PlayerControlledTankHealth < 50");
+                volume.minValue = (_binders[M_MAX_SOUND_LOW_HEALTH].Value - 2) / 100f;
+                volume.maxValue = _binders[M_MAX_SOUND_LOW_HEALTH].Value / 100f;
+            }
         }
 
         source.clip = clips[Random.Range(0, clips.Length)];

@@ -46,8 +46,10 @@ public class ControlledDemolition : DestructionSequence
 		foreach (var collider in runner.GetComponentsInChildren<Collider>())
 			collider.enabled = false;
 
+		/* DON'T WANT CAMERA SHAKE
 		if (CameraShakeStrength > 0)
 			runner.StartCoroutine(DoCameraShake());
+		*/
 
 		float startTime = Time.time;
 		while (Time.time < startTime + CollapseTime)
