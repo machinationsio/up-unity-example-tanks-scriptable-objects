@@ -18,6 +18,15 @@ This repository integrates Machinations UP within Tanks, an example used in a [p
 5. Run the game in Unity by pressing the "Play" arrow in the center-top, above the stage. Then, hit "Play" in the game's menu.
 6. Go ahead and change the `Player Tank HP` Pool (or even better, the `Projectile Force` and `Projectile Radius` Pools) in the Tanks diagram. If everything works, you should see changes in the `TankStats` and/or `ShellStats` ScriptableObjects (which you can search for in Unity's Project tab).
 
+# Points of Interest (within the example's code)
+
+Classes inside the game use **UP** to get their values from the Machinations diagram, via the `MachinationsGameLayer`. Here are some files where you can see how it all works.
+
+- Both `TankHealth.cs` and `TankMovement.cs` use the Scriptable Object `TankStats.cs`. This is a "Machinations ScriptableObject", as in, it serves as a direct connection between Machinations and Unity and does nothing else.
+- `ShellExplosion.cs` uses `ShellStats.cs` to determine the Damage, Radius and Force of the explosion. This is another "Machinations ScriptableObject".
+- `SimpleAudioEvent.cs` and `SimpleSniper.cs` are ScriptableObjects that also have their own functionality, beside the Machinations interface.
+
+
 # Useful Links
 
 Head over to our [Developer Portal](https://developer.machinations.io) for more Machinations tinkering adventures.
