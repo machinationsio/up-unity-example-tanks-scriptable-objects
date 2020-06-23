@@ -3,6 +3,76 @@
   <DiagramMappings>
     <MachinationsDiagramMapping>
       <CachedElementBase>
+        <BaseValue>5</BaseValue>
+        <CurrentValue>5</CurrentValue>
+        <MaxValue>40</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>102</DiagramElementID>
+      <GameObjectName
+        i:nil="true" />
+      <GameObjectPropertyName>Speed</GameObjectPropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>10000</BaseValue>
+        <CurrentValue>10000</CurrentValue>
+        <MaxValue>10000</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>107</DiagramElementID>
+      <GameObjectName
+        i:nil="true" />
+      <GameObjectPropertyName>Force</GameObjectPropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>500</BaseValue>
+        <CurrentValue>500</CurrentValue>
+        <MaxValue>2000</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>215</DiagramElementID>
+      <GameObjectName
+        i:nil="true" />
+      <GameObjectPropertyName>Health</GameObjectPropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>30</BaseValue>
+        <CurrentValue>30</CurrentValue>
+        <MaxValue>-1</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>219</DiagramElementID>
+      <GameObjectName
+        i:nil="true" />
+      <GameObjectPropertyName>Damage</GameObjectPropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>100</BaseValue>
+        <CurrentValue>100</CurrentValue>
+        <MaxValue>100</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>225</DiagramElementID>
+      <GameObjectName
+        i:nil="true" />
+      <GameObjectPropertyName>Radius</GameObjectPropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
         <BaseValue>1</BaseValue>
         <CurrentValue>1</CurrentValue>
         <MaxValue>10</MaxValue>
@@ -14,6 +84,44 @@
       <GameObjectPropertyName>ShotDelay</GameObjectPropertyName>
       <StatesAssoc
         i:nil="true" />
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>5</BaseValue>
+        <CurrentValue>5</CurrentValue>
+        <MaxValue>-1</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>250</DiagramElementID>
+      <GameObjectName
+        i:nil="true" />
+      <GameObjectPropertyName>MaxSoundHighHealth</GameObjectPropertyName>
+      <StatesAssoc>
+        <Title>Exploring</Title>
+        <gameObjectStates xmlns:d5p1="http://www.rubygame.com" />
+        <gameStates xmlns:d5p1="http://www.rubygame.com">
+          <d5p1:RubyGameStates>Exploring</d5p1:RubyGameStates>
+        </gameStates>
+      </StatesAssoc>
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>9</BaseValue>
+        <CurrentValue>9</CurrentValue>
+        <MaxValue>-1</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>251</DiagramElementID>
+      <GameObjectName
+        i:nil="true" />
+      <GameObjectPropertyName>MaxSoundLowHealth</GameObjectPropertyName>
+      <StatesAssoc>
+        <Title>Exploring</Title>
+        <gameObjectStates xmlns:d5p1="http://www.rubygame.com" />
+        <gameStates xmlns:d5p1="http://www.rubygame.com">
+          <d5p1:RubyGameStates>Exploring</d5p1:RubyGameStates>
+        </gameStates>
+      </StatesAssoc>
     </MachinationsDiagramMapping>
   </DiagramMappings>
 </MachinationsCache>
