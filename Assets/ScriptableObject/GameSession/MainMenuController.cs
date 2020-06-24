@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using MachinationsUP.Engines.Unity;
 using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
@@ -37,6 +38,7 @@ public class MainMenuController : MonoBehaviour
 		GameSettings.Instance.SaveToJSON(SavedSettingsPath);
 		GameState.CreateFromSettings(GameSettings.Instance);
 		SceneManager.LoadScene(1, LoadSceneMode.Single);
+		//MachinationsGameLayer.PerformInitRequest();
 	}
 
 	public Color GetNextColor(Color color)
