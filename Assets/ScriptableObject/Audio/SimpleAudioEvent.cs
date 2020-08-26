@@ -104,7 +104,7 @@ public class SimpleAudioEvent : AudioEvent, IMachinationsScriptableObject
             if (PlayerControlledTank.PlayerControlledTankHealth.m_CurrentHealth >
                 PlayerControlledTank.PlayerControlledTankHealth.m_TankStats.Health / 2)
             {
-                Debug.Log("MGLUpdateSO: PlayerControlledTankHealth > 50");
+                    Debug.Log("MGLUpdateSO: PlayerControlledTankHealth > 50");
                 volume.minValue = (_binders[M_MAX_SOUND_HIGH_HEALTH].Value - 2) / 100f;
                 volume.maxValue = _binders[M_MAX_SOUND_HIGH_HEALTH].Value / 100f;
             }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class TankHealth : MonoBehaviour
@@ -44,6 +45,10 @@ public class TankHealth : MonoBehaviour
 
     public void TakeDamage (float amount)
     {
+        if (this == PlayerControlledTank.PlayerControlledTankHealth)
+        {
+            Debug.Log("The Player took damage!!!");
+        }
         // Reduce current health by the amount of damage done.
         m_CurrentHealth -= amount;
 

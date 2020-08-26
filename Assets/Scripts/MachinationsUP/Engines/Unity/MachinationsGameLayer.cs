@@ -564,7 +564,7 @@ namespace MachinationsUP.Engines.Unity
                 //Notify Game Engine of Machinations Init Complete.
                 Instance._gameLifecycleProvider?.MachinationsInitComplete();
             }
-            
+
             //Send Update notification to all listeners.
             OnMachinationsUpdate?.Invoke(this, null);
             //Caching active? Save the cache now.
@@ -752,9 +752,9 @@ namespace MachinationsUP.Engines.Unity
                 {SyncMsgs.JK_AUTH_GAME_NAME, gameName},
                 {SyncMsgs.JK_AUTH_DIAGRAM_TOKEN, diagramToken}
             };
-            
+
             Debug.Log("MGL.EmitMachinationsAuthRequest with gameName " + gameName + " and diagram token " + diagramToken);
-            
+
             _socket.Emit(SyncMsgs.SEND_API_AUTHORIZE, new JSONObject(authRequest));
         }
 
@@ -778,7 +778,11 @@ namespace MachinationsUP.Engines.Unity
                 var item = new Dictionary<string, JSONObject>();
                 item.Add("id", new JSONObject(diagramMapping.DiagramElementID));
                 //Create JSON Objects for all props that we have to retrieve.
-                string[] sprops = {"label", "activation", "action", "resources", "capacity", "overflow"};
+                string[] sprops =
+                {
+                    SyncMsgs.JP_DIAGRAM_LABEL, SyncMsgs.JP_DIAGRAM_ACTIVATION, SyncMsgs.JP_DIAGRAM_ACTION,
+                    SyncMsgs.JP_DIAGRAM_RESOURCES, SyncMsgs.JP_DIAGRAM_CAPACITY, SyncMsgs.JP_DIAGRAM_OVERFLOW
+                };
                 List<JSONObject> props = new List<JSONObject>();
                 foreach (string sprop in sprops)
                     props.Add(JSONObject.CreateStringObject(sprop));
@@ -794,7 +798,7 @@ namespace MachinationsUP.Engines.Unity
             initRequest.Add(SyncMsgs.JK_INIT_MACHINATIONS_IDS, new JSONObject(keys));
 
             Debug.Log("MGL.EmitMachinationsInitRequest.");
-            
+
             _socket.Emit(SyncMsgs.SEND_GAME_INIT, new JSONObject(initRequest));
         }
 
@@ -1035,7 +1039,7 @@ namespace MachinationsUP.Engines.Unity
             }
             get => isInOfflineMode;
         }
-        
+
         /// <summary>
         /// TRUE: a re-initialization request is ongoing.
         /// </summary>
