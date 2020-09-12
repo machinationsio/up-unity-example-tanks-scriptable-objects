@@ -24,6 +24,8 @@ namespace MachinationsUP.Integration.Binder
         /// </summary>
         internal MachinationsGameObject ParentGameObject { get; }
 
+        internal EnrolledScriptableObject ParentScriptableObject { get; }
+        
         /// <summary>
         /// The <see cref="MachinationsUP.Integration.Inventory.DiagramMapping"/> which defines how to retrieve & connect this Binder (and
         /// the Game Object Property Name it represents) to the Machinations Diagram.
@@ -82,7 +84,13 @@ namespace MachinationsUP.Integration.Binder
         /// ElementBinder will retrieve its data from.</param>
         public ElementBinder (MachinationsGameObject parentGameObject, DiagramMapping diagramMapping)
         {
-            ParentGameObject = parentGameObject;
+            ParentGameObject = parentGameObject ?? throw new Exception("Parent Game Object cannot be null");
+            DiagMapping = diagramMapping;
+        }
+        
+        public ElementBinder (EnrolledScriptableObject parentScriptableObject, DiagramMapping diagramMapping)
+        {
+            ParentScriptableObject = parentScriptableObject ?? throw new Exception("Parent Game Object cannot be null");
             DiagMapping = diagramMapping;
         }
 
@@ -178,12 +186,16 @@ namespace MachinationsUP.Integration.Binder
         {
             //Debug.Log("CreateElementBaseForStateAssoc in ElementBinder [Hash: " + GetHashCode() + "] '" +
             //          GetFullName() + "' @ statesAssociation: " + (statesAssociation != null ? statesAssociation.Title : "N/A"));
-            
+
             //The MachinationsGameLayer is responsible for creating ElementBase.
             ElementBase newElement = MachinationsGameLayer.Instance.CreateElement(this, statesAssociation);
-            //If no element was found & running offline, just letting it slide.
-            if (newElement == null && isRunningOffline)
-                return;
+            if (newElement == null)
+            {
+                //If no element was found & running offline, just letting it slide.
+                if (isRunningOffline) return;
+                throw new Exception("No Element Found in Binder: " + GetFullName());
+            }
+
             //If the Element isn't already in the Dictionary.
             if (!_elements.ContainsKey(statesAssociation ?? _noStatesAssociation))
                 _elements.Add(statesAssociation ?? _noStatesAssociation, newElement);

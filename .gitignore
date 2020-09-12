@@ -1,2 +1,4 @@
 /Library/Artifacts
-/Library/ShaderCahce
+/Library/ShaderCache
+/Library/PackageManager
+/Library/PackageCache

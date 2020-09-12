@@ -1,15 +1,15 @@
 fileFormatVersion: 2
 guid: 030896d0325fa3e4d8d7d4cfe2351cb2
-timeCreated: 1427120507
-licenseType: Store
 MonoImporter:
+  externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - slider: {instanceID: 0}
-  - bar: {instanceID: 0}
-  - steamParticles: {instanceID: 0}
-  - explosionParticles: {fileID: 19874418, guid: 6bc6d0dd8b8428e4ca316513f2cf13c6,
-      type: 2}
+  - m_TankStats: {instanceID: 0}
+  - m_TankStatsEnemy: {fileID: 11400000, guid: 53f83837c82a15c4584794577962c73d, type: 2}
+  - m_Slider: {instanceID: 0}
+  - m_FillImage: {instanceID: 0}
+  - m_ExplosionPrefab: {instanceID: 0}
+  - m_DeadTankPrefab: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

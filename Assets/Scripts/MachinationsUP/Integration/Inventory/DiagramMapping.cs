@@ -30,7 +30,7 @@ namespace MachinationsUP.Integration.Inventory
         }
 
         private string _gameObjectPropertyName;
-        
+
         /// <summary>
         /// The <see cref="ElementBinder"/> manifesting this Diagram Mapping in the game.
         /// </summary>
@@ -88,6 +88,11 @@ namespace MachinationsUP.Integration.Inventory
         public ElementBase CachedElementBase { get; set; }
 
         /// <summary>
+        /// An ElementBase that will override the one in the Diagram.
+        /// </summary>
+        public ElementBase OverrideElementBase { get; set; }
+
+        /// <summary>
         /// Verifies if this DiagramMapping matches the provided criteria.
         /// </summary>
         /// <param name="gameObjectName">Game Object name to match.</param>
@@ -99,10 +104,10 @@ namespace MachinationsUP.Integration.Inventory
         {
             return GameObjectName == gameObjectName && GameObjectPropertyName == gameObjectPropertyName &&
                    (
-                       (stringifyStatesAssociation && 
+                       (stringifyStatesAssociation &&
                         (
                             (StatesAssoc == null && statesAssociation == null) ||
-                            (StatesAssoc != null && statesAssociation != null && StatesAssoc.ToString() == statesAssociation.ToString()))) 
+                            (StatesAssoc != null && statesAssociation != null && StatesAssoc.ToString() == statesAssociation.ToString())))
                        ||
                        (!stringifyStatesAssociation && StatesAssoc == statesAssociation)
                    );
@@ -117,7 +122,11 @@ namespace MachinationsUP.Integration.Inventory
         /// <param name="stringifyStatesAssociation">In the case of cached States Association, string values will be used for comparison.</param>
         public bool Matches (ElementBinder elementBinder, StatesAssociation statesAssociation, bool stringifyStatesAssociation)
         {
-            return Matches(elementBinder.ParentGameObject?.GameObjectName, elementBinder.GameObjectPropertyName, statesAssociation,
+            return Matches(
+                elementBinder.ParentGameObject != null
+                    ? elementBinder.ParentGameObject.GameObjectName
+                    : elementBinder.ParentScriptableObject?.Manifest.GameObjectName
+                , elementBinder.GameObjectPropertyName, statesAssociation,
                 stringifyStatesAssociation);
         }
 
@@ -128,7 +137,8 @@ namespace MachinationsUP.Integration.Inventory
         /// <param name="stringifyStatesAssociation">In the case of cached States Association, string values will be used for comparison.</param>
         public bool Matches (DiagramMapping diagramMapping, bool stringifyStatesAssociation)
         {
-            return Matches(diagramMapping.GameObjectName, diagramMapping.GameObjectPropertyName, diagramMapping.StatesAssoc, stringifyStatesAssociation);
+            return Matches(diagramMapping.GameObjectName, diagramMapping.GameObjectPropertyName, diagramMapping.StatesAssoc,
+                stringifyStatesAssociation);
         }
 
         override public string ToString ()

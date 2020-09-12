@@ -6,6 +6,7 @@ public class TankHealth : MonoBehaviour
 {
     //public float m_StartingHealth = 100f;               // The amount of health each tank starts with.
     public TankStats m_TankStats;
+    public TankStatsEnemy m_TankStatsEnemy; 
     public Slider m_Slider;                             // The slider to represent how much health the tank currently has.
     public Image m_FillImage;                           // The image component of the slider.
     public Color m_FullHealthColor = Color.green;       // The color the health bar will be when on full health.
@@ -35,7 +36,10 @@ public class TankHealth : MonoBehaviour
     private void OnEnable()
     {
         // When the tank is enabled, reset the tank's health and whether or not it's dead.
-        m_CurrentHealth = m_TankStats.Health;
+        if (this == PlayerControlledTank.PlayerControlledTankHealth)
+            m_CurrentHealth = m_TankStats.Health;
+        else
+            m_CurrentHealth = m_TankStatsEnemy.Health;
         m_Dead = false;
 
         // Update the health slider's value and color.
@@ -45,10 +49,6 @@ public class TankHealth : MonoBehaviour
 
     public void TakeDamage (float amount)
     {
-        if (this == PlayerControlledTank.PlayerControlledTankHealth)
-        {
-            Debug.Log("The Player took damage!!!");
-        }
         // Reduce current health by the amount of damage done.
         m_CurrentHealth -= amount;
 

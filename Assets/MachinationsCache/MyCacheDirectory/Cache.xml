@@ -3,6 +3,87 @@
   <DiagramMappings>
     <MachinationsDiagramMapping>
       <CachedElementBase>
+        <BaseValue>10</BaseValue>
+        <CurrentValue>10</CurrentValue>
+        <MaxValue>40</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>102</DiagramElementID>
+      <GameObjectName>Player Tank Stats</GameObjectName>
+      <GameObjectPropertyName>Speed</GameObjectPropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>100</BaseValue>
+        <CurrentValue>100</CurrentValue>
+        <MaxValue>10000</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>107</DiagramElementID>
+      <GameObjectName
+        i:nil="true" />
+      <GameObjectPropertyName>Force</GameObjectPropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>102</BaseValue>
+        <CurrentValue>102</CurrentValue>
+        <MaxValue>-1</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>215</DiagramElementID>
+      <GameObjectName>Player Tank Stats</GameObjectName>
+      <GameObjectPropertyName>Health</GameObjectPropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>50</BaseValue>
+        <CurrentValue>50</CurrentValue>
+        <MaxValue>-1</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>219</DiagramElementID>
+      <GameObjectName
+        i:nil="true" />
+      <GameObjectPropertyName>Damage</GameObjectPropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>10</BaseValue>
+        <CurrentValue>10</CurrentValue>
+        <MaxValue>100</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>225</DiagramElementID>
+      <GameObjectName
+        i:nil="true" />
+      <GameObjectPropertyName>Radius</GameObjectPropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>206</BaseValue>
+        <CurrentValue>206</CurrentValue>
+        <MaxValue>-1</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>230</DiagramElementID>
+      <GameObjectName>Enemy Tank Stats</GameObjectName>
+      <GameObjectPropertyName>Health</GameObjectPropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
         <BaseValue>7</BaseValue>
         <CurrentValue>7</CurrentValue>
         <MaxValue>10</MaxValue>
@@ -12,6 +93,19 @@
       <GameObjectName
         i:nil="true" />
       <GameObjectPropertyName>ShotDelay</GameObjectPropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>10</BaseValue>
+        <CurrentValue>10</CurrentValue>
+        <MaxValue>40</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>900</DiagramElementID>
+      <GameObjectName>Enemy Tank Stats</GameObjectName>
+      <GameObjectPropertyName>Speed</GameObjectPropertyName>
       <StatesAssoc
         i:nil="true" />
     </MachinationsDiagramMapping>

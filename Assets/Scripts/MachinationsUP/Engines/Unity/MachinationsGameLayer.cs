@@ -343,10 +343,11 @@ namespace MachinationsUP.Engines.Unity
         static private void NotifyAboutMGLInitComplete (bool isRunningOffline = false)
         {
             Debug.Log("MGL NotifyAboutMGLInitComplete.");
-            //Notify Scriptable Objects.
+            //Build Binders for Scriptable Objects.
             foreach (IMachinationsScriptableObject so in _scriptableObjects.Keys)
             {
-                _scriptableObjects[so].Binders = CreateBindersForManifest(_scriptableObjects[so].Manifest);
+                _scriptableObjects[so].Binders = CreateBindersForScriptableObject(_scriptableObjects[so]);
+                //Notify Scriptable Objects that they are ready.
                 so.MGLInitCompleteSO(_scriptableObjects[so].Binders);
             }
 
@@ -419,15 +420,17 @@ namespace MachinationsUP.Engines.Unity
         }
 
         /// <summary>
-        /// Creates <see cref="ElementBinder"/> for each Game Object Property provided in the <see cref="MachinationsGameObjectManifest"/>.
+        /// Creates <see cref="ElementBinder"/> for each Game Object Property provided in the <see cref="EnrolledScriptableObject"/>'s
+        /// <see cref="MachinationsGameObjectManifest"/>.
         /// </summary>
         /// <returns>Dictionary of Game Object Property Name and ElementBinder.</returns>
-        static private Dictionary<string, ElementBinder> CreateBindersForManifest (MachinationsGameObjectManifest manifest)
+        static private Dictionary<string, ElementBinder> CreateBindersForScriptableObject (EnrolledScriptableObject eso)
         {
             var ret = new Dictionary<string, ElementBinder>();
+            MachinationsGameObjectManifest manifest = eso.Manifest;
             foreach (DiagramMapping dm in manifest.PropertiesToSync)
             {
-                ElementBinder eb = new ElementBinder(null, dm); //The Binder will NOT have any Parent Game Object.
+                ElementBinder eb = new ElementBinder(eso, dm); //The Binder will NOT have any Parent Game Object.
                 //Ask the Binder to create Elements for all possible States Associations.
                 var statesAssociations = manifest.GetStatesAssociationsForPropertyName(dm.GameObjectPropertyName);
                 //If no States Associations were defined.
@@ -466,22 +469,33 @@ namespace MachinationsUP.Engines.Unity
         private ElementBase FindSourceElement (ElementBinder elementBinder,
             StatesAssociation statesAssociation = null)
         {
-            ElementBase ret = null;
+            ElementBase ret = null; //ElementBase to return.
+            DiagramMapping dm = null; //Matching Diagram Mapping.
             bool found = false;
             //Search all Diagram Mappings to see which one matches the provided Binder and States Association.
             foreach (DiagramMapping diagramMapping in _sourceElements.Keys)
+                //Check if we got a match with the requested Binder-per-State. If using cache, will check States Associations as Strings.
                 if (diagramMapping.Matches(elementBinder, statesAssociation, HasCache))
                 {
                     ret = _sourceElements[diagramMapping];
                     found = true;
+                    dm = diagramMapping; //Save the Diagram Mapping that was found to match this Binder-per-State.
                     break;
                 }
 
-            //A DiagramMapping must have been found for this element.
+            //A DiagramMapping MUST have been found for this element.
             if (!found)
                 throw new Exception("MGL.FindSourceElement: machinationsUniqueID '" +
                                     GetMachinationsUniqueID(elementBinder, statesAssociation) +
                                     "' not found in _sourceElements.");
+            
+            //If there is an Override defined in the DiagramMapping, immediately returning that ElementBase instead of the one we found.
+            if (dm?.OverrideElementBase != null)
+            {
+                Debug.LogWarning("Value for " + GetMachinationsUniqueID(elementBinder, statesAssociation) + " has been overriden!");
+                return dm.OverrideElementBase;
+            }
+
             //If no ElementBase was found.
             if (ret == null)
             {
@@ -938,8 +952,9 @@ namespace MachinationsUP.Engines.Unity
             //Not found elements are accepted in Offline Mode.
             if (sourceElement == null)
             {
+                //Offline mode allows not finding a Source Element.
                 if (isInOfflineMode) return null;
-                throw new Exception("MGL.CreateElement: Unhandled null Template Element.");
+                throw new Exception("MGL.CreateElement: Unhandled null Source Element.");
             }
 
             //Initialize the ElementBase by cloning it from the sourceElement.

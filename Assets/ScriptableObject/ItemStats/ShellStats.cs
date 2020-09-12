@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MachinationsUP.Engines.Unity;
 using MachinationsUP.Integration.Binder;
 using MachinationsUP.Integration.Elements;
@@ -12,6 +13,10 @@ public class ShellStats : ScriptableObject, IMachinationsScriptableObject
     public float Damage;
     public float Radius;
     public float Force;
+
+    private float prevDamage;
+    private float prevRadius;
+    private float prevForce;
 
     //Machinations.
 
@@ -56,6 +61,18 @@ public class ShellStats : ScriptableObject, IMachinationsScriptableObject
         MachinationsGameLayer.EnrollScriptableObject(this, _manifest);
     }
 
+    public void OnValidate ()
+    {
+        if (Math.Abs(prevDamage - Damage) > 0)
+        {
+            Debug.Log("Damage Changed.");
+        }
+
+        prevDamage = Damage;
+        prevForce = Force;
+        prevRadius = Radius;
+    }
+
     #region IMachinationsScriptableObject
 
     /// <summary>
@@ -79,7 +96,7 @@ public class ShellStats : ScriptableObject, IMachinationsScriptableObject
         Radius = _binders[M_RADIUS].Value;
         Force = _binders[M_FORCE].Value;
     }
-    
+
     #endregion
 
 }

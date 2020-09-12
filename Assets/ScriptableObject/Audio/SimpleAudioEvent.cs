@@ -42,13 +42,15 @@ public class SimpleAudioEvent : AudioEvent, IMachinationsScriptableObject
             {
                 GameObjectPropertyName = M_MAX_SOUND_HIGH_HEALTH,
                 DiagramElementID = 250,
-                DefaultElementBase = new ElementBase(4)
+                DefaultElementBase = new ElementBase(4),
+                OverrideElementBase = new ElementBase(4)
             },
             new DiagramMapping
             {
                 GameObjectPropertyName = M_MAX_SOUND_LOW_HEALTH,
                 DiagramElementID = 251,
-                DefaultElementBase = new ElementBase(6)
+                DefaultElementBase = new ElementBase(6),
+                OverrideElementBase = new ElementBase(6)
             }
         },
         CommonStatesAssociations = new List<StatesAssociation>
@@ -104,13 +106,13 @@ public class SimpleAudioEvent : AudioEvent, IMachinationsScriptableObject
             if (PlayerControlledTank.PlayerControlledTankHealth.m_CurrentHealth >
                 PlayerControlledTank.PlayerControlledTankHealth.m_TankStats.Health / 2)
             {
-                    Debug.Log("MGLUpdateSO: PlayerControlledTankHealth > 50");
+                //Debug.Log("MGLUpdateSO: PlayerControlledTankHealth > 50");
                 volume.minValue = (_binders[M_MAX_SOUND_HIGH_HEALTH].Value - 2) / 100f;
                 volume.maxValue = _binders[M_MAX_SOUND_HIGH_HEALTH].Value / 100f;
             }
             else //Less than 50% life.
             {
-                Debug.Log("MGLUpdateSO: PlayerControlledTankHealth < 50");
+                //Debug.Log("MGLUpdateSO: PlayerControlledTankHealth < 50");
                 volume.minValue = (_binders[M_MAX_SOUND_LOW_HEALTH].Value - 2) / 100f;
                 volume.maxValue = _binders[M_MAX_SOUND_LOW_HEALTH].Value / 100f;
             }

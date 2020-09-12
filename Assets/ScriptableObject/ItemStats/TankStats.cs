@@ -27,6 +27,7 @@ public class TankStats : ScriptableObject, IMachinationsScriptableObject
     //Manifest that defines what the SO uses from Machinations.
     static readonly private MachinationsGameObjectManifest _manifest = new MachinationsGameObjectManifest
     {
+        GameObjectName = "Player Tank Stats",
         PropertiesToSync = new List<DiagramMapping>
         {
             new DiagramMapping
