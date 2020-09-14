@@ -37,6 +37,11 @@ public class ShellExplosion : MonoBehaviour
             // ... and find their rigidbody.
             Rigidbody targetRigidbody = colliders[i].GetComponent<Rigidbody> ();
 
+            if (PlayerControlledTank.Instance.TankRigidBody == targetRigidbody)
+            {
+	            Debug.LogWarning("The player's tank was hit OMG");
+            }
+            
 	        if (targetRigidbody)
 	        {
 		        // Add an explosion force.

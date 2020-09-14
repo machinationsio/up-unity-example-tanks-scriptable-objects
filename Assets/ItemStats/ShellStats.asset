@@ -15,3 +15,4 @@ MonoBehaviour:
   Damage: 50
   Radius: 10
   Force: 100
+  Speed: 100

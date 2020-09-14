@@ -109,5 +109,19 @@
       <StatesAssoc
         i:nil="true" />
     </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>100</BaseValue>
+        <CurrentValue>100</CurrentValue>
+        <MaxValue>300</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>1000</DiagramElementID>
+      <GameObjectName
+        i:nil="true" />
+      <GameObjectPropertyName>Speed</GameObjectPropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
   </DiagramMappings>
 </MachinationsCache>

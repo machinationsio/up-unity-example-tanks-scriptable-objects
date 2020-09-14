@@ -101,7 +101,7 @@ public class TankMovement : MonoBehaviour
     private void Move ()
     {
         Vector3 movement;
-        //Differentiate speed between player & AI.
+        //Differentiate speed between player tank & AI tanks.
         if (PlayerControlledTank.Instance.PlayerControlledTankMovement == this)
             // Create a vector in the direction the tank is facing with a magnitude based on the input, speed and the time between frames.
             movement = transform.forward * m_MovementInputValue * m_TankStats.Speed * Time.deltaTime;

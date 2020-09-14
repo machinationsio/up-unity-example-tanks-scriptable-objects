@@ -10368,7 +10368,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3, y: 3, z: 3}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.85, z: 0}
 --- !u!82 &8261418
 AudioSource:
@@ -10616,6 +10616,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 184d72ea2424d1443bca885930fe844a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ShellStats: {fileID: 11400000, guid: 4a6e06c26a0d46b4bb16fdc6c43dee1f, type: 2}
   m_Shell: {fileID: 5409530, guid: 008ecb1b70bec724fa2cd34255b0d8f8, type: 3}
   m_FireTransform: {fileID: 435794}
   m_AimSlider: {fileID: 11407922}

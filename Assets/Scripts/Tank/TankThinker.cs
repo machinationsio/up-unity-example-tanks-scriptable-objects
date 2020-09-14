@@ -37,6 +37,9 @@ public class TankThinker : MonoBehaviour
 
 		memory = new Dictionary<string, object>();
 		brain.Initialize(this);
+		//Saving a reference to the Rigid Body of this Tank, so that we can later check against it.
+		//Used for damage-related tasks.
+		brain.TankRigidBody = GetComponent<Rigidbody>();
 	}
 	
 	void Update ()
