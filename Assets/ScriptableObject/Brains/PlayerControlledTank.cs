@@ -11,6 +11,11 @@ public class PlayerControlledTank : TankBrain
     private string m_FireButton;
 
     public static PlayerControlledTank Instance;
+    
+    /// <summary>
+    /// This is used in TankMovement.cs to verify that this is the Player controlled tank.
+    /// </summary>
+    public TankMovement PlayerControlledTankMovement;
 
     public void OnEnable ()
     {
@@ -25,6 +30,7 @@ public class PlayerControlledTank : TankBrain
     public override void Think (TankThinker tank)
     {
         var movement = tank.GetComponent<TankMovement>();
+        PlayerControlledTankMovement = movement;
 
         movement.Steer(Input.GetAxis(m_MovementAxisName), Input.GetAxis(m_TurnAxisName));
 

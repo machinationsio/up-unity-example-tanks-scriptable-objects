@@ -4,6 +4,7 @@ public class TankMovement : MonoBehaviour
 {
     //public float m_Speed = 12f;                 // How fast the tank moves forward and back.
     public TankStats m_TankStats;
+    public TankStatsEnemy m_TankStatsEnemy;
     
     public float m_TurnSpeed = 180f;            // How fast the tank turns in degrees per second.
     public AudioSource m_MovementAudio;         // Reference to the audio source used to play engine sounds. NB: different to the shooting audio source.
@@ -99,8 +100,13 @@ public class TankMovement : MonoBehaviour
 
     private void Move ()
     {
-        // Create a vector in the direction the tank is facing with a magnitude based on the input, speed and the time between frames.
-        Vector3 movement = transform.forward * m_MovementInputValue * m_TankStats.Speed * Time.deltaTime;
+        Vector3 movement;
+        //Differentiate speed between player & AI.
+        if (PlayerControlledTank.Instance.PlayerControlledTankMovement == this)
+            // Create a vector in the direction the tank is facing with a magnitude based on the input, speed and the time between frames.
+            movement = transform.forward * m_MovementInputValue * m_TankStats.Speed * Time.deltaTime;
+        else
+            movement = transform.forward * m_MovementInputValue * m_TankStatsEnemy.Speed * Time.deltaTime;
 
         // Apply this movement to the rigidbody's position.
         m_Rigidbody.MovePosition(m_Rigidbody.position + movement);
