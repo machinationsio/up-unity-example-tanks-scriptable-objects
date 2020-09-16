@@ -4,7 +4,8 @@ using UnityEngine.UI;
 public class TankShooting : MonoBehaviour
 {
 
-    public ShellStats m_ShellStats; //Used to compute shell launch speed.
+    public ShellStats m_ShellStats; //Used to compute shell launch speed & shot delay.
+    public ShellStatsEnemy m_ShellStatsEnemy; //Used to compute shell launch speed & shot delay.
     public Rigidbody m_Shell; // Prefab of the shell.
     public Transform m_FireTransform; // A child of the tank where the shells are spawned.
     public Slider m_AimSlider; // A child of the tank that displays the current launch force.
@@ -22,6 +23,7 @@ public class TankShooting : MonoBehaviour
     private float m_CurrentLaunchForce; // The force that will be given to the shell when the fire button is released.
     private float m_ChargeSpeed; // How fast the launch force increases, based on the max charge time.
     private bool m_Charging;
+    private Rigidbody myRigidBody;
 
     public bool IsCharging
     {
@@ -40,16 +42,18 @@ public class TankShooting : MonoBehaviour
     {
         // The rate that the launch force charges up is the range of possible forces by the max charge time.
         m_ChargeSpeed = (m_MaxLaunchForce - m_MinLaunchForce) / m_MaxChargeTime;
+        myRigidBody = GetComponent<Rigidbody>();
     }
 
     public void BeginChargingShot ()
     {
-        //transform.parent.gameObject
-        if (timeSinceShot < 2)
-        {
-            return;
-        }
-            
+        //Set shot cooldown based on which tank it is (player / enemy).
+        float shotCooldown = PlayerControlledTank.Instance.TankRigidBody == myRigidBody
+            ? m_ShellStats.ShotCooldown
+            : m_ShellStatsEnemy.ShotCooldown;
+
+        if (timeSinceShot < shotCooldown) return;
+
         if (m_Charging) return;
 
         m_CurrentLaunchForce = m_MinLaunchForce;
@@ -91,14 +95,12 @@ public class TankShooting : MonoBehaviour
         // Create an instance of the shell and store a reference to it's rigidbody.
         Rigidbody shellInstance =
             Instantiate(m_Shell, m_FireTransform.position, m_FireTransform.rotation) as Rigidbody;
-        
-        if (PlayerControlledTank.Instance.TankRigidBody == GetComponent<Rigidbody>())
-        {
-            Debug.LogWarning("The player's tank has fired OMG!");
-        }
 
         //Change launch force so that projectile speed changes are taken into account.
-        var newForce = m_CurrentLaunchForce * (m_ShellStats.Speed / 100);
+        //Differentiate shot force per player / enemy.
+        float newForce = PlayerControlledTank.Instance.TankRigidBody == myRigidBody
+            ? m_CurrentLaunchForce * (m_ShellStats.Speed / 100)
+            : m_CurrentLaunchForce * (m_ShellStatsEnemy.Speed / 100);
 
         // Set the shell's velocity to the launch force in the fire position's forward direction.
         shellInstance.velocity = newForce * m_FireTransform.forward;

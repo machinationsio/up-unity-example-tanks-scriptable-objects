@@ -10617,6 +10617,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShellStats: {fileID: 11400000, guid: 4a6e06c26a0d46b4bb16fdc6c43dee1f, type: 2}
+  m_ShellStatsEnemy: {fileID: 11400000, guid: 8512f0573c8fc504fb5b527419b62721, type: 2}
   m_Shell: {fileID: 5409530, guid: 008ecb1b70bec724fa2cd34255b0d8f8, type: 3}
   m_FireTransform: {fileID: 435794}
   m_AimSlider: {fileID: 11407922}

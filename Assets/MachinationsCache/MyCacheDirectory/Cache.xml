@@ -84,15 +84,15 @@
     </MachinationsDiagramMapping>
     <MachinationsDiagramMapping>
       <CachedElementBase>
-        <BaseValue>7</BaseValue>
-        <CurrentValue>7</CurrentValue>
+        <BaseValue>0</BaseValue>
+        <CurrentValue>0</CurrentValue>
         <MaxValue>10</MaxValue>
         <MinValue>0</MinValue>
       </CachedElementBase>
       <DiagramElementID>245</DiagramElementID>
       <GameObjectName
         i:nil="true" />
-      <GameObjectPropertyName>ShotDelay</GameObjectPropertyName>
+      <GameObjectPropertyName>Cooldown</GameObjectPropertyName>
       <StatesAssoc
         i:nil="true" />
     </MachinationsDiagramMapping>

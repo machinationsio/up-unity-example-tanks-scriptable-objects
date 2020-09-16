@@ -14,6 +14,7 @@ public class ShellStats : ScriptableObject, IMachinationsScriptableObject
     public float Radius;
     public float Force;
     public float Speed;
+    public float ShotCooldown;
 
     private float prevDamage;
     private float prevRadius;
@@ -26,6 +27,7 @@ public class ShellStats : ScriptableObject, IMachinationsScriptableObject
     private const string M_RADIUS = "Radius";
     private const string M_FORCE = "Force";
     private const string M_SPEED = "Speed";
+    private const string M_COOLDOWN = "Cooldown";
 
     //Binders used to transfer information to this SO.
     private Dictionary<string, ElementBinder> _binders;
@@ -58,6 +60,12 @@ public class ShellStats : ScriptableObject, IMachinationsScriptableObject
                 GameObjectPropertyName = M_SPEED,
                 DiagramElementID = 1000,
                 DefaultElementBase = new ElementBase(90)
+            },
+            new DiagramMapping
+            {
+                GameObjectPropertyName = M_COOLDOWN,
+                DiagramElementID = 245,
+                DefaultElementBase = new ElementBase(0)
             }
         }
     };
@@ -104,6 +112,7 @@ public class ShellStats : ScriptableObject, IMachinationsScriptableObject
         Radius = _binders[M_RADIUS].Value;
         Force = _binders[M_FORCE].Value;
         Speed = _binders[M_SPEED].Value;
+        ShotCooldown = _binders[M_COOLDOWN].Value;
     }
 
     #endregion
