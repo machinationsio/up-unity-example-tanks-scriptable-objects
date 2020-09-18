@@ -3,8 +3,8 @@
   <DiagramMappings>
     <MachinationsDiagramMapping>
       <CachedElementBase>
-        <BaseValue>40</BaseValue>
-        <CurrentValue>40</CurrentValue>
+        <BaseValue>10</BaseValue>
+        <CurrentValue>10</CurrentValue>
         <MaxValue>40</MaxValue>
         <MinValue>0</MinValue>
       </CachedElementBase>
@@ -30,8 +30,8 @@
     </MachinationsDiagramMapping>
     <MachinationsDiagramMapping>
       <CachedElementBase>
-        <BaseValue>102</BaseValue>
-        <CurrentValue>102</CurrentValue>
+        <BaseValue>100</BaseValue>
+        <CurrentValue>100</CurrentValue>
         <MaxValue>2000</MaxValue>
         <MinValue>0</MinValue>
       </CachedElementBase>
@@ -71,8 +71,8 @@
     </MachinationsDiagramMapping>
     <MachinationsDiagramMapping>
       <CachedElementBase>
-        <BaseValue>206</BaseValue>
-        <CurrentValue>206</CurrentValue>
+        <BaseValue>200</BaseValue>
+        <CurrentValue>200</CurrentValue>
         <MaxValue>500</MaxValue>
         <MinValue>0</MinValue>
       </CachedElementBase>
@@ -84,9 +84,9 @@
     </MachinationsDiagramMapping>
     <MachinationsDiagramMapping>
       <CachedElementBase>
-        <BaseValue>0</BaseValue>
-        <CurrentValue>0</CurrentValue>
-        <MaxValue>10</MaxValue>
+        <BaseValue>3</BaseValue>
+        <CurrentValue>3</CurrentValue>
+        <MaxValue>-1</MaxValue>
         <MinValue>0</MinValue>
       </CachedElementBase>
       <DiagramElementID>245</DiagramElementID>
@@ -98,8 +98,50 @@
     </MachinationsDiagramMapping>
     <MachinationsDiagramMapping>
       <CachedElementBase>
-        <BaseValue>5</BaseValue>
-        <CurrentValue>5</CurrentValue>
+        <BaseValue>100</BaseValue>
+        <CurrentValue>100</CurrentValue>
+        <MaxValue>10000</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>400</DiagramElementID>
+      <GameObjectName
+        i:nil="true" />
+      <GameObjectPropertyName>Force</GameObjectPropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>10</BaseValue>
+        <CurrentValue>10</CurrentValue>
+        <MaxValue>100</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>401</DiagramElementID>
+      <GameObjectName
+        i:nil="true" />
+      <GameObjectPropertyName>Radius</GameObjectPropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>100</BaseValue>
+        <CurrentValue>100</CurrentValue>
+        <MaxValue>-1</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>402</DiagramElementID>
+      <GameObjectName
+        i:nil="true" />
+      <GameObjectPropertyName>Speed</GameObjectPropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>10</BaseValue>
+        <CurrentValue>10</CurrentValue>
         <MaxValue>40</MaxValue>
         <MinValue>0</MinValue>
       </CachedElementBase>
@@ -111,9 +153,37 @@
     </MachinationsDiagramMapping>
     <MachinationsDiagramMapping>
       <CachedElementBase>
-        <BaseValue>100</BaseValue>
-        <CurrentValue>100</CurrentValue>
-        <MaxValue>300</MaxValue>
+        <BaseValue>50</BaseValue>
+        <CurrentValue>50</CurrentValue>
+        <MaxValue>-1</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>901</DiagramElementID>
+      <GameObjectName
+        i:nil="true" />
+      <GameObjectPropertyName>Damage</GameObjectPropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>0</BaseValue>
+        <CurrentValue>0</CurrentValue>
+        <MaxValue>-1</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>912</DiagramElementID>
+      <GameObjectName
+        i:nil="true" />
+      <GameObjectPropertyName>Cooldown</GameObjectPropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>200</BaseValue>
+        <CurrentValue>200</CurrentValue>
+        <MaxValue>-1</MaxValue>
         <MinValue>0</MinValue>
       </CachedElementBase>
       <DiagramElementID>1000</DiagramElementID>

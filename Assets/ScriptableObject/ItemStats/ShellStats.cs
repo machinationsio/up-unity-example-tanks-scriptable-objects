@@ -46,25 +46,25 @@ public class ShellStats : ScriptableObject, IMachinationsScriptableObject
             new DiagramMapping
             {
                 GameObjectPropertyName = M_RADIUS,
-                DiagramElementID = 225,
+                DiagramElementID = 401,
                 DefaultElementBase = new ElementBase(25)
             },
             new DiagramMapping
             {
                 GameObjectPropertyName = M_FORCE,
-                DiagramElementID = 107,
+                DiagramElementID = 400,
                 DefaultElementBase = new ElementBase(90)
             },
             new DiagramMapping
             {
                 GameObjectPropertyName = M_SPEED,
-                DiagramElementID = 1000,
+                DiagramElementID = 402,
                 DefaultElementBase = new ElementBase(90)
             },
             new DiagramMapping
             {
                 GameObjectPropertyName = M_COOLDOWN,
-                DiagramElementID = 245,
+                DiagramElementID = 912,
                 DefaultElementBase = new ElementBase(0)
             }
         }

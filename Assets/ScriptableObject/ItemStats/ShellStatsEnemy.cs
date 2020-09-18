@@ -40,7 +40,7 @@ public class ShellStatsEnemy : ScriptableObject, IMachinationsScriptableObject
             new DiagramMapping
             {
                 GameObjectPropertyName = M_DAMAGE,
-                DiagramElementID = 219,
+                DiagramElementID = 901,
                 DefaultElementBase = new ElementBase(10)
             },
             new DiagramMapping
