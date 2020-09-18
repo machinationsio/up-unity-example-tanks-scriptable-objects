@@ -35,6 +35,7 @@ public class ShellStatsEnemy : ScriptableObject, IMachinationsScriptableObject
     //Manifest that defines what the SO uses from Machinations.
     static readonly private MachinationsGameObjectManifest _manifest = new MachinationsGameObjectManifest
     {
+        GameObjectName = "Shell Stats Enemy",
         PropertiesToSync = new List<DiagramMapping>
         {
             new DiagramMapping

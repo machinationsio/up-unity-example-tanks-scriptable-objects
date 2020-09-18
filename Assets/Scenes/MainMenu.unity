@@ -2598,7 +2598,7 @@ PrefabInstance:
     - target: {fileID: 7471410119811048300, guid: 71879bd392bfc0b4dbc3a986ee2b6a0d,
         type: 3}
       propertyPath: diagramToken
-      value: 54dc6ccd-1f66-41d8-a8d5-0873e935a770
+      value: bcf94842-ff93-462b-b37c-697f2fdbe7f1
       objectReference: {fileID: 0}
     - target: {fileID: 7471410119811048300, guid: 71879bd392bfc0b4dbc3a986ee2b6a0d,
         type: 3}

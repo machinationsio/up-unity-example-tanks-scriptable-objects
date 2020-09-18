@@ -22,8 +22,7 @@
         <MinValue>0</MinValue>
       </CachedElementBase>
       <DiagramElementID>107</DiagramElementID>
-      <GameObjectName
-        i:nil="true" />
+      <GameObjectName>Shell Stats Enemy</GameObjectName>
       <GameObjectPropertyName>Force</GameObjectPropertyName>
       <StatesAssoc
         i:nil="true" />
@@ -49,8 +48,7 @@
         <MinValue>0</MinValue>
       </CachedElementBase>
       <DiagramElementID>219</DiagramElementID>
-      <GameObjectName
-        i:nil="true" />
+      <GameObjectName>Shell Stats</GameObjectName>
       <GameObjectPropertyName>Damage</GameObjectPropertyName>
       <StatesAssoc
         i:nil="true" />
@@ -63,8 +61,7 @@
         <MinValue>0</MinValue>
       </CachedElementBase>
       <DiagramElementID>225</DiagramElementID>
-      <GameObjectName
-        i:nil="true" />
+      <GameObjectName>Shell Stats Enemy</GameObjectName>
       <GameObjectPropertyName>Radius</GameObjectPropertyName>
       <StatesAssoc
         i:nil="true" />
@@ -84,14 +81,13 @@
     </MachinationsDiagramMapping>
     <MachinationsDiagramMapping>
       <CachedElementBase>
-        <BaseValue>3</BaseValue>
-        <CurrentValue>3</CurrentValue>
+        <BaseValue>5</BaseValue>
+        <CurrentValue>5</CurrentValue>
         <MaxValue>-1</MaxValue>
         <MinValue>0</MinValue>
       </CachedElementBase>
       <DiagramElementID>245</DiagramElementID>
-      <GameObjectName
-        i:nil="true" />
+      <GameObjectName>Shell Stats Enemy</GameObjectName>
       <GameObjectPropertyName>Cooldown</GameObjectPropertyName>
       <StatesAssoc
         i:nil="true" />
@@ -104,8 +100,7 @@
         <MinValue>0</MinValue>
       </CachedElementBase>
       <DiagramElementID>400</DiagramElementID>
-      <GameObjectName
-        i:nil="true" />
+      <GameObjectName>Shell Stats</GameObjectName>
       <GameObjectPropertyName>Force</GameObjectPropertyName>
       <StatesAssoc
         i:nil="true" />
@@ -118,22 +113,20 @@
         <MinValue>0</MinValue>
       </CachedElementBase>
       <DiagramElementID>401</DiagramElementID>
-      <GameObjectName
-        i:nil="true" />
+      <GameObjectName>Shell Stats</GameObjectName>
       <GameObjectPropertyName>Radius</GameObjectPropertyName>
       <StatesAssoc
         i:nil="true" />
     </MachinationsDiagramMapping>
     <MachinationsDiagramMapping>
       <CachedElementBase>
-        <BaseValue>100</BaseValue>
-        <CurrentValue>100</CurrentValue>
-        <MaxValue>-1</MaxValue>
+        <BaseValue>10</BaseValue>
+        <CurrentValue>10</CurrentValue>
+        <MaxValue>50</MaxValue>
         <MinValue>0</MinValue>
       </CachedElementBase>
       <DiagramElementID>402</DiagramElementID>
-      <GameObjectName
-        i:nil="true" />
+      <GameObjectName>Shell Stats</GameObjectName>
       <GameObjectPropertyName>Speed</GameObjectPropertyName>
       <StatesAssoc
         i:nil="true" />
@@ -159,8 +152,7 @@
         <MinValue>0</MinValue>
       </CachedElementBase>
       <DiagramElementID>901</DiagramElementID>
-      <GameObjectName
-        i:nil="true" />
+      <GameObjectName>Shell Stats Enemy</GameObjectName>
       <GameObjectPropertyName>Damage</GameObjectPropertyName>
       <StatesAssoc
         i:nil="true" />
@@ -173,22 +165,20 @@
         <MinValue>0</MinValue>
       </CachedElementBase>
       <DiagramElementID>912</DiagramElementID>
-      <GameObjectName
-        i:nil="true" />
+      <GameObjectName>Shell Stats</GameObjectName>
       <GameObjectPropertyName>Cooldown</GameObjectPropertyName>
       <StatesAssoc
         i:nil="true" />
     </MachinationsDiagramMapping>
     <MachinationsDiagramMapping>
       <CachedElementBase>
-        <BaseValue>200</BaseValue>
-        <CurrentValue>200</CurrentValue>
-        <MaxValue>-1</MaxValue>
+        <BaseValue>10</BaseValue>
+        <CurrentValue>10</CurrentValue>
+        <MaxValue>50</MaxValue>
         <MinValue>0</MinValue>
       </CachedElementBase>
       <DiagramElementID>1000</DiagramElementID>
-      <GameObjectName
-        i:nil="true" />
+      <GameObjectName>Shell Stats Enemy</GameObjectName>
       <GameObjectPropertyName>Speed</GameObjectPropertyName>
       <StatesAssoc
         i:nil="true" />
