@@ -29,8 +29,8 @@
     </MachinationsDiagramMapping>
     <MachinationsDiagramMapping>
       <CachedElementBase>
-        <BaseValue>100</BaseValue>
-        <CurrentValue>100</CurrentValue>
+        <BaseValue>210</BaseValue>
+        <CurrentValue>210</CurrentValue>
         <MaxValue>2000</MaxValue>
         <MinValue>0</MinValue>
       </CachedElementBase>
@@ -68,8 +68,8 @@
     </MachinationsDiagramMapping>
     <MachinationsDiagramMapping>
       <CachedElementBase>
-        <BaseValue>200</BaseValue>
-        <CurrentValue>200</CurrentValue>
+        <BaseValue>210</BaseValue>
+        <CurrentValue>210</CurrentValue>
         <MaxValue>500</MaxValue>
         <MinValue>0</MinValue>
       </CachedElementBase>
@@ -83,7 +83,7 @@
       <CachedElementBase>
         <BaseValue>5</BaseValue>
         <CurrentValue>5</CurrentValue>
-        <MaxValue>-1</MaxValue>
+        <MaxValue>10</MaxValue>
         <MinValue>0</MinValue>
       </CachedElementBase>
       <DiagramElementID>245</DiagramElementID>
@@ -120,9 +120,9 @@
     </MachinationsDiagramMapping>
     <MachinationsDiagramMapping>
       <CachedElementBase>
-        <BaseValue>10</BaseValue>
-        <CurrentValue>10</CurrentValue>
-        <MaxValue>50</MaxValue>
+        <BaseValue>100</BaseValue>
+        <CurrentValue>100</CurrentValue>
+        <MaxValue>300</MaxValue>
         <MinValue>0</MinValue>
       </CachedElementBase>
       <DiagramElementID>402</DiagramElementID>
@@ -159,9 +159,9 @@
     </MachinationsDiagramMapping>
     <MachinationsDiagramMapping>
       <CachedElementBase>
-        <BaseValue>0</BaseValue>
-        <CurrentValue>0</CurrentValue>
-        <MaxValue>-1</MaxValue>
+        <BaseValue>5</BaseValue>
+        <CurrentValue>5</CurrentValue>
+        <MaxValue>10</MaxValue>
         <MinValue>0</MinValue>
       </CachedElementBase>
       <DiagramElementID>912</DiagramElementID>
@@ -172,9 +172,9 @@
     </MachinationsDiagramMapping>
     <MachinationsDiagramMapping>
       <CachedElementBase>
-        <BaseValue>10</BaseValue>
-        <CurrentValue>10</CurrentValue>
-        <MaxValue>50</MaxValue>
+        <BaseValue>100</BaseValue>
+        <CurrentValue>100</CurrentValue>
+        <MaxValue>300</MaxValue>
         <MinValue>0</MinValue>
       </CachedElementBase>
       <DiagramElementID>1000</DiagramElementID>
