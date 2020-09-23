@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 112e3ddcd9ec4d7293ceeb73d561c34f, type: 3}
   m_Name: ShellStats
   m_EditorClassIdentifier: 
-  Damage: 50
+  Damage: 51
   Radius: 10
   Force: 100
   Speed: 100
+  ShotCooldown: 0
