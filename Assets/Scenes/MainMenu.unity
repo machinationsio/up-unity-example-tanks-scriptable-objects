@@ -2593,12 +2593,12 @@ PrefabInstance:
     - target: {fileID: 7471410119811048300, guid: 71879bd392bfc0b4dbc3a986ee2b6a0d,
         type: 3}
       propertyPath: userKey
-      value: 4fc8b3a7-3909-43b6-96a0-0387cd85e896
+      value: COPY THIS FROM MACHINATIONS
       objectReference: {fileID: 0}
     - target: {fileID: 7471410119811048300, guid: 71879bd392bfc0b4dbc3a986ee2b6a0d,
         type: 3}
       propertyPath: diagramToken
-      value: 54dc6ccd-1f66-41d8-a8d5-0873e935a770
+      value: COPY THIS FROM MACHINATIONS
       objectReference: {fileID: 0}
     - target: {fileID: 7471410119811048300, guid: 71879bd392bfc0b4dbc3a986ee2b6a0d,
         type: 3}
