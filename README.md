@@ -7,7 +7,7 @@ This repository integrates Machinations UP within Tanks, an example used in a [p
 1. Install the latest version of the Unity 3D Engine by downloading Unity Hub from [here](https://store.unity.com/#plans-individual). Once you installed Unity Hub, you will need to add a Unity 3D install. Stuck? Check our [Detailed Unity Installation Guide](README-unity.md) here.
 2. Open Unity 3D and navigate to where you cloned this repo. Upon opening the folder, your Unity Editor should look something like this:  
    ![Image of Unity Editor](./readme.md.resources/StartupScene.jpg)
-3. In Machinations, create your own copy of our Tanks Unity [Machinations diagram](https://my.machinations.io/public/Tanks-Unity/00cb25e4637ccee9d23799d0bc02befe5) by clicking "Add to My Machinations" (top right).
+3. In Machinations, create your own copy of our Tanks Unity Updated [Machinations diagram](https://my.machinations.io/public/-Tanks-Unity-updated/0d662f3049c168b328e2b78b18490e527) by clicking "Add to My Machinations" (top right).
 4. In Unity, in the Scene Hierarchy tab, configure the `MachinationsGameLayer` with the correct `User Key` & `Diagram Token`. Here's how to find these:
    1. MachinationsGameLayer inside Unity:  
       ![Image of MachinationsGameLayer Configuration](./readme.md.resources/MGLConfig.jpg)
@@ -25,7 +25,6 @@ Classes inside the game use **UP** to get their values from the Machinations dia
 - Both `TankHealth.cs` and `TankMovement.cs` use the Scriptable Object `TankStats.cs`. This is a "Machinations ScriptableObject", as in, it serves as a direct connection between Machinations and Unity and does nothing else.
 - `ShellExplosion.cs` uses `ShellStats.cs` to determine the Damage, Radius and Force of the explosion. This is another "Machinations ScriptableObject".
 - `SimpleAudioEvent.cs` and `SimpleSniper.cs` are ScriptableObjects that also have their own functionality, beside the Machinations interface.
-
 
 # Useful Links
 
