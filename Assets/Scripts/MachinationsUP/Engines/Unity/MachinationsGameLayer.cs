@@ -282,7 +282,7 @@ namespace MachinationsUP.Engines.Unity
                 _reconnectionAttempts++;
                 _connectionAborted = false;
                 SocketClosed = false;
-                Debug.Log("Attemt to reconnect to Machinations.");
+                Debug.Log("Attempt to reconnect to Machinations.");
                 StartCoroutine(ConnectToMachinations(3));
             }
         }
@@ -293,9 +293,8 @@ namespace MachinationsUP.Engines.Unity
 
         private IEnumerator ConnectToMachinations (int waitSeconds = 0)
         {
+            Debug.Log("Connecting in " + waitSeconds + " seconds.");
             yield return new WaitForSeconds(waitSeconds);
-            
-            Debug.Log("Connecting...");
 
             //Notify Game Engine of Machinations Init Start.
             Instance._gameLifecycleProvider?.MachinationsInitStart();
@@ -317,6 +316,7 @@ namespace MachinationsUP.Engines.Unity
             }
             else
             {
+                IsConnecting = false;
                 Debug.Log("MGL.Start: Connection achieved.");
 
                 EmitMachinationsAuthRequest();
@@ -341,6 +341,7 @@ namespace MachinationsUP.Engines.Unity
         /// </summary>
         private bool InitSocket ()
         {
+            IsConnecting = true;
             //Initialize socket.
             GameObject go = GameObject.Find("SocketIO");
             //No Socket found.
@@ -350,8 +351,8 @@ namespace MachinationsUP.Engines.Unity
             SocketIOComponent.MaxRetryCountForConnect = 1;
             _socket = go.GetComponent<SocketIOComponent>();
             //Socket must be kept throughout the game.
-            DontDestroyOnLoad(go);
-            DontDestroyOnLoad(_socket);
+            //DontDestroyOnLoad(go);
+            //DontDestroyOnLoad(_socket);
             //Setup socket.
             _socket.SetUserKey(userKey);
             _socket.Init();
@@ -706,6 +707,7 @@ namespace MachinationsUP.Engines.Unity
         /// The Thread will have to handle that.</param>
         private void FailedToConnect (bool calledFromThread)
         {
+            Debug.LogError("Failed to connect!");
             if (_pendingResponses > 0) _pendingResponses--;
             _connectionAborted = true;
             _socket.autoConnect = false;
@@ -863,13 +865,12 @@ namespace MachinationsUP.Engines.Unity
             //The item will be a Dictionary comprising of "id" and "props". The "props" will contain the properties to update.
             var item = new Dictionary<string, JSONObject>();
             item.Add("id", new JSONObject(sourceElement.ParentElementBinder.DiagMapping.DiagramElementID));
+            item.Add("type", JSONObject.CreateStringObject("resources"));
+            item.Add("timeStamp", new JSONObject(DateTime.Now.Ticks));
+            item.Add("parameter", JSONObject.CreateStringObject("number"));
+            item.Add("previous", new JSONObject(previousValue));
+            item.Add("value", new JSONObject(sourceElement.CurrentValue));
           
-            var resourcesProp = new Dictionary<string, JSONObject>();
-            resourcesProp.Add(SyncMsgs.JP_DIAGRAM_RESOURCES, new JSONObject(sourceElement.CurrentValue));
-            
-            //Add props field.
-            item.Add("props", new JSONObject(resourcesProp));
-
             JSONObject[] keys = new JSONObject [1];
             keys[0] = new JSONObject(item);
             
@@ -962,10 +963,14 @@ namespace MachinationsUP.Engines.Unity
         private void OnSocketClose (SocketIOEvent e)
         {
             Debug.Log("[SocketIO] !!!! Close received: " + e.name + " DATA:" + e.data);
+            if (IsConnecting)
+            {
+                Debug.Log("[SocketIO] !!!! But was Connecting, so this is normal.");
+                return;
+            }
+            
             SocketClosed = true;
             _connectionAborted = true;
-            //InitSocket();
-            //StartCoroutine(ConnectToMachinations());
         }
 
         #endregion
@@ -1094,9 +1099,14 @@ namespace MachinationsUP.Engines.Unity
         static private bool SocketOpenStartReceived { set; get; }
         
         /// <summary>
-        /// TRUE when all Init-related tasks have been completed.
+        /// TRUE when the Socket has been closed.
         /// </summary>
         static public bool SocketClosed { set; get; }
+        
+        /// <summary>
+        /// TRUE when the Socket is connecting.
+        /// </summary>
+        static private bool IsConnecting { get; set; }
 
         static private bool isInitialized;
 

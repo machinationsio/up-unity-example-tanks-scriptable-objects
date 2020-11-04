@@ -79,40 +79,6 @@ public class ShellStats : ScriptableObject, IMachinationsScriptableObject
         DamageNew.MaxValue = 400;
     }
 
-    public void OnValidate ()
-    {
-        
-        //FIND A WAY TO USE ELEMENT-BASE INSTEAD OF FLOAT.
-        /*
-        
-        if (Math.Abs(prevDamage - Damage) > 0)
-        {
-            Debug.Log("Damage Changed from: " + prevDamage + " to " + Damage);
-            //Only notifying MGL if it is Initialized.
-            if (MachinationsGameLayer.IsInitialized)
-                MachinationsGameLayer.Instance.EmitGameUpdateDiagramElementsRequest(_manifest.GetDiagramMapping(M_DAMAGE), Damage);
-        }
-        if (Math.Abs(prevForce - Force) > 0)
-        {
-            Debug.Log("Force Changed from: " + prevForce + " to " + Force);
-            //Only notifying MGL if it is Initialized.
-            if (MachinationsGameLayer.IsInitialized)
-                MachinationsGameLayer.Instance.EmitGameUpdateDiagramElementsRequest(_manifest.GetDiagramMapping(M_FORCE), Force);
-        }
-        if (Math.Abs(prevRadius - Radius) > 0)
-        {
-            Debug.Log("Radius Changed from: " + prevRadius + " to " + Radius);
-            //Only notifying MGL if it is Initialized.
-            if (MachinationsGameLayer.IsInitialized)
-                MachinationsGameLayer.Instance.EmitGameUpdateDiagramElementsRequest(_manifest.GetDiagramMapping(M_RADIUS), Radius);
-        }
-
-        prevDamage = Damage;
-        prevForce = Force;
-        prevRadius = Radius;
-        */
-    }
-
     #region IMachinationsScriptableObject
 
     /// <summary>
