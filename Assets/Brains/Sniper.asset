@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e23780ae3951ab46bc93f2f7eced5c5, type: 3}
   m_Name: Sniper
   m_EditorClassIdentifier: 
+  TankRigidBody: {fileID: 0}
   aimAngleThreshold: 3
   chargeTimePerDistance:
-    minValue: 0.014190301
-    maxValue: 0.022361908
+    minValue: 0
+    maxValue: 0.0010720411
   timeBetweenShots:
-    minValue: 8
-    maxValue: 9
+    minValue: 1
+    maxValue: 5

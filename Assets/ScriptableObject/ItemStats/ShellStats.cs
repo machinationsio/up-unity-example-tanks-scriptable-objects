@@ -15,10 +15,8 @@ public class ShellStats : ScriptableObject, IMachinationsScriptableObject
     public float Force;
     public float Speed;
     public float ShotCooldown;
-
-    private float prevDamage;
-    private float prevRadius;
-    private float prevForce;
+    public ElementBase DamageNew;
+    public ElementBase RadiusNew;
 
     //Machinations.
 
@@ -76,18 +74,43 @@ public class ShellStats : ScriptableObject, IMachinationsScriptableObject
         Debug.Log("SO ShellStats OnEnable.");
         //Register this SO with the MGL.
         MachinationsGameLayer.EnrollScriptableObject(this, _manifest);
+        
+        //Initialize ElementBases with proper values.
+        DamageNew.MaxValue = 400;
     }
 
     public void OnValidate ()
     {
+        
+        //FIND A WAY TO USE ELEMENT-BASE INSTEAD OF FLOAT.
+        /*
+        
         if (Math.Abs(prevDamage - Damage) > 0)
         {
-            Debug.Log("Damage Changed.");
+            Debug.Log("Damage Changed from: " + prevDamage + " to " + Damage);
+            //Only notifying MGL if it is Initialized.
+            if (MachinationsGameLayer.IsInitialized)
+                MachinationsGameLayer.Instance.EmitGameUpdateDiagramElementsRequest(_manifest.GetDiagramMapping(M_DAMAGE), Damage);
+        }
+        if (Math.Abs(prevForce - Force) > 0)
+        {
+            Debug.Log("Force Changed from: " + prevForce + " to " + Force);
+            //Only notifying MGL if it is Initialized.
+            if (MachinationsGameLayer.IsInitialized)
+                MachinationsGameLayer.Instance.EmitGameUpdateDiagramElementsRequest(_manifest.GetDiagramMapping(M_FORCE), Force);
+        }
+        if (Math.Abs(prevRadius - Radius) > 0)
+        {
+            Debug.Log("Radius Changed from: " + prevRadius + " to " + Radius);
+            //Only notifying MGL if it is Initialized.
+            if (MachinationsGameLayer.IsInitialized)
+                MachinationsGameLayer.Instance.EmitGameUpdateDiagramElementsRequest(_manifest.GetDiagramMapping(M_RADIUS), Radius);
         }
 
         prevDamage = Damage;
         prevForce = Force;
         prevRadius = Radius;
+        */
     }
 
     #region IMachinationsScriptableObject
@@ -114,6 +137,9 @@ public class ShellStats : ScriptableObject, IMachinationsScriptableObject
         Force = _binders[M_FORCE].Value;
         Speed = _binders[M_SPEED].Value;
         ShotCooldown = _binders[M_COOLDOWN].Value;
+
+        DamageNew = _binders[M_DAMAGE].CurrentElement;
+        RadiusNew = _binders[M_RADIUS].CurrentElement;
     }
 
     #endregion

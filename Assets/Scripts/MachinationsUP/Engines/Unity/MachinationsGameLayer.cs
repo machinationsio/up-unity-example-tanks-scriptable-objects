@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Xml;
@@ -20,11 +21,18 @@ using UnityEngine;
 namespace MachinationsUP.Engines.Unity
 {
     /// <summary>
-    /// The Machinations Game Layer is a game-wide Singleton that handles communication with the Machinations back-end.
+    /// The Machinations Game Layer is a Singleton that handles communication with the Machinations back-end.
     /// </summary>
     public class MachinationsGameLayer : MonoBehaviour, IGameLifecycleSubscriber, IGameObjectLifecycleSubscriber
     {
 
+        #region Configuration Constants/Fields
+
+        private const int RECONNECTION_ATTEMPTS = 3;
+        private static int _reconnectionAttempts = 0;
+        
+        #endregion
+        
         #region Variables
 
         #region Editor-Defined
@@ -232,6 +240,7 @@ namespace MachinationsUP.Engines.Unity
         #region MonoBehaviour Overrides (ENTRY POINT is in Start)
 
         /// <summary>
+        /// UNITY-SPECIFIC FUNCTION.
         /// Awake is used to initialize any variables or game state before the game starts.
         /// Awake is called only once during the lifetime of the script instance.
         /// Awake is called after all objects are initialized so you can safely speak to other objects
@@ -253,6 +262,7 @@ namespace MachinationsUP.Engines.Unity
         }
 
         /// <summary>
+        /// UNITY-SPECIFIC FUNCTION.
         /// Start is called before the first frame update.
         /// </summary>
         private IEnumerator Start ()
@@ -261,6 +271,31 @@ namespace MachinationsUP.Engines.Unity
 
             foreach (MachinationsGameObject mgo in _gameObjects)
                 AddTargets(mgo.Manifest.GetMachinationsDiagramTargets());
+
+            yield return ConnectToMachinations();
+        }
+
+        private void Update ()
+        {
+            if (_connectionAborted && SocketClosed && _reconnectionAttempts <= RECONNECTION_ATTEMPTS)
+            {
+                _reconnectionAttempts++;
+                _connectionAborted = false;
+                SocketClosed = false;
+                Debug.Log("Attemt to reconnect to Machinations.");
+                StartCoroutine(ConnectToMachinations(3));
+            }
+        }
+        
+        #endregion
+
+        #region Internal Functionality
+
+        private IEnumerator ConnectToMachinations (int waitSeconds = 0)
+        {
+            yield return new WaitForSeconds(waitSeconds);
+            
+            Debug.Log("Connecting...");
 
             //Notify Game Engine of Machinations Init Start.
             Instance._gameLifecycleProvider?.MachinationsInitStart();
@@ -297,11 +332,9 @@ namespace MachinationsUP.Engines.Unity
 
             //Notify Game Engine of Machinations Init Complete.
             Instance._gameLifecycleProvider?.MachinationsInitComplete();
+            
+            yield return 1;
         }
-
-        #endregion
-
-        #region Internal Functionality
 
         /// <summary>
         /// Initializes the Socket IO component.
@@ -331,6 +364,8 @@ namespace MachinationsUP.Engines.Unity
             _socket.On(SyncMsgs.RECEIVE_ERROR, OnSocketError);
             _socket.On(SyncMsgs.RECEIVE_API_ERROR, OnSocketError);
             _socket.On(SyncMsgs.RECEIVE_CLOSE, OnSocketClose);
+            
+            _socket.On(SyncMsgs.RECEIVE_GAME_UPDATE_DIAGRAM_ELEMENTS, OnGameUpdateDiagramElementsRequest);
             _socket.Connect();
             return true;
         }
@@ -488,7 +523,7 @@ namespace MachinationsUP.Engines.Unity
                 throw new Exception("MGL.FindSourceElement: machinationsUniqueID '" +
                                     GetMachinationsUniqueID(elementBinder, statesAssociation) +
                                     "' not found in _sourceElements.");
-            
+
             //If there is an Override defined in the DiagramMapping, immediately returning that ElementBase instead of the one we found.
             if (dm?.OverrideElementBase != null)
             {
@@ -745,13 +780,14 @@ namespace MachinationsUP.Engines.Unity
         /// </summary>
         /// <param name="mgo">MachinationsGameObject that emitted the event.</param>
         /// <param name="evnt">The event that was emitted.</param>
-        public void EmitEvent (MachinationsGameObject mgo, string evnt)
+        public void EmitGameEvent (MachinationsGameObject mgo, string evnt)
         {
             var sync = new Dictionary<string, string>
             {
                 {SyncMsgs.JK_EVENT_GAME_OBJ_NAME, mgo.GameObjectName},
                 {SyncMsgs.JK_EVENT_GAME_EVENT, evnt}
             };
+            Debug.Log("MGL.EmitGameEvent " + evnt);
             _socket.Emit(SyncMsgs.SEND_GAME_EVENT, new JSONObject(sync));
         }
 
@@ -816,6 +852,37 @@ namespace MachinationsUP.Engines.Unity
             _socket.Emit(SyncMsgs.SEND_GAME_INIT, new JSONObject(initRequest));
         }
 
+        /// <summary>
+        /// Emits the 'Game Init Request' Socket event.
+        /// </summary>
+        public void EmitGameUpdateDiagramElementsRequest (ElementBase sourceElement, int previousValue)
+        {
+            //Update Request components will be stored as top level items in this Dictionary.
+            var updateRequest = new Dictionary<string, JSONObject>();
+            
+            //The item will be a Dictionary comprising of "id" and "props". The "props" will contain the properties to update.
+            var item = new Dictionary<string, JSONObject>();
+            item.Add("id", new JSONObject(sourceElement.ParentElementBinder.DiagMapping.DiagramElementID));
+          
+            var resourcesProp = new Dictionary<string, JSONObject>();
+            resourcesProp.Add(SyncMsgs.JP_DIAGRAM_RESOURCES, new JSONObject(sourceElement.CurrentValue));
+            
+            //Add props field.
+            item.Add("props", new JSONObject(resourcesProp));
+
+            JSONObject[] keys = new JSONObject [1];
+            keys[0] = new JSONObject(item);
+            
+            //Finalize request by adding all top level items.
+            updateRequest.Add(SyncMsgs.JK_AUTH_DIAGRAM_TOKEN, JSONObject.CreateStringObject(diagramToken));
+            //Wrapping the keys Array inside a JSON Object.
+            updateRequest.Add(SyncMsgs.JK_INIT_MACHINATIONS_IDS, new JSONObject(keys));
+
+            Debug.Log("MGL.EmitMachinationsUpdateElementsRequest.");
+
+            _socket.Emit(SyncMsgs.SEND_GAME_UPDATE_DIAGRAM_ELEMENTS, new JSONObject(updateRequest));
+        }
+
         private void OnSocketOpen (SocketIOEvent e)
         {
             SocketOpenReceived = true;
@@ -861,6 +928,11 @@ namespace MachinationsUP.Engines.Unity
                 if (payloadKey == SyncMsgs.JK_DIAGRAM_ELEMENTS_LIST)
                     UpdateWithValuesFromMachinations(e.data[SyncMsgs.JK_DIAGRAM_ELEMENTS_LIST].list, true);
         }
+        
+        private void OnGameUpdateDiagramElementsRequest (SocketIOEvent e)
+        {
+            Debug.Log("Game Update Diagram Elements Response: " + e.data);
+        }
 
         /// <summary>
         /// The Machinations Back-end has answered.
@@ -890,6 +962,10 @@ namespace MachinationsUP.Engines.Unity
         private void OnSocketClose (SocketIOEvent e)
         {
             Debug.Log("[SocketIO] !!!! Close received: " + e.name + " DATA:" + e.data);
+            SocketClosed = true;
+            _connectionAborted = true;
+            //InitSocket();
+            //StartCoroutine(ConnectToMachinations());
         }
 
         #endregion
@@ -958,7 +1034,7 @@ namespace MachinationsUP.Engines.Unity
             }
 
             //Initialize the ElementBase by cloning it from the sourceElement.
-            var newElement = sourceElement.Clone();
+            var newElement = sourceElement.Clone(elementBinder);
 
             Debug.Log("MGL.CreateValue complete for machinationsUniqueID '" +
                       GetMachinationsUniqueID(elementBinder, statesAssociation) + "'.");
@@ -1016,6 +1092,11 @@ namespace MachinationsUP.Engines.Unity
         /// TRUE when the Socket is open.
         /// </summary>
         static private bool SocketOpenStartReceived { set; get; }
+        
+        /// <summary>
+        /// TRUE when all Init-related tasks have been completed.
+        /// </summary>
+        static public bool SocketClosed { set; get; }
 
         static private bool isInitialized;
 
@@ -1024,7 +1105,7 @@ namespace MachinationsUP.Engines.Unity
         /// </summary>
         static public bool IsInitialized
         {
-            set
+            private set
             {
                 isInitialized = value;
                 if (value)

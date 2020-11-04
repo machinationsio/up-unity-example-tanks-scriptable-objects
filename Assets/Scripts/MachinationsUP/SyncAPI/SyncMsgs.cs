@@ -9,6 +9,7 @@
         public const string SEND_API_AUTHORIZE = "api-authorize";
         public const string SEND_GAME_INIT = "game-init";
         public const string SEND_GAME_EVENT = "game-event";
+        public const string SEND_GAME_UPDATE_DIAGRAM_ELEMENTS = "game-update-diagram-elements";
         //Receive.
         public const string RECEIVE_OPEN_START = "open-start";
         public const string RECEIVE_OPEN = "open";
@@ -18,6 +19,7 @@
         public const string RECEIVE_AUTH_DENY = "api-auth-deny";
         public const string RECEIVE_GAME_INIT = "game-init";
         public const string RECEIVE_DIAGRAM_ELEMENTS_UPDATED = "diagram-elements-updated";
+        public const string RECEIVE_GAME_UPDATE_DIAGRAM_ELEMENTS = "game-update-diagram-elements-response";
         public const string RECEIVE_CLOSE = "close";
 
         //JSON keys used for communication.

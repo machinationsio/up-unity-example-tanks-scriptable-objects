@@ -142,7 +142,7 @@ namespace MachinationsUP.Integration.GameObject
         {
             //Emit events marked as "to emit".
             if (_manifest.EventsToEmit.Contains(evnt))
-                MachinationsGameLayer.Instance.EmitEvent(this, evnt);
+                MachinationsGameLayer.Instance.EmitGameEvent(this, evnt);
         }
 
         #endregion

@@ -36,6 +36,7 @@ public class SimpleAudioEvent : AudioEvent, IMachinationsScriptableObject
     //Manifest that defines what the SO uses from Machinations.
     static readonly private MachinationsGameObjectManifest _manifest = new MachinationsGameObjectManifest
     {
+        GameObjectName =  "Sound Event",
         PropertiesToSync = new List<DiagramMapping>
         {
             new DiagramMapping

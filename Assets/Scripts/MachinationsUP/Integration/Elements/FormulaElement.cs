@@ -1,5 +1,6 @@
 ﻿using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using MachinationsUP.Integration.Binder;
 using MachinationsUP.Integration.Elements.Formula;
 using UnityEngine;
 
@@ -54,7 +55,10 @@ namespace MachinationsUP.Integration.Elements
         /// <param name="formulaString">Formula to use.</param>
         /// <param name="rerunFormulaAtReset">If to recalculate the BaseValue from the Formula at reset.</param>
         /// <param name="rerunFormulaAtEveryAccess">If to recalculate the BaseValue from the Formula each time the CurrentValue is queried.</param>
-        public FormulaElement (string formulaString, bool rerunFormulaAtReset = true, bool rerunFormulaAtEveryAccess = true)
+        /// /// <param name="parentBinder">Parent Element Binder.</param>
+        public FormulaElement (string formulaString, bool rerunFormulaAtReset = true, bool rerunFormulaAtEveryAccess = true,
+            ElementBinder parentBinder = null) :
+            base(-1, parentBinder)
         {
             FormulaString = formulaString;
             MFormula = new MachinationsFormula(formulaString);
@@ -98,9 +102,9 @@ namespace MachinationsUP.Integration.Elements
         /// Returns a duplicate of this Element Base. Required in <see cref="MachinationsUP.Engines.Unity.MachinationsGameLayer"/> in CreateElement.
         /// </summary>
         /// <returns></returns>
-        override public ElementBase Clone ()
+        override public ElementBase Clone (ElementBinder parentBinder)
         {
-            return new FormulaElement(FormulaString, RerunFormulaAtReset, RerunFormulaAtEveryAccess);
+            return new FormulaElement(FormulaString, RerunFormulaAtReset, RerunFormulaAtEveryAccess, parentBinder);
         }
 
         override public string ToString ()

@@ -142,6 +142,10 @@ namespace SocketIO
             packetId = 0;
 
             ws = new WebSocket(url + (string.IsNullOrEmpty(_userKey) ? "" : "&token=" + _userKey));
+            
+            //Enable Error Logging.
+            ws.Log.File = Path.Combine(Application.dataPath, "socket-errorlog-" + DateTime.Now.ToString("yyyy-MM-dd") + ".txt");
+            ws.Log.Level = LogLevel.Debug;
 
             if (pathToX509Certificate != "")
             {

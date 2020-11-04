@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465782, g: 0.49641252, b: 0.5748167, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2593,12 +2593,12 @@ PrefabInstance:
     - target: {fileID: 7471410119811048300, guid: 71879bd392bfc0b4dbc3a986ee2b6a0d,
         type: 3}
       propertyPath: userKey
-      value: COPY THIS FROM MACHINATIONS
+      value: 4fc8b3a7-3909-43b6-96a0-0387cd85e896
       objectReference: {fileID: 0}
     - target: {fileID: 7471410119811048300, guid: 71879bd392bfc0b4dbc3a986ee2b6a0d,
         type: 3}
       propertyPath: diagramToken
-      value: COPY THIS FROM MACHINATIONS
+      value: 54dc6ccd-1f66-41d8-a8d5-0873e935a770
       objectReference: {fileID: 0}
     - target: {fileID: 7471410119811048300, guid: 71879bd392bfc0b4dbc3a986ee2b6a0d,
         type: 3}
@@ -2774,7 +2774,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 010d39cbd03ee4c99a746c1f8ecdc0d8, type: 3}
       propertyPath: url
-      value: wss://api.machinations.io/socket.io/?EIO=4&transport=websocket
+      value: ws://127.0.0.1:5000/socket.io/?EIO=4&transport=websocket
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 010d39cbd03ee4c99a746c1f8ecdc0d8, type: 3}
       propertyPath: autoConnect

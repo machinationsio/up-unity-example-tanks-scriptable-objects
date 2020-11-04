@@ -15,15 +15,21 @@ namespace MachinationsUP.Integration.Binder
     /// Binds a certain Game Object Property (Name) to the appropriate Machinations Element based
     /// on Game and Game Object State (via <see cref="MachinationsUP.GameEngineAPI.States.StatesAssociation"/>). There will be
     /// a separate <see cref="ElementBase"/> for each StatesAssociation.
+    ///
+    /// Is a child of either <see cref="MachinationsGameObject"/> or <see cref="EnrolledScriptableObject"/>.
     /// </summary>
     public class ElementBinder
     {
+        //TODO: possibly split this class into one that is owned byMachinationsGameObject and another for EnrolledScriptableObject.
 
         /// <summary>
         /// Machinations Behavior (Game Object) owning this Binder.
         /// </summary>
         internal MachinationsGameObject ParentGameObject { get; }
 
+        /// <summary>
+        /// Machinations Scriptable Object that owns this Binder.
+        /// </summary>
         internal EnrolledScriptableObject ParentScriptableObject { get; }
         
         /// <summary>
@@ -90,7 +96,7 @@ namespace MachinationsUP.Integration.Binder
         
         public ElementBinder (EnrolledScriptableObject parentScriptableObject, DiagramMapping diagramMapping)
         {
-            ParentScriptableObject = parentScriptableObject ?? throw new Exception("Parent Game Object cannot be null");
+            ParentScriptableObject = parentScriptableObject ?? throw new Exception("Parent Scriptable Object cannot be null");
             DiagMapping = diagramMapping;
         }
 
@@ -110,7 +116,8 @@ namespace MachinationsUP.Integration.Binder
             if (DiagMapping.DefaultElementBase != null)
             {
                 Debug.Log("ElementBinder returning DefaultElementBase for " + GetFullName());
-                _currentElement = DiagMapping.DefaultElementBase.Clone();
+                //DefaultElementBase doesn't have a Parent, but when cloning it, setting this as the parent of the new ElementBase
+                _currentElement = DiagMapping.DefaultElementBase.Clone(this);
                 return _currentElement;
             }
 

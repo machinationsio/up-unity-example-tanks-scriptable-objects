@@ -1,4 +1,7 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
+using MachinationsUP.Engines.Unity;
+using MachinationsUP.Integration.Binder;
 
 namespace MachinationsUP.Integration.Elements
 {
@@ -7,20 +10,25 @@ namespace MachinationsUP.Integration.Elements
     /// </summary>
     [DataContract(Name = "MachinationsElementBase", Namespace = "http://www.machinations.io")]
     [KnownType(typeof(FormulaElement))]
+    [Serializable]
     public class ElementBase
     {
-
-        private int _baseValue;
-
+        /// <summary>
+        /// Permits the Unity Property inspector connection. Setting this manually will have no effect over <see cref="CurrentValue"/>.
+        /// See <see cref="MachinationsUP.Engines.Unity.EditorExtensions.ElementBaseDrawer"/>
+        /// </summary>
+        public int _serializableValue;
+        
         /// <summary>
         /// The value received from Machinations.
         /// </summary>
         [DataMember()]
-        public int BaseValue
-        {
-            get => _baseValue;
-            protected set => _baseValue = value;
-        }
+        public int BaseValue { get; set; }
+
+        /// <summary>
+        /// Parent Element Binder.
+        /// </summary>
+        internal ElementBinder ParentElementBinder { get; }
 
         protected int _currentValue;
 
@@ -32,18 +40,18 @@ namespace MachinationsUP.Integration.Elements
         virtual public int CurrentValue
         {
             get => _currentValue;
-            protected set => _currentValue = value;
+            protected set
+            {
+                _currentValue = value;
+                _serializableValue = value;
+            }
         }
-
-        private int _maxValue;
 
         /// <summary>
         /// Top cap.
         /// </summary>
         [DataMember()]
         public int MaxValue { get; set; }
-
-        private int _minValue;
 
         /// <summary>
         /// Bottom cap. NOT USED YET.
@@ -59,11 +67,25 @@ namespace MachinationsUP.Integration.Elements
         /// <summary>
         /// Default constructor.
         /// </summary>
+        /// <param name="parentBinder">Parent Element Binder.</param>
         /// <param name="baseValue">Value to start with.</param>
-        public ElementBase (int baseValue = -1)
+        public ElementBase (int baseValue = -1, ElementBinder parentBinder = null)
         {
+            ParentElementBinder = parentBinder;
             BaseValue = baseValue;
             MaxValue = -1;
+            Reset();
+        }
+
+        /// <summary>
+        /// Initializes this ElementBase from another one.
+        /// </summary>
+        /// <param name="source"></param>
+        public ElementBase (ElementBase source)
+        {
+            ParentElementBinder = source.ParentElementBinder;
+            BaseValue = source.BaseValue;
+            MaxValue = source.MaxValue;
             Reset();
         }
 
@@ -95,9 +117,9 @@ namespace MachinationsUP.Integration.Elements
         }
 
         /// <summary>
-        /// Changes the MInt Value to the given one.
+        /// Changes the Value of the ElementBase to the given one.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">New Value.</param>
         public void ChangeValueTo (int value)
         {
             CurrentValue = value;
@@ -105,12 +127,25 @@ namespace MachinationsUP.Integration.Elements
         }
 
         /// <summary>
+        /// Changes the value of this ElementBase to the given one.
+        /// This function will also trigger an update towards the Machinations Back-End.
+        /// </summary>
+        /// <param name="value">New Value.</param>
+        public void ChangeValueFromEditor (int value)
+        {
+            int previousValue = CurrentValue;
+            ChangeValueTo(value);
+            MachinationsGameLayer.Instance.EmitGameUpdateDiagramElementsRequest(this, previousValue);
+        }
+
+        /// <summary>
         /// Returns a duplicate of this Element Base. Required in <see cref="MachinationsUP.Engines.Unity.MachinationsGameLayer"/> in CreateElement.
         /// </summary>
+        /// <param name="parentBinder">Parent Element Binder.</param>
         /// <returns></returns>
-        virtual public ElementBase Clone ()
+        virtual public ElementBase Clone (ElementBinder parentBinder)
         {
-            return new ElementBase(BaseValue);
+            return new ElementBase(BaseValue, parentBinder);
         }
 
         override public string ToString ()
