@@ -9,14 +9,12 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ItemStats/Shell")]
 public class ShellStats : ScriptableObject, IMachinationsScriptableObject
 {
-
-    public float Damage;
-    public float Radius;
-    public float Force;
-    public float Speed;
-    public float ShotCooldown;
-    public ElementBase DamageNew;
-    public ElementBase RadiusNew;
+    
+    public ElementBase Damage;
+    public ElementBase Radius;
+    public ElementBase  Force;
+    public ElementBase  Speed;
+    public ElementBase  ShotCooldown;
 
     //Machinations.
 
@@ -74,9 +72,6 @@ public class ShellStats : ScriptableObject, IMachinationsScriptableObject
         Debug.Log("SO ShellStats OnEnable.");
         //Register this SO with the MGL.
         MachinationsGameLayer.EnrollScriptableObject(this, _manifest);
-        
-        //Initialize ElementBases with proper values.
-        DamageNew.MaxValue = 400;
     }
 
     #region IMachinationsScriptableObject
@@ -98,14 +93,11 @@ public class ShellStats : ScriptableObject, IMachinationsScriptableObject
     /// <param name="elementBase">The <see cref="ElementBase"/> that was sent from the backend.</param>
     public void MGLUpdateSO (DiagramMapping diagramMapping = null, ElementBase elementBase = null)
     {
-        Damage = _binders[M_DAMAGE].Value;
-        Radius = _binders[M_RADIUS].Value;
-        Force = _binders[M_FORCE].Value;
-        Speed = _binders[M_SPEED].Value;
-        ShotCooldown = _binders[M_COOLDOWN].Value;
-
-        DamageNew = _binders[M_DAMAGE].CurrentElement;
-        RadiusNew = _binders[M_RADIUS].CurrentElement;
+        Damage = _binders[M_DAMAGE].CurrentElement;
+        Radius = _binders[M_RADIUS].CurrentElement;
+        Force = _binders[M_FORCE].CurrentElement;
+        Speed = _binders[M_SPEED].CurrentElement;
+        ShotCooldown = _binders[M_COOLDOWN].CurrentElement;
     }
 
     #endregion

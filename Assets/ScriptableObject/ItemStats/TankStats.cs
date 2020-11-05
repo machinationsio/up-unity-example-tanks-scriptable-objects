@@ -12,8 +12,8 @@ using UnityEngine;
 public class TankStats : ScriptableObject, IMachinationsScriptableObject
 {
 
-    public float Health;
-    public float Speed;
+    public ElementBase Health;
+    public ElementBase Speed;
 
     //Machinations.
 
@@ -71,8 +71,8 @@ public class TankStats : ScriptableObject, IMachinationsScriptableObject
     /// <param name="elementBase">The <see cref="ElementBase"/> that was sent from the backend.</param>
     public void MGLUpdateSO (DiagramMapping diagramMapping = null, ElementBase elementBase = null)
     {
-        Health = _binders[M_HEALTH].Value;
-        Speed = _binders[M_SPEED].Value;
+        Health = _binders[M_HEALTH].CurrentElement;
+        Speed = _binders[M_SPEED].CurrentElement;
     }
 
     #endregion

@@ -28,7 +28,7 @@ public class ShellExplosion : MonoBehaviour
     {
         //Because we don't know who's projectile this is, checking against the largest radius.
         //Of course, we could know who's projectile this is, but I don't have time to investigate / add the feature :D.
-        float radius = Math.Max(m_ShellStatsEnemy.Radius, m_ShellStats.Radius);
+        float radius = Math.Max(m_ShellStatsEnemy.Radius.CurrentValue, m_ShellStats.Radius.CurrentValue);
         // Collect all the colliders in a sphere from the shell's current position to a radius of the explosion radius.
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
 
@@ -45,15 +45,15 @@ public class ShellExplosion : MonoBehaviour
             //Differentiate Shell Stats based on enemy / player tank.
             if (PlayerControlledTank.Instance.TankRigidBody == targetRigidbody)
             {
-                projectileRadius = m_ShellStats.Radius;
-                projectileForce = m_ShellStats.Force;
-                projectileDamage = m_ShellStats.Damage;
+                projectileRadius = m_ShellStats.Radius.CurrentValue;
+                projectileForce = m_ShellStats.Force.CurrentValue;
+                projectileDamage = m_ShellStats.Damage.CurrentValue;
             }
             else
             {
-                projectileRadius = m_ShellStatsEnemy.Radius;
-                projectileForce = m_ShellStatsEnemy.Force;
-                projectileDamage = m_ShellStatsEnemy.Damage;
+                projectileRadius = m_ShellStatsEnemy.Radius.CurrentValue;
+                projectileForce = m_ShellStatsEnemy.Force.CurrentValue;
+                projectileDamage = m_ShellStatsEnemy.Damage.CurrentValue;
             }
 
             if (targetRigidbody)

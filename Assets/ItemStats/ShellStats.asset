@@ -18,6 +18,6 @@ MonoBehaviour:
   Speed: 100
   ShotCooldown: 0
   DamageNew:
-    _serializableValue: 400
+    _serializableValue: 46
   RadiusNew:
     _serializableValue: 10

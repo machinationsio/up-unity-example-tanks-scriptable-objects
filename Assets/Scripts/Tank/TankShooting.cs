@@ -49,8 +49,8 @@ public class TankShooting : MonoBehaviour
     {
         //Set shot cooldown based on which tank it is (player / enemy).
         float shotCooldown = PlayerControlledTank.Instance.TankRigidBody == myRigidBody
-            ? m_ShellStats.ShotCooldown
-            : m_ShellStatsEnemy.ShotCooldown;
+            ? m_ShellStats.ShotCooldown.CurrentValue
+            : m_ShellStatsEnemy.ShotCooldown.CurrentValue;
 
         if (timeSinceShot < shotCooldown) return;
 
@@ -99,8 +99,8 @@ public class TankShooting : MonoBehaviour
         //Change launch force so that projectile speed changes are taken into account.
         //Differentiate shot force per player / enemy.
         float newForce = PlayerControlledTank.Instance.TankRigidBody == myRigidBody
-            ? m_CurrentLaunchForce * (m_ShellStats.Speed / 100)
-            : m_CurrentLaunchForce * (m_ShellStatsEnemy.Speed / 100);
+            ? m_CurrentLaunchForce * ((float)m_ShellStats.Speed.CurrentValue / 100)
+            : m_CurrentLaunchForce * ((float)m_ShellStatsEnemy.Speed.CurrentValue / 100);
 
         // Set the shell's velocity to the launch force in the fire position's forward direction.
         shellInstance.velocity = newForce * m_FireTransform.forward;

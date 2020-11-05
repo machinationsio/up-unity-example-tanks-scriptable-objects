@@ -10,17 +10,13 @@ using UnityEngine;
 public class ShellStatsEnemy : ScriptableObject, IMachinationsScriptableObject
 {
 
-    public float Damage;
-    public float Radius;
-    public float Force;
-    public float Speed;
-    public float ShotCooldown;
-
-    private float prevDamage;
-    private float prevRadius;
-    private float prevForce;
-
     //Machinations.
+    
+    public ElementBase Damage;
+    public ElementBase Radius;
+    public ElementBase Force;
+    public ElementBase Speed;
+    public ElementBase ShotCooldown;
 
     //Tracked Machinations Elements.
     private const string M_DAMAGE = "Damage";
@@ -78,18 +74,6 @@ public class ShellStatsEnemy : ScriptableObject, IMachinationsScriptableObject
         MachinationsGameLayer.EnrollScriptableObject(this, _manifest);
     }
 
-    public void OnValidate ()
-    {
-        if (Math.Abs(prevDamage - Damage) > 0)
-        {
-            Debug.Log("Damage Changed.");
-        }
-
-        prevDamage = Damage;
-        prevForce = Force;
-        prevRadius = Radius;
-    }
-
     #region IMachinationsScriptableObject
 
     /// <summary>
@@ -109,11 +93,11 @@ public class ShellStatsEnemy : ScriptableObject, IMachinationsScriptableObject
     /// <param name="elementBase">The <see cref="ElementBase"/> that was sent from the backend.</param>
     public void MGLUpdateSO (DiagramMapping diagramMapping = null, ElementBase elementBase = null)
     {
-        Damage = _binders[M_DAMAGE].Value;
-        Radius = _binders[M_RADIUS].Value;
-        Force = _binders[M_FORCE].Value;
-        Speed = _binders[M_SPEED].Value;
-        ShotCooldown = _binders[M_COOLDOWN].Value;
+        Damage = _binders[M_DAMAGE].CurrentElement;
+        Radius = _binders[M_RADIUS].CurrentElement;
+        Force = _binders[M_FORCE].CurrentElement;
+        Speed = _binders[M_SPEED].CurrentElement;
+        ShotCooldown = _binders[M_COOLDOWN].CurrentElement;
     }
 
     #endregion

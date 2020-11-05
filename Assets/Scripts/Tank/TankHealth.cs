@@ -37,9 +37,9 @@ public class TankHealth : MonoBehaviour
     {
         // When the tank is enabled, reset the tank's health and whether or not it's dead.
         if (this == PlayerControlledTank.PlayerControlledTankHealth)
-            m_CurrentHealth = m_TankStats.Health;
+            m_CurrentHealth = m_TankStats.Health.CurrentValue;
         else
-            m_CurrentHealth = m_TankStatsEnemy.Health;
+            m_CurrentHealth = m_TankStatsEnemy.Health.CurrentValue;
         m_Dead = false;
 
         // Update the health slider's value and color.
@@ -69,7 +69,7 @@ public class TankHealth : MonoBehaviour
         m_Slider.value = m_CurrentHealth;
 
         // Interpolate the color of the bar between the choosen colours based on the current percentage of the starting health.
-        m_FillImage.color = Color.Lerp (m_ZeroHealthColor, m_FullHealthColor, m_CurrentHealth / m_TankStats.Health);
+        m_FillImage.color = Color.Lerp (m_ZeroHealthColor, m_FullHealthColor, m_CurrentHealth / m_TankStats.Health.CurrentValue);
     }
 
 

@@ -105,7 +105,7 @@ public class SimpleAudioEvent : AudioEvent, IMachinationsScriptableObject
             //Set volume for...
             //More than 50% life.
             if (PlayerControlledTank.PlayerControlledTankHealth.m_CurrentHealth >
-                PlayerControlledTank.PlayerControlledTankHealth.m_TankStats.Health / 2)
+                (float)PlayerControlledTank.PlayerControlledTankHealth.m_TankStats.Health.CurrentValue / 2)
             {
                 //Debug.Log("MGLUpdateSO: PlayerControlledTankHealth > 50");
                 volume.minValue = (_binders[M_MAX_SOUND_HIGH_HEALTH].Value - 2) / 100f;
