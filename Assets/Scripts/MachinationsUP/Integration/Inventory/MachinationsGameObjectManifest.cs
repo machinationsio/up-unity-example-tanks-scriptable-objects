@@ -22,7 +22,7 @@ namespace MachinationsUP.Integration.Inventory
         /// CommonStatesAssociations), they will be retrieved per each StateAssociation.
         /// <see cref="StatesAssociationsPerPropertyName"/>
         /// </summary>
-        public List<DiagramMapping> PropertiesToSync { get; set; }
+        public List<DiagramMapping> PropertiesToSync { get; set; } = new List<DiagramMapping>();
 
         /// <summary>
         /// Dictionary of gameObjectPropertyName and StatesAssociation.
@@ -40,7 +40,7 @@ namespace MachinationsUP.Integration.Inventory
         /// What Events are emitted by the <see cref="MachinationsUP.Integration.GameObject.MachinationsGameObject"/> owning this Manifest.
         /// </summary>
         public List<string> EventsToEmit { get; set; }
-
+        
         /// <summary>
         /// Creates a Dictionary of DiagramMapping and ElementBase.
         /// The dictionary represents all MachinationsElements that are required to satisfy

@@ -67,6 +67,7 @@
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\JSONObject\Editor\JSONChecker.cs" />
      <Compile Include="Assets\Editor\ImageEffects\EdgeDetectionEditor.cs" />
      <Compile Include="Assets\Editor\ImageEffects\ColorCorrectionCurvesEditor.cs" />
+     <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\Editor\MachiCP.cs" />
  <Reference Include="UnityEditor.TestRunner">
  <HintPath>D:/Codez/Machinations/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
  </Reference>

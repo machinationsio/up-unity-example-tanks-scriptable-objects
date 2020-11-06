@@ -58,6 +58,7 @@
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\HttpListener.cs" />
      <Compile Include="Assets\ScriptableObject\Audio\RangedFloat.cs" />
      <Compile Include="Assets\Scripts\Tank\TankHealth.cs" />
+     <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\EditorExtensions\MGLDrawer.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\Integration\Elements\FormulaElement.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\JSONObject\VectorTemplates.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\HttpBase.cs" />
@@ -218,6 +219,7 @@
      <None Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\JSONObject\readme.txt" />
      <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.ComponentModel.DataAnnotations.xml" />
      <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Data.Linq.xml" />
+     <None Include="Assets\socket-errorlog-2020-11-06.txt" />
      <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\mscorlib.xml" />
      <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.AddIn.Contract.xml" />
      <None Include="Assets\Ludiq\Ludiq.Peek\LICENSES.txt" />

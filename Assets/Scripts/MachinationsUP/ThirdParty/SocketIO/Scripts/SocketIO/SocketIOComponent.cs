@@ -142,7 +142,7 @@ namespace SocketIO
             packetId = 0;
 
             ws = new WebSocket(url + (string.IsNullOrEmpty(_userKey) ? "" : "&token=" + _userKey));
-            
+
             //Enable Error Logging.
             ws.Log.File = Path.Combine(Application.dataPath, "socket-errorlog-" + DateTime.Now.ToString("yyyy-MM-dd") + ".txt");
             ws.Log.Level = LogLevel.Debug;
@@ -176,7 +176,7 @@ namespace SocketIO
             {
                 return;
             }
-            
+
             lock (eventQueueLock)
             {
                 while (eventQueue.Count > 0)
@@ -395,6 +395,7 @@ namespace SocketIO
                 Debug.Log("SocketIOComponent Error: Cannot Emit Message when not connected!");
                 return;
             }
+
             EmitPacket(new Packet(EnginePacketType.MESSAGE, SocketPacketType.EVENT, 0, "/", id, new JSONObject(raw)));
         }
 

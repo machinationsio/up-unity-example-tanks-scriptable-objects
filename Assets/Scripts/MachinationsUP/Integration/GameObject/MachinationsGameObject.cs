@@ -26,10 +26,7 @@ namespace MachinationsUP.Integration.GameObject
         /// When querrying the Machinations diagram, this name is used as the root of all Properties.
         /// <see cref="MachinationsUP.Integration.Binder.ElementBinder"/>
         /// </summary>
-        public string GameObjectName
-        {
-            get { return _gameObjectName; }
-        }
+        public string GameObjectName => _gameObjectName;
 
         readonly protected MachinationsGameObjectManifest _manifest;
 
@@ -50,9 +47,6 @@ namespace MachinationsUP.Integration.GameObject
         /// MachinationsElementBase.
         /// </summary>
         readonly protected Dictionary<string, ElementBinder> _binders = new Dictionary<string, ElementBinder>();
-
-        public Dictionary<EventsAssociation, UpdateRules> commonEventMapping;
-        public Dictionary<StatesAssociation, OverwriteRules> commonOverwriteMapping;
 
         /// <summary>
         /// Default constructor.

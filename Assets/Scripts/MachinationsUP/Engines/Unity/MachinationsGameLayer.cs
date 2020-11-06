@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Sockets;
-using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Xml;
 using MachinationsUP.GameEngineAPI.Game;
@@ -30,13 +28,13 @@ namespace MachinationsUP.Engines.Unity
 
         private const int RECONNECTION_ATTEMPTS = 3;
         private static int _reconnectionAttempts = 0;
-        
+
         #endregion
-        
+
         #region Variables
 
         #region Editor-Defined
-
+        
         /// <summary>
         /// The User Key under which to make all API calls. This can be retrieved from
         /// the Machinations product.
@@ -252,7 +250,7 @@ namespace MachinationsUP.Engines.Unity
             {
                 //If the MGL is added to the Scene as a prefab (as it should), then this function
                 //will likely execute before Instance is ever accessed. Making sure that the instance is set.
-                Debug.Log("MGL created by Unity Engine. Hash is " + GetHashCode() + " and User Key is " + userKey);
+                Debug.Log("MGL.Awake. Has is " + GetHashCode() + " and User Key is " + userKey);
                 _instance = this;
                 //The MGL must live on.
                 DontDestroyOnLoad(_instance);
@@ -286,7 +284,7 @@ namespace MachinationsUP.Engines.Unity
                 StartCoroutine(ConnectToMachinations(3));
             }
         }
-        
+
         #endregion
 
         #region Internal Functionality
@@ -332,7 +330,7 @@ namespace MachinationsUP.Engines.Unity
 
             //Notify Game Engine of Machinations Init Complete.
             Instance._gameLifecycleProvider?.MachinationsInitComplete();
-            
+
             yield return 1;
         }
 
@@ -351,8 +349,8 @@ namespace MachinationsUP.Engines.Unity
             SocketIOComponent.MaxRetryCountForConnect = 1;
             _socket = go.GetComponent<SocketIOComponent>();
             //Socket must be kept throughout the game.
-            //DontDestroyOnLoad(go);
-            //DontDestroyOnLoad(_socket);
+            DontDestroyOnLoad(go);
+            DontDestroyOnLoad(_socket);
             //Setup socket.
             _socket.SetUserKey(userKey);
             _socket.Init();
@@ -365,7 +363,7 @@ namespace MachinationsUP.Engines.Unity
             _socket.On(SyncMsgs.RECEIVE_ERROR, OnSocketError);
             _socket.On(SyncMsgs.RECEIVE_API_ERROR, OnSocketError);
             _socket.On(SyncMsgs.RECEIVE_CLOSE, OnSocketClose);
-            
+
             _socket.On(SyncMsgs.RECEIVE_GAME_UPDATE_DIAGRAM_ELEMENTS, OnGameUpdateDiagramElementsRequest);
             _socket.Connect();
             return true;
@@ -451,6 +449,14 @@ namespace MachinationsUP.Engines.Unity
             {
                 //Only add new targets.
                 if (_sourceElements.ContainsKey(diagramMapping)) continue;
+
+                //Need to ask for other elements.
+                if (IsInitialized)
+                {
+                    NewElementsAdded = true;
+                    Debug.Log("Should ask more init");
+                }
+
                 _sourceElements.Add(diagramMapping, targets[diagramMapping]);
             }
         }
@@ -861,7 +867,7 @@ namespace MachinationsUP.Engines.Unity
         {
             //Update Request components will be stored as top level items in this Dictionary.
             var updateRequest = new Dictionary<string, JSONObject>();
-            
+
             //The item will be a Dictionary comprising of "id" and "props". The "props" will contain the properties to update.
             var item = new Dictionary<string, JSONObject>();
             item.Add("id", new JSONObject(sourceElement.ParentElementBinder.DiagMapping.DiagramElementID));
@@ -870,10 +876,10 @@ namespace MachinationsUP.Engines.Unity
             item.Add("parameter", JSONObject.CreateStringObject("number"));
             item.Add("previous", new JSONObject(previousValue));
             item.Add("value", new JSONObject(sourceElement.CurrentValue));
-          
+
             JSONObject[] keys = new JSONObject [1];
             keys[0] = new JSONObject(item);
-            
+
             //Finalize request by adding all top level items.
             updateRequest.Add(SyncMsgs.JK_AUTH_DIAGRAM_TOKEN, JSONObject.CreateStringObject(diagramToken));
             //Wrapping the keys Array inside a JSON Object.
@@ -929,7 +935,7 @@ namespace MachinationsUP.Engines.Unity
                 if (payloadKey == SyncMsgs.JK_DIAGRAM_ELEMENTS_LIST)
                     UpdateWithValuesFromMachinations(e.data[SyncMsgs.JK_DIAGRAM_ELEMENTS_LIST].list, true);
         }
-        
+
         private void OnGameUpdateDiagramElementsRequest (SocketIOEvent e)
         {
             Debug.Log("Game Update Diagram Elements Response: " + e.data);
@@ -968,7 +974,7 @@ namespace MachinationsUP.Engines.Unity
                 Debug.Log("[SocketIO] !!!! But was Connecting, so this is normal.");
                 return;
             }
-            
+
             SocketClosed = true;
             _connectionAborted = true;
         }
@@ -1097,12 +1103,12 @@ namespace MachinationsUP.Engines.Unity
         /// TRUE when the Socket is open.
         /// </summary>
         static private bool SocketOpenStartReceived { set; get; }
-        
+
         /// <summary>
         /// TRUE when the Socket has been closed.
         /// </summary>
-        static public bool SocketClosed { set; get; }
-        
+        static private bool SocketClosed { set; get; }
+
         /// <summary>
         /// TRUE when the Socket is connecting.
         /// </summary>
@@ -1113,9 +1119,9 @@ namespace MachinationsUP.Engines.Unity
         /// <summary>
         /// TRUE when all Init-related tasks have been completed.
         /// </summary>
-        static public bool IsInitialized
+        static private bool IsInitialized
         {
-            private set
+            set
             {
                 isInitialized = value;
                 if (value)
@@ -1149,7 +1155,12 @@ namespace MachinationsUP.Engines.Unity
         /// <summary>
         /// TRUE: a re-initialization request is ongoing.
         /// </summary>
-        static public bool ReInitOngoing { get; set; }
+        static private bool ReInitOngoing { get; set; }
+
+        /// <summary>
+        /// TRUE: new elements have been added.
+        /// </summary>
+        static private bool NewElementsAdded { get; set; }
 
         /// <summary>
         /// Returns the current Game State, if any <see cref="IGameLifecycleProvider"/> is avaialble.
