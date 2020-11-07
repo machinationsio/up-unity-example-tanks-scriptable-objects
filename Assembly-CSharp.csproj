@@ -82,6 +82,7 @@
      <Compile Include="Assets\ScriptableObject\ItemStats\TankStats.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\Integration\Elements\Formula\Members\DiceMember.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\GameEngineAPI\Game\GameStates.cs" />
+     <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\Scripts\SocketIO\SocketIOGlobal.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\IMachinationsScriptableObject.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\ByteOrder.cs" />
      <Compile Include="Assets\ScriptableObject\Brains\RandomWalkingTank.cs" />
@@ -91,10 +92,12 @@
      <Compile Include="Assets\ScriptableObject\GameSession\GameOverController.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\SyncAPI\OverwriteRules.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\WebSocketException.cs" />
+     <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\IMachiSceneLayer.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Server\WebSocketServiceManager.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\AssemblyInfo.cs" />
      <Compile Include="Assets\ScriptableObject\GameSession\MainMenuController.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\HttpVersion.cs" />
+     <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\MachiGlobalLayer.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Server\WebSocketBehavior.cs" />
      <Compile Include="Assets\Scripts\Tank\TankThinker.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\WebSocket.cs" />
@@ -203,6 +206,8 @@
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\ClientSslConfiguration.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\SyncAPI\UpdateRules.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\ChunkStream.cs" />
+     <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\GameComms\IMachinationsService.cs" />
+     <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\GameComms\MachinationsService.cs" />
      <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.xml" />
      <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.DirectoryServices.xml" />
      <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Web.Entity.xml" />
@@ -214,6 +219,7 @@
      <None Include="Assets\Fonts\Bowlby_One\OFL.txt" />
      <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Messaging.xml" />
      <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Management.Instrumentation.xml" />
+     <None Include="Assets\socket-errorlog-global2020-11-07.txt" />
      <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.ServiceModel.Web.xml" />
      <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Web.DynamicData.Design.xml" />
      <None Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\JSONObject\readme.txt" />
@@ -221,6 +227,7 @@
      <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Data.Linq.xml" />
      <None Include="Assets\socket-errorlog-2020-11-06.txt" />
      <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\mscorlib.xml" />
+     <None Include="Assets\socket-errorlog-2020-11-07.txt" />
      <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.AddIn.Contract.xml" />
      <None Include="Assets\Ludiq\Ludiq.Peek\LICENSES.txt" />
      <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Security.xml" />

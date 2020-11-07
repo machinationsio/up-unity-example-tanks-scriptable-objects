@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml;
+using MachinationsUP.Engines.Unity.GameComms;
 using MachinationsUP.GameEngineAPI.Game;
 using MachinationsUP.GameEngineAPI.GameObject;
 using MachinationsUP.GameEngineAPI.States;
@@ -21,7 +22,7 @@ namespace MachinationsUP.Engines.Unity
     /// <summary>
     /// The Machinations Game Layer is a Singleton that handles communication with the Machinations back-end.
     /// </summary>
-    public class MachinationsGameLayer : MonoBehaviour, IGameLifecycleSubscriber, IGameObjectLifecycleSubscriber
+    public class MachinationsGameLayer : MonoBehaviour, IMachiSceneLayer, IGameLifecycleSubscriber, IGameObjectLifecycleSubscriber
     {
 
         #region Configuration Constants/Fields
@@ -34,7 +35,7 @@ namespace MachinationsUP.Engines.Unity
         #region Variables
 
         #region Editor-Defined
-        
+
         /// <summary>
         /// The User Key under which to make all API calls. This can be retrieved from
         /// the Machinations product.
@@ -107,6 +108,17 @@ namespace MachinationsUP.Engines.Unity
         /// See <see cref="MachinationsUP.Integration.Inventory.MCache"/>.
         /// </summary>
         static private MCache _cache = new MCache();
+
+        #region IMachiSceneLayer
+
+        public string SceneName => "MainGame";
+
+        public IMachinationsService MachinationsService { get; set; }
+        public List<MachinationsGameObject> GameObjects => _gameObjects;
+        public List<MachinationsGameAwareObject> GameAwareObjects => _gameAwareObjects;
+        public Dictionary<IMachinationsScriptableObject, EnrolledScriptableObject> ScriptableObjects => _scriptableObjects;
+
+        #endregion
 
         /// <summary>
         /// List with of all registered MachinationsGameObject.
@@ -250,10 +262,11 @@ namespace MachinationsUP.Engines.Unity
             {
                 //If the MGL is added to the Scene as a prefab (as it should), then this function
                 //will likely execute before Instance is ever accessed. Making sure that the instance is set.
-                Debug.Log("MGL.Awake. Has is " + GetHashCode() + " and User Key is " + userKey);
+                Debug.Log("MGL instance assignment. Hash is " + GetHashCode() + " and User Key is " + userKey);
                 _instance = this;
-                //The MGL must live on.
-                DontDestroyOnLoad(_instance);
+                //Register this Scene Layer.
+                MachiGlobalLayer.AddScene(_instance);
+                _instance.MachinationsService.ScheduleSync(_instance);
             }
 
             Debug.Log("MGL Awake.");
@@ -340,6 +353,7 @@ namespace MachinationsUP.Engines.Unity
         private bool InitSocket ()
         {
             IsConnecting = true;
+
             //Initialize socket.
             GameObject go = GameObject.Find("SocketIO");
             //No Socket found.
@@ -1023,6 +1037,10 @@ namespace MachinationsUP.Engines.Unity
             //notifying this object that it can retrieve whatever information it needs from MGL.
             if (IsInitialized || IsInOfflineMode)
                 machinationsGameObject.MGLReady();
+
+            //Schedule a sync for every new addition.
+            if (_instance != null)
+                _instance.MachinationsService.ScheduleSync(_instance);
         }
 
         /// <summary>

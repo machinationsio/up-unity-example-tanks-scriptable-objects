@@ -1,4 +1,9 @@
-﻿#region License
+﻿//THIS FILE IS OBSOLETE FOR THE MACHINATIONS UNITY PLUGIN.
+//We don't rely on MonoBehavior.
+//PLEASE SEE SocketIOGlobal.cs. It is a duplicate of this one with some small changes.
+//If you want to switch back to MonoBehavior for whatever reason, you can merge any changes back in here.
+
+#region License
 
 /*
  * SocketIO.cs
@@ -145,7 +150,7 @@ namespace SocketIO
 
             //Enable Error Logging.
             ws.Log.File = Path.Combine(Application.dataPath, "socket-errorlog-" + DateTime.Now.ToString("yyyy-MM-dd") + ".txt");
-            ws.Log.Level = LogLevel.Debug;
+            ws.Log.Level = LogLevel.Trace;
 
             if (pathToX509Certificate != "")
             {

@@ -1,0 +1,144 @@
+11/7/2020 5:25:06 PM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/7/2020 5:25:06 PM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/7/2020 5:25:06 PM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                             sent: False
+                             received: False
+11/7/2020 5:25:06 PM|Trace|WebSocket.close:1134|End closing the connection.
+11/7/2020 5:25:27 PM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/7/2020 5:25:27 PM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/7/2020 5:25:27 PM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                             sent: False
+                             received: False
+11/7/2020 5:25:27 PM|Trace|WebSocket.close:1134|End closing the connection.
+11/7/2020 5:29:38 PM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/7/2020 5:29:38 PM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/7/2020 5:29:38 PM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                             sent: False
+                             received: False
+11/7/2020 5:29:38 PM|Trace|WebSocket.close:1134|End closing the connection.
+11/7/2020 7:13:29 PM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/7/2020 7:13:29 PM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/7/2020 7:13:29 PM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                             sent: False
+                             received: False
+11/7/2020 7:13:29 PM|Trace|WebSocket.close:1134|End closing the connection.
+11/7/2020 7:24:04 PM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/7/2020 7:24:04 PM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/7/2020 7:24:04 PM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                             sent: False
+                             received: False
+11/7/2020 7:24:04 PM|Trace|WebSocket.close:1134|End closing the connection.
+11/7/2020 7:24:37 PM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/7/2020 7:24:37 PM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/7/2020 7:24:37 PM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                             sent: False
+                             received: False
+11/7/2020 7:24:37 PM|Trace|WebSocket.close:1134|End closing the connection.
+11/7/2020 7:24:58 PM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/7/2020 7:27:08 PM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/7/2020 7:27:08 PM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                             sent: False
+                             received: False
+11/7/2020 7:27:08 PM|Trace|WebSocket.close:1134|End closing the connection.
+11/7/2020 8:53:47 PM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/7/2020 8:53:47 PM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/7/2020 8:53:47 PM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                             sent: False
+                             received: False
+11/7/2020 8:53:47 PM|Trace|WebSocket.close:1134|End closing the connection.
+11/7/2020 8:57:33 PM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/7/2020 8:57:33 PM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/7/2020 8:57:33 PM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                             sent: False
+                             received: False
+11/7/2020 8:57:33 PM|Trace|WebSocket.close:1134|End closing the connection.
+11/7/2020 9:00:13 PM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/7/2020 9:00:13 PM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/7/2020 9:00:14 PM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                             sent: False
+                             received: False
+11/7/2020 9:00:14 PM|Trace|WebSocket.close:1134|End closing the connection.
+11/7/2020 9:01:38 PM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/7/2020 9:01:38 PM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/7/2020 9:01:38 PM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                             sent: False
+                             received: False
+11/7/2020 9:01:38 PM|Trace|WebSocket.close:1134|End closing the connection.
+11/7/2020 9:03:29 PM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/7/2020 9:03:29 PM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/7/2020 9:03:29 PM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                             sent: False
+                             received: False
+11/7/2020 9:03:29 PM|Trace|WebSocket.close:1134|End closing the connection.
+11/7/2020 9:04:33 PM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/7/2020 9:04:33 PM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/7/2020 9:04:33 PM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                             sent: False
+                             received: False
+11/7/2020 9:04:33 PM|Trace|WebSocket.close:1134|End closing the connection.
+11/7/2020 9:04:44 PM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/7/2020 9:04:44 PM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/7/2020 9:04:44 PM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                             sent: False
+                             received: False
+11/7/2020 9:04:44 PM|Trace|WebSocket.close:1134|End closing the connection.
+11/7/2020 9:05:08 PM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/7/2020 9:05:08 PM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/7/2020 9:05:08 PM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                             sent: False
+                             received: False
+11/7/2020 9:05:08 PM|Trace|WebSocket.close:1134|End closing the connection.
+11/7/2020 9:05:17 PM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/7/2020 9:05:17 PM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/7/2020 9:05:17 PM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                             sent: False
+                             received: False
+11/7/2020 9:05:17 PM|Trace|WebSocket.close:1134|End closing the connection.
+11/7/2020 9:36:27 PM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/7/2020 9:36:27 PM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/7/2020 9:36:27 PM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                             sent: False
+                             received: False
+11/7/2020 9:36:27 PM|Trace|WebSocket.close:1134|End closing the connection.
+11/7/2020 9:41:29 PM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/7/2020 9:41:29 PM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/7/2020 9:41:29 PM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                             sent: False
+                             received: False
+11/7/2020 9:41:29 PM|Trace|WebSocket.close:1134|End closing the connection.
+11/7/2020 9:41:46 PM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/7/2020 9:41:46 PM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/7/2020 9:41:46 PM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                             sent: False
+                             received: False
+11/7/2020 9:41:46 PM|Trace|WebSocket.close:1134|End closing the connection.
+11/7/2020 9:42:37 PM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/7/2020 9:42:37 PM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/7/2020 9:42:37 PM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                             sent: False
+                             received: False
+11/7/2020 9:42:37 PM|Trace|WebSocket.close:1134|End closing the connection.
+11/7/2020 9:46:38 PM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/7/2020 9:46:38 PM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/7/2020 9:46:38 PM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                             sent: False
+                             received: False
+11/7/2020 9:46:38 PM|Trace|WebSocket.close:1134|End closing the connection.
+11/7/2020 9:46:46 PM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/7/2020 9:46:46 PM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/7/2020 9:46:46 PM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                             sent: False
+                             received: False
+11/7/2020 9:46:46 PM|Trace|WebSocket.close:1134|End closing the connection.
+11/7/2020 9:47:18 PM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/7/2020 9:47:18 PM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/7/2020 9:47:18 PM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                             sent: False
+                             received: False
+11/7/2020 9:47:18 PM|Trace|WebSocket.close:1134|End closing the connection.
+11/7/2020 9:47:39 PM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/7/2020 9:47:39 PM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/7/2020 9:47:39 PM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                             sent: False
+                             received: False
+11/7/2020 9:47:39 PM|Trace|WebSocket.close:1134|End closing the connection.
