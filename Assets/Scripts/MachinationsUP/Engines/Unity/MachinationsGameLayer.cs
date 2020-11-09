@@ -24,7 +24,7 @@ namespace MachinationsUP.Engines.Unity
     /// <summary>
     /// The Machinations Game Layer is a Singleton that handles communication with the Machinations back-end.
     /// </summary>
-    public class MachinationsGameLayer : MonoBehaviour, IMachiSceneLayer, IGameLifecycleSubscriber, IGameObjectLifecycleSubscriber
+    public class MachinationsGameLayer : MonoBehaviour, IMachiDiagram, IGameLifecycleSubscriber, IGameObjectLifecycleSubscriber
     {
         
         #region Editor-Defined
@@ -70,7 +70,7 @@ namespace MachinationsUP.Engines.Unity
         /// <summary>
         /// This Dictionary contains ALL Machinations Diagram Elements that can possibly be retrieved
         /// during the lifetime of the game. This is generated based on ALL the
-        /// <see cref="MachinationsUP.Integration.Inventory.MachinationsGameObjectManifest"/> declared in the game.
+        /// <see cref="MachiObjectManifest"/> declared in the game.
         ///
         /// New MachinationElements are created from the ones in this Dictionary.
         ///
@@ -109,7 +109,7 @@ namespace MachinationsUP.Engines.Unity
 
         #region Implementation of IMachiSceneLayer
 
-        public string SceneName => "MainGame";
+        public string DiagramName => "MainGame";
 
         public IMachinationsService MachinationsService { get; set; }
         public List<MachinationsGameObject> GameObjects => _gameObjects;
@@ -140,6 +140,26 @@ namespace MachinationsUP.Engines.Unity
         /// <param name="updateFromDiagram">TRUE: update existing elements. If FALSE, will throw Exceptions on collisions.</param>
         public void UpdateWithValuesFromMachinations (List<JSONObject> elementsFromBackEnd, bool updateFromDiagram = false)
         {
+            
+            //Where should scriptable objects register?
+            //Should this be bound to a certain Diagram? 
+            //SOs should be allowed to get values from anywhere.
+            
+            //What about game objects?
+            
+            //They enroll and their manifests are added to Source Elements.
+            //Really, currently there is no need to keep track of game objects or scriptable objects.
+            //What the diagram layer cares is SOURCES. 
+            
+            //It also works with creating elements / binders. But this is a service-concern.
+            
+            //A request for more elements can come from/for multiple diagrams. The requests should not care about this.
+            //They simply work with all the source elements being registered.
+            
+            //An object can add multiple Manifests. A Manifest is per diagram. So an object can belong to multiple diagrams.
+            //So who really cares about having the diagram even represented in the game?
+            //We come back to MGL actually being a MGL :).  A static location for all of a game's data.
+            
             Debug.Log("MGL.UpdateWithValuesFromMachinations");
             //The response is an Array of key-value pairs PER Machination Diagram ID.
             //Each of these maps to a certain member of _sourceElements.
@@ -162,9 +182,7 @@ namespace MachinationsUP.Engines.Unity
 
                 //Element already exists but not in Update mode?
                 if (_sourceElements[diagramMapping] != null && !updateFromDiagram)
-                {
-                    continue;
-                    //Bark if a re-init wasn't what caused this duplication.
+                {   //Bark if a re-init wasn't what caused this duplication.
                     if (!ReInitOngoing)
                         throw new Exception(
                             "MGL.UpdateWithValuesFromMachinations: A Source Element already exists for this DiagramMapping: " +
@@ -429,18 +447,18 @@ namespace MachinationsUP.Engines.Unity
 
         /// <summary>
         /// Creates <see cref="ElementBinder"/> for each Game Object Property provided in the <see cref="EnrolledScriptableObject"/>'s
-        /// <see cref="MachinationsGameObjectManifest"/>.
+        /// <see cref="MachiObjectManifest"/>.
         /// </summary>
         /// <returns>Dictionary of Game Object Property Name and ElementBinder.</returns>
         static private Dictionary<string, ElementBinder> CreateBindersForScriptableObject (EnrolledScriptableObject eso)
         {
             var ret = new Dictionary<string, ElementBinder>();
-            MachinationsGameObjectManifest manifest = eso.Manifest;
-            foreach (DiagramMapping dm in manifest.PropertiesToSync)
+            MachiObjectManifest manifest = eso.Manifest;
+            foreach (DiagramMapping dm in manifest.DiagramMappings)
             {
                 ElementBinder eb = new ElementBinder(eso, dm); //The Binder will NOT have any Parent Game Object.
                 //Ask the Binder to create Elements for all possible States Associations.
-                var statesAssociations = manifest.GetStatesAssociationsForPropertyName(dm.GameObjectPropertyName);
+                var statesAssociations = manifest.GetStatesAssociationsForPropertyName(dm.PropertyName);
                 //If no States Associations were defined.
                 if (statesAssociations.Count == 0)
                     eb.CreateElementBaseForStateAssoc();
@@ -450,7 +468,7 @@ namespace MachinationsUP.Engines.Unity
                 //Save the Binder for later use.
                 dm.Binder = eb;
                 //Store the new Binder in the Dictionary to return.
-                ret[dm.GameObjectPropertyName] = eb;
+                ret[dm.PropertyName] = eb;
             }
 
             return ret;
@@ -464,7 +482,7 @@ namespace MachinationsUP.Engines.Unity
         /// <returns></returns>
         virtual protected string GetMachinationsUniqueID (ElementBinder binder, StatesAssociation statesAssociation)
         {
-            return (binder.ParentGameObject != null ? binder.ParentGameObject.GameObjectName : "!NoParent!") + "." +
+            return (binder.ParentGameObject != null ? binder.ParentGameObject.Name : "!NoParent!") + "." +
                    binder.GameObjectPropertyName + "." +
                    (statesAssociation != null ? statesAssociation.Title : "N/A");
         }
@@ -537,7 +555,7 @@ namespace MachinationsUP.Engines.Unity
                 //Find matching Binder by checking Game Object Property names.
                 //Reminder: _scriptableObjects[imso] is a Dictionary of that Machinations Scriptable Object's Game Property Names.
                 foreach (string gameObjectPropertyName in _scriptableObjects[imso].Binders.Keys)
-                    if (gameObjectPropertyName == diagramMapping.GameObjectPropertyName)
+                    if (gameObjectPropertyName == diagramMapping.PropertyName)
                     {
                         //TODO: must update instead of create here.
                         _scriptableObjects[imso].Binders[gameObjectPropertyName]
@@ -549,7 +567,7 @@ namespace MachinationsUP.Engines.Unity
             //Notify all registered Machinations Game Objects, if they have 
             foreach (MachinationsGameObject mgo in _gameObjects)
                 //When we find a registered Game Object that matches this Diagram Mapping asking it to update its Binder.
-                if (mgo.GameObjectName == diagramMapping.GameObjectName)
+                if (mgo.Name == diagramMapping.Name)
                     mgo.UpdateBinder(diagramMapping, elementBase);
         }
 
@@ -662,11 +680,11 @@ namespace MachinationsUP.Engines.Unity
         #region Public Methods
 
         /// <summary>
-        /// Registers a <see cref="MachinationsGameObjectManifest"/> to make sure that during Initialization, the MGL
+        /// Registers a <see cref="MachiObjectManifest"/> to make sure that during Initialization, the MGL
         /// (aka <see cref="MachinationsGameLayer"/> retrieves all the Manifest's necessary data so that
         /// any Game Objects that use this Manifest can query the MGL for the needed values.
         /// </summary>
-        static public void DeclareManifest (MachinationsGameObjectManifest manifest)
+        static public void DeclareManifest (MachiObjectManifest manifest)
         {
             Debug.Log("MGL DeclareManifest: " + manifest);
             //Add all of this Manifest's targets to the list that we will have to Initialize & monitor.
@@ -678,9 +696,9 @@ namespace MachinationsUP.Engines.Unity
         /// This is used to make sure that all Game Objects are ready for use after MGL Initialization.
         /// </summary>
         /// <param name="imso">The IMachinationsScriptableObject to add.</param>
-        /// <param name="manifest">Its <see cref="MachinationsGameObjectManifest"/>.</param>
+        /// <param name="manifest">Its <see cref="MachiObjectManifest"/>.</param>
         static public void EnrollScriptableObject (IMachinationsScriptableObject imso,
-            MachinationsGameObjectManifest manifest)
+            MachiObjectManifest manifest)
         {
             Debug.Log("MGL EnrollScriptableObject: " + manifest);
             DeclareManifest(manifest);

@@ -19,21 +19,21 @@ namespace MachinationsUP.Integration.GameObject
     public class MachinationsGameObject
     {
 
-        readonly protected string _gameObjectName;
+        readonly protected string _name;
 
         /// <summary>
         /// The Game Object Name. A Game Object can hold multiple Game Object Properties.
         /// When querrying the Machinations diagram, this name is used as the root of all Properties.
         /// <see cref="MachinationsUP.Integration.Binder.ElementBinder"/>
         /// </summary>
-        public string GameObjectName => _gameObjectName;
+        public string Name => _name;
 
-        readonly protected MachinationsGameObjectManifest _manifest;
+        readonly protected MachiObjectManifest _manifest;
 
         /// <summary>
         /// Stores data required to initialize a Machination Game Object.
         /// </summary>
-        public MachinationsGameObjectManifest Manifest => _manifest;
+        public MachiObjectManifest Manifest => _manifest;
 
         /// <summary>
         /// Event triggered when MachinationsGameLayer initialization is completed.
@@ -56,11 +56,11 @@ namespace MachinationsUP.Integration.GameObject
         /// using <see cref="MachinationsGameLayer.EnrollGameObject"/>, this event WILL fire if the MachinationsGameLayer
         /// has been initialized. So, this is why it is allowed to send an EventHandler callback upon Construction.
         /// </param>
-        public MachinationsGameObject (MachinationsGameObjectManifest manifest, EventHandler onBindersUpdated = null)
+        public MachinationsGameObject (MachiObjectManifest manifest, EventHandler onBindersUpdated = null)
         {
-            _gameObjectName = manifest.GameObjectName;
+            _name = manifest.Name;
             _manifest = manifest;
-            foreach (DiagramMapping diagramMapping in _manifest.PropertiesToSync)
+            foreach (DiagramMapping diagramMapping in _manifest.DiagramMappings)
                 CreateBinder(diagramMapping);
             //Assign event, if any was provided. This has to be done before EnrollGameObject, because that function
             //may call MGLInitComplete, which may in turn call OnBindersUpdated.
@@ -82,7 +82,7 @@ namespace MachinationsUP.Integration.GameObject
         /// <returns>A new ElementBinder.</returns>
         private void CreateBinder (DiagramMapping diagramMapping)
         {
-            _binders.Add(diagramMapping.GameObjectPropertyName, new ElementBinder(this, diagramMapping));
+            _binders.Add(diagramMapping.PropertyName, new ElementBinder(this, diagramMapping));
         }
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace MachinationsUP.Integration.GameObject
         {
             //TODO: on update, shouldn't create new elements, but rather UPDATE the current element.
             //Ask the necessary Binder to go get its ElementBase.
-            _binders[diagramMapping.GameObjectPropertyName].CreateElementBaseForStateAssoc(null, true);
+            _binders[diagramMapping.PropertyName].CreateElementBaseForStateAssoc(null, true);
             //Notify any listeners of base.OnBindersUpdated.
             NotifyBindersUpdated();
         }
@@ -127,7 +127,7 @@ namespace MachinationsUP.Integration.GameObject
 
         virtual protected string DebugContext ()
         {
-            return "MachinationsGameObject '" + _gameObjectName + "'";
+            return "MachinationsGameObject '" + _name + "'";
         }
 
         override public string ToString ()

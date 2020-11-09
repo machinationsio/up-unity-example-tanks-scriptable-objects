@@ -8,22 +8,26 @@ namespace MachinationsUP.Engines.Unity
     static public class MachiGlobalLayer
     {
 
-        static readonly private List<IMachiSceneLayer> _machiScenes = new List<IMachiSceneLayer>();
+        static readonly private List<IMachiDiagram> _machiScenes = new List<IMachiDiagram>();
 
         static public IMachinationsService MachinationsService;
 
-        static public void AddScene (IMachiSceneLayer scene)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="scene"></param>
+        static public void AddScene (IMachiDiagram scene)
         {
             _machiScenes.Clear();
             if (!_machiScenes.Contains(scene))
             {
                 _machiScenes.Add(scene);
-                Debug.Log("Scene " + scene.SceneName + " gets MachinationsService with Hash: " + MachinationsService.GetHashCode());
+                Debug.Log("Scene " + scene.DiagramName + " gets MachinationsService with Hash: " + MachinationsService.GetHashCode());
                 scene.MachinationsService = MachinationsService;
             }
         }
 
-        static public List<IMachiSceneLayer> GetScenes ()
+        static public List<IMachiDiagram> GetScenes ()
         {
             return _machiScenes;
         }

@@ -27,7 +27,7 @@ namespace MachinationsUP.Integration.GameObject
         /// using <see cref="MachinationsGameLayer.EnrollGameObject"/>, this event WILL fire if the MachinationsGameLayer
         /// has been initialized. So, this is why it is allowed to send an EventHandler callback upon Construction.
         /// </param>
-        public MachinationsGameAwareObject (MachinationsGameObjectManifest manifest, EventHandler onBindersUpdated = null) :
+        public MachinationsGameAwareObject (MachiObjectManifest manifest, EventHandler onBindersUpdated = null) :
             base(manifest, onBindersUpdated)
         {
         }
@@ -73,7 +73,7 @@ namespace MachinationsUP.Integration.GameObject
         {
             //TODO: on update, shouldn't create new elements, but rather UPDATE the current element.
             //Ask the Binder to update exactly this desired StatesAssociation.
-            _binders[diagramMapping.GameObjectPropertyName].CreateElementBaseForStateAssoc(diagramMapping.StatesAssoc, true);
+            _binders[diagramMapping.PropertyName].CreateElementBaseForStateAssoc(diagramMapping.StatesAssoc, true);
             //Notify any listeners of base.OnBindersUpdated.
             NotifyBindersUpdated();
         }
@@ -152,7 +152,7 @@ namespace MachinationsUP.Integration.GameObject
 
         override protected string DebugContext ()
         {
-            return "MachinationsGameObject '" + _gameObjectName + "' @ currentGameState: " + CurrentGameState +
+            return "MachinationsGameObject '" + _name + "' @ currentGameState: " + CurrentGameState +
                    " and currentGameObjectState: " + CurrentGameObjectState + ".";
         }
 

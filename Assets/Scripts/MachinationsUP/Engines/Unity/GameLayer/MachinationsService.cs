@@ -9,18 +9,18 @@ namespace MachinationsUP.Engines.Unity.GameComms
     public class MachinationsBasicService : IMachinationsService
     {
 
-        private SocketIOClient _socket;
+        private SocketIOClient _socketClient;
 
-        public void UseSocket (SocketIOClient socket)
+        public void UseSocket (SocketIOClient socketClient)
         {
-            _socket = socket;
+            _socketClient = socketClient;
         }
         
-        public void ScheduleSync (IMachiSceneLayer sceneLayer)
+        public void ScheduleSync (IMachiDiagram diagram)
         {
             //TODO: review this.
-            Debug.Log("Sync requested by " + sceneLayer.SceneName + " for " + sceneLayer.ScriptableObjects.Count + " objects.");
-            _socket.EmitMachinationsInitRequest();
+            Debug.Log("Sync requested by " + diagram.DiagramName + " for " + diagram.ScriptableObjects.Count + " objects.");
+            _socketClient.EmitMachinationsInitRequest();
         }
         
         public JSONObject GetInitRequestData (string diagramToken)
@@ -74,20 +74,20 @@ namespace MachinationsUP.Engines.Unity.GameComms
 
         public void FailedToConnect ()
         {
-            foreach (IMachiSceneLayer machiScene in MachiGlobalLayer.GetScenes())
+            foreach (IMachiDiagram machiScene in MachiGlobalLayer.GetScenes())
                 machiScene.SyncFail();
         }
 
         public void InitComplete ()
         {
-            foreach (IMachiSceneLayer machiScene in MachiGlobalLayer.GetScenes())
+            foreach (IMachiDiagram machiScene in MachiGlobalLayer.GetScenes())
                 machiScene.SyncComplete();
         }
 
         public void UpdateWithValuesFromMachinations (List<JSONObject> elementsFromBackEnd, bool updateFromDiagram = false)
         {
             //TODO: optimize. Not all scenes may be interested.
-            foreach (IMachiSceneLayer machiScene in MachiGlobalLayer.GetScenes())
+            foreach (IMachiDiagram machiScene in MachiGlobalLayer.GetScenes())
                 machiScene.UpdateWithValuesFromMachinations(elementsFromBackEnd, updateFromDiagram);
         }
         

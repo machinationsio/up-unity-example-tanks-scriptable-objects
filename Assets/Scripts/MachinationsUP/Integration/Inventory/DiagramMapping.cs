@@ -8,28 +8,28 @@ using MachinationsUP.SyncAPI;
 namespace MachinationsUP.Integration.Inventory
 {
     /// <summary>
-    /// Summarizes information about how a Machinations Game Object Property is mapped to the Diagram.
-    /// Can be seen as the "coordinates" of a Game Object Property.
+    /// Summarizes information about how a Machinations Object Property is mapped to the Diagram.
+    /// Can be seen as the "coordinates" of a Machinations Object Property.
     /// See <see cref="MachinationsUP.Integration.Binder"/>
     /// </summary>
     [DataContract(Name = "MachinationsDiagramMapping", Namespace = "http://www.machinations.io")]
     public class DiagramMapping
     {
 
-        private string _gameObjectName;
+        private string _name;
 
         /// <summary>
-        /// The name of the Machinations Game Object that owns this property.
+        /// The name of the Machinations Game Object that has this property.
         /// See <see cref="MachinationsUP.Integration.GameObject.MachinationsGameObject"/>
         /// </summary>
         [DataMember()]
-        public string GameObjectName
+        public string Name
         {
-            get => _gameObjectName;
-            set => _gameObjectName = value;
+            get => _name;
+            set => _name = value;
         }
 
-        private string _gameObjectPropertyName;
+        private string _propertyName;
 
         /// <summary>
         /// The <see cref="ElementBinder"/> manifesting this Diagram Mapping in the game.
@@ -40,10 +40,10 @@ namespace MachinationsUP.Integration.Inventory
         /// The name of this Property.
         /// </summary>
         [DataMember()]
-        public string GameObjectPropertyName
+        public string PropertyName
         {
-            get => _gameObjectPropertyName;
-            set => _gameObjectPropertyName = value;
+            get => _propertyName;
+            set => _propertyName = value;
         }
 
         private StatesAssociation _statesAssociation;
@@ -95,14 +95,14 @@ namespace MachinationsUP.Integration.Inventory
         /// <summary>
         /// Verifies if this DiagramMapping matches the provided criteria.
         /// </summary>
-        /// <param name="gameObjectName">Game Object name to match.</param>
-        /// /// <param name="gameObjectPropertyName">Game Object Property name to match.</param>
+        /// <param name="name">Game Object name to match.</param>
+        /// /// <param name="propertyName">Game Object Property name to match.</param>
         /// <param name="statesAssociation">States Association to verify.</param>
         /// <param name="stringifyStatesAssociation">In the case of cached States Association, string values will be used for comparison.</param>
-        public bool Matches (string gameObjectName, string gameObjectPropertyName, StatesAssociation statesAssociation,
+        public bool Matches (string name, string propertyName, StatesAssociation statesAssociation,
             bool stringifyStatesAssociation)
         {
-            return GameObjectName == gameObjectName && GameObjectPropertyName == gameObjectPropertyName &&
+            return Name == name && PropertyName == propertyName &&
                    (
                        (stringifyStatesAssociation &&
                         (
@@ -124,8 +124,8 @@ namespace MachinationsUP.Integration.Inventory
         {
             return Matches(
                 elementBinder.ParentGameObject != null
-                    ? elementBinder.ParentGameObject.GameObjectName
-                    : elementBinder.ParentScriptableObject?.Manifest.GameObjectName
+                    ? elementBinder.ParentGameObject.Name
+                    : elementBinder.ParentScriptableObject?.Manifest.Name
                 , elementBinder.GameObjectPropertyName, statesAssociation,
                 stringifyStatesAssociation);
         }
@@ -137,13 +137,13 @@ namespace MachinationsUP.Integration.Inventory
         /// <param name="stringifyStatesAssociation">In the case of cached States Association, string values will be used for comparison.</param>
         public bool Matches (DiagramMapping diagramMapping, bool stringifyStatesAssociation)
         {
-            return Matches(diagramMapping.GameObjectName, diagramMapping.GameObjectPropertyName, diagramMapping.StatesAssoc,
+            return Matches(diagramMapping.Name, diagramMapping.PropertyName, diagramMapping.StatesAssoc,
                 stringifyStatesAssociation);
         }
 
         override public string ToString ()
         {
-            return "DiagramMapping for " + GameObjectName + "." + GameObjectPropertyName + "." +
+            return "DiagramMapping for " + Name + "." + PropertyName + "." +
                    (_statesAssociation != null ? _statesAssociation.Title : "N/A") +
                    " bound to DiagramID: " + DiagramElementID;
         }

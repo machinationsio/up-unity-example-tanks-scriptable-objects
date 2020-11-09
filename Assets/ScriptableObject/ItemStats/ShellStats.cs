@@ -29,38 +29,38 @@ public class ShellStats : ScriptableObject, IMachinationsScriptableObject
     private Dictionary<string, ElementBinder> _binders;
 
     //Manifest that defines what the SO uses from Machinations.
-    static readonly private MachinationsGameObjectManifest _manifest = new MachinationsGameObjectManifest
+    static readonly private MachiObjectManifest _manifest = new MachiObjectManifest
     {
-        GameObjectName = "Shell Stats",
-        PropertiesToSync = new List<DiagramMapping>
+        Name = "Shell Stats",
+        DiagramMappings = new List<DiagramMapping>
         {
             new DiagramMapping
             {
-                GameObjectPropertyName = M_DAMAGE,
+                PropertyName = M_DAMAGE,
                 DiagramElementID = 219,
                 DefaultElementBase = new ElementBase(10)
             },
             new DiagramMapping
             {
-                GameObjectPropertyName = M_RADIUS,
+                PropertyName = M_RADIUS,
                 DiagramElementID = 401,
                 DefaultElementBase = new ElementBase(25)
             },
             new DiagramMapping
             {
-                GameObjectPropertyName = M_FORCE,
+                PropertyName = M_FORCE,
                 DiagramElementID = 400,
                 DefaultElementBase = new ElementBase(90)
             },
             new DiagramMapping
             {
-                GameObjectPropertyName = M_SPEED,
+                PropertyName = M_SPEED,
                 DiagramElementID = 402,
                 DefaultElementBase = new ElementBase(90)
             },
             new DiagramMapping
             {
-                GameObjectPropertyName = M_COOLDOWN,
+                PropertyName = M_COOLDOWN,
                 DiagramElementID = 912,
                 DefaultElementBase = new ElementBase(0)
             }

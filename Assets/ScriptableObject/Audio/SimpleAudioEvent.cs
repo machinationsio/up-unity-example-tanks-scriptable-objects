@@ -34,21 +34,21 @@ public class SimpleAudioEvent : AudioEvent, IMachinationsScriptableObject
     private Dictionary<string, ElementBinder> _binders;
 
     //Manifest that defines what the SO uses from Machinations.
-    static readonly private MachinationsGameObjectManifest _manifest = new MachinationsGameObjectManifest
+    static readonly private MachiObjectManifest _manifest = new MachiObjectManifest
     {
-        GameObjectName =  "Sound Event",
-        PropertiesToSync = new List<DiagramMapping>
+        Name =  "Sound Event",
+        DiagramMappings = new List<DiagramMapping>
         {
             new DiagramMapping
             {
-                GameObjectPropertyName = M_MAX_SOUND_HIGH_HEALTH,
+                PropertyName = M_MAX_SOUND_HIGH_HEALTH,
                 DiagramElementID = 250,
                 DefaultElementBase = new ElementBase(4),
                 OverrideElementBase = new ElementBase(4)
             },
             new DiagramMapping
             {
-                GameObjectPropertyName = M_MAX_SOUND_LOW_HEALTH,
+                PropertyName = M_MAX_SOUND_LOW_HEALTH,
                 DiagramElementID = 251,
                 DefaultElementBase = new ElementBase(6),
                 OverrideElementBase = new ElementBase(6)

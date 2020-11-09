@@ -6,9 +6,9 @@ namespace MachinationsUP.Engines.Unity.GameComms
     public interface IMachinationsService
     {
 
-        void UseSocket (SocketIOClient socket);
+        void UseSocket (SocketIOClient socketClient);
         
-        void ScheduleSync (IMachiSceneLayer sceneLayer);
+        void ScheduleSync (IMachiDiagram diagram);
 
         JSONObject GetInitRequestData (string diagramToken);
 

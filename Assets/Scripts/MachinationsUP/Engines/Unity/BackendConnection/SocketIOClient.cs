@@ -1,20 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.Serialization;
 using System.Threading;
-using System.Xml;
 using MachinationsUP.Engines.Unity.GameComms;
-using MachinationsUP.GameEngineAPI.Game;
-using MachinationsUP.GameEngineAPI.GameObject;
-using MachinationsUP.GameEngineAPI.States;
 using MachinationsUP.SyncAPI;
-using MachinationsUP.Integration.Binder;
 using MachinationsUP.Integration.Elements;
 using MachinationsUP.Integration.GameObject;
-using MachinationsUP.Integration.Inventory;
 using SocketIO;
 using UnityEngine;
 
@@ -33,6 +23,11 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
         static private SocketIOGlobal _socket;
 
         private IMachinationsService _machinationsService;
+        
+        /// <summary>
+        /// Where to connect for the Machinations API.
+        /// </summary>
+        readonly private string _socketURL;
         
         /// <summary>
         /// The User Key under which to make all API calls. This can be retrieved from
@@ -61,8 +56,9 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
         /// </summary>
         static private bool _connectionAborted;
 
-        public SocketIOClient (IMachinationsService machinationsService, string userKey, string gameName, string diagramToken)
+        public SocketIOClient (IMachinationsService machinationsService, string socketURL, string userKey, string gameName, string diagramToken)
         {
+            _socketURL = socketURL;
             _userKey = userKey;
             _gameName = gameName;
             _diagramToken = diagramToken;
@@ -78,6 +74,7 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
             IsConnecting = true;
 
             _socket = new SocketIOGlobal();
+            _socket.url = _socketURL;
             SocketIOComponent.MaxRetryCountForConnect = 1;
             //Socket must be kept throughout the game.
             //Setup socket.
@@ -166,7 +163,7 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
         {
             var sync = new Dictionary<string, string>
             {
-                {SyncMsgs.JK_EVENT_GAME_OBJ_NAME, mgo.GameObjectName},
+                {SyncMsgs.JK_EVENT_GAME_OBJ_NAME, mgo.Name},
                 {SyncMsgs.JK_EVENT_GAME_EVENT, evnt}
             };
             Debug.Log("MGL.EmitGameEvent " + evnt);

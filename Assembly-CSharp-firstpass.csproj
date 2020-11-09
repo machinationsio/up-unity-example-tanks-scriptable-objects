@@ -370,9 +370,6 @@
  <Reference Include="UnityEditor">
  <HintPath>c:/Program Files/Unity/Hub/Editor/2020.1.6f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
  </Reference>
- <Reference Include="Ludiq.OdinSerializer">
- <HintPath>D:/Codez/Machinations/public-machinations/up-unity-example-tanks-scriptable-objects/Assets/Ludiq/Ludiq.PeekCore/Runtime/Dependencies/OdinSerializer/EditorOnly/Ludiq.OdinSerializer.dll</HintPath>
- </Reference>
  <Reference Include="mscorlib">
  <HintPath>c:/Program Files/Unity/Hub/Editor/2020.1.6f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
  </Reference>
@@ -718,36 +715,6 @@
  <Reference Include="System.Xml.XPath.XDocument">
  <HintPath>c:/Program Files/Unity/Hub/Editor/2020.1.6f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Xml.XPath.XDocument.dll</HintPath>
  </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Ludiq.PeekCore.Editor.csproj">
-      <Project>{aa15b8ba-f65d-729a-be5d-01e0cd30e528}</Project>
-      <Name>Ludiq.PeekCore.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Sisus.CreateScriptWizard.csproj">
-      <Project>{18d36a59-fb2c-6f63-04d7-e878301ac515}</Project>
-      <Name>Sisus.CreateScriptWizard</Name>
-    </ProjectReference>
-    <ProjectReference Include="Ludiq.Peek.Editor.csproj">
-      <Project>{dcae0c00-eef4-0193-85ba-26185ce2f06a}</Project>
-      <Name>Ludiq.Peek.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Ludiq.PeekCore.Runtime.csproj">
-      <Project>{05e2b811-171f-df46-8814-c32c7e8b5f46}</Project>
-      <Name>Ludiq.PeekCore.Runtime</Name>
-    </ProjectReference>
-    <ProjectReference Include="PowerInspector.csproj">
-      <Project>{48ff6f60-09a2-e98b-b1ae-6110be8ca741}</Project>
-      <Name>PowerInspector</Name>
-    </ProjectReference>
-    <ProjectReference Include="Sisus.FastReflection.csproj">
-      <Project>{745d0c91-4954-99ed-74bb-ecfe5ce0cfd2}</Project>
-      <Name>Sisus.FastReflection</Name>
-    </ProjectReference>
-    <ProjectReference Include="Sisus.Attributes.csproj">
-      <Project>{1f40cd38-474c-0517-871b-56435cb77f23}</Project>
-      <Name>Sisus.Attributes</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

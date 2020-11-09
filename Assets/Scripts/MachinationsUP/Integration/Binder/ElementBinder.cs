@@ -75,7 +75,7 @@ namespace MachinationsUP.Integration.Binder
         /// <summary>
         /// Returns the Game Object Property Name that this Binder is for.
         /// </summary>
-        public string GameObjectPropertyName => DiagMapping.GameObjectPropertyName;
+        public string GameObjectPropertyName => DiagMapping.PropertyName;
 
         /// <summary>
         /// <see cref="MachinationsUP.GameEngineAPI.States.StatesAssociation"/> to use for when there is no States Association selected.
@@ -246,7 +246,7 @@ namespace MachinationsUP.Integration.Binder
         /// <returns></returns>
         private string GetFullName ()
         {
-            return (ParentGameObject != null ? ParentGameObject.GameObjectName : "!NoParent!") + "." + DiagMapping.GameObjectPropertyName;
+            return (ParentGameObject != null ? ParentGameObject.Name : "!NoParent!") + "." + DiagMapping.PropertyName;
         }
 
         /// <summary>

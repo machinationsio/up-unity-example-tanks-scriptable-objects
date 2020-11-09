@@ -17,10 +17,10 @@ namespace MachinationsUP.Engines.Unity
         public IMachinationsScriptableObject MScriptableObject;
         
         /// <summary>
-        /// The <see cref="MachinationsGameObjectManifest"/> defining what
+        /// The <see cref="MachiObjectManifest"/> defining what
         /// the <see cref="IMachinationsScriptableObject"/> needs.
         /// </summary>
-        public MachinationsGameObjectManifest Manifest;
+        public MachiObjectManifest Manifest;
         
         /// <summary>
         /// The Binders used by the <see cref="IMachinationsScriptableObject"/>.

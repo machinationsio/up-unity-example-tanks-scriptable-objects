@@ -25,20 +25,20 @@ public class TankStats : ScriptableObject, IMachinationsScriptableObject
     private Dictionary<string, ElementBinder> _binders;
 
     //Manifest that defines what the SO uses from Machinations.
-    static readonly private MachinationsGameObjectManifest _manifest = new MachinationsGameObjectManifest
+    static readonly private MachiObjectManifest _manifest = new MachiObjectManifest
     {
-        GameObjectName = "Player Tank Stats",
-        PropertiesToSync = new List<DiagramMapping>
+        Name = "Player Tank Stats",
+        DiagramMappings = new List<DiagramMapping>
         {
             new DiagramMapping
             {
-                GameObjectPropertyName = M_HEALTH,
+                PropertyName = M_HEALTH,
                 DiagramElementID = 215,
                 DefaultElementBase = new ElementBase(105)
             },
             new DiagramMapping
             {
-                GameObjectPropertyName = M_SPEED,
+                PropertyName = M_SPEED,
                 DiagramElementID = 102,
                 DefaultElementBase = new ElementBase(25)
             }
