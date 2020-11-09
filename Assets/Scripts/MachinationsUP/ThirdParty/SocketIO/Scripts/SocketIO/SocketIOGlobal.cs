@@ -145,7 +145,7 @@ namespace SocketIO
             connected = false;
         }
 
-        public void UpdateCallback ()
+        public void ExecuteThread ()
         {
             //Socket may not be ready on Update.
             if (eventQueueLock == null)

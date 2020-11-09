@@ -20,7 +20,7 @@ namespace MachinationsUP.Engines.Unity.EditorExtensions
             if(GUILayout.Button("Emit Event"))
             {
                 MachinationsGameObject mgo = new MachinationsGameObject(new MachinationsGameObjectManifest {GameObjectName = "Some Game Object"}, null);
-                mgl.EmitGameEvent(mgo, "Some Event");
+                //mgl.EmitGameEvent(mgo, "Some Event");
             }
             
             //Application.isPlaying

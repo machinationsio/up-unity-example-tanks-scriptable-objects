@@ -101,15 +101,6 @@ namespace MachinationsUP.Integration.GameObject
             //Notify any listeners of base.OnBindersUpdated.
             NotifyBindersUpdated();
         }
-        
-        /// <summary>
-        /// Called by <see cref="MachinationsUP.Engines.Unity.MachinationsGameLayer"/> if it's ready for work.
-        /// Usually called just after a MachinationsGameObject Enrolls, if the MGL is initialized.
-        /// </summary>
-        public void MGLReady ()
-        {
-            MGLInitComplete();
-        }
 
         /// <summary>
         /// Asks this Game-Aware Object to update one of its <see cref="MachinationsUP.Integration.Binder.ElementBinder"/> usually because

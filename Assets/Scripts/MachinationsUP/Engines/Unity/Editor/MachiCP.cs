@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Timers;
+using MachinationsUP.Engines.Unity.BackendConnection;
 using MachinationsUP.Engines.Unity.GameComms;
 using MachinationsUP.SyncAPI;
 using SocketIO;
@@ -12,18 +13,28 @@ namespace MachinationsUP.Engines.Unity.Editor
     public class MachiCP : EditorWindow
     {
 
-        string myString = "Hello World";
-        bool groupEnabled;
-        bool myBool = true;
-        float myFloat = 1.23f;
+        private string userKey = "ABC";
+        private string gameName = "DEF";
+        private string diagramToken = "GHI";
 
-        static private Timer _gameQuery = new Timer(1000);
+        static private IMachinationsService _machinationsService;
+        private SocketIOClient _socketClient;
 
-        static private SocketIOGlobal _socket;
+        static private MachiCP _instance;
+        
+        public MachiCP ()
+        {
+            if (_instance != null)
+            {
+                throw new Exception("Multiple MachiCP not supported yet");
+            }
+            _instance = this;
+        }
 
         void OnEnable ()
         {
             EditorApplication.update += Update;
+            _machinationsService.UseSocket(_socketClient = new SocketIOClient(_machinationsService, userKey, gameName, diagramToken));
         }
 
         void OnDisable ()
@@ -34,82 +45,40 @@ namespace MachinationsUP.Engines.Unity.Editor
         [InitializeOnLoadMethod]
         static private void Konstruct ()
         {
-            EditorApplication.update += Update;
-            MachiGlobalLayer.MachinationsService = new MachinationsBasicService();
-            Debug.Log("MachiCP.Konstruct: Set MachinationsService to " + MachiGlobalLayer.MachinationsService.GetHashCode());
-            
-            _socket = new SocketIOGlobal();
-            _socket.CreateSocket();
-            _socket.On(SyncMsgs.RECEIVE_OPEN, OnSocketOpen);
-            _socket.On(SyncMsgs.RECEIVE_OPEN_START, OnSocketOpenStart);
-            _socket.On(SyncMsgs.RECEIVE_AUTH_SUCCESS, OnAuthSuccess);
-            _socket.On(SyncMsgs.RECEIVE_ERROR, OnSocketError);
-            _socket.On(SyncMsgs.RECEIVE_CLOSE, OnSocketClose);
-            _socket.Connect();
-
-            //_gameQuery.Start();
-            //_gameQuery.Elapsed += GameQueryOnElapsed;
+            EditorApplication.update += UpdateStatic;
+            _machinationsService = MachiGlobalLayer.MachinationsService = new MachinationsBasicService();
+            Debug.Log("MachiCP.Konstruct: Set MachinationsService with Hash: " + MachiGlobalLayer.MachinationsService.GetHashCode());
         }
 
         [MenuItem("Tools/Machinations/Show Window")]
         static public void ShowWindow ()
         {
             GetWindow(typeof(MachiCP), false, "Machinations.io");
-            _socket.Emit("game-event", JSONObject.CreateStringObject("caca"));
         }
-
+        
         void OnGUI ()
         {
-            GUILayout.Label("Base Settings", EditorStyles.boldLabel);
-            myString = EditorGUILayout.TextField("Text Field", myString);
-            EditorGUILayout.TextField("Text Field", "bye world 3");
-
-            groupEnabled = EditorGUILayout.BeginToggleGroup("Optional Settings", groupEnabled);
-            myBool = EditorGUILayout.Toggle("Toggle", myBool);
-            myFloat = EditorGUILayout.Slider("Slider", myFloat, -3, 3);
-            EditorGUILayout.EndToggleGroup();
+            GUILayout.Label("Machinations.io Connection Settings", EditorStyles.boldLabel);
+            userKey = EditorGUILayout.TextField("Text Field", userKey);
+            gameName = EditorGUILayout.TextField("Text Field", gameName);
+            diagramToken = EditorGUILayout.TextField("Text Field", diagramToken);
         }
 
-        static public void Update ()
+        public void Update ()
         {
-            _socket?.UpdateCallback();
+            _socketClient?.ExecuteThread();
             //            Debug.Log("update");
             //throw new NotImplementedException();
         }
 
-        static private void OnSocketOpen (SocketIOEvent e)
+        static private void UpdateStatic ()
         {
-            Debug.Log("[SocketIO @@@@@@@@@@@] Open received: " + e.name + " " + e.data);
-        }
-
-        static private void OnSocketOpenStart (SocketIOEvent e)
-        {
-            Debug.Log("[SocketIO @@@@@@@@@@@] Open Start received: " + e.name + " " + e.data);
-        }
-
-
-        /// <summary>
-        /// The Machinations Back-end has answered.
-        /// </summary>
-        /// <param name="e">Contains Init Data.</param>
-        static private void OnAuthSuccess (SocketIOEvent e)
-        {
-            Debug.Log("SocketIO @@@@@@@@@@@ Game Auth Request Result: " + e.data);
-        }
-
-        static private void OnSocketError (SocketIOEvent e)
-        {
-            Debug.Log("[SocketIO @@@@@@@@@@@] !!!! Error received: " + e.name + " DATA: " + e.data + " ");
-        }
-
-        static private void OnSocketClose (SocketIOEvent e)
-        {
-            Debug.Log("[SocketIO @@@@@@@@@@@] !!!! Close received: " + e.name + " DATA:" + e.data);
+            if (_instance) _instance.Update();
         }
 
         private void OnDestroy ()
         {
-            _socket?.PrepareClose();
+            _socketClient.PrepareClose();
         }
 
     }

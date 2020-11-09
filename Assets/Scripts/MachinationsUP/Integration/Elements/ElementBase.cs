@@ -135,7 +135,8 @@ namespace MachinationsUP.Integration.Elements
         {
             int previousValue = CurrentValue;
             ChangeValueTo(value);
-            MachinationsGameLayer.Instance.EmitGameUpdateDiagramElementsRequest(this, previousValue);
+            //TODO restore this to allow sync back to Machinations.
+            //MachinationsGameLayer.Instance.EmitGameUpdateDiagramElementsRequest(this, previousValue);
         }
 
         /// <summary>
