@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using MachinationsUP.Engines.Unity;
 
 [CreateAssetMenu]
 public class GameSettings : ScriptableObject

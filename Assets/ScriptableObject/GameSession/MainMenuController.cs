@@ -31,6 +31,8 @@ public class MainMenuController : MonoBehaviour
 			info.Refresh();
 
 		NumberOfRoundsSlider.value = GameSettings.Instance.NumberOfRounds;
+		
+		MachinationsDataLayer.Prepare();
 	}
 
 	public void Play()

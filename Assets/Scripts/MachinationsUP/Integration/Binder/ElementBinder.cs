@@ -141,7 +141,7 @@ namespace MachinationsUP.Integration.Binder
                     found = true;
                 }
 
-            if (!found && !MachinationsGameLayer.IsInOfflineMode)
+            if (!found && !MachinationsDataLayer.IsInOfflineMode)
                 throw new Exception("ElementBinder.SelectCurrentElement: Couldn't find ElementBase for " + DebugContext());
         }
 
@@ -185,9 +185,9 @@ namespace MachinationsUP.Integration.Binder
         /// </summary>
         /// <param name="statesAssociation">OPTIONAL. The <see cref="MachinationsUP.GameEngineAPI.States.StatesAssociation"/> for which the Holder is to be created.
         /// If this is not provided, the default value of NULL means that the Holder will use "N/A" as Title
-        /// in the <see cref="MachinationsUP.Engines.Unity.MachinationsGameLayer"/> Init Request.</param>
+        /// in the <see cref="MachinationsDataLayer"/> Init Request.</param>
         /// <param name="overwrite">TRUE: overwrite the value if it's already in the <see cref="_elements"/> Dictionary.</param>
-        /// <param name="isRunningOffline">TRUE: the <see cref="MachinationsUP.Engines.Unity.MachinationsGameLayer"/> is running in offline mode.</param>
+        /// <param name="isRunningOffline">TRUE: the <see cref="MachinationsDataLayer"/> is running in offline mode.</param>
         public void CreateElementBaseForStateAssoc (StatesAssociation statesAssociation = null, bool overwrite = false,
             bool isRunningOffline = false)
         {
@@ -195,7 +195,7 @@ namespace MachinationsUP.Integration.Binder
             //          GetFullName() + "' @ statesAssociation: " + (statesAssociation != null ? statesAssociation.Title : "N/A"));
 
             //The MachinationsGameLayer is responsible for creating ElementBase.
-            ElementBase newElement = MachinationsGameLayer.Instance.CreateElement(this, statesAssociation);
+            ElementBase newElement = MachinationsDataLayer.Instance.CreateElement(this, statesAssociation);
             if (newElement == null)
             {
                 //If no element was found & running offline, just letting it slide.

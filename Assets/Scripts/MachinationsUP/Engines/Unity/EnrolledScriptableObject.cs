@@ -6,7 +6,7 @@ namespace MachinationsUP.Engines.Unity
 {
     
     /// <summary>
-    /// Used by <see cref="MachinationsGameLayer"/> to keep track of enrolled Scriptable Objects.
+    /// Used by <see cref="MachinationsDataLayer"/> to keep track of enrolled Scriptable Objects.
     /// </summary>
     public class EnrolledScriptableObject
     {
@@ -24,7 +24,7 @@ namespace MachinationsUP.Engines.Unity
         
         /// <summary>
         /// The Binders used by the <see cref="IMachinationsScriptableObject"/>.
-        /// They can be set only AFTER <see cref="MachinationsGameLayer"/> initialization. 
+        /// They can be set only AFTER <see cref="MachinationsDataLayer"/> initialization. 
         /// </summary>
         public Dictionary<string, ElementBinder> Binders;
 

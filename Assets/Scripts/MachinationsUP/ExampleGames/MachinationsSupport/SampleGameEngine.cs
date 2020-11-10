@@ -18,12 +18,14 @@ namespace MachinationsUP.ExampleGames.MachinationsSupport
 
         public void MachinationsInitStart ()
         {
+            Debug.Log("--- PAUSING GAME ---");
             Time.timeScale = 0;
             AudioListener.pause = true;
         }
 
         public void MachinationsInitComplete ()
         {
+            Debug.Log("--- RESUMING GAME ---");
             Time.timeScale = 1;
             AudioListener.pause = true;
         }

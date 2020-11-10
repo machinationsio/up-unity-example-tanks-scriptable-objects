@@ -1,12 +1,6 @@
-﻿using System;
-using System.Timers;
-using MachinationsUP.Engines.Unity.BackendConnection;
-using MachinationsUP.Engines.Unity.GameComms;
-using MachinationsUP.SyncAPI;
-using SocketIO;
+﻿using MachinationsUP.Config;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace MachinationsUP.Engines.Unity.Editor
 {
@@ -17,40 +11,7 @@ namespace MachinationsUP.Engines.Unity.Editor
         private string _userKey = "4fc8b3a7-3909-43b6-96a0-0387cd85e896";
         private string _gameName = "Tanks";
         private string _diagramToken = "54dc6ccd-1f66-41d8-a8d5-0873e935a770";
-
-        static private IMachinationsService _machinationsService;
-        private SocketIOClient _socketClient;
-
-        static private MachiCP _instance;
         
-        public MachiCP ()
-        {
-            if (_instance != null)
-            {
-                throw new Exception("Multiple MachiCP not supported yet.");
-            }
-            _instance = this;
-        }
-
-        void OnEnable ()
-        {
-            EditorApplication.update += Update;
-            _machinationsService.UseSocket(_socketClient = new SocketIOClient(_machinationsService, _APIURL, _userKey, _gameName, _diagramToken));
-        }
-
-        void OnDisable ()
-        {
-            EditorApplication.update -= Update;
-        }
-
-        [InitializeOnLoadMethod]
-        static private void Konstruct ()
-        {
-            EditorApplication.update += UpdateStatic;
-            _machinationsService = MachiGlobalLayer.MachinationsService = new MachinationsBasicService();
-            Debug.Log("MachiCP.Konstruct: Set MachinationsService with Hash: " + MachiGlobalLayer.MachinationsService.GetHashCode());
-        }
-
         [MenuItem("Tools/Machinations/Open Machinations.io Control Panel")]
         static public void ShowWindow ()
         {
@@ -60,15 +21,15 @@ namespace MachinationsUP.Engines.Unity.Editor
         [MenuItem("Tools/Machinations/Pause Sync")]
         static public void PauseSync ()
         {
-            GetWindow(typeof(MachiCP), false, "Machinations.io");
+            MachinationsDataLayer.Service.PauseSync();
         }
         
         [MenuItem("Tools/Machinations/Launch Machinations.io")]
         static public void Launch ()
         {
-            GetWindow(typeof(MachiCP), false, "Machinations.io");
+            System.Diagnostics.Process.Start("http://www.machinations.io");
         }
-
+        
         void OnGUI ()
         {
             GUILayout.Label("Machinations.io Connection Settings", EditorStyles.boldLabel);
@@ -78,21 +39,34 @@ namespace MachinationsUP.Engines.Unity.Editor
             _diagramToken = EditorGUILayout.TextField("Diagram Token", _diagramToken);
         }
 
-        public void Update ()
+        void OnEnable ()
         {
-            _socketClient?.ExecuteThread();
-            //            Debug.Log("update");
-            //throw new NotImplementedException();
+            SaveMachinationsConfig();
         }
 
-        static private void UpdateStatic ()
+        private void OnValidate ()
         {
-            if (_instance) _instance.Update();
+            SaveMachinationsConfig();
         }
 
-        private void OnDestroy ()
+        private void SaveMachinationsConfig ()
         {
-            _socketClient.PrepareClose();
+            Debug.Log("Saving Machinations Config.");
+            MachinationsConfig.Instance.APIURL = _APIURL;
+            MachinationsConfig.Instance.UserKey = _userKey;
+            MachinationsConfig.Instance.GameName = _gameName;
+            MachinationsConfig.Instance.DiagramToken = _diagramToken;
+            MachinationsConfig.SaveSettings();
+        }
+
+        void OnDisable ()
+        {
+            SaveMachinationsConfig();
+        }
+        
+        void OnDestroy ()
+        {
+            SaveMachinationsConfig();
         }
 
     }

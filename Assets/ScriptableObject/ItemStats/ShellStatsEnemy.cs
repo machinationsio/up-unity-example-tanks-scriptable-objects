@@ -71,7 +71,7 @@ public class ShellStatsEnemy : ScriptableObject, IMachinationsScriptableObject
     {
         Debug.Log("SO ShellStats OnEnable.");
         //Register this SO with the MGL.
-        MachinationsGameLayer.EnrollScriptableObject(this, _manifest);
+        MachinationsDataLayer.EnrollScriptableObject(this, _manifest);
     }
 
     #region IMachinationsScriptableObject
@@ -87,7 +87,7 @@ public class ShellStatsEnemy : ScriptableObject, IMachinationsScriptableObject
     }
 
     /// <summary>
-    /// Called by the <see cref="MachinationsGameLayer"/> when an element has been updated in the Machinations back-end.
+    /// Called by the <see cref="MachinationsDataLayer"/> when an element has been updated in the Machinations back-end.
     /// </summary>
     /// <param name="diagramMapping">The <see cref="DiagramMapping"/> of the modified element.</param>
     /// <param name="elementBase">The <see cref="ElementBase"/> that was sent from the backend.</param>

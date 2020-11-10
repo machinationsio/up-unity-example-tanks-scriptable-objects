@@ -1,8 +1,10 @@
-﻿namespace MachinationsUP.GameEngineAPI.Game
+﻿using MachinationsUP.Engines.Unity;
+
+namespace MachinationsUP.GameEngineAPI.Game
 {
     /// <summary>
     /// Defines a contract that allows a Game Engine to be queried/used by Machinations.
-    /// See <see cref="MachinationsUP.Engines.Unity.MachinationsGameLayer"/>.
+    /// See <see cref="MachinationsDataLayer"/>.
     /// </summary>
     public interface IGameLifecycleProvider
     {

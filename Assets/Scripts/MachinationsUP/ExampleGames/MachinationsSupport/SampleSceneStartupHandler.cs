@@ -32,7 +32,7 @@ namespace MachinationsUP.ExampleGames.MachinationsSupport
             Debug.Log("SampleSceneStartupHandler SceneManagerOnsceneLoaded CompleteMainScene.");
             //Provide the MachinationsGameLayer with an IGameLifecycleProvider.
             //This will usually be the Game Engine.
-            MachinationsGameLayer.Instance.GameLifecycleProvider = new SampleGameEngine();
+            MachinationsDataLayer.Instance.GameLifecycleProvider = new SampleGameEngine();
         }
 
         [RuntimeInitializeOnLoadMethod]

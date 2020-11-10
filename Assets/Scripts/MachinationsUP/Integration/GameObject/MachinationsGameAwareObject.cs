@@ -24,7 +24,7 @@ namespace MachinationsUP.Integration.GameObject
         /// </summary>
         /// <param name="manifest">The Manifest that will be used to initialized this MachinationsGameAwareObject.</param>
         /// <param name="onBindersUpdated">When a <see cref="MachinationsGameObject"/> enrolls itself
-        /// using <see cref="MachinationsGameLayer.EnrollGameObject"/>, this event WILL fire if the MachinationsGameLayer
+        /// using <see cref="MachinationsDataLayer.EnrollGameObject"/>, this event WILL fire if the MachinationsGameLayer
         /// has been initialized. So, this is why it is allowed to send an EventHandler callback upon Construction.
         /// </param>
         public MachinationsGameAwareObject (MachiObjectManifest manifest, EventHandler onBindersUpdated = null) :
@@ -43,7 +43,7 @@ namespace MachinationsUP.Integration.GameObject
         }
 
         /// <summary>
-        /// Called by <see cref="MachinationsUP.Engines.Unity.MachinationsGameLayer"/> when initialization is complete.
+        /// Called by <see cref="MachinationsDataLayer"/> when initialization is complete.
         /// For all <see cref="MachinationsUP.Integration.Binder.ElementBinder"/>, retrieves their
         /// required <see cref="MachinationsUP.Integration.Elements.ElementBase"/> from MGL, FOR EACH
         /// possible <see cref="MachinationsUP.GameEngineAPI.States.StatesAssociation"/>.
@@ -57,7 +57,7 @@ namespace MachinationsUP.Integration.GameObject
                 _binders[gameObjectPropertyName].CreateElementBaseForStateAssoc(sa, isRunningOffline, isRunningOffline);
 
             //Since this is a Game Aware Object, update its Game State.
-            OnGameStateChanged(MachinationsGameLayer.GetGameState());
+            OnGameStateChanged(MachinationsDataLayer.GetGameState());
 
             //Notify any listeners of base.OnBindersUpdated.
             NotifyBindersUpdated();

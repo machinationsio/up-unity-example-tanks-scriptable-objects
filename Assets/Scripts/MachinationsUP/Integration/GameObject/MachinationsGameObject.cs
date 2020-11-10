@@ -53,7 +53,7 @@ namespace MachinationsUP.Integration.GameObject
         /// </summary>
         /// <param name="manifest">The Manifest that will be used to initialized this MachinationsGameObject.</param>
         /// <param name="onBindersUpdated">When a <see cref="MachinationsGameObject"/> enrolls itself
-        /// using <see cref="MachinationsGameLayer.EnrollGameObject"/>, this event WILL fire if the MachinationsGameLayer
+        /// using <see cref="MachinationsDataLayer.EnrollGameObject"/>, this event WILL fire if the MachinationsGameLayer
         /// has been initialized. So, this is why it is allowed to send an EventHandler callback upon Construction.
         /// </param>
         public MachinationsGameObject (MachiObjectManifest manifest, EventHandler onBindersUpdated = null)
@@ -66,7 +66,7 @@ namespace MachinationsUP.Integration.GameObject
             //may call MGLInitComplete, which may in turn call OnBindersUpdated.
             if (onBindersUpdated != null)
                 OnBindersUpdated = onBindersUpdated;
-            MachinationsGameLayer.EnrollGameObject(this);
+            MachinationsDataLayer.EnrollGameObject(this);
         }
 
         /// <summary>
@@ -86,10 +86,10 @@ namespace MachinationsUP.Integration.GameObject
         }
 
         /// <summary>
-        /// Called by <see cref="MachinationsUP.Engines.Unity.MachinationsGameLayer"/> when initialization is complete.
+        /// Called by <see cref="MachinationsDataLayer"/> when initialization is complete.
         /// For all <see cref="MachinationsUP.Integration.Binder.ElementBinder"/>, retrieves their
         /// required <see cref="MachinationsUP.Integration.Elements.ElementBase"/> from MGL.
-        /// <param name="isRunningOffline">TRUE: the <see cref="MachinationsUP.Engines.Unity.MachinationsGameLayer"/> is running in offline mode.</param>
+        /// <param name="isRunningOffline">TRUE: the <see cref="MachinationsDataLayer"/> is running in offline mode.</param>
         /// </summary>
         virtual internal void MGLInitComplete (bool isRunningOffline = false)
         {
