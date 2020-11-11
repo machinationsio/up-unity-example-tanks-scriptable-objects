@@ -140,7 +140,7 @@ namespace MachinationsUP.Integration.GameObject
         /// <param name="evnt"></param>
         public void OnGameObjectEvent (string evnt)
         {
-            //TODO events sending system outdated after 2020 autumn refactor. To be continued...
+            //TODO: events sending system outdated after 2020 autumn refactor. To be continued...
             /*
             //Emit events marked as "to emit".
             if (_manifest.EventsToEmit.Contains(evnt))

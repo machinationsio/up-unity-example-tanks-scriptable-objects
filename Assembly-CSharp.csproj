@@ -51,6 +51,7 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\HttpUtility.cs" />
+     <Compile Include="Assets\MachinationsOut\NewObject.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\EndPointListener.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\EditorExtensions\ElementBaseDrawer.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\Scripts\SocketIO\SocketPacketType.cs" />
@@ -65,6 +66,7 @@
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\HttpStreamAsyncResult.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\HttpListenerAsyncResult.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\HttpListenerException.cs" />
+     <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\EditorExtensions\MachinationsMainThreadHook.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\WebSockets\TcpListenerWebSocketContext.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\CloseStatusCode.cs" />
      <Compile Include="Assets\ScriptableObject\Destruction\Destructible.cs" />
@@ -94,6 +96,7 @@
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\WebSocketException.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Server\WebSocketServiceManager.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\AssemblyInfo.cs" />
+     <Compile Include="Assets\MachinationsTemplates\Template.cs" />
      <Compile Include="Assets\ScriptableObject\GameSession\MainMenuController.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\HttpVersion.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Server\WebSocketBehavior.cs" />
@@ -210,8 +213,9 @@
      <None Include="Assets\Fonts\Bowlby_One\OFL.txt" />
      <None Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\JSONObject\readme.txt" />
      <None Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\Readme.txt" />
-     <None Include="Assets\socket-errorlog-global2020-11-10.txt" />
+     <None Include="Assets\MachinationsCache\AxonnMachi\Cache.xml" />
      <None Include="Assets\MachinationsCache\MyCacheDirectory\Cache.xml" />
+     <None Include="Assets\socket-errorlog-global2020-11-11.txt" />
      <None Include="Assets\MachinationsSettings.xml" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>D:/Codez/Machinations/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

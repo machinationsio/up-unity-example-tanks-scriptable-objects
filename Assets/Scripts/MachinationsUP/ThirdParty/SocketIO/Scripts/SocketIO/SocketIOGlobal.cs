@@ -34,6 +34,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
+using MachinationsUP.Engines.Unity;
 using UnityEngine;
 using WebSocketSharp;
 using WebSocketSharp.Net;
@@ -120,13 +121,13 @@ namespace SocketIO
             ws = new WebSocket(url + (string.IsNullOrEmpty(_userKey) ? "" : "&token=" + _userKey));
 
             //Enable Error Logging.
-            ws.Log.File = Path.Combine(Application.dataPath, "socket-errorlog-global" + DateTime.Now.ToString("yyyy-MM-dd") + ".txt");
+            ws.Log.File = Path.Combine(MachinationsDataLayer.AssetsPath, "socket-errorlog-global" + DateTime.Now.ToString("yyyy-MM-dd") + ".txt");
             ws.Log.Level = LogLevel.Trace;
 
             if (pathToX509Certificate != "")
             {
                 ws.SslConfiguration.ClientCertificates = new X509CertificateCollection();
-                string certPath = Path.Combine(Application.dataPath, pathToX509Certificate);
+                string certPath = Path.Combine(MachinationsDataLayer.AssetsPath, pathToX509Certificate);
                 ws.SslConfiguration.ClientCertificates.Add(new X509Certificate(certPath));
             }
 

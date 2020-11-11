@@ -107,7 +107,7 @@ namespace MachinationsUP.Integration.Elements
 
         /// <summary>
         /// Changes the Int Value with the given amount.
-        /// TODO: think how to support other than MInt.
+        /// TODO: prepare for supporting other types than int.
         /// </summary>
         /// <param name="amount"></param>
         public void ChangeValueWith (int amount)
@@ -135,8 +135,7 @@ namespace MachinationsUP.Integration.Elements
         {
             int previousValue = CurrentValue;
             ChangeValueTo(value);
-            //TODO restore this to allow sync back to Machinations.
-            //MachinationsGameLayer.Instance.EmitGameUpdateDiagramElementsRequest(this, previousValue);
+            MachinationsDataLayer.EmitGameUpdateDiagramElementsRequest(this, previousValue);
         }
 
         /// <summary>

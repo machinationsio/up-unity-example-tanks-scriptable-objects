@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml;
+using MachinationsUP.Config;
 using MachinationsUP.Engines.Unity.GameComms;
 using MachinationsUP.GameEngineAPI.Game;
 using MachinationsUP.GameEngineAPI.GameObject;
@@ -17,7 +18,6 @@ using UnityEngine;
 
 namespace MachinationsUP.Engines.Unity
 {
-    //TODO: this class name is no longer appropriate.
     /// <summary>
     /// The Machinations Game Layer is a Singleton that handles communication with the Machinations back-end.
     /// </summary>
@@ -40,6 +40,9 @@ namespace MachinationsUP.Engines.Unity
 
         #region Public
 
+        /// <summary>
+        /// Machinations Service to use when dealing with the Back-end.
+        /// </summary>
         static public MachinationsService Service;
 
         private IGameLifecycleProvider _gameLifecycleProvider;
@@ -114,14 +117,13 @@ namespace MachinationsUP.Engines.Unity
             ReInitOngoing = true;
         }
 
-        static public void SyncFail ()
+        static public void SyncFail (bool loadCache)
         {
             //Cache system active? Load Cache.
-            if (!string.IsNullOrEmpty(Instance.cacheDirectoryName)) LoadCache();
+            if (loadCache && !string.IsNullOrEmpty(Instance.cacheDirectoryName)) LoadCache();
         }
 
-
-        public static JSONObject GetInitRequestData (string diagramToken)
+        static public JSONObject GetInitRequestData (string diagramToken)
         {
             //Init Request components will be stored as top level items in this Dictionary.
             var initRequest = new Dictionary<string, JSONObject>();
@@ -356,6 +358,7 @@ namespace MachinationsUP.Engines.Unity
         static private void NotifyAboutMGLInitComplete (bool isRunningOffline = false)
         {
             Debug.Log("MGL NotifyAboutMGLInitComplete.");
+            Debug.Log("MGL NotifyAboutMGLInitComplete scriptableObjectsToNotify: " + _scriptableObjects.Keys.Count);
             //Build Binders for Scriptable Objects.
             foreach (IMachinationsScriptableObject so in _scriptableObjects.Keys)
             {
@@ -612,7 +615,7 @@ namespace MachinationsUP.Engines.Unity
         /// </summary>
         static private void SaveCache ()
         {
-            string cachePath = Path.Combine(Application.dataPath, "MachinationsCache", Instance.cacheDirectoryName);
+            string cachePath = Path.Combine(AssetsPath, "MachinationsCache", Instance.cacheDirectoryName);
             string cacheFilePath = Path.Combine(cachePath, "Cache.xml");
             Directory.CreateDirectory(cachePath);
             Debug.Log("MGL.SaveCache using file: " + cacheFilePath);
@@ -629,7 +632,7 @@ namespace MachinationsUP.Engines.Unity
         /// </summary>
         static private void LoadCache ()
         {
-            string cacheFilePath = Path.Combine(Application.dataPath, "MachinationsCache", Instance.cacheDirectoryName, "Cache.xml");
+            string cacheFilePath = Path.Combine(AssetsPath, "MachinationsCache", Instance.cacheDirectoryName, "Cache.xml");
             if (!File.Exists(cacheFilePath))
             {
                 Debug.Log("MGL.LoadCache DOES NOT EXIST: " + cacheFilePath);
@@ -692,8 +695,7 @@ namespace MachinationsUP.Engines.Unity
             if (!_scriptableObjects.ContainsKey(imso))
                 _scriptableObjects[imso] = new EnrolledScriptableObject {MScriptableObject = imso, Manifest = manifest};
 
-            //TODO: re-design sync system around startup cycle.
-            //Schedule a sync for every new addition.
+            //Schedule a sync for any new addition.
             Service.ScheduleSync();
         }
 
@@ -709,7 +711,7 @@ namespace MachinationsUP.Engines.Unity
             //WARN: This may crash due to recent refactoring.
             machinationsGameObject.MGLInitComplete();
 
-            //Schedule a sync for every new addition.
+            //Schedule a sync for any new addition.
             Service.ScheduleSync();
         }
 
@@ -773,6 +775,36 @@ namespace MachinationsUP.Engines.Unity
             //Make sure that when the Init request will be handled as re-initialization.
             ReInitOngoing = true;
         }
+        
+        /// <summary>
+        /// Emits the 'Game Init Request' Socket event.
+        /// </summary>
+        static public void EmitGameUpdateDiagramElementsRequest (ElementBase sourceElement, int previousValue)
+        {
+            //Update Request components will be stored as top level items in this Dictionary.
+            var updateRequest = new Dictionary<string, JSONObject>();
+
+            //The item will be a Dictionary comprising of "id" and "props". The "props" will contain the properties to update.
+            var item = new Dictionary<string, JSONObject>();
+            item.Add("id", new JSONObject(sourceElement.ParentElementBinder.DiagMapping.DiagramElementID));
+            item.Add("type", JSONObject.CreateStringObject("resources"));
+            item.Add("timeStamp", new JSONObject(DateTime.Now.Ticks));
+            item.Add("parameter", JSONObject.CreateStringObject("number"));
+            item.Add("previous", new JSONObject(previousValue));
+            item.Add("value", new JSONObject(sourceElement.CurrentValue));
+
+            JSONObject[] keys = new JSONObject [1];
+            keys[0] = new JSONObject(item);
+
+            //Finalize request by adding all top level items.
+            updateRequest.Add(SyncMsgs.JK_AUTH_DIAGRAM_TOKEN, JSONObject.CreateStringObject(MachinationsConfig.Instance.DiagramToken));
+            //Wrapping the keys Array inside a JSON Object.
+            updateRequest.Add(SyncMsgs.JK_INIT_MACHINATIONS_IDS, new JSONObject(keys));
+
+            Debug.Log("MGL.EmitMachinationsUpdateElementsRequest.");
+
+            Service.EmitGameUpdateDiagramElementsRequest(new JSONObject(updateRequest));
+        }
 
         #endregion
 
@@ -822,6 +854,12 @@ namespace MachinationsUP.Engines.Unity
         /// Returns if the MGL has any cache loaded.
         /// </summary>
         static public bool HasCache => !string.IsNullOrEmpty(Instance.cacheDirectoryName) && _cache != null;
+
+        /// <summary>
+        /// The path where the Project's Assets are located. Can be set to Application.dataPath.
+        /// We need Application.dataPath in other contexts than the main thread.
+        /// </summary>
+        static public string AssetsPath { get; set; }
 
         #endregion
 

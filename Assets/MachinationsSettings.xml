@@ -2,6 +2,6 @@
 <MachinationsConfig xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <APIURL>ws://127.0.0.1:5000/socket.io/?EIO=4&amp;transport=websocket</APIURL>
   <UserKey>4fc8b3a7-3909-43b6-96a0-0387cd85e896</UserKey>
-  <GameName>Tanks</GameName>
   <DiagramToken>54dc6ccd-1f66-41d8-a8d5-0873e935a770</DiagramToken>
+  <GameName>Tanks</GameName>
 </MachinationsConfig>

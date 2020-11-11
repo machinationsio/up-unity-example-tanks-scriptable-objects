@@ -536,7 +536,7 @@ namespace WebSocketSharp.Net
 
     public ResponseStream GetResponseStream ()
     {
-      // TODO: Can we get this stream before reading the input?
+      // zTODO: Can we get this stream before reading the input?
 
       lock (_sync) {
         if (_socket == null)

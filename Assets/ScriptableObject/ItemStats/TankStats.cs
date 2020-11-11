@@ -1,8 +1,5 @@
 ﻿using System.Collections.Generic;
 using MachinationsUP.Engines.Unity;
-using MachinationsUP.GameEngineAPI.Game;
-using MachinationsUP.GameEngineAPI.GameObject;
-using MachinationsUP.GameEngineAPI.States;
 using MachinationsUP.Integration.Binder;
 using MachinationsUP.Integration.Elements;
 using MachinationsUP.Integration.Inventory;

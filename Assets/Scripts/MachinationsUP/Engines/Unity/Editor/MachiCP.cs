@@ -1,4 +1,5 @@
-﻿using MachinationsUP.Config;
+﻿using System.IO;
+using MachinationsUP.Config;
 using UnityEditor;
 using UnityEngine;
 
@@ -11,6 +12,10 @@ namespace MachinationsUP.Engines.Unity.Editor
         private string _userKey = "4fc8b3a7-3909-43b6-96a0-0387cd85e896";
         private string _gameName = "Tanks";
         private string _diagramToken = "54dc6ccd-1f66-41d8-a8d5-0873e935a770";
+
+        private int _index;
+        
+        #region Menu
         
         [MenuItem("Tools/Machinations/Open Machinations.io Control Panel")]
         static public void ShowWindow ()
@@ -27,9 +32,14 @@ namespace MachinationsUP.Engines.Unity.Editor
         [MenuItem("Tools/Machinations/Launch Machinations.io")]
         static public void Launch ()
         {
-            System.Diagnostics.Process.Start("http://www.machinations.io");
+            System.Diagnostics.Process.Start("http://my.machinations.io");
         }
         
+        #endregion
+        
+        /// <summary>
+        /// Draws the Machionations Control Panel GUI.
+        /// </summary>
         void OnGUI ()
         {
             GUILayout.Label("Machinations.io Connection Settings", EditorStyles.boldLabel);
@@ -37,18 +47,58 @@ namespace MachinationsUP.Engines.Unity.Editor
             _userKey = EditorGUILayout.TextField("User Key", _userKey);
             _gameName = EditorGUILayout.TextField("Game Name", _gameName);
             _diagramToken = EditorGUILayout.TextField("Diagram Token", _diagramToken);
+            EditorGUILayout.Space();
+            EditorGUILayout.Separator();
+            EditorGUILayout.Space();
+            _index = EditorGUILayout.Popup(_index, new [] {"Player Tank", "Player Tank Shell", "Enemy Tank", "Enemy Tank Shell"});
+            if (GUILayout.Button("Create"))
+                CreateMachinationsCode();
+        }
+        
+        /// <summary>
+        /// Responsible for triggering Machinations Code Generation.
+        /// </summary>
+        void CreateMachinationsCode()
+        {
+            switch (_index)
+            {
+                case 0:
+                    string template = File.ReadAllText(Path.Combine(Application.dataPath, "MachinationsTemplates", "Template.cst"));
+                    template = template.Replace("<<ClassName>>", "NewObject");
+                    File.WriteAllText (Path.Combine(Application.dataPath, "MachinationsOut", "NewObject.cs"), template);
+                    break;
+                case 1:
+                    break;
+            }
         }
 
         void OnEnable ()
         {
+            //To be replaced with Focus-handling.
             SaveMachinationsConfig();
         }
 
         private void OnValidate ()
         {
+            //To be replaced with Focus-handling.
+            SaveMachinationsConfig();
+        }
+        
+        void OnDisable ()
+        {
+            //To be replaced with Focus-handling.
+            SaveMachinationsConfig();
+        }
+        
+        void OnDestroy ()
+        {
+            //To be replaced with Focus-handling.
             SaveMachinationsConfig();
         }
 
+        /// <summary>
+        /// Saves any setting changed.
+        /// </summary>
         private void SaveMachinationsConfig ()
         {
             Debug.Log("Saving Machinations Config.");
@@ -59,15 +109,6 @@ namespace MachinationsUP.Engines.Unity.Editor
             MachinationsConfig.SaveSettings();
         }
 
-        void OnDisable ()
-        {
-            SaveMachinationsConfig();
-        }
-        
-        void OnDestroy ()
-        {
-            SaveMachinationsConfig();
-        }
 
     }
 }

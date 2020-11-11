@@ -20,7 +20,7 @@ namespace MachinationsUP.Integration.Binder
     /// </summary>
     public class ElementBinder
     {
-        //TODO: possibly split this class into one that is owned byMachinationsGameObject and another for EnrolledScriptableObject.
+        //TODO: split this class into one that is owned byMachinationsGameObject and another for EnrolledScriptableObject.
 
         /// <summary>
         /// Machinations Behavior (Game Object) owning this Binder.
