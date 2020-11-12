@@ -69,7 +69,6 @@ public class ShellStats : ScriptableObject, IMachinationsScriptableObject
 
     public void OnEnable ()
     {
-        Debug.Log("SO ShellStats OnEnable.");
         //Register this SO with the MGL.
         MachinationsDataLayer.EnrollScriptableObject(this, _manifest);
     }

@@ -8,6 +8,7 @@ using MachinationsUP.Integration.Elements;
 using MachinationsUP.Integration.GameObject;
 using MachinationsUP.Integration.Inventory;
 using UnityEngine;
+using MachinationsUP.Logger;
 
 namespace MachinationsUP.Integration.Binder
 {
@@ -115,7 +116,7 @@ namespace MachinationsUP.Integration.Binder
             //No Element exists? Clone one from the Diagram Base (if available),
             if (DiagMapping.DefaultElementBase != null)
             {
-                Debug.Log("ElementBinder returning DefaultElementBase for " + GetFullName());
+                L.D("ElementBinder returning DefaultElementBase for " + GetFullName());
                 //DefaultElementBase doesn't have a Parent, but when cloning it, setting this as the parent of the new ElementBase
                 _currentElement = DiagMapping.DefaultElementBase.Clone(this);
                 return _currentElement;
@@ -191,7 +192,7 @@ namespace MachinationsUP.Integration.Binder
         public void CreateElementBaseForStateAssoc (StatesAssociation statesAssociation = null, bool overwrite = false,
             bool isRunningOffline = false)
         {
-            //Debug.Log("CreateElementBaseForStateAssoc in ElementBinder [Hash: " + GetHashCode() + "] '" +
+            //L.D("CreateElementBaseForStateAssoc in ElementBinder [Hash: " + GetHashCode() + "] '" +
             //          GetFullName() + "' @ statesAssociation: " + (statesAssociation != null ? statesAssociation.Title : "N/A"));
 
             //The MachinationsGameLayer is responsible for creating ElementBase.

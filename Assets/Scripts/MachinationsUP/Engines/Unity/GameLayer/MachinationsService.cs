@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Timers;
 using MachinationsUP.Engines.Unity.BackendConnection;
+using MachinationsUP.Logger;
 using UnityEngine;
 
 namespace MachinationsUP.Engines.Unity.GameComms
@@ -32,7 +33,7 @@ namespace MachinationsUP.Engines.Unity.GameComms
 
         public MachinationsService ()
         {
-            Debug.Log("Instantiated MachinationsService with Hash: " + GetHashCode());
+            L.D("Instantiated MachinationsService with Hash: " + GetHashCode());
             _scheduler = new Timer(1000);
             _scheduler.Elapsed += Scheduler_OnElapsed;
             _scheduler.Start();
@@ -53,7 +54,7 @@ namespace MachinationsUP.Engines.Unity.GameComms
         {
             if (!_socketClient.IsInitialized || !_socketClient.IsAuthenticated)
             {
-                Debug.Log("--- Waiting for Socket Connection ---");
+                L.D("--- Waiting for Socket Connection ---");
                 return;
             }
             
@@ -91,7 +92,7 @@ namespace MachinationsUP.Engines.Unity.GameComms
                 throw new Exception("Cannot queue commands while not idling / synching. This will be addressed soon. Current state: " +
                                     _currentState);
 
-            Debug.Log("MachinationsService.ScheduleSync.");
+            L.D("MachinationsService.ScheduleSync.");
             _currentState = State.SyncRequested;
         }
 

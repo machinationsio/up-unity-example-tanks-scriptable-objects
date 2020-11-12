@@ -2,6 +2,7 @@
 
 using UnityEngine;
 using UnityEditor;
+using MachinationsUP.Logger;
 
 public class JSONChecker : EditorWindow {
 	string JSON = @"{
@@ -37,10 +38,10 @@ public class JSONChecker : EditorWindow {
 #else
 			j = JSONObject.Create(JSON);
 #endif
-			Debug.Log(j.ToString(true));
+			L.D(j.ToString(true));
 		}
 		if(j) {
-			//Debug.Log(System.GC.GetTotalMemory(false) + "");
+			//L.D(System.GC.GetTotalMemory(false) + "");
 			if(j.type == JSONObject.Type.NULL)
 				GUILayout.Label("JSON fail:\n" + j.ToString(true));
 			else

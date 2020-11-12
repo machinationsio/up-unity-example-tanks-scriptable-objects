@@ -62,7 +62,6 @@ public class SimpleAudioEvent : AudioEvent, IMachinationsScriptableObject
 
     public void OnEnable ()
     {
-        Debug.Log("SO SimpleAudioEvent OnEnable.");
         //Register this SO with the MGL.
         MachinationsDataLayer.EnrollScriptableObject(this, _manifest);
     }

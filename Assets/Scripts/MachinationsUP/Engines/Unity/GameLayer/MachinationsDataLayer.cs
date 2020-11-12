@@ -14,7 +14,7 @@ using MachinationsUP.Integration.Binder;
 using MachinationsUP.Integration.Elements;
 using MachinationsUP.Integration.GameObject;
 using MachinationsUP.Integration.Inventory;
-using UnityEngine;
+using MachinationsUP.Logger;
 
 namespace MachinationsUP.Engines.Unity
 {
@@ -111,7 +111,7 @@ namespace MachinationsUP.Engines.Unity
 
         static public void SyncComplete ()
         {
-            Debug.Log("MGL.SyncComplete. MachinationsInitComplete.");
+            L.D("MGL.SyncComplete. MachinationsInitComplete.");
             Instance._gameLifecycleProvider?.MachinationsInitComplete();
             NotifyAboutMGLInitComplete();
             ReInitOngoing = true;
@@ -137,7 +137,7 @@ namespace MachinationsUP.Engines.Unity
             {
                 if (_sourceElements[diagramMapping] != null)
                 {
-                    Debug.Log("Skipping requsting info for already initialized Source Element: " + _sourceElements[diagramMapping]);
+                    L.D("Skipping requsting info for already initialized Source Element: " + _sourceElements[diagramMapping]);
                     continue;
                 }
 
@@ -179,7 +179,7 @@ namespace MachinationsUP.Engines.Unity
         /// <param name="updateFromDiagram">TRUE: update existing elements. If FALSE, will throw Exceptions on collisions.</param>
         static public void UpdateWithValuesFromMachinations (List<JSONObject> elementsFromBackEnd, bool updateFromDiagram = false)
         {
-            Debug.Log("MGL.UpdateWithValuesFromMachinations");
+            L.D("MGL.UpdateWithValuesFromMachinations");
             //The response is an Array of key-value pairs PER Machination Diagram ID.
             //Each of these maps to a certain member of _sourceElements.
             foreach (JSONObject diagramElement in elementsFromBackEnd)
@@ -196,7 +196,7 @@ namespace MachinationsUP.Engines.Unity
 
                 //Get the Element Base based on the dictionary of Element Properties.
                 ElementBase elementBase = CreateElementFromProps(elementProperties);
-                Debug.Log("ElementBase created for '" + diagramMapping + "' with Base Value of: " +
+                L.D("ElementBase created for '" + diagramMapping + "' with Base Value of: " +
                           elementBase.BaseValue);
 
                 //Element already exists but not in Update mode?
@@ -231,7 +231,7 @@ namespace MachinationsUP.Engines.Unity
             if (ReInitOngoing)
             {
                 ReInitOngoing = false;
-                Debug.Log("MGL.UpdateWithValuesFromMachinations ReInitOngoing. MachinationsInitComplete.");
+                L.D("MGL.UpdateWithValuesFromMachinations ReInitOngoing. MachinationsInitComplete.");
                 //Notify Game Engine of Machinations Init Complete.
                 Instance._gameLifecycleProvider?.MachinationsInitComplete();
             }
@@ -325,7 +325,7 @@ namespace MachinationsUP.Engines.Unity
             {
                 if (_instance != null) return _instance;
                 _instance = new MachinationsDataLayer();
-                Debug.Log("MGL created by invocation. Hash is " + _instance.GetHashCode() +
+                L.D("MGL created by invocation. Hash is " + _instance.GetHashCode() +
                           " and User Key is ???????????????????!!!!!!!!!");
                 return _instance;
             }
@@ -335,7 +335,7 @@ namespace MachinationsUP.Engines.Unity
 
         static public void Prepare ()
         {
-            Debug.Log("MGL.Start: Pausing game during initialization. MachinationsInitStart.");
+            L.D("MGL.Start: Pausing game during initialization. MachinationsInitStart.");
 
             foreach (MachinationsGameObject mgo in _gameObjects)
                 AddTargets(mgo.Manifest.GetMachinationsDiagramTargets());
@@ -345,7 +345,7 @@ namespace MachinationsUP.Engines.Unity
             Instance._gameLifecycleProvider?.MachinationsInitStart();
             Service.ScheduleSync();
 
-            Debug.Log("MGL Awake.");
+            L.D("MGL Awake.");
         }
 
         #region Internal Functionality
@@ -357,8 +357,8 @@ namespace MachinationsUP.Engines.Unity
         /// <param name="isRunningOffline">TRUE: the MGL is running in offline mode.</param>
         static private void NotifyAboutMGLInitComplete (bool isRunningOffline = false)
         {
-            Debug.Log("MGL NotifyAboutMGLInitComplete.");
-            Debug.Log("MGL NotifyAboutMGLInitComplete scriptableObjectsToNotify: " + _scriptableObjects.Keys.Count);
+            L.D("MGL NotifyAboutMGLInitComplete.");
+            L.D("MGL NotifyAboutMGLInitComplete scriptableObjectsToNotify: " + _scriptableObjects.Keys.Count);
             //Build Binders for Scriptable Objects.
             foreach (IMachinationsScriptableObject so in _scriptableObjects.Keys)
             {
@@ -378,12 +378,12 @@ namespace MachinationsUP.Engines.Unity
 
             do
             {
-                Debug.Log("MGL NotifyAboutMGLInitComplete gameObjectsToNotify: " + gameObjectsToNotify.Count);
+                L.D("MGL NotifyAboutMGLInitComplete gameObjectsToNotify: " + gameObjectsToNotify.Count);
 
                 //Notify Machinations Game Objects.
                 foreach (MachinationsGameObject mgo in gameObjectsToNotify)
                 {
-                    //Debug.Log("MGL NotifyAboutMGLInitComplete: Notifying: " + mgo);
+                    //L.D("MGL NotifyAboutMGLInitComplete: Notifying: " + mgo);
 
                     //This may create new Machinations Game Objects due to them subscribing to MachinationsGameObject.OnBindersUpdated which
                     //is called on MGLInitComplete. Game Objects may create other Game Objects at that point.
@@ -392,7 +392,7 @@ namespace MachinationsUP.Engines.Unity
                     gameObjectsNotified.Add(mgo);
                 }
 
-                //Debug.Log("MGL NotifyAboutMGLInitComplete gameObjectsNotified: " + gameObjectsNotified.Count);
+                //L.D("MGL NotifyAboutMGLInitComplete gameObjectsNotified: " + gameObjectsNotified.Count);
 
                 //Clearing our task list of objects to notify.
                 gameObjectsToNotify.Clear();
@@ -410,12 +410,12 @@ namespace MachinationsUP.Engines.Unity
                         gameObjectsCreatedDuringNotificationLoop.Add(mgo);
                     }
 
-                //Debug.Log("MGL NotifyAboutMGLInitComplete NEW gameObjectsToNotify: " + gameObjectsToNotify.Count);
+                //L.D("MGL NotifyAboutMGLInitComplete NEW gameObjectsToNotify: " + gameObjectsToNotify.Count);
             }
             //New objects were created.
             while (gameObjectsToNotify.Count > 0);
 
-            Debug.Log("MGL NotifyAboutMGLInitComplete gameObjectsCreatedDuringNotificationLoop: " +
+            L.D("MGL NotifyAboutMGLInitComplete gameObjectsCreatedDuringNotificationLoop: " +
                       gameObjectsCreatedDuringNotificationLoop.Count);
         }
 
@@ -508,7 +508,7 @@ namespace MachinationsUP.Engines.Unity
             //If there is an Override defined in the DiagramMapping, immediately returning that ElementBase instead of the one we found.
             if (dm?.OverrideElementBase != null)
             {
-                Debug.LogWarning("Value for " + GetMachinationsUniqueID(elementBinder, statesAssociation) + " has been overriden!");
+                L.W("Value for " + GetMachinationsUniqueID(elementBinder, statesAssociation) + " has been overriden!");
                 return dm.OverrideElementBase;
             }
 
@@ -618,7 +618,7 @@ namespace MachinationsUP.Engines.Unity
             string cachePath = Path.Combine(AssetsPath, "MachinationsCache", Instance.cacheDirectoryName);
             string cacheFilePath = Path.Combine(cachePath, "Cache.xml");
             Directory.CreateDirectory(cachePath);
-            Debug.Log("MGL.SaveCache using file: " + cacheFilePath);
+            L.D("MGL.SaveCache using file: " + cacheFilePath);
 
             DataContractSerializer dcs = new DataContractSerializer(typeof(MCache));
             var settings = new XmlWriterSettings {Indent = true, NewLineOnAttributes = true};
@@ -635,12 +635,12 @@ namespace MachinationsUP.Engines.Unity
             string cacheFilePath = Path.Combine(AssetsPath, "MachinationsCache", Instance.cacheDirectoryName, "Cache.xml");
             if (!File.Exists(cacheFilePath))
             {
-                Debug.Log("MGL.LoadCache DOES NOT EXIST: " + cacheFilePath);
+                L.D("MGL.LoadCache DOES NOT EXIST: " + cacheFilePath);
                 _cache = null;
                 return;
             }
 
-            Debug.Log("MGL.LoadCache using file: " + cacheFilePath);
+            L.D("MGL.LoadCache using file: " + cacheFilePath);
 
             //Deserialize Cache.
             DataContractSerializer dcs = new DataContractSerializer(typeof(MCache));
@@ -676,7 +676,7 @@ namespace MachinationsUP.Engines.Unity
         /// </summary>
         static public void DeclareManifest (MachiObjectManifest manifest)
         {
-            Debug.Log("MGL DeclareManifest: " + manifest);
+            L.D("MGL DeclareManifest: " + manifest);
             //Add all of this Manifest's targets to the list that we will have to Initialize & monitor.
             AddTargets(manifest.GetMachinationsDiagramTargets());
         }
@@ -690,7 +690,7 @@ namespace MachinationsUP.Engines.Unity
         static public void EnrollScriptableObject (IMachinationsScriptableObject imso,
             MachiObjectManifest manifest)
         {
-            Debug.Log("MGL EnrollScriptableObject: " + manifest);
+            L.D("MGL EnrollScriptableObject: " + manifest);
             DeclareManifest(manifest);
             if (!_scriptableObjects.ContainsKey(imso))
                 _scriptableObjects[imso] = new EnrolledScriptableObject {MScriptableObject = imso, Manifest = manifest};
@@ -737,7 +737,7 @@ namespace MachinationsUP.Engines.Unity
             //Initialize the ElementBase by cloning it from the sourceElement.
             var newElement = sourceElement.Clone(elementBinder);
 
-            Debug.Log("MGL.CreateValue complete for machinationsUniqueID '" +
+            L.D("MGL.CreateValue complete for machinationsUniqueID '" +
                       GetMachinationsUniqueID(elementBinder, statesAssociation) + "'.");
 
             return newElement;
@@ -759,7 +759,7 @@ namespace MachinationsUP.Engines.Unity
             //When Offline, we may return the Default Element Base.
             if (IsInOfflineMode && diagramMapping.DefaultElementBase != null)
             {
-                Debug.Log("MGL Returning DefaultElementBase for " + diagramMapping);
+                L.D("MGL Returning DefaultElementBase for " + diagramMapping);
                 return diagramMapping.DefaultElementBase;
             }
 
@@ -769,7 +769,7 @@ namespace MachinationsUP.Engines.Unity
         static public void PerformInitRequest ()
         {
             //Notify Game Engine of Machinations Init Start.
-            Debug.Log("MGL.PerformInitRequest: Pausing game during initialization. MachinationsInitStart.");
+            L.D("MGL.PerformInitRequest: Pausing game during initialization. MachinationsInitStart.");
             Instance._gameLifecycleProvider?.MachinationsInitStart();
             //Instance.EmitMachinationsInitRequest();
             //Make sure that when the Init request will be handled as re-initialization.
@@ -801,7 +801,7 @@ namespace MachinationsUP.Engines.Unity
             //Wrapping the keys Array inside a JSON Object.
             updateRequest.Add(SyncMsgs.JK_INIT_MACHINATIONS_IDS, new JSONObject(keys));
 
-            Debug.Log("MGL.EmitMachinationsUpdateElementsRequest.");
+            L.D("MGL.EmitMachinationsUpdateElementsRequest.");
 
             Service.EmitGameUpdateDiagramElementsRequest(new JSONObject(updateRequest));
         }
@@ -822,7 +822,7 @@ namespace MachinationsUP.Engines.Unity
                 isInOfflineMode = value;
                 if (value)
                 {
-                    Debug.Log("MachinationsGameLayer is now in Offline Mode!");
+                    L.D("MachinationsGameLayer is now in Offline Mode!");
                     NotifyAboutMGLInitComplete(isInOfflineMode);
                 }
             }

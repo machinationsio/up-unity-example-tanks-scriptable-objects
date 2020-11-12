@@ -29,6 +29,7 @@
 using System.Collections;
 using UnityEngine;
 using SocketIO;
+using MachinationsUP.Logger;
 
 public class TestSocketIO : MonoBehaviour
 {
@@ -73,16 +74,16 @@ public class TestSocketIO : MonoBehaviour
 
 	public void TestOpen(SocketIOEvent e)
 	{
-		Debug.Log("[SocketIO] Open received: " + e.name + " " + e.data);
+		L.D("[SocketIO] Open received: " + e.name + " " + e.data);
 	}
 	
 	public void TestBoop(SocketIOEvent e)
 	{
-		Debug.Log("[SocketIO] Boop received: " + e.name + " " + e.data);
+		L.D("[SocketIO] Boop received: " + e.name + " " + e.data);
 
 		if (e.data == null) { return; }
 
-		Debug.Log(
+		L.D(
 			"#####################################################" +
 			"THIS: " + e.data.GetField("this").str +
 			"#####################################################"
@@ -91,11 +92,11 @@ public class TestSocketIO : MonoBehaviour
 	
 	public void TestError(SocketIOEvent e)
 	{
-		Debug.Log("[SocketIO] Error received: " + e.name + " " + e.data);
+		L.D("[SocketIO] Error received: " + e.name + " " + e.data);
 	}
 	
 	public void TestClose(SocketIOEvent e)
 	{	
-		Debug.Log("[SocketIO] Close received: " + e.name + " " + e.data);
+		L.D("[SocketIO] Close received: " + e.name + " " + e.data);
 	}
 }

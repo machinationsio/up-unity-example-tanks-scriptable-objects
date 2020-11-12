@@ -37,7 +37,7 @@ namespace MachinationsUP.Engines.Unity.EditorExtensions
             //Make sure that Machinations Service can schedule its work from the main thread.
             if (_servicePollTime < 0)
             {
-                //Debug.Log("MachinationsMainThreadHook");
+                //L.D("MachinationsMainThreadHook");
                 _servicePollTime = 1;
                 MachinationsDataLayer.Service.ProcessSchedule();
             }

@@ -8,6 +8,7 @@ using MachinationsUP.Integration.Elements;
 using MachinationsUP.Integration.Inventory;
 using MachinationsUP.SyncAPI;
 using UnityEngine;
+using MachinationsUP.Logger;
 
 namespace MachinationsUP.Integration.GameObject
 {
@@ -92,7 +93,7 @@ namespace MachinationsUP.Integration.GameObject
         public void OnGameStateChanged (GameStates newGameState)
         {
             if (newGameState == CurrentGameState) return;
-            Debug.Log(DebugContext() + " Game State Changed to " + newGameState);
+            L.D(DebugContext() + " Game State Changed to " + newGameState);
             CurrentGameState = newGameState;
             UpdateBinders();
         }
@@ -129,7 +130,7 @@ namespace MachinationsUP.Integration.GameObject
         public void OnGameObjectStateChanged (GameObjectStates newGameObjectState)
         {
             if (newGameObjectState == CurrentGameObjectState) return;
-            Debug.Log(DebugContext() + " Game Object State Changed to " + newGameObjectState);
+            L.D(DebugContext() + " Game Object State Changed to " + newGameObjectState);
             CurrentGameObjectState = newGameObjectState;
             UpdateBinders();
         }

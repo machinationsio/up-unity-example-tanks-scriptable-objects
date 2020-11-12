@@ -9,6 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using Debug = UnityEngine.Debug;
+using MachinationsUP.Logger;
 
 /*
  * http://www.opensource.org/licenses/lgpl-2.1.php
@@ -135,9 +136,9 @@ public class JSONObject {
 #if DEV
 			//The following cases should NEVER HAPPEN (but they do...)
 			if(result == null)
-				Debug.Log("wtf " + releaseQueue.Count);
+				L.D("wtf " + releaseQueue.Count);
 			else if(result.list != null)
-				Debug.Log("wtflist " + result.list.Count);
+				L.D("wtflist " + result.list.Count);
 #endif
 		}
 		if(result != null)
@@ -247,7 +248,7 @@ public class JSONObject {
 			if(strict) {
 				if(str[0] != '[' && str[0] != '{') {
 					type = Type.NULL;
-					Debug.LogWarning("Improper (strict) JSON formatting.  First character must be [ or {");
+					L.W("Improper (strict) JSON formatting.  First character must be [ or {");
 					return;
 				}
 			}
@@ -316,7 +317,7 @@ public class JSONObject {
 								type = Type.NUMBER;
 							} catch(System.FormatException) {
 								type = Type.NULL;
-								Debug.LogWarning("improper JSON formatting:" + str);
+								L.W("improper JSON formatting:" + str);
 							}
 							return;
 					}
@@ -610,7 +611,7 @@ public class JSONObject {
 			}
 		} else if(left.type == Type.ARRAY && right.type == Type.ARRAY) {
 			if(right.Count > left.Count) {
-				Debug.LogError("Cannot merge arrays when right object has more elements");
+				L.E("Cannot merge arrays when right object has more elements");
 				return;
 			}
 			for(int i = 0; i < right.list.Count; i++) {
@@ -671,7 +672,7 @@ public class JSONObject {
 	IEnumerable StringifyAsync(int depth, StringBuilder builder, bool pretty) {	//Convert the JSONObject into a string
 		//Profiler.BeginSample("JSONprint");
 		if(depth++ > MAX_DEPTH) {
-			Debug.Log("reached max depth!");
+			L.D("reached max depth!");
 			yield break;
 		}
 		if(printWatch.Elapsed.TotalSeconds > maxFrameTime) {
@@ -810,7 +811,7 @@ public class JSONObject {
 	void Stringify(int depth, StringBuilder builder, bool pretty) {	//Convert the JSONObject into a string
 		//Profiler.BeginSample("JSONprint");
 		if(depth++ > MAX_DEPTH) {
-			Debug.Log("reached max depth!");
+			L.D("reached max depth!");
 			return;
 		}
 		switch(type) {
@@ -977,12 +978,12 @@ public class JSONObject {
 					case Type.STRING: result.Add(keys[i], val.str); break;
 					case Type.NUMBER: result.Add(keys[i], val.n + ""); break;
 					case Type.BOOL: result.Add(keys[i], val.b + ""); break;
-					default: Debug.LogWarning("Omitting object: " + keys[i] + " in dictionary conversion"); break;
+					default: L.W("Omitting object: " + keys[i] + " in dictionary conversion"); break;
 				}
 			}
 			return result;
 		}
-		Debug.LogWarning("Tried to turn non-Object JSONObject into a dictionary");
+		L.W("Tried to turn non-Object JSONObject into a dictionary");
 		return null;
 	}
 	public static implicit operator bool(JSONObject o) {

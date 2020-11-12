@@ -1,5 +1,6 @@
 ﻿using MachinationsUP.GameEngineAPI.Game;
 using UnityEngine;
+using MachinationsUP.Logger;
 
 namespace MachinationsUP.ExampleGames.MachinationsSupport
 {
@@ -18,14 +19,14 @@ namespace MachinationsUP.ExampleGames.MachinationsSupport
 
         public void MachinationsInitStart ()
         {
-            Debug.Log("--- PAUSING GAME ---");
+            L.D("--- PAUSING GAME ---");
             Time.timeScale = 0;
             AudioListener.pause = true;
         }
 
         public void MachinationsInitComplete ()
         {
-            Debug.Log("--- RESUMING GAME ---");
+            L.D("--- RESUMING GAME ---");
             Time.timeScale = 1;
             AudioListener.pause = true;
         }

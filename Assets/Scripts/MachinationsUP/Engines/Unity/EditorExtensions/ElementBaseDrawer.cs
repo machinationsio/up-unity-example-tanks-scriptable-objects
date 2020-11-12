@@ -3,6 +3,7 @@ using System.Collections;
 using System.IO;
 using MachinationsUP.Integration.Elements;
 using UnityEditor;
+using MachinationsUP.Logger;
 
 namespace MachinationsUP.Engines.Unity.EditorExtensions
 {
@@ -40,13 +41,13 @@ namespace MachinationsUP.Engines.Unity.EditorExtensions
             {
                 /*
                 baseValueProp.intValue = newValue; //Store the new value.
-                Debug.Log("Set basevalue to " + newValue);
-                Debug.Log("The element's value is " + eb.CurrentValue);
+                L.D("Set basevalue to " + newValue);
+                L.D("The element's value is " + eb.CurrentValue);
                 */
                 baseValueProp.intValue = newValue;
-                Debug.Log("Set basevalue to " + newValue);
+                L.D("Set basevalue to " + newValue);
                 eb.ChangeValueFromEditor(newValue);
-                Debug.Log("The element's value is " + eb.CurrentValue);
+                L.D("The element's value is " + eb.CurrentValue);
             }
 
             EditorGUI.EndProperty();

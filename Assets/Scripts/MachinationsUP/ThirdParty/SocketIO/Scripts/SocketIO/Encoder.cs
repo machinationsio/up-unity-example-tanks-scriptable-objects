@@ -41,7 +41,7 @@ namespace SocketIO
 			try
 			{
 				#if SOCKET_IO_DEBUG
-				Debug.Log("[SocketIO] Encoding: " + packet.json);
+				L.D("[SocketIO] Encoding: " + packet.json);
 				#endif
 
 				StringBuilder builder = new StringBuilder();
@@ -77,7 +77,7 @@ namespace SocketIO
 				}
 
 				#if SOCKET_IO_DEBUG
-				Debug.Log("[SocketIO] Encoded: " + builder);
+				L.D("[SocketIO] Encoded: " + builder);
 				#endif
 
 				return builder.ToString();

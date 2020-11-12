@@ -47,13 +47,13 @@
     }
     
     public void TestBoop(SocketIOEvent e){
-		Debug.Log(string.Format("[name: {0}, data: {1}]", e.name, e.data));
+		L.D(string.Format("[name: {0}, data: {1}]", e.name, e.data));
 	}
 	
 	Also, you can also use lambda expresions as callbacks
 	
 	socket.On("boop", (SocketIOEvent e) => {
-		Debug.Log(string.Format("[name: {0}, data: {1}]", e.name, e.data));
+		L.D(string.Format("[name: {0}, data: {1}]", e.name, e.data));
 	});
   
   
@@ -87,7 +87,7 @@
     }
     
     public void OnSocketOpen(SocketIOEvent ev){
-    	Debug.Log("updated socket id " + socket.sid);
+    	L.D("updated socket id " + socket.sid);
     }
 
 

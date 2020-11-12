@@ -113,7 +113,7 @@ void accessData(JSONObject obj){
 			for(int i = 0; i < obj.list.Count; i++){
 				string key = (string)obj.keys[i];
 				JSONObject j = (JSONObject)obj.list[i];
-				Debug.Log(key);
+				L.D(key);
 				accessData(j);
 			}
 			break;
@@ -123,16 +123,16 @@ void accessData(JSONObject obj){
 			}
 			break;
 		case JSONObject.Type.STRING:
-			Debug.Log(obj.str);
+			L.D(obj.str);
 			break;
 		case JSONObject.Type.NUMBER:
-			Debug.Log(obj.n);
+			L.D(obj.n);
 			break;
 		case JSONObject.Type.BOOL:
-			Debug.Log(obj.b);
+			L.D(obj.b);
 			break;
 		case JSONObject.Type.NULL:
-			Debug.Log("NULL");
+			L.D("NULL");
 			break;
 		
 	}
@@ -145,11 +145,11 @@ new JSONObject(data);
 list.GetField("hits", delegate(JSONObject hits) {
 	hits.GetField("hits", delegate(JSONObject hits2) {
 		foreach (JSONObject gameSession in hits2.list) {
-			Debug.Log(gameSession);
+			L.D(gameSession);
 		}
 	});
 }, delegate(string name) {	//"name" will be equal to the name of the missing field.  In this case, "hits"
-	Debug.LogWarning("no game sessions");
+	L.W("no game sessions");
 });
 </syntaxhighlight>
 
@@ -157,7 +157,7 @@ list.GetField("hits", delegate(JSONObject hits) {
 I've added a string and int [] index to the class, so you can now retrieve data as such (from above):
 <syntaxhighlight lang="csharp">
 JSONObject arr = obj["field3"];
-Debug.log(arr[2].n);		//Should ouptut "3"
+L.D(arr[2].n);		//Should ouptut "3"
 </syntaxhighlight>
 
 ----

@@ -44,7 +44,6 @@ public class TankStats : ScriptableObject, IMachinationsScriptableObject
 
     public void OnEnable ()
     {
-        Debug.Log("SO TankStats OnEnable.");
         //Register this SO with the MGL.
         MachinationsDataLayer.EnrollScriptableObject(this, _manifest);
     }

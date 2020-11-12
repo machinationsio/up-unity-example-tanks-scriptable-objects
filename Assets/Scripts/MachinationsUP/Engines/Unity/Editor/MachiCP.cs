@@ -2,6 +2,7 @@
 using MachinationsUP.Config;
 using UnityEditor;
 using UnityEngine;
+using MachinationsUP.Logger;
 
 namespace MachinationsUP.Engines.Unity.Editor
 {
@@ -101,7 +102,7 @@ namespace MachinationsUP.Engines.Unity.Editor
         /// </summary>
         private void SaveMachinationsConfig ()
         {
-            Debug.Log("Saving Machinations Config.");
+            L.D("Saving Machinations Config.");
             MachinationsConfig.Instance.APIURL = _APIURL;
             MachinationsConfig.Instance.UserKey = _userKey;
             MachinationsConfig.Instance.GameName = _gameName;

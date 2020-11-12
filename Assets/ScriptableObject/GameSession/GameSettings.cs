@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using MachinationsUP.Engines.Unity;
+using MachinationsUP.Logger;
 
 [CreateAssetMenu]
 public class GameSettings : ScriptableObject
@@ -87,7 +88,7 @@ public class GameSettings : ScriptableObject
 
 	public void SaveToJSON(string path)
 	{
-		Debug.LogFormat("Saving game settings to {0}", path);
+		L.D("Saving game settings to " + path);
 		System.IO.File.WriteAllText(path, JsonUtility.ToJson(this, true));
 	}
 

@@ -28,10 +28,9 @@
 
 //#define SOCKET_IO_DEBUG			// Uncomment this for debug
 using System;
-using System.Collections;
 using System.Text;
-using UnityEngine;
 using WebSocketSharp;
+using MachinationsUP.Logger;
 
 namespace SocketIO
 {
@@ -42,7 +41,7 @@ namespace SocketIO
 			try
 			{
 				#if SOCKET_IO_DEBUG
-				Debug.Log("[SocketIO] Decoding: " + e.Data);
+				L.D("[SocketIO] Decoding: " + e.Data);
 				#endif
 
 				string data = e.Data;
@@ -61,7 +60,7 @@ namespace SocketIO
 				// connect message properly parsed
 				if (data.Length <= 2) {
 					#if SOCKET_IO_DEBUG
-					Debug.Log("[SocketIO] Decoded: " + packet);
+					L.D("[SocketIO] Decoded: " + packet);
 					#endif
 					return packet;
 				}
@@ -97,16 +96,16 @@ namespace SocketIO
 				if (++offset < data.Length - 1) {
 					try {
 						#if SOCKET_IO_DEBUG
-						Debug.Log("[SocketIO] Parsing JSON: " + data.Substring(offset));
+						L.D("[SocketIO] Parsing JSON: " + data.Substring(offset));
 						#endif
 						packet.json = new JSONObject(data.Substring(offset));
 					} catch (Exception ex) {
-						Debug.LogException(ex);
+						L.Ex(ex);
 					}
 				}
 
 				#if SOCKET_IO_DEBUG
-				Debug.Log("[SocketIO] Decoded: " + packet);
+				L.D("[SocketIO] Decoded: " + packet);
 				#endif
 
 				return packet;

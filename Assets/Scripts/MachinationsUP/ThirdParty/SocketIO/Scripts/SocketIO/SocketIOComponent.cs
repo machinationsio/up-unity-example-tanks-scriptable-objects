@@ -35,15 +35,15 @@
 
 //#define SOCKET_IO_DEBUG			// Uncomment this for debug
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using UnityEngine;
 using WebSocketSharp;
-using WebSocketSharp.Net;
 using ErrorEventArgs = WebSocketSharp.ErrorEventArgs;
+using MachinationsUP.Logger;
+using LogLevel = WebSocketSharp.LogLevel;
 
 namespace SocketIO
 {
@@ -123,7 +123,7 @@ namespace SocketIO
         {
             //Init();
 #if SOCKET_IO_DEBUG
-			if(debugMethod == null) { debugMethod = Debug.Log; };
+			if(debugMethod == null) { debugMethod = L.D; };
 #endif
         }
 
@@ -397,7 +397,7 @@ namespace SocketIO
         {
             if (!connected || !ws.IsConnected)
             {
-                Debug.Log("SocketIOComponent Error: Cannot Emit Message when not connected!");
+                L.D("SocketIOComponent Error: Cannot Emit Message when not connected!");
                 return;
             }
 
@@ -424,7 +424,7 @@ namespace SocketIO
             }
             catch (SocketIOException ex)
             {
-                Debug.Log("SocketIOComponent crashed on Send with " + ex.Message + "\r\n" + ex.StackTrace);
+                L.D("SocketIOComponent crashed on Send with " + ex.Message + "\r\n" + ex.StackTrace);
 #pragma warning restore 168
 #if SOCKET_IO_DEBUG
 				debugMethod.Invoke(ex.ToString());

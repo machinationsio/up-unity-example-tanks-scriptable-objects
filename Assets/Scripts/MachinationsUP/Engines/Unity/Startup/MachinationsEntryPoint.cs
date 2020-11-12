@@ -1,6 +1,7 @@
 ﻿using MachinationsUP.Config;
 using MachinationsUP.Engines.Unity.BackendConnection;
 using MachinationsUP.Engines.Unity.GameComms;
+using MachinationsUP.Logger;
 using UnityEditor;
 using UnityEngine;
 
@@ -29,14 +30,15 @@ namespace MachinationsUP.Engines.Unity.Startup
             //Cannot operate until settings have been defined for Machinations.
             if (!MachinationsConfig.LoadSettings())
             {
-                Debug.LogWarning(
-                    "Machinations Settings do not exist. Please configure Machinations using Tools -> Machinations -> Open Machinations.io Control Panel.");
+                L.W("Machinations Settings do not exist. Please configure Machinations using Tools -> Machinations -> Open Machinations.io Control Panel.");
                 return;
             }
 
+            L.Level = LogLevel.Debug;
+
             //Since Application.dataPath cannot be accessed from other threads (and we need that), storing it in MDL.
             MachinationsDataLayer.AssetsPath = Application.dataPath;
-            
+
             //Bootstrap.
             _machinationsService = MachinationsDataLayer.Service = new MachinationsService();
             _socketClient = new SocketIOClient(

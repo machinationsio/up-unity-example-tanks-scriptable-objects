@@ -1,6 +1,7 @@
 ﻿using MachinationsUP.Engines.Unity;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using MachinationsUP.Logger;
 
 namespace MachinationsUP.ExampleGames.MachinationsSupport
 {
@@ -16,7 +17,7 @@ namespace MachinationsUP.ExampleGames.MachinationsSupport
             QualitySettings.vSyncCount = 0; // VSync must be disabled
             Application.targetFrameRate = 20;
 
-            Debug.Log("SampleSceneStartupHandler OnBeforeSceneLoadRuntimeMethod.");
+            L.D("SampleSceneStartupHandler OnBeforeSceneLoadRuntimeMethod.");
             //Get notifications about Scene Loads.
             SceneManager.sceneLoaded += SceneManagerOnsceneLoaded;
         }
@@ -24,12 +25,12 @@ namespace MachinationsUP.ExampleGames.MachinationsSupport
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         static void OnAfterSceneLoadRuntimeMethod ()
         {
-            Debug.Log("SampleSceneStartupHandler OnAfterSceneLoadRuntimeMethod.");
+            L.D("SampleSceneStartupHandler OnAfterSceneLoadRuntimeMethod.");
         }
 
         static private void SceneManagerOnsceneLoaded (Scene arg0, LoadSceneMode arg1)
         {
-            Debug.Log("SampleSceneStartupHandler SceneManagerOnsceneLoaded CompleteMainScene.");
+            L.D("SampleSceneStartupHandler SceneManagerOnsceneLoaded CompleteMainScene.");
             //Provide the MachinationsGameLayer with an IGameLifecycleProvider.
             //This will usually be the Game Engine.
             MachinationsDataLayer.Instance.GameLifecycleProvider = new SampleGameEngine();
@@ -38,7 +39,7 @@ namespace MachinationsUP.ExampleGames.MachinationsSupport
         [RuntimeInitializeOnLoadMethod]
         static void OnRuntimeMethodLoad ()
         {
-            Debug.Log("SampleSceneStartupHandler OnRuntimeMethodLoad.");
+            L.D("SampleSceneStartupHandler OnRuntimeMethodLoad.");
         }
 
     }

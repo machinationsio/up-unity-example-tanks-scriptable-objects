@@ -8,6 +8,7 @@ using MachinationsUP.Integration.Elements;
 using MachinationsUP.Integration.Inventory;
 using MachinationsUP.SyncAPI;
 using UnityEngine;
+using MachinationsUP.Logger;
 
 namespace MachinationsUP.Integration.GameObject
 {
@@ -93,7 +94,7 @@ namespace MachinationsUP.Integration.GameObject
         /// </summary>
         virtual internal void MGLInitComplete (bool isRunningOffline = false)
         {
-            Debug.Log("MGLInitComplete in " + this);
+            L.D("MGLInitComplete in " + this);
             //Go through all Binders and ask them to retrieve their ElementBase.
             foreach (string gameObjectPropertyName in _binders.Keys)
                 _binders[gameObjectPropertyName].CreateElementBaseForStateAssoc(null, isRunningOffline, isRunningOffline);
