@@ -17,7 +17,7 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
 
         #region Configuration Constants/Fields
 
-        private const int RECONNECTION_ATTEMPTS = 3;
+        private const int RECONNECTION_ATTEMPTS = 100;
         private int _reconnectionAttempts;
 
         #endregion
@@ -91,7 +91,7 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
         {
             _socket = new SocketIOGlobal();
             _socket.autoConnect = false;
-            L.D("Instantiated SocketIO with Hash: " + _socket.GetHashCode());
+            L.D("Instantiated SocketIO with Hash: " + _socket.GetHashCode() + " for URL: " + _socketURL);
             _socket.url = _socketURL;
             SocketIOComponent.MaxRetryCountForConnect = 1;
 
@@ -139,6 +139,17 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
             {
                 _reconnectionAttempts++;
                 _connectionAborted = false;
+                //Must close the Socket before we try to connect again.
+                try
+                {
+                    _socket.PrepareClose();
+                    _socket.Close();
+                }
+                catch (Exception e)
+                {
+                    L.Ex(e);
+                }
+                _socket = null;
                 L.D("Attempt #" + _reconnectionAttempts + " to reconnect to Machinations.");
                 ConnectToMachinations(3);
             }
@@ -371,7 +382,7 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
         /// <summary>
         /// TRUE when all Init-related tasks have been completed.
         /// </summary>
-        public bool IsInitialized => _socket.IsConnected && SocketOpenReceived && SocketOpenStartReceived;
+        public bool IsInitialized => _socket != null && _socket.IsConnected && SocketOpenReceived && SocketOpenStartReceived;
 
     }
 }

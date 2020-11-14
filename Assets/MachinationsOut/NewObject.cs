@@ -31,13 +31,13 @@ public class NewObject : ScriptableObject, IMachinationsScriptableObject
             {
                 PropertyName = M_HEALTH,
                 DiagramElementID = 215,
-                DefaultElementBase = new ElementBase(105)
+                DefaultElementBase = new ElementBase(105, null)
             },
             new DiagramMapping
             {
                 PropertyName = M_SPEED,
                 DiagramElementID = 102,
-                DefaultElementBase = new ElementBase(25)
+                DefaultElementBase = new ElementBase(25, null)
             }
         }
     };
@@ -50,6 +50,10 @@ public class NewObject : ScriptableObject, IMachinationsScriptableObject
     }
 
     #region IMachinationsScriptableObject
+    
+    public MachiObjectManifest Manifest { get; private set; }
+    
+    public ScriptableObject SO => this;
 
     /// <summary>
     /// Called when Machinations initialization has been completed.

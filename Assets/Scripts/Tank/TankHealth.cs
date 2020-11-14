@@ -1,4 +1,5 @@
 ﻿using System;
+using MachinationsUP.Logger;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,20 +33,43 @@ public class TankHealth : MonoBehaviour
         m_ExplosionParticles.gameObject.SetActive (false);
     }
 
+    private bool _wasDisabledUntilHealthMemberAvailable;
 
     private void OnEnable()
     {
+        if (PlayerControlledTank.PlayerControlledTankHealth == null)
+        {
+            L.D("Tank Health: Player Tank Health not yet created. Waiting until setting Healths.");
+            _wasDisabledUntilHealthMemberAvailable = true;
+        }
+        
         // When the tank is enabled, reset the tank's health and whether or not it's dead.
         if (this == PlayerControlledTank.PlayerControlledTankHealth)
+        {
+            L.D("Tank Health: " + m_TankStats.Health.CurrentValue);
             m_CurrentHealth = m_TankStats.Health.CurrentValue;
+        }
         else
+        {
+            L.D("Tank Health enemy: " + m_TankStatsEnemy.Health.CurrentValue);
             m_CurrentHealth = m_TankStatsEnemy.Health.CurrentValue;
+        }
+
         m_Dead = false;
 
         // Update the health slider's value and color.
         SetHealthUI();
     }
 
+    public void Update ()
+    {
+        if (_wasDisabledUntilHealthMemberAvailable && PlayerControlledTank.PlayerControlledTankHealth != null)
+        {
+            L.D("Tank Health: Player Tank Health was created!");
+            _wasDisabledUntilHealthMemberAvailable = false;
+            OnEnable();
+        }
+    }
 
     public void TakeDamage (float amount)
     {

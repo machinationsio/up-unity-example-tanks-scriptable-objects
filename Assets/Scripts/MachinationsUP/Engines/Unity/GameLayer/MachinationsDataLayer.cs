@@ -15,6 +15,7 @@ using MachinationsUP.Integration.Elements;
 using MachinationsUP.Integration.GameObject;
 using MachinationsUP.Integration.Inventory;
 using MachinationsUP.Logger;
+using UnityEditor;
 
 namespace MachinationsUP.Engines.Unity
 {
@@ -112,8 +113,8 @@ namespace MachinationsUP.Engines.Unity
         static public void SyncComplete ()
         {
             L.D("MGL.SyncComplete. MachinationsInitComplete.");
-            Instance._gameLifecycleProvider?.MachinationsInitComplete();
             NotifyAboutMGLInitComplete();
+            Instance._gameLifecycleProvider?.MachinationsInitComplete();
             ReInitOngoing = true;
         }
 
@@ -177,7 +178,7 @@ namespace MachinationsUP.Engines.Unity
         /// </summary>
         /// <param name="elementsFromBackEnd">List of <see cref="JSONObject"/> received from the Socket IO Component.</param>
         /// <param name="updateFromDiagram">TRUE: update existing elements. If FALSE, will throw Exceptions on collisions.</param>
-        static public void UpdateWithValuesFromMachinations (List<JSONObject> elementsFromBackEnd, bool updateFromDiagram = false)
+        static public void UpdateSourcesWithValuesFromMachinations (List<JSONObject> elementsFromBackEnd, bool updateFromDiagram = false)
         {
             L.D("MGL.UpdateWithValuesFromMachinations");
             //The response is an Array of key-value pairs PER Machination Diagram ID.
@@ -195,9 +196,9 @@ namespace MachinationsUP.Engines.Unity
                 DiagramMapping diagramMapping = GetDiagramMappingForID(elementProperties["id"]);
 
                 //Get the Element Base based on the dictionary of Element Properties.
-                ElementBase elementBase = CreateElementFromProps(elementProperties);
+                ElementBase elementBase = CreateSourceElementBaseFromProps(elementProperties, diagramMapping);
                 L.D("ElementBase created for '" + diagramMapping + "' with Base Value of: " +
-                          elementBase.BaseValue);
+                    elementBase.BaseValue);
 
                 //Element already exists but not in Update mode?
                 if (_sourceElements[diagramMapping] != null && !updateFromDiagram)
@@ -326,7 +327,7 @@ namespace MachinationsUP.Engines.Unity
                 if (_instance != null) return _instance;
                 _instance = new MachinationsDataLayer();
                 L.D("MGL created by invocation. Hash is " + _instance.GetHashCode() +
-                          " and User Key is ???????????????????!!!!!!!!!");
+                    " and User Key is ???????????????????!!!!!!!!!");
                 return _instance;
             }
         }
@@ -383,7 +384,7 @@ namespace MachinationsUP.Engines.Unity
                 //Notify Machinations Game Objects.
                 foreach (MachinationsGameObject mgo in gameObjectsToNotify)
                 {
-                    //L.D("MGL NotifyAboutMGLInitComplete: Notifying: " + mgo);
+                    L.D("MGL NotifyAboutMGLInitComplete: Notifying: " + mgo);
 
                     //This may create new Machinations Game Objects due to them subscribing to MachinationsGameObject.OnBindersUpdated which
                     //is called on MGLInitComplete. Game Objects may create other Game Objects at that point.
@@ -392,7 +393,7 @@ namespace MachinationsUP.Engines.Unity
                     gameObjectsNotified.Add(mgo);
                 }
 
-                //L.D("MGL NotifyAboutMGLInitComplete gameObjectsNotified: " + gameObjectsNotified.Count);
+                L.D("MGL NotifyAboutMGLInitComplete gameObjectsNotified: " + gameObjectsNotified.Count);
 
                 //Clearing our task list of objects to notify.
                 gameObjectsToNotify.Clear();
@@ -410,13 +411,13 @@ namespace MachinationsUP.Engines.Unity
                         gameObjectsCreatedDuringNotificationLoop.Add(mgo);
                     }
 
-                //L.D("MGL NotifyAboutMGLInitComplete NEW gameObjectsToNotify: " + gameObjectsToNotify.Count);
+                L.D("MGL NotifyAboutMGLInitComplete NEW gameObjectsToNotify: " + gameObjectsToNotify.Count);
             }
             //New objects were created.
             while (gameObjectsToNotify.Count > 0);
 
             L.D("MGL NotifyAboutMGLInitComplete gameObjectsCreatedDuringNotificationLoop: " +
-                      gameObjectsCreatedDuringNotificationLoop.Count);
+                gameObjectsCreatedDuringNotificationLoop.Count);
         }
 
         /// <summary>
@@ -455,8 +456,6 @@ namespace MachinationsUP.Engines.Unity
                 else
                     foreach (StatesAssociation statesAssociation in statesAssociations)
                         eb.CreateElementBaseForStateAssoc(statesAssociation);
-                //Save the Binder for later use.
-                dm.Binder = eb;
                 //Store the new Binder in the Dictionary to return.
                 ret[dm.PropertyName] = eb;
             }
@@ -542,14 +541,21 @@ namespace MachinationsUP.Engines.Unity
             //Notify Scriptable Objects that are affected by what changed in this update.
             foreach (IMachinationsScriptableObject imso in _scriptableObjects.Keys)
             {
-                //Find matching Binder by checking Game Object Property names.
+                //Find matching Binder by checking Machinations Object Property names.
                 //Reminder: _scriptableObjects[imso] is a Dictionary of that Machinations Scriptable Object's Game Property Names.
                 foreach (string gameObjectPropertyName in _scriptableObjects[imso].Binders.Keys)
+                    //Found the incoming Property Name.
                     if (gameObjectPropertyName == diagramMapping.PropertyName)
                     {
-                        //TODO: must update instead of create here.
-                        _scriptableObjects[imso].Binders[gameObjectPropertyName]
-                            .CreateElementBaseForStateAssoc(diagramMapping.StatesAssoc, true);
+                        ElementBinder targetBinder = _scriptableObjects[imso].Binders[gameObjectPropertyName];
+                        //If the current element in this Binder matches the given one, overwrite it with the incoming values. 
+                        if (targetBinder.CurrentElement.DiagMapping.Matches(diagramMapping, true))
+                            targetBinder.CurrentElement.Overwrite(elementBase);
+                        else
+                        //TODO: during Game State Awareness implementation, consider implementing a function that also overwrites if the current element is NOT the incoming one.
+                            _scriptableObjects[imso].Binders[gameObjectPropertyName]
+                                .CreateElementBaseForStateAssoc(diagramMapping.StatesAssoc, true);
+                        
                         imso.MGLUpdateSO(diagramMapping, elementBase);
                     }
             }
@@ -584,7 +590,8 @@ namespace MachinationsUP.Engines.Unity
         /// Creates an <see cref="ElementBase"/> based on the provided properties from the Machinations Back-end.
         /// </summary>
         /// <param name="elementProperties">Dictionary of Machinations-specific properties.</param>
-        static private ElementBase CreateElementFromProps (Dictionary<string, string> elementProperties)
+        /// <param name="mapping">The DiagramMapping for which the Element is created.</param>
+        static private ElementBase CreateSourceElementBaseFromProps (Dictionary<string, string> elementProperties, DiagramMapping mapping)
         {
             ElementBase elementBase;
             //Populate value inside Machinations Element.
@@ -593,7 +600,7 @@ namespace MachinationsUP.Engines.Unity
             try
             {
                 iValue = int.Parse(elementProperties["resources"]);
-                elementBase = new ElementBase(iValue);
+                elementBase = new ElementBase(iValue, mapping);
                 //Set MaxValue, if we have from.
                 if (elementProperties.ContainsKey("capacity") && int.TryParse(elementProperties["capacity"],
                     out iValue) && iValue != -1 && iValue != 0)
@@ -604,7 +611,7 @@ namespace MachinationsUP.Engines.Unity
             catch
             {
                 sValue = elementProperties["label"];
-                elementBase = new FormulaElement(sValue, false);
+                elementBase = new FormulaElement(sValue, mapping, false);
             }
 
             return elementBase;
@@ -692,6 +699,17 @@ namespace MachinationsUP.Engines.Unity
         {
             L.D("MGL EnrollScriptableObject: " + manifest);
             DeclareManifest(manifest);
+
+            //Restore previously-serialized values.
+            foreach (DiagramMapping dm in manifest.DiagramMappings)
+                if (dm.GameElementBase != null)
+                {
+                    L.D("EBBS Restoring Serialized Value for '" + dm + "' to " + dm.GameElementBase._serializableValue);
+                    dm.GameElementBase.MaxValue = null;
+                    dm.GameElementBase.ChangeValueTo(dm.GameElementBase._serializableValue);
+                }
+
+            //Save this in the Scriptable Objects database.
             if (!_scriptableObjects.ContainsKey(imso))
                 _scriptableObjects[imso] = new EnrolledScriptableObject {MScriptableObject = imso, Manifest = manifest};
 
@@ -738,7 +756,7 @@ namespace MachinationsUP.Engines.Unity
             var newElement = sourceElement.Clone(elementBinder);
 
             L.D("MGL.CreateValue complete for machinationsUniqueID '" +
-                      GetMachinationsUniqueID(elementBinder, statesAssociation) + "'.");
+                GetMachinationsUniqueID(elementBinder, statesAssociation) + "'.");
 
             return newElement;
         }
@@ -775,7 +793,7 @@ namespace MachinationsUP.Engines.Unity
             //Make sure that when the Init request will be handled as re-initialization.
             ReInitOngoing = true;
         }
-        
+
         /// <summary>
         /// Emits the 'Game Init Request' Socket event.
         /// </summary>

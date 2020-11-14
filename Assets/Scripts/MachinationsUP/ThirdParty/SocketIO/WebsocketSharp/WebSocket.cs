@@ -1803,12 +1803,15 @@ namespace WebSocketSharp
     // As client
     private void releaseClientResources ()
     {
+      _logger.Debug("Release Client Resources");
       if (_stream != null) {
+        _logger.Debug("Closing Stream");
         _stream.Dispose ();
         _stream = null;
       }
 
       if (_tcpClient != null) {
+        _logger.Debug("Closing TCP");
         _tcpClient.Close ();
         _tcpClient = null;
       }
@@ -1816,6 +1819,7 @@ namespace WebSocketSharp
 
     private void releaseCommonResources ()
     {
+      _logger.Debug("Release Common Resources");
       if (_fragmentsBuffer != null) {
         _fragmentsBuffer.Dispose ();
         _fragmentsBuffer = null;

@@ -30,43 +30,46 @@ public class SimpleAudioEvent : AudioEvent, IMachinationsScriptableObject
 
     private const string M_MAX_SOUND_LOW_HEALTH = "MaxSoundLowHealth";
 
-    //Binders used to transfer information to this SO.
-    private Dictionary<string, ElementBinder> _binders;
 
-    //Manifest that defines what the SO uses from Machinations.
-    static readonly private MachiObjectManifest _manifest = new MachiObjectManifest
-    {
-        Name =  "Sound Event",
-        DiagramMappings = new List<DiagramMapping>
-        {
-            new DiagramMapping
-            {
-                PropertyName = M_MAX_SOUND_HIGH_HEALTH,
-                DiagramElementID = 250,
-                DefaultElementBase = new ElementBase(4),
-                OverrideElementBase = new ElementBase(4)
-            },
-            new DiagramMapping
-            {
-                PropertyName = M_MAX_SOUND_LOW_HEALTH,
-                DiagramElementID = 251,
-                DefaultElementBase = new ElementBase(6),
-                OverrideElementBase = new ElementBase(6)
-            }
-        },
-        CommonStatesAssociations = new List<StatesAssociation>
-        {
-            new StatesAssociation("Exploring", new List<GameStates>() {GameStates.Exploring})
-        }
-    };
 
     public void OnEnable ()
     {
+        //Manifest that defines what the SO uses from Machinations.
+        Manifest = new MachiObjectManifest
+        {
+            Name =  "Sound Event",
+            DiagramMappings = new List<DiagramMapping>
+            {
+                new DiagramMapping
+                {
+                    PropertyName = M_MAX_SOUND_HIGH_HEALTH,
+                    DiagramElementID = 250,
+                    DefaultElementBase = new ElementBase(4, null),
+                    OverrideElementBase = new ElementBase(4, null)
+                },
+                new DiagramMapping
+                {
+                    PropertyName = M_MAX_SOUND_LOW_HEALTH,
+                    DiagramElementID = 251,
+                    DefaultElementBase = new ElementBase(6, null),
+                    OverrideElementBase = new ElementBase(6, null)
+                }
+            },
+            CommonStatesAssociations = new List<StatesAssociation>
+            {
+                new StatesAssociation("Exploring", new List<GameStates>() {GameStates.Exploring})
+            }
+        };
+        
         //Register this SO with the MGL.
-        MachinationsDataLayer.EnrollScriptableObject(this, _manifest);
+        MachinationsDataLayer.EnrollScriptableObject(this, Manifest);
     }
 
     #region IMachinationsScriptableObject
+    
+    public MachiObjectManifest Manifest { get; private set; }
+    
+    public ScriptableObject SO => this;
 
     /// <summary>
     /// Called when Machinations initialization has been completed.
@@ -74,11 +77,6 @@ public class SimpleAudioEvent : AudioEvent, IMachinationsScriptableObject
     /// <param name="binders">The Binders for this Object.</param>
     public void MGLInitCompleteSO (Dictionary<string, ElementBinder> binders)
     {
-        _binders = binders;
-        //TODO: implement in this game proper state switching based on Night/Day. Until then, using hardcoded States.
-        _binders[M_MAX_SOUND_LOW_HEALTH].UpdateStates(GameStates.Exploring, GameObjectStates.Undefined);
-        _binders[M_MAX_SOUND_HIGH_HEALTH].UpdateStates(GameStates.Exploring, GameObjectStates.Undefined);
-        MGLUpdateSO();
     }
 
     /// <summary>
@@ -88,8 +86,6 @@ public class SimpleAudioEvent : AudioEvent, IMachinationsScriptableObject
     /// <param name="elementBase">The <see cref="ElementBase"/> that was sent from the backend.</param>
     public void MGLUpdateSO (DiagramMapping diagramMapping = null, ElementBase elementBase = null)
     {
-        //No update is necessary. Sound volume will be taken directly from Binders
-        //when the sound is played.
     }
 
     #endregion
@@ -98,6 +94,7 @@ public class SimpleAudioEvent : AudioEvent, IMachinationsScriptableObject
     {
         if (clips.Length == 0) return;
 
+        /*
         //If the Binders were received.
         if (_binders != null && _binders[M_MAX_SOUND_HIGH_HEALTH] != null)
         {
@@ -117,6 +114,7 @@ public class SimpleAudioEvent : AudioEvent, IMachinationsScriptableObject
                 volume.maxValue = _binders[M_MAX_SOUND_LOW_HEALTH].Value / 100f;
             }
         }
+        */
 
         source.clip = clips[Random.Range(0, clips.Length)];
         source.volume = Random.Range(volume.minValue, volume.maxValue);

@@ -12,8 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fed5894bf8f1413ba6ab7ccec7df5f0c, type: 3}
   m_Name: ShellStatsEnemy
   m_EditorClassIdentifier: 
-  Damage: 50
-  Radius: 10
-  Force: 100
-  Speed: 201
-  ShotCooldown: 3
+  Damage:
+    _serializableValue: 52
+  Radius:
+    _serializableValue: 10
+  Force:
+    _serializableValue: 110
+  Speed:
+    _serializableValue: 155
+  ShotCooldown:
+    _serializableValue: 3

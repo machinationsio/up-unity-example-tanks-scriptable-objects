@@ -22,7 +22,7 @@ namespace MachinationsUP.Integration.Inventory
         public string Name { get; set; }
 
         /// <summary>
-        /// The Game Object Property Names to retrieve from the Machinations Back-end.
+        /// A Diagram Mapping Game Object Property Names to retrieve from the Machinations Back-end.
         /// If there are StatesAssociations defined (via StatesAssociationsPerPropertyName or
         /// CommonStatesAssociations), they will be retrieved per each StateAssociation.
         /// <see cref="StatesAssociationsPerPropertyName"/>

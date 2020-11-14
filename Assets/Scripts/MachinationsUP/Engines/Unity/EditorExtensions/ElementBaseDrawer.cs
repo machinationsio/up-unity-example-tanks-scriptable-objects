@@ -20,7 +20,7 @@ namespace MachinationsUP.Engines.Unity.EditorExtensions
             //First, load the image.
             Texture2D tex = new Texture2D(16, 16);
             //This will auto-resize the texture dimensions.
-            tex.LoadImage(File.ReadAllBytes(Path.Combine(Application.dataPath, @"Scripts\MachinationsUP\zRes\logo-just-m-16.png")));
+            tex.LoadImage(File.ReadAllBytes(Path.Combine(Application.dataPath, @"Scripts\MachinationsUP\Engines\Unity\Editor\Resources\logo-just-m-16.png")));
 
             //Now draw the image.
             GUIContent icon = new GUIContent(tex);

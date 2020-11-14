@@ -1,0 +1,696 @@
+11/15/2020 12:01:04 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:01:04 AM|Debug|WebSocket.sendHttpRequest:2061|A request to the server:
+                             GET /socket.io/?EIO=4&transport=websocket&token=4fc8b3a7-3909-43b6-96a0-0387cd85e896 HTTP/1.1
+                             User-Agent: websocket-sharp/1.0
+                             Host: api.machinations.io
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Key: Rhv4yGnLr8oZAPMENhsqyA==
+                             Sec-WebSocket-Version: 13
+11/15/2020 12:01:04 AM|Debug|WebSocket.sendHttpRequest:2063|A response to this request:
+                             HTTP/1.1 101 Switching Protocols
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Accept: O95CCsR//pe8kBKO7JddMKqnQUc=
+11/15/2020 12:01:07 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:01:07 AM|Debug|WebSocket.sendHttpRequest:2061|A request to the server:
+                             GET /socket.io/?EIO=4&transport=websocket&token=4fc8b3a7-3909-43b6-96a0-0387cd85e896 HTTP/1.1
+                             User-Agent: websocket-sharp/1.0
+                             Host: api.machinations.io
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Key: keEwo3U6ZSVciuvrHyGLAA==
+                             Sec-WebSocket-Version: 13
+11/15/2020 12:01:07 AM|Debug|WebSocket.sendHttpRequest:2063|A response to this request:
+                             HTTP/1.1 101 Switching Protocols
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Accept: 8rfgX14i+cqB2SC+9n0wZmvIrBE=
+11/15/2020 12:03:25 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:03:26 AM|Debug|WebSocket.sendHttpRequest:2061|A request to the server:
+                             GET /socket.io/?EIO=4&transport=websocket&token=4fc8b3a7-3909-43b6-96a0-0387cd85e896 HTTP/1.1
+                             User-Agent: websocket-sharp/1.0
+                             Host: api.machinations.io
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Key: 7+F0g05U+jN4GMMKyzRM+w==
+                             Sec-WebSocket-Version: 13
+11/15/2020 12:03:26 AM|Debug|WebSocket.sendHttpRequest:2063|A response to this request:
+                             HTTP/1.1 101 Switching Protocols
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Accept: KnJvnDQgL/PcduRddKjpaZOsBMo=
+11/15/2020 12:03:39 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:03:39 AM|Debug|WebSocket.sendHttpRequest:2061|A request to the server:
+                             GET /socket.io/?EIO=4&transport=websocket&token=4fc8b3a7-3909-43b6-96a0-0387cd85e896 HTTP/1.1
+                             User-Agent: websocket-sharp/1.0
+                             Host: api.machinations.io
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Key: 8JhltaNdBxt8GJa68etZrg==
+                             Sec-WebSocket-Version: 13
+11/15/2020 12:03:40 AM|Debug|WebSocket.sendHttpRequest:2063|A response to this request:
+                             HTTP/1.1 101 Switching Protocols
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Accept: BSpD7iiY9ITyVVPRie52il0gbOI=
+11/15/2020 12:04:18 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:04:18 AM|Debug|WebSocket.sendHttpRequest:2061|A request to the server:
+                             GET /socket.io/?EIO=4&transport=websocket&token=4fc8b3a7-3909-43b6-96a0-0387cd85e896 HTTP/1.1
+                             User-Agent: websocket-sharp/1.0
+                             Host: api.machinations.io
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Key: NM4LTaMZt1hum2872HVqxA==
+                             Sec-WebSocket-Version: 13
+11/15/2020 12:04:18 AM|Debug|WebSocket.sendHttpRequest:2063|A response to this request:
+                             HTTP/1.1 101 Switching Protocols
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Accept: kpKmuZ0XpHig17RuHdlvVChfpAs=
+11/15/2020 12:04:21 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:04:21 AM|Debug|WebSocket.sendHttpRequest:2061|A request to the server:
+                             GET /socket.io/?EIO=4&transport=websocket&token=4fc8b3a7-3909-43b6-96a0-0387cd85e896 HTTP/1.1
+                             User-Agent: websocket-sharp/1.0
+                             Host: api.machinations.io
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Key: lXTVFZ4e2rKXguMPawwdbg==
+                             Sec-WebSocket-Version: 13
+11/15/2020 12:04:21 AM|Debug|WebSocket.sendHttpRequest:2063|A response to this request:
+                             HTTP/1.1 101 Switching Protocols
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Accept: eW7qronIAtMhBlSNzVa3z25lwoQ=
+11/15/2020 12:04:25 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:04:26 AM|Debug|WebSocket.sendHttpRequest:2061|A request to the server:
+                             GET /socket.io/?EIO=4&transport=websocket&token=4fc8b3a7-3909-43b6-96a0-0387cd85e896 HTTP/1.1
+                             User-Agent: websocket-sharp/1.0
+                             Host: api.machinations.io
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Key: 81o4ME50tk+WWc94vDuPgA==
+                             Sec-WebSocket-Version: 13
+11/15/2020 12:04:26 AM|Debug|WebSocket.sendHttpRequest:2063|A response to this request:
+                             HTTP/1.1 101 Switching Protocols
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Accept: 07lsk7v86L3rbRy5obftdLcd2MA=
+11/15/2020 12:05:16 AM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/15/2020 12:05:17 AM|Debug|WebSocket.closeHandshake:1218|Was clean?: True
+                               sent: True
+                               received: True
+11/15/2020 12:05:17 AM|Debug|WebSocket.releaseClientResources:1806|Release Client Resources
+11/15/2020 12:05:17 AM|Debug|WebSocket.releaseClientResources:1808|Closing Stream
+11/15/2020 12:05:17 AM|Debug|WebSocket.releaseClientResources:1814|Closing TCP
+11/15/2020 12:05:17 AM|Debug|WebSocket.releaseCommonResources:1822|Release Common Resources
+11/15/2020 12:05:17 AM|Trace|WebSocket.close:1134|End closing the connection.
+11/15/2020 12:05:17 AM|Debug|WebSocket.sendHttpRequest:2061|A request to the server:
+                             GET /socket.io/?EIO=4&transport=websocket&token=4fc8b3a7-3909-43b6-96a0-0387cd85e896 HTTP/1.1
+                             User-Agent: websocket-sharp/1.0
+                             Host: api.machinations.io
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Key: 81o4ME50tk+WWc94vDuPgA==
+                             Sec-WebSocket-Version: 13
+11/15/2020 12:05:18 AM|Debug|WebSocket.sendHttpRequest:2063|A response to this request:
+                             HTTP/1.1 101 Switching Protocols
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Accept: 07lsk7v86L3rbRy5obftdLcd2MA=
+11/15/2020 12:05:18 AM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/15/2020 12:05:18 AM|Error|WebSocket.open:1541|System.InvalidOperationException: The current state of the connection is not Open.
+                               at WebSocketSharp.WebSocket.Send (System.String data) [0x0001a] in D:\Codez\Machinations\public-machinations\up-unity-example-tanks-scriptable-objects\Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\WebSocket.cs:3448 
+                               at SocketIO.SocketIOGlobal.EmitPacket (SocketIO.Packet packet) [0x00002] in D:\Codez\Machinations\public-machinations\up-unity-example-tanks-scriptable-objects\Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\Scripts\SocketIO\SocketIOGlobal.cs:391 
+                               at SocketIO.SocketIOGlobal.EmitMessage (System.Int32 id, System.String raw) [0x0002f] in D:\Codez\Machinations\public-machinations\up-unity-example-tanks-scriptable-objects\Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\Scripts\SocketIO\SocketIOGlobal.cs:373 
+                               at SocketIO.SocketIOGlobal.Emit (System.String ev, JSONObject data) [0x00001] in D:\Codez\Machinations\public-machinations\up-unity-example-tanks-scriptable-objects\Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\Scripts\SocketIO\SocketIOGlobal.cs:285 
+                               at MachinationsUP.Engines.Unity.BackendConnection.SocketIOClient.EmitMachinationsAuthRequest () [0x0004d] in D:\Codez\Machinations\public-machinations\up-unity-example-tanks-scriptable-objects\Assets\Scripts\MachinationsUP\MachinationsAPI\SocketIOClient.cs:217 
+                               at MachinationsUP.Engines.Unity.BackendConnection.SocketIOClient.OnSocketOpenStart (SocketIO.SocketIOEvent e) [0x00047] in D:\Codez\Machinations\public-machinations\up-unity-example-tanks-scriptable-objects\Assets\Scripts\MachinationsUP\MachinationsAPI\SocketIOClient.cs:336 
+                               at SocketIO.SocketIOGlobal.EmitEvent (SocketIO.SocketIOEvent ev) [0x0003f] in D:\Codez\Machinations\public-machinations\up-unity-example-tanks-scriptable-objects\Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\Scripts\SocketIO\SocketIOGlobal.cs:519 
+                               at SocketIO.SocketIOGlobal.EmitEvent (System.String type) [0x00001] in D:\Codez\Machinations\public-machinations\up-unity-example-tanks-scriptable-objects\Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\Scripts\SocketIO\SocketIOGlobal.cs:507 
+                               at SocketIO.SocketIOGlobal.OnOpen (System.Object sender, System.EventArgs e) [0x00001] in D:\Codez\Machinations\public-machinations\up-unity-example-tanks-scriptable-objects\Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\Scripts\SocketIO\SocketIOGlobal.cs:406 
+                               at WebSocketSharp.Ext.Emit (System.EventHandler eventHandler, System.Object sender, System.EventArgs e) [0x0000b] in D:\Codez\Machinations\public-machinations\up-unity-example-tanks-scriptable-objects\Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Ext.cs:399 
+                               at WebSocketSharp.WebSocket.open () [0x00012] in D:\Codez\Machinations\public-machinations\up-unity-example-tanks-scriptable-objects\Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\WebSocket.cs:1538 
+11/15/2020 12:05:18 AM|Info |WebSocket.close:1114|The closing is already in progress.
+11/15/2020 12:05:18 AM|Debug|WebSocket.closeHandshake:1218|Was clean?: True
+                               sent: True
+                               received: True
+11/15/2020 12:05:18 AM|Debug|WebSocket.releaseClientResources:1806|Release Client Resources
+11/15/2020 12:05:18 AM|Debug|WebSocket.releaseClientResources:1808|Closing Stream
+11/15/2020 12:05:18 AM|Debug|WebSocket.releaseClientResources:1814|Closing TCP
+11/15/2020 12:05:18 AM|Debug|WebSocket.releaseCommonResources:1822|Release Common Resources
+11/15/2020 12:05:18 AM|Trace|WebSocket.close:1134|End closing the connection.
+11/15/2020 12:05:18 AM|Debug|WebSocket.sendHttpRequest:2061|A request to the server:
+                             GET /socket.io/?EIO=4&transport=websocket&token=4fc8b3a7-3909-43b6-96a0-0387cd85e896 HTTP/1.1
+                             User-Agent: websocket-sharp/1.0
+                             Host: api.machinations.io
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Key: 81o4ME50tk+WWc94vDuPgA==
+                             Sec-WebSocket-Version: 13
+11/15/2020 12:05:18 AM|Debug|WebSocket.sendHttpRequest:2063|A response to this request:
+                             HTTP/1.1 101 Switching Protocols
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Accept: 07lsk7v86L3rbRy5obftdLcd2MA=
+11/15/2020 12:05:21 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:05:21 AM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/15/2020 12:05:21 AM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                               sent: False
+                               received: False
+11/15/2020 12:05:21 AM|Debug|WebSocket.releaseClientResources:1806|Release Client Resources
+11/15/2020 12:05:21 AM|Debug|WebSocket.releaseCommonResources:1822|Release Common Resources
+11/15/2020 12:05:21 AM|Trace|WebSocket.close:1134|End closing the connection.
+11/15/2020 12:05:25 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:05:25 AM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/15/2020 12:05:25 AM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                               sent: False
+                               received: False
+11/15/2020 12:05:25 AM|Debug|WebSocket.releaseClientResources:1806|Release Client Resources
+11/15/2020 12:05:25 AM|Debug|WebSocket.releaseCommonResources:1822|Release Common Resources
+11/15/2020 12:06:45 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:06:46 AM|Debug|WebSocket.sendHttpRequest:2061|A request to the server:
+                             GET /socket.io/?EIO=4&transport=websocket&token=4fc8b3a7-3909-43b6-96a0-0387cd85e896 HTTP/1.1
+                             User-Agent: websocket-sharp/1.0
+                             Host: api.machinations.io
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Key: gTcSIblXnPeVjndZZT9mQQ==
+                             Sec-WebSocket-Version: 13
+11/15/2020 12:06:46 AM|Debug|WebSocket.sendHttpRequest:2063|A response to this request:
+                             HTTP/1.1 101 Switching Protocols
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Accept: /MhMIczzS5lUmCI/2XgVW9CI2Ok=
+11/15/2020 12:07:41 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:07:41 AM|Debug|WebSocket.sendHttpRequest:2061|A request to the server:
+                             GET /socket.io/?EIO=4&transport=websocket&token=4fc8b3a7-3909-43b6-96a0-0387cd85e896 HTTP/1.1
+                             User-Agent: websocket-sharp/1.0
+                             Host: api.machinations.io
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Key: JxvCL2VL+wdKhsHRaDIGxQ==
+                             Sec-WebSocket-Version: 13
+11/15/2020 12:07:41 AM|Debug|WebSocket.sendHttpRequest:2063|A response to this request:
+                             HTTP/1.1 101 Switching Protocols
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Accept: C1CsvxEgcHPk2e8F/QkizJxfmgI=
+11/15/2020 12:07:47 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:07:47 AM|Debug|WebSocket.sendHttpRequest:2061|A request to the server:
+                             GET /socket.io/?EIO=4&transport=websocket&token=4fc8b3a7-3909-43b6-96a0-0387cd85e896 HTTP/1.1
+                             User-Agent: websocket-sharp/1.0
+                             Host: api.machinations.io
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Key: rT2/zitqQvHKTc5iNmQX5w==
+                             Sec-WebSocket-Version: 13
+11/15/2020 12:07:47 AM|Debug|WebSocket.sendHttpRequest:2063|A response to this request:
+                             HTTP/1.1 101 Switching Protocols
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Accept: 4vzfzuQlrN6clYx+zm4jCrmaOXY=
+11/15/2020 12:08:17 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:08:17 AM|Debug|WebSocket.sendHttpRequest:2061|A request to the server:
+                             GET /socket.io/?EIO=4&transport=websocket&token=4fc8b3a7-3909-43b6-96a0-0387cd85e896 HTTP/1.1
+                             User-Agent: websocket-sharp/1.0
+                             Host: api.machinations.io
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Key: LIzAXzP6SgrYcRv/yV6R5w==
+                             Sec-WebSocket-Version: 13
+11/15/2020 12:08:17 AM|Debug|WebSocket.sendHttpRequest:2063|A response to this request:
+                             HTTP/1.1 101 Switching Protocols
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Accept: HgKeGazIMY2REL9kom4nspbIGUw=
+11/15/2020 12:09:01 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:09:02 AM|Debug|WebSocket.sendHttpRequest:2061|A request to the server:
+                             GET /socket.io/?EIO=4&transport=websocket&token=4fc8b3a7-3909-43b6-96a0-0387cd85e896 HTTP/1.1
+                             User-Agent: websocket-sharp/1.0
+                             Host: api.machinations.io
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Key: H8UWvltlKUYh/T9L/acwHg==
+                             Sec-WebSocket-Version: 13
+11/15/2020 12:09:02 AM|Debug|WebSocket.sendHttpRequest:2063|A response to this request:
+                             HTTP/1.1 101 Switching Protocols
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Accept: QHJLRzQqMa3rfCEOrnOnlmsXON0=
+11/15/2020 12:09:04 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:09:04 AM|Debug|WebSocket.sendHttpRequest:2061|A request to the server:
+                             GET /socket.io/?EIO=4&transport=websocket&token=4fc8b3a7-3909-43b6-96a0-0387cd85e896 HTTP/1.1
+                             User-Agent: websocket-sharp/1.0
+                             Host: api.machinations.io
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Key: R80fTDCgIpRyOmTGKZZPXA==
+                             Sec-WebSocket-Version: 13
+11/15/2020 12:09:04 AM|Debug|WebSocket.sendHttpRequest:2063|A response to this request:
+                             HTTP/1.1 101 Switching Protocols
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Accept: eos0Jz/F6AwqsGxBvs9JBGXUceM=
+11/15/2020 12:09:13 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:09:13 AM|Debug|WebSocket.sendHttpRequest:2061|A request to the server:
+                             GET /socket.io/?EIO=4&transport=websocket&token=4fc8b3a7-3909-43b6-96a0-0387cd85e896 HTTP/1.1
+                             User-Agent: websocket-sharp/1.0
+                             Host: api.machinations.io
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Key: acLgCHt07RiX3yTQiRUjFg==
+                             Sec-WebSocket-Version: 13
+11/15/2020 12:09:13 AM|Debug|WebSocket.sendHttpRequest:2063|A response to this request:
+                             HTTP/1.1 101 Switching Protocols
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Accept: i5qSQse9bPnDV5mtSuTkqoiDXAU=
+11/15/2020 12:11:43 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:11:43 AM|Debug|WebSocket.sendHttpRequest:2061|A request to the server:
+                             GET /socket.io/?EIO=4&transport=websocket&token=4fc8b3a7-3909-43b6-96a0-0387cd85e896 HTTP/1.1
+                             User-Agent: websocket-sharp/1.0
+                             Host: api.machinations.io
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Key: /ESCH+7oLqBmZWllM4EyUg==
+                             Sec-WebSocket-Version: 13
+11/15/2020 12:11:43 AM|Debug|WebSocket.sendHttpRequest:2063|A response to this request:
+                             HTTP/1.1 101 Switching Protocols
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Accept: 20GhJ41d2cOSy7xSw/vLYgMtP+A=
+11/15/2020 12:16:14 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:16:14 AM|Debug|WebSocket.sendHttpRequest:2061|A request to the server:
+                             GET /socket.io/?EIO=4&transport=websocket&token=4fc8b3a7-3909-43b6-96a0-0387cd85e896 HTTP/1.1
+                             User-Agent: websocket-sharp/1.0
+                             Host: api.machinations.io
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Key: XSZixrAUQZDMlbCke3OAUA==
+                             Sec-WebSocket-Version: 13
+11/15/2020 12:16:14 AM|Debug|WebSocket.sendHttpRequest:2063|A response to this request:
+                             HTTP/1.1 101 Switching Protocols
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Accept: tBOL3ux+W8elmRTQIW+X1JgntR4=
+11/15/2020 12:36:02 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:36:02 AM|Debug|WebSocket.sendHttpRequest:2061|A request to the server:
+                             GET /socket.io/?EIO=4&transport=websocket&token=4fc8b3a7-3909-43b6-96a0-0387cd85e896 HTTP/1.1
+                             User-Agent: websocket-sharp/1.0
+                             Host: api.machinations.io
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Key: OH6VCzOx7SS4SUBIQP0jnw==
+                             Sec-WebSocket-Version: 13
+11/15/2020 12:36:02 AM|Debug|WebSocket.sendHttpRequest:2063|A response to this request:
+                             HTTP/1.1 101 Switching Protocols
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Accept: ZGR367FrkggyOHAJQR5fYlGRIYU=
+11/15/2020 12:36:20 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:36:21 AM|Debug|WebSocket.sendHttpRequest:2061|A request to the server:
+                             GET /socket.io/?EIO=4&transport=websocket&token=4fc8b3a7-3909-43b6-96a0-0387cd85e896 HTTP/1.1
+                             User-Agent: websocket-sharp/1.0
+                             Host: api.machinations.io
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Key: pONzv5iccsv9S6S5Z3FlEA==
+                             Sec-WebSocket-Version: 13
+11/15/2020 12:36:21 AM|Debug|WebSocket.sendHttpRequest:2063|A response to this request:
+                             HTTP/1.1 101 Switching Protocols
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Accept: dECqSVqiuquwbExquAj0BYzjUzY=
+11/15/2020 12:36:59 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:36:59 AM|Debug|WebSocket.sendHttpRequest:2061|A request to the server:
+                             GET /socket.io/?EIO=4&transport=websocket&token=4fc8b3a7-3909-43b6-96a0-0387cd85e896 HTTP/1.1
+                             User-Agent: websocket-sharp/1.0
+                             Host: api.machinations.io
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Key: AuqPF3f/sjx6kV65MoEDQw==
+                             Sec-WebSocket-Version: 13
+11/15/2020 12:36:59 AM|Debug|WebSocket.sendHttpRequest:2063|A response to this request:
+                             HTTP/1.1 101 Switching Protocols
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Accept: okxDYcp2BnSaDeTaMJFjsilNvzM=
+11/15/2020 12:37:59 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:37:59 AM|Debug|WebSocket.sendHttpRequest:2061|A request to the server:
+                             GET /socket.io/?EIO=4&transport=websocket&token=4fc8b3a7-3909-43b6-96a0-0387cd85e896 HTTP/1.1
+                             User-Agent: websocket-sharp/1.0
+                             Host: api.machinations.io
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Key: UrY7nugB8jZJUuY9gFr+yQ==
+                             Sec-WebSocket-Version: 13
+11/15/2020 12:37:59 AM|Debug|WebSocket.sendHttpRequest:2063|A response to this request:
+                             HTTP/1.1 101 Switching Protocols
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Accept: C2QBhZnSvdq5XwiR8mn5XMjSXlo=
+11/15/2020 12:39:35 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:39:35 AM|Debug|WebSocket.sendHttpRequest:2061|A request to the server:
+                             GET /socket.io/?EIO=4&transport=websocket&token=4fc8b3a7-3909-43b6-96a0-0387cd85e896 HTTP/1.1
+                             User-Agent: websocket-sharp/1.0
+                             Host: api.machinations.io
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Key: hywEoT5sVCgQaoX1mQmdMQ==
+                             Sec-WebSocket-Version: 13
+11/15/2020 12:39:35 AM|Debug|WebSocket.sendHttpRequest:2063|A response to this request:
+                             HTTP/1.1 101 Switching Protocols
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Accept: GSIUbxDHWDLiP3QoZwAE+SFz03c=
+11/15/2020 12:39:37 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:39:37 AM|Debug|WebSocket.sendHttpRequest:2061|A request to the server:
+                             GET /socket.io/?EIO=4&transport=websocket&token=4fc8b3a7-3909-43b6-96a0-0387cd85e896 HTTP/1.1
+                             User-Agent: websocket-sharp/1.0
+                             Host: api.machinations.io
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Key: BxLldoTucNdWhyaXzZ94sw==
+                             Sec-WebSocket-Version: 13
+11/15/2020 12:39:37 AM|Debug|WebSocket.sendHttpRequest:2063|A response to this request:
+                             HTTP/1.1 101 Switching Protocols
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Accept: mQJTZhhtfF2PCwUj47qW0d0XAI0=
+11/15/2020 12:40:32 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:40:32 AM|Debug|WebSocket.sendHttpRequest:2061|A request to the server:
+                             GET /socket.io/?EIO=4&transport=websocket&token=4fc8b3a7-3909-43b6-96a0-0387cd85e896 HTTP/1.1
+                             User-Agent: websocket-sharp/1.0
+                             Host: api.machinations.io
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Key: SwLQqjNk1Umx8UaABONetQ==
+                             Sec-WebSocket-Version: 13
+11/15/2020 12:40:32 AM|Debug|WebSocket.sendHttpRequest:2063|A response to this request:
+                             HTTP/1.1 101 Switching Protocols
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Accept: t0gDnE8YIvy1pI1+PWA4JipOV/Q=
+11/15/2020 12:41:34 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:41:34 AM|Debug|WebSocket.sendHttpRequest:2061|A request to the server:
+                             GET /socket.io/?EIO=4&transport=websocket&token=4fc8b3a7-3909-43b6-96a0-0387cd85e896 HTTP/1.1
+                             User-Agent: websocket-sharp/1.0
+                             Host: api.machinations.io
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Key: YHcC1PbMpRCtaQDMWBYjSA==
+                             Sec-WebSocket-Version: 13
+11/15/2020 12:41:34 AM|Debug|WebSocket.sendHttpRequest:2063|A response to this request:
+                             HTTP/1.1 101 Switching Protocols
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Accept: hBUHBp5B2jjcWtsZY9AWvNWpQGA=
+11/15/2020 12:42:46 AM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/15/2020 12:42:46 AM|Debug|WebSocket.closeHandshake:1218|Was clean?: True
+                               sent: True
+                               received: True
+11/15/2020 12:42:46 AM|Debug|WebSocket.releaseClientResources:1806|Release Client Resources
+11/15/2020 12:42:46 AM|Debug|WebSocket.releaseClientResources:1808|Closing Stream
+11/15/2020 12:42:46 AM|Debug|WebSocket.releaseClientResources:1814|Closing TCP
+11/15/2020 12:42:46 AM|Debug|WebSocket.releaseCommonResources:1822|Release Common Resources
+11/15/2020 12:42:46 AM|Trace|WebSocket.close:1134|End closing the connection.
+11/15/2020 12:42:46 AM|Debug|WebSocket.sendHttpRequest:2061|A request to the server:
+                             GET /socket.io/?EIO=4&transport=websocket&token=4fc8b3a7-3909-43b6-96a0-0387cd85e896 HTTP/1.1
+                             User-Agent: websocket-sharp/1.0
+                             Host: api.machinations.io
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Key: YHcC1PbMpRCtaQDMWBYjSA==
+                             Sec-WebSocket-Version: 13
+11/15/2020 12:42:46 AM|Debug|WebSocket.sendHttpRequest:2063|A response to this request:
+                             HTTP/1.1 101 Switching Protocols
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Accept: hBUHBp5B2jjcWtsZY9AWvNWpQGA=
+11/15/2020 12:42:46 AM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/15/2020 12:42:46 AM|Error|WebSocket.open:1541|System.InvalidOperationException: The current state of the connection is not Open.
+                               at WebSocketSharp.WebSocket.Send (System.String data) [0x0001a] in D:\Codez\Machinations\public-machinations\up-unity-example-tanks-scriptable-objects\Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\WebSocket.cs:3448 
+                               at SocketIO.SocketIOGlobal.EmitPacket (SocketIO.Packet packet) [0x00002] in D:\Codez\Machinations\public-machinations\up-unity-example-tanks-scriptable-objects\Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\Scripts\SocketIO\SocketIOGlobal.cs:402 
+                               at SocketIO.SocketIOGlobal.EmitMessage (System.Int32 id, System.String raw) [0x0002f] in D:\Codez\Machinations\public-machinations\up-unity-example-tanks-scriptable-objects\Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\Scripts\SocketIO\SocketIOGlobal.cs:384 
+                               at SocketIO.SocketIOGlobal.Emit (System.String ev, JSONObject data) [0x00001] in D:\Codez\Machinations\public-machinations\up-unity-example-tanks-scriptable-objects\Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\Scripts\SocketIO\SocketIOGlobal.cs:285 
+                               at MachinationsUP.Engines.Unity.BackendConnection.SocketIOClient.EmitMachinationsAuthRequest () [0x0004d] in D:\Codez\Machinations\public-machinations\up-unity-example-tanks-scriptable-objects\Assets\Scripts\MachinationsUP\MachinationsAPI\SocketIOClient.cs:217 
+                               at MachinationsUP.Engines.Unity.BackendConnection.SocketIOClient.OnSocketOpenStart (SocketIO.SocketIOEvent e) [0x00047] in D:\Codez\Machinations\public-machinations\up-unity-example-tanks-scriptable-objects\Assets\Scripts\MachinationsUP\MachinationsAPI\SocketIOClient.cs:336 
+                               at SocketIO.SocketIOGlobal.EmitEvent (SocketIO.SocketIOEvent ev) [0x0003f] in D:\Codez\Machinations\public-machinations\up-unity-example-tanks-scriptable-objects\Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\Scripts\SocketIO\SocketIOGlobal.cs:530 
+                               at SocketIO.SocketIOGlobal.EmitEvent (System.String type) [0x00001] in D:\Codez\Machinations\public-machinations\up-unity-example-tanks-scriptable-objects\Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\Scripts\SocketIO\SocketIOGlobal.cs:518 
+                               at SocketIO.SocketIOGlobal.OnOpen (System.Object sender, System.EventArgs e) [0x00001] in D:\Codez\Machinations\public-machinations\up-unity-example-tanks-scriptable-objects\Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\Scripts\SocketIO\SocketIOGlobal.cs:417 
+                               at WebSocketSharp.Ext.Emit (System.EventHandler eventHandler, System.Object sender, System.EventArgs e) [0x0000b] in D:\Codez\Machinations\public-machinations\up-unity-example-tanks-scriptable-objects\Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Ext.cs:399 
+                               at WebSocketSharp.WebSocket.open () [0x00012] in D:\Codez\Machinations\public-machinations\up-unity-example-tanks-scriptable-objects\Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\WebSocket.cs:1538 
+11/15/2020 12:42:46 AM|Info |WebSocket.close:1114|The closing is already in progress.
+11/15/2020 12:42:46 AM|Debug|WebSocket.closeHandshake:1218|Was clean?: True
+                               sent: True
+                               received: True
+11/15/2020 12:42:46 AM|Debug|WebSocket.releaseClientResources:1806|Release Client Resources
+11/15/2020 12:42:46 AM|Debug|WebSocket.releaseClientResources:1808|Closing Stream
+11/15/2020 12:42:46 AM|Debug|WebSocket.releaseClientResources:1814|Closing TCP
+11/15/2020 12:42:46 AM|Debug|WebSocket.releaseCommonResources:1822|Release Common Resources
+11/15/2020 12:42:46 AM|Trace|WebSocket.close:1134|End closing the connection.
+11/15/2020 12:42:46 AM|Debug|WebSocket.sendHttpRequest:2061|A request to the server:
+                             GET /socket.io/?EIO=4&transport=websocket&token=4fc8b3a7-3909-43b6-96a0-0387cd85e896 HTTP/1.1
+                             User-Agent: websocket-sharp/1.0
+                             Host: api.machinations.io
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Key: YHcC1PbMpRCtaQDMWBYjSA==
+                             Sec-WebSocket-Version: 13
+11/15/2020 12:42:46 AM|Debug|WebSocket.sendHttpRequest:2063|A response to this request:
+                             HTTP/1.1 101 Switching Protocols
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Accept: hBUHBp5B2jjcWtsZY9AWvNWpQGA=
+11/15/2020 12:42:50 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:42:50 AM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/15/2020 12:42:50 AM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                               sent: False
+                               received: False
+11/15/2020 12:42:50 AM|Debug|WebSocket.releaseClientResources:1806|Release Client Resources
+11/15/2020 12:42:50 AM|Debug|WebSocket.releaseCommonResources:1822|Release Common Resources
+11/15/2020 12:42:50 AM|Trace|WebSocket.close:1134|End closing the connection.
+11/15/2020 12:42:54 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:42:54 AM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/15/2020 12:42:54 AM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                               sent: False
+                               received: False
+11/15/2020 12:42:54 AM|Debug|WebSocket.releaseClientResources:1806|Release Client Resources
+11/15/2020 12:42:54 AM|Debug|WebSocket.releaseCommonResources:1822|Release Common Resources
+11/15/2020 12:42:54 AM|Trace|WebSocket.close:1134|End closing the connection.
+11/15/2020 12:42:58 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:42:58 AM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/15/2020 12:42:58 AM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                               sent: False
+                               received: False
+11/15/2020 12:42:58 AM|Debug|WebSocket.releaseClientResources:1806|Release Client Resources
+11/15/2020 12:42:58 AM|Debug|WebSocket.releaseCommonResources:1822|Release Common Resources
+11/15/2020 12:42:58 AM|Trace|WebSocket.close:1134|End closing the connection.
+11/15/2020 12:43:02 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:43:02 AM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/15/2020 12:43:02 AM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                               sent: False
+                               received: False
+11/15/2020 12:43:02 AM|Debug|WebSocket.releaseClientResources:1806|Release Client Resources
+11/15/2020 12:43:02 AM|Debug|WebSocket.releaseCommonResources:1822|Release Common Resources
+11/15/2020 12:43:02 AM|Trace|WebSocket.close:1134|End closing the connection.
+11/15/2020 12:43:06 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:43:06 AM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/15/2020 12:43:06 AM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                               sent: False
+                               received: False
+11/15/2020 12:43:06 AM|Debug|WebSocket.releaseClientResources:1806|Release Client Resources
+11/15/2020 12:43:06 AM|Debug|WebSocket.releaseCommonResources:1822|Release Common Resources
+11/15/2020 12:43:06 AM|Trace|WebSocket.close:1134|End closing the connection.
+11/15/2020 12:43:10 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:43:10 AM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/15/2020 12:43:10 AM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                               sent: False
+                               received: False
+11/15/2020 12:43:10 AM|Debug|WebSocket.releaseClientResources:1806|Release Client Resources
+11/15/2020 12:43:10 AM|Debug|WebSocket.releaseCommonResources:1822|Release Common Resources
+11/15/2020 12:43:10 AM|Trace|WebSocket.close:1134|End closing the connection.
+11/15/2020 12:43:14 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:43:14 AM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/15/2020 12:43:14 AM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                               sent: False
+                               received: False
+11/15/2020 12:43:14 AM|Debug|WebSocket.releaseClientResources:1806|Release Client Resources
+11/15/2020 12:43:14 AM|Debug|WebSocket.releaseCommonResources:1822|Release Common Resources
+11/15/2020 12:43:17 AM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/15/2020 12:43:17 AM|Debug|WebSocket.closeHandshake:1218|Was clean?: True
+                               sent: True
+                               received: True
+11/15/2020 12:43:17 AM|Debug|WebSocket.releaseClientResources:1806|Release Client Resources
+11/15/2020 12:43:17 AM|Debug|WebSocket.releaseClientResources:1808|Closing Stream
+11/15/2020 12:43:17 AM|Debug|WebSocket.releaseClientResources:1814|Closing TCP
+11/15/2020 12:43:17 AM|Debug|WebSocket.releaseCommonResources:1822|Release Common Resources
+11/15/2020 12:43:17 AM|Trace|WebSocket.close:1134|End closing the connection.
+11/15/2020 12:43:21 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:43:21 AM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/15/2020 12:43:21 AM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                               sent: False
+                               received: False
+11/15/2020 12:43:21 AM|Debug|WebSocket.releaseClientResources:1806|Release Client Resources
+11/15/2020 12:43:21 AM|Debug|WebSocket.releaseCommonResources:1822|Release Common Resources
+11/15/2020 12:43:21 AM|Trace|WebSocket.close:1134|End closing the connection.
+11/15/2020 12:43:25 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:43:25 AM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/15/2020 12:43:25 AM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                               sent: False
+                               received: False
+11/15/2020 12:43:25 AM|Debug|WebSocket.releaseClientResources:1806|Release Client Resources
+11/15/2020 12:43:25 AM|Debug|WebSocket.releaseCommonResources:1822|Release Common Resources
+11/15/2020 12:43:25 AM|Trace|WebSocket.close:1134|End closing the connection.
+11/15/2020 12:43:29 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:43:29 AM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/15/2020 12:43:29 AM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                               sent: False
+                               received: False
+11/15/2020 12:43:29 AM|Debug|WebSocket.releaseClientResources:1806|Release Client Resources
+11/15/2020 12:43:29 AM|Debug|WebSocket.releaseCommonResources:1822|Release Common Resources
+11/15/2020 12:43:29 AM|Trace|WebSocket.close:1134|End closing the connection.
+11/15/2020 12:43:33 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:43:33 AM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/15/2020 12:43:33 AM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                               sent: False
+                               received: False
+11/15/2020 12:43:33 AM|Debug|WebSocket.releaseClientResources:1806|Release Client Resources
+11/15/2020 12:43:33 AM|Debug|WebSocket.releaseCommonResources:1822|Release Common Resources
+11/15/2020 12:43:33 AM|Trace|WebSocket.close:1134|End closing the connection.
+11/15/2020 12:43:37 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:43:37 AM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/15/2020 12:43:37 AM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                               sent: False
+                               received: False
+11/15/2020 12:43:37 AM|Debug|WebSocket.releaseClientResources:1806|Release Client Resources
+11/15/2020 12:43:37 AM|Debug|WebSocket.releaseCommonResources:1822|Release Common Resources
+11/15/2020 12:43:37 AM|Trace|WebSocket.close:1134|End closing the connection.
+11/15/2020 12:43:41 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:43:41 AM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/15/2020 12:43:41 AM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                               sent: False
+                               received: False
+11/15/2020 12:43:41 AM|Debug|WebSocket.releaseClientResources:1806|Release Client Resources
+11/15/2020 12:43:41 AM|Debug|WebSocket.releaseCommonResources:1822|Release Common Resources
+11/15/2020 12:43:41 AM|Trace|WebSocket.close:1134|End closing the connection.
+11/15/2020 12:43:45 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:43:45 AM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/15/2020 12:43:45 AM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                               sent: False
+                               received: False
+11/15/2020 12:43:45 AM|Debug|WebSocket.releaseClientResources:1806|Release Client Resources
+11/15/2020 12:43:45 AM|Debug|WebSocket.releaseCommonResources:1822|Release Common Resources
+11/15/2020 12:43:45 AM|Trace|WebSocket.close:1134|End closing the connection.
+11/15/2020 12:43:49 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:43:49 AM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/15/2020 12:43:49 AM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                               sent: False
+                               received: False
+11/15/2020 12:43:49 AM|Debug|WebSocket.releaseClientResources:1806|Release Client Resources
+11/15/2020 12:43:49 AM|Debug|WebSocket.releaseCommonResources:1822|Release Common Resources
+11/15/2020 12:43:49 AM|Trace|WebSocket.close:1134|End closing the connection.
+11/15/2020 12:43:53 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:43:53 AM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/15/2020 12:43:53 AM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                               sent: False
+                               received: False
+11/15/2020 12:43:53 AM|Debug|WebSocket.releaseClientResources:1806|Release Client Resources
+11/15/2020 12:43:53 AM|Debug|WebSocket.releaseCommonResources:1822|Release Common Resources
+11/15/2020 12:45:29 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:45:29 AM|Debug|WebSocket.sendHttpRequest:2061|A request to the server:
+                             GET /socket.io/?EIO=4&transport=websocket&token=4fc8b3a7-3909-43b6-96a0-0387cd85e896 HTTP/1.1
+                             User-Agent: websocket-sharp/1.0
+                             Host: api.machinations.io
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Key: bNpZCJWjBsf6t6h1IuiUhg==
+                             Sec-WebSocket-Version: 13
+11/15/2020 12:45:29 AM|Debug|WebSocket.sendHttpRequest:2063|A response to this request:
+                             HTTP/1.1 101 Switching Protocols
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Accept: /IY+VZp4LRLmN/DwyZVkMLgcFo8=
+11/15/2020 12:45:34 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:45:34 AM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/15/2020 12:45:34 AM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                               sent: False
+                               received: False
+11/15/2020 12:45:34 AM|Debug|WebSocket.releaseClientResources:1806|Release Client Resources
+11/15/2020 12:45:34 AM|Debug|WebSocket.releaseCommonResources:1822|Release Common Resources
+11/15/2020 12:45:34 AM|Trace|WebSocket.close:1134|End closing the connection.
+11/15/2020 12:45:38 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:45:38 AM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/15/2020 12:45:38 AM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                               sent: False
+                               received: False
+11/15/2020 12:45:38 AM|Debug|WebSocket.releaseClientResources:1806|Release Client Resources
+11/15/2020 12:45:38 AM|Debug|WebSocket.releaseCommonResources:1822|Release Common Resources
+11/15/2020 12:45:38 AM|Trace|WebSocket.close:1134|End closing the connection.
+11/15/2020 12:45:42 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:45:42 AM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/15/2020 12:45:42 AM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                               sent: False
+                               received: False
+11/15/2020 12:45:42 AM|Debug|WebSocket.releaseClientResources:1806|Release Client Resources
+11/15/2020 12:45:42 AM|Debug|WebSocket.releaseCommonResources:1822|Release Common Resources
+11/15/2020 12:45:42 AM|Trace|WebSocket.close:1134|End closing the connection.
+11/15/2020 12:45:46 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:45:46 AM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/15/2020 12:45:46 AM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                               sent: False
+                               received: False
+11/15/2020 12:45:46 AM|Debug|WebSocket.releaseClientResources:1806|Release Client Resources
+11/15/2020 12:45:46 AM|Debug|WebSocket.releaseCommonResources:1822|Release Common Resources
+11/15/2020 12:45:46 AM|Trace|WebSocket.close:1134|End closing the connection.
+11/15/2020 12:45:50 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:45:50 AM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/15/2020 12:45:50 AM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                               sent: False
+                               received: False
+11/15/2020 12:45:50 AM|Debug|WebSocket.releaseClientResources:1806|Release Client Resources
+11/15/2020 12:45:50 AM|Debug|WebSocket.releaseCommonResources:1822|Release Common Resources
+11/15/2020 12:45:50 AM|Trace|WebSocket.close:1134|End closing the connection.
+11/15/2020 12:45:54 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:45:54 AM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/15/2020 12:45:54 AM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                               sent: False
+                               received: False
+11/15/2020 12:45:54 AM|Debug|WebSocket.releaseClientResources:1806|Release Client Resources
+11/15/2020 12:46:56 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:46:56 AM|Debug|WebSocket.sendHttpRequest:2061|A request to the server:
+                             GET /socket.io/?EIO=4&transport=websocket&token=4fc8b3a7-3909-43b6-96a0-0387cd85e896 HTTP/1.1
+                             User-Agent: websocket-sharp/1.0
+                             Host: api.machinations.io
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Key: ftijJvV6Ns9xHI/vKFVD5w==
+                             Sec-WebSocket-Version: 13
+11/15/2020 12:46:56 AM|Debug|WebSocket.sendHttpRequest:2063|A response to this request:
+                             HTTP/1.1 101 Switching Protocols
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Accept: aYXphrCRjMb+/wPWxXs2VCgbm0I=
+11/15/2020 12:48:26 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:48:26 AM|Trace|WebSocket.close:1129|Begin closing the connection.
+11/15/2020 12:48:26 AM|Debug|WebSocket.closeHandshake:1218|Was clean?: False
+                               sent: False
+                               received: False
+11/15/2020 12:48:26 AM|Debug|WebSocket.releaseClientResources:1806|Release Client Resources
+11/15/2020 12:48:26 AM|Debug|WebSocket.releaseCommonResources:1822|Release Common Resources
+11/15/2020 12:48:26 AM|Trace|WebSocket.close:1134|End closing the connection.
+11/15/2020 12:48:29 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+11/15/2020 12:48:30 AM|Debug|WebSocket.sendHttpRequest:2061|A request to the server:
+                             GET /socket.io/?EIO=4&transport=websocket&token=4fc8b3a7-3909-43b6-96a0-0387cd85e896 HTTP/1.1
+                             User-Agent: websocket-sharp/1.0
+                             Host: api.machinations.io
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Key: JdFmNnjlst3TGVQYCXTvdg==
+                             Sec-WebSocket-Version: 13
+11/15/2020 12:48:30 AM|Debug|WebSocket.sendHttpRequest:2063|A response to this request:
+                             HTTP/1.1 101 Switching Protocols
+                             Upgrade: websocket
+                             Connection: Upgrade
+                             Sec-WebSocket-Accept: DAaxPORIm6z8Cf4DYt6ngiKS7Cw=

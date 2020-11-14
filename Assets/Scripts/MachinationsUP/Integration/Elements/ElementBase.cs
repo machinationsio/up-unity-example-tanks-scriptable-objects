@@ -2,6 +2,8 @@
 using System.Runtime.Serialization;
 using MachinationsUP.Engines.Unity;
 using MachinationsUP.Integration.Binder;
+using MachinationsUP.Integration.Inventory;
+using MachinationsUP.Logger;
 
 namespace MachinationsUP.Integration.Elements
 {
@@ -26,7 +28,12 @@ namespace MachinationsUP.Integration.Elements
         public int BaseValue { get; set; }
 
         /// <summary>
-        /// Parent Element Binder.
+        /// The DiagramMapping associated with this ElementBase.
+        /// </summary>
+        public DiagramMapping DiagMapping { get; private set; }
+        
+        /// <summary>
+        /// Parent <see cref="ElementBinder"/>. A Binder contains multiple ElementBase.
         /// </summary>
         internal ElementBinder ParentElementBinder { get; }
 
@@ -51,7 +58,7 @@ namespace MachinationsUP.Integration.Elements
         /// Top cap.
         /// </summary>
         [DataMember()]
-        public int MaxValue { get; set; }
+        public int? MaxValue { get; set; }
 
         /// <summary>
         /// Bottom cap. NOT USED YET.
@@ -60,20 +67,22 @@ namespace MachinationsUP.Integration.Elements
         public int MinValue { get; set; }
 
         //For Serialization only!
-        private ElementBase ()
+        public ElementBase ()
         {
         }
 
         /// <summary>
         /// Default constructor.
         /// </summary>
-        /// <param name="parentBinder">Parent Element Binder.</param>
         /// <param name="baseValue">Value to start with.</param>
-        public ElementBase (int baseValue = -1, ElementBinder parentBinder = null)
+        /// <param name="mapping">The DiagramMapping associated with this ElementBase.</param>
+        /// <param name="parentBinder">Parent Element Binder.</param>
+        public ElementBase (int baseValue, DiagramMapping mapping, ElementBinder parentBinder = null)
         {
+            DiagMapping = mapping;
             ParentElementBinder = parentBinder;
             BaseValue = baseValue;
-            MaxValue = -1;
+            MaxValue = null;
             Reset();
         }
 
@@ -102,7 +111,7 @@ namespace MachinationsUP.Integration.Elements
         /// </summary>
         private void Clamp ()
         {
-            if (MaxValue != -1 && CurrentValue > MaxValue) CurrentValue = MaxValue;
+            if (MaxValue != null && CurrentValue > MaxValue) CurrentValue = (int)MaxValue;
         }
 
         /// <summary>
@@ -145,7 +154,19 @@ namespace MachinationsUP.Integration.Elements
         /// <returns></returns>
         virtual public ElementBase Clone (ElementBinder parentBinder)
         {
-            return new ElementBase(BaseValue, parentBinder);
+            return new ElementBase(BaseValue, DiagMapping, parentBinder);
+        }
+
+        /// <summary>
+        /// Ovewrites this ELementBase's data with the provided one.
+        /// </summary>
+        /// <param name="with">New data.</param>
+        virtual public void Overwrite (ElementBase with)
+        {
+            MinValue = with.MinValue;
+            MaxValue = with.MaxValue;
+            BaseValue = with.BaseValue;
+            ChangeValueTo(with.CurrentValue);
         }
 
         override public string ToString ()

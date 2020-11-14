@@ -151,6 +151,7 @@
      <Compile Include="Assets\ScriptableObject\Brains\SimpleSniper.cs" />
      <Compile Include="Assets\ScriptableObject\Destruction\HideBehindEffect.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\ReadBufferState.cs" />
+     <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\Logger\L.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\LogData.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Server\ServerState.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\HttpHeaderInfo.cs" />
@@ -210,15 +211,13 @@
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\ClientSslConfiguration.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\MachinationsAPI\Protocols\UpdateRules.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\ChunkStream.cs" />
-     <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\Logger\L.cs" />
      <None Include="Assets\Fonts\Bowlby_One\OFL.txt" />
-     <None Include="Assets\socket-errorlog-global2020-11-13.txt" />
      <None Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\JSONObject\readme.txt" />
      <None Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\Readme.txt" />
      <None Include="Assets\MachinationsCache\AxonnMachi\Cache.xml" />
+     <None Include="Assets\socket-errorlog-global2020-11-14.txt" />
      <None Include="Assets\MachinationsCache\MyCacheDirectory\Cache.xml" />
-     <None Include="Assets\socket-errorlog-global2020-11-12.txt" />
-     <None Include="Assets\socket-errorlog-global2020-11-11.txt" />
+     <None Include="Assets\socket-errorlog-global2020-11-15.txt" />
      <None Include="Assets\MachinationsSettings.xml" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>D:/Codez/Machinations/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

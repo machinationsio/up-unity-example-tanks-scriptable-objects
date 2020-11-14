@@ -8,8 +8,8 @@ using MachinationsUP.SyncAPI;
 namespace MachinationsUP.Integration.Inventory
 {
     /// <summary>
-    /// Summarizes information about how a Machinations Object Property is mapped to the Diagram.
-    /// Can be seen as the "coordinates" of a Machinations Object Property.
+    /// Summarizes information about how a Machinations Object Property is mapped to a Diagram.
+    /// Since a single <see cref="StatesAssociation"/> is supported, these are the precise coordinates of a Machinations Object Property.
     /// See <see cref="MachinationsUP.Integration.Binder"/>
     /// </summary>
     [DataContract(Name = "MachinationsDiagramMapping", Namespace = "http://www.machinations.io")]
@@ -30,11 +30,6 @@ namespace MachinationsUP.Integration.Inventory
         }
 
         private string _propertyName;
-
-        /// <summary>
-        /// The <see cref="ElementBinder"/> manifesting this Diagram Mapping in the game.
-        /// </summary>
-        public ElementBinder Binder { get; set; }
 
         /// <summary>
         /// The name of this Property.
@@ -76,6 +71,8 @@ namespace MachinationsUP.Integration.Inventory
         /// </summary>
         public OverwriteRules OvewriteRule { get; set; }
 
+        public ElementBase GameElementBase { get; set; }
+        
         /// <summary>
         /// A Default ElementBase, to be used only during OFFLINE mode.
         /// </summary>

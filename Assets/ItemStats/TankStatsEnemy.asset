@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8108bf1cd7c34abfb3ed305cce9d3e9f, type: 3}
   m_Name: TankStatsEnemy
   m_EditorClassIdentifier: 
-  Health: 207
-  Speed: 10
+  Health:
+    _serializableValue: 203
+  Speed:
+    _serializableValue: 10

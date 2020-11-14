@@ -3,6 +3,7 @@ using System.Xml.Serialization;
 using MachinationsUP.Engines.Unity;
 using MachinationsUP.Integration.Binder;
 using MachinationsUP.Integration.Elements.Formula;
+using MachinationsUP.Integration.Inventory;
 using UnityEngine;
 
 namespace MachinationsUP.Integration.Elements
@@ -46,7 +47,7 @@ namespace MachinationsUP.Integration.Elements
         public string FormulaString { get; private set; }
 
         //For Serialization only!
-        private FormulaElement ()
+        public FormulaElement ()
         {
         }
 
@@ -54,12 +55,13 @@ namespace MachinationsUP.Integration.Elements
         /// Default constructor.
         /// </summary>
         /// <param name="formulaString">Formula to use.</param>
+        /// <param name="mapping">The DiagramMapping associated with this ElementBase.</param>
         /// <param name="rerunFormulaAtReset">If to recalculate the BaseValue from the Formula at reset.</param>
         /// <param name="rerunFormulaAtEveryAccess">If to recalculate the BaseValue from the Formula each time the CurrentValue is queried.</param>
         /// /// <param name="parentBinder">Parent Element Binder.</param>
-        public FormulaElement (string formulaString, bool rerunFormulaAtReset = true, bool rerunFormulaAtEveryAccess = true,
+        public FormulaElement (string formulaString, DiagramMapping mapping, bool rerunFormulaAtReset = true, bool rerunFormulaAtEveryAccess = true, 
             ElementBinder parentBinder = null) :
-            base(-1, parentBinder)
+            base(-1, mapping, parentBinder)
         {
             FormulaString = formulaString;
             MFormula = new MachinationsFormula(formulaString);
@@ -105,7 +107,7 @@ namespace MachinationsUP.Integration.Elements
         /// <returns></returns>
         override public ElementBase Clone (ElementBinder parentBinder)
         {
-            return new FormulaElement(FormulaString, RerunFormulaAtReset, RerunFormulaAtEveryAccess, parentBinder);
+            return new FormulaElement(FormulaString, DiagMapping, RerunFormulaAtReset, RerunFormulaAtEveryAccess, parentBinder);
         }
 
         override public string ToString ()

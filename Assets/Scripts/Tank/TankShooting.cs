@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using MachinationsUP.Logger;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class TankShooting : MonoBehaviour
@@ -47,10 +48,14 @@ public class TankShooting : MonoBehaviour
 
     public void BeginChargingShot ()
     {
+        //L.D("Tank Shooting Rigid Body: " + myRigidBody.GetHashCode());
+        //L.D("PlayerControlledTank.Instance Hash: " + PlayerControlledTank.Instance.GetHashCode() + " and PlayerControlledTank.Instance.TankRigidBody: " + PlayerControlledTank.Instance.TankRigidBody.GetHashCode());
         //Set shot cooldown based on which tank it is (player / enemy).
         float shotCooldown = PlayerControlledTank.Instance.TankRigidBody == myRigidBody
             ? m_ShellStats.ShotCooldown.CurrentValue
             : m_ShellStatsEnemy.ShotCooldown.CurrentValue;
+
+        //L.D("Shot Cooldown: " + shotCooldown);
 
         if (timeSinceShot < shotCooldown) return;
 
@@ -99,8 +104,8 @@ public class TankShooting : MonoBehaviour
         //Change launch force so that projectile speed changes are taken into account.
         //Differentiate shot force per player / enemy.
         float newForce = PlayerControlledTank.Instance.TankRigidBody == myRigidBody
-            ? m_CurrentLaunchForce * ((float)m_ShellStats.Speed.CurrentValue / 100)
-            : m_CurrentLaunchForce * ((float)m_ShellStatsEnemy.Speed.CurrentValue / 100);
+            ? m_CurrentLaunchForce * ((float) m_ShellStats.Speed.CurrentValue / 100)
+            : m_CurrentLaunchForce * ((float) m_ShellStatsEnemy.Speed.CurrentValue / 100);
 
         // Set the shell's velocity to the launch force in the fire position's forward direction.
         shellInstance.velocity = newForce * m_FireTransform.forward;

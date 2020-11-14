@@ -62,7 +62,7 @@ namespace MachinationsUP.Engines.Unity.GameComms
             {
                 case State.InitComplete:
                     _currentState = State.Idling;
-                    MachinationsDataLayer.UpdateWithValuesFromMachinations(_diagramElementsFromBackEnd);
+                    MachinationsDataLayer.UpdateSourcesWithValuesFromMachinations(_diagramElementsFromBackEnd);
                     MachinationsDataLayer.SyncComplete();
                     break;
                 //Wait at least 1 Timer interval before making the Sync request.
@@ -88,10 +88,6 @@ namespace MachinationsUP.Engines.Unity.GameComms
 
         public void ScheduleSync ()
         {
-            if (_currentState != State.Idling && _currentState != State.SyncRequested)
-                throw new Exception("Cannot queue commands while not idling / synching. This will be addressed soon. Current state: " +
-                                    _currentState);
-
             L.D("MachinationsService.ScheduleSync.");
             _currentState = State.SyncRequested;
         }
@@ -115,7 +111,7 @@ namespace MachinationsUP.Engines.Unity.GameComms
 
         public void UpdateWithValuesFromMachinations (List<JSONObject> elementsFromBackEnd, bool updateFromDiagram = false)
         {
-            MachinationsDataLayer.UpdateWithValuesFromMachinations(elementsFromBackEnd, updateFromDiagram);
+            MachinationsDataLayer.UpdateSourcesWithValuesFromMachinations(elementsFromBackEnd, updateFromDiagram);
         }
 
         /// <summary>

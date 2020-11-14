@@ -228,7 +228,9 @@ namespace SocketIO
         public void Close ()
         {
             EmitClose();
+            
             connected = false;
+            ws = null;
         }
 
         public void On (string ev, Action<SocketIOEvent> callback)
@@ -342,7 +344,18 @@ namespace SocketIO
 
                     if (!ws.IsConnected) return;
 
-                    EmitPacket(new Packet(EnginePacketType.PING));
+                    try
+                    {
+                        EmitPacket(new Packet(EnginePacketType.PING));
+                    }
+                    catch (Exception ex)
+                    {
+                        L.Ex(ex);
+                        PrepareClose();
+                        Close();
+                        return;
+                    }
+
                     pingStart = DateTime.Now;
 
                     while (webSocket.IsConnected && thPinging && (DateTime.Now.Subtract(pingStart).TotalSeconds < timeoutMilis))

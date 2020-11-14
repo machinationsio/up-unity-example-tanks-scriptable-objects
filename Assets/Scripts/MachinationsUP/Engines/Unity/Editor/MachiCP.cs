@@ -13,6 +13,7 @@ namespace MachinationsUP.Engines.Unity.Editor
         private string _userKey = "4fc8b3a7-3909-43b6-96a0-0387cd85e896";
         private string _gameName = "Tanks";
         private string _diagramToken = "54dc6ccd-1f66-41d8-a8d5-0873e935a770";
+        private bool _restoredFromSettings;
 
         private int _index;
         
@@ -43,6 +44,17 @@ namespace MachinationsUP.Engines.Unity.Editor
         /// </summary>
         void OnGUI ()
         {
+            if (MachinationsConfig.Instance == null) return;
+            if (!_restoredFromSettings)
+            {
+                _restoredFromSettings = true;
+                _APIURL = MachinationsConfig.Instance.APIURL;
+                _userKey = MachinationsConfig.Instance.UserKey;
+                _gameName = MachinationsConfig.Instance.GameName;
+                _diagramToken = MachinationsConfig.Instance.DiagramToken;
+            }
+
+            EditorGUI.BeginChangeCheck();
             GUILayout.Label("Machinations.io Connection Settings", EditorStyles.boldLabel);
             _APIURL = EditorGUILayout.TextField("API URL", _APIURL);
             _userKey = EditorGUILayout.TextField("User Key", _userKey);
@@ -54,6 +66,10 @@ namespace MachinationsUP.Engines.Unity.Editor
             _index = EditorGUILayout.Popup(_index, new [] {"Player Tank", "Player Tank Shell", "Enemy Tank", "Enemy Tank Shell"});
             if (GUILayout.Button("Create"))
                 CreateMachinationsCode();
+            if (GUI.changed)
+            {
+                SaveMachinationsConfig();
+            }
         }
         
         /// <summary>
@@ -75,25 +91,11 @@ namespace MachinationsUP.Engines.Unity.Editor
 
         void OnEnable ()
         {
-            //To be replaced with Focus-handling.
-            SaveMachinationsConfig();
-        }
-
-        private void OnValidate ()
-        {
-            //To be replaced with Focus-handling.
-            SaveMachinationsConfig();
-        }
-        
-        void OnDisable ()
-        {
-            //To be replaced with Focus-handling.
             SaveMachinationsConfig();
         }
         
         void OnDestroy ()
         {
-            //To be replaced with Focus-handling.
             SaveMachinationsConfig();
         }
 
@@ -102,7 +104,8 @@ namespace MachinationsUP.Engines.Unity.Editor
         /// </summary>
         private void SaveMachinationsConfig ()
         {
-            L.D("Saving Machinations Config.");
+            //Only saving settings after they have been restored.
+            if (!_restoredFromSettings) return;
             MachinationsConfig.Instance.APIURL = _APIURL;
             MachinationsConfig.Instance.UserKey = _userKey;
             MachinationsConfig.Instance.GameName = _gameName;

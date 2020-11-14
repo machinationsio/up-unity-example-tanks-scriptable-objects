@@ -24,7 +24,8 @@ namespace MachinationsUP.Engines.Unity
         
         /// <summary>
         /// The Binders used by the <see cref="IMachinationsScriptableObject"/>.
-        /// They can be set only AFTER <see cref="MachinationsDataLayer"/> initialization. 
+        /// They can be set only AFTER <see cref="MachinationsDataLayer"/> initialization.
+        /// Dictionary of Game Object Property Name and ElementBinder. 
         /// </summary>
         public Dictionary<string, ElementBinder> Binders;
 

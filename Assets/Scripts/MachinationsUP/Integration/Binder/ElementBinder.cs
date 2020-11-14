@@ -21,6 +21,7 @@ namespace MachinationsUP.Integration.Binder
     /// </summary>
     public class ElementBinder
     {
+
         //TODO: split this class into one that is owned byMachinationsGameObject and another for EnrolledScriptableObject.
 
         /// <summary>
@@ -32,7 +33,7 @@ namespace MachinationsUP.Integration.Binder
         /// Machinations Scriptable Object that owns this Binder.
         /// </summary>
         internal EnrolledScriptableObject ParentScriptableObject { get; }
-        
+
         /// <summary>
         /// The <see cref="MachinationsUP.Integration.Inventory.DiagramMapping"/> which defines how to retrieve & connect this Binder (and
         /// the Game Object Property Name it represents) to the Machinations Diagram.
@@ -94,7 +95,7 @@ namespace MachinationsUP.Integration.Binder
             ParentGameObject = parentGameObject ?? throw new Exception("Parent Game Object cannot be null");
             DiagMapping = diagramMapping;
         }
-        
+
         public ElementBinder (EnrolledScriptableObject parentScriptableObject, DiagramMapping diagramMapping)
         {
             ParentScriptableObject = parentScriptableObject ?? throw new Exception("Parent Scriptable Object cannot be null");
@@ -192,8 +193,8 @@ namespace MachinationsUP.Integration.Binder
         public void CreateElementBaseForStateAssoc (StatesAssociation statesAssociation = null, bool overwrite = false,
             bool isRunningOffline = false)
         {
-            //L.D("CreateElementBaseForStateAssoc in ElementBinder [Hash: " + GetHashCode() + "] '" +
-            //          GetFullName() + "' @ statesAssociation: " + (statesAssociation != null ? statesAssociation.Title : "N/A"));
+            L.D("CreateElementBaseForStateAssoc in ElementBinder [Hash: " + GetHashCode() + "] '" +
+                GetFullName() + "' @ statesAssociation: " + (statesAssociation != null ? statesAssociation.Title : "N/A"));
 
             //The MachinationsGameLayer is responsible for creating ElementBase.
             ElementBase newElement = MachinationsDataLayer.Instance.CreateElement(this, statesAssociation);

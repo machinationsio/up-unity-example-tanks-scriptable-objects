@@ -2,6 +2,7 @@
 using MachinationsUP.Integration.Binder;
 using MachinationsUP.Integration.Elements;
 using MachinationsUP.Integration.Inventory;
+using UnityEngine;
 
 namespace MachinationsUP.Engines.Unity
 {
@@ -11,6 +12,10 @@ namespace MachinationsUP.Engines.Unity
     /// </summary>
     public interface IMachinationsScriptableObject
     {
+
+        ScriptableObject SO { get; }
+        
+        MachiObjectManifest Manifest { get; }
 
         /// <summary>
         /// Called when Machinations initialization has been completed.
