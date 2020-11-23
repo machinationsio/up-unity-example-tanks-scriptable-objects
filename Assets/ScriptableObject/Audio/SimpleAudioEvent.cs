@@ -35,7 +35,7 @@ public class SimpleAudioEvent : AudioEvent, IMachinationsScriptableObject
     public void OnEnable ()
     {
         //Manifest that defines what the SO uses from Machinations.
-        Manifest = new MachiObjectManifest
+        Manifest = new MachinationsObjectManifest
         {
             Name =  "Sound Event",
             DiagramMappings = new List<DiagramMapping>
@@ -67,7 +67,7 @@ public class SimpleAudioEvent : AudioEvent, IMachinationsScriptableObject
 
     #region IMachinationsScriptableObject
     
-    public MachiObjectManifest Manifest { get; private set; }
+    public MachinationsObjectManifest Manifest { get; private set; }
     
     public ScriptableObject SO => this;
 

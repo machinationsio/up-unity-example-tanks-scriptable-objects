@@ -25,10 +25,10 @@ namespace MachinationsUP.Integration.GameObject
         /// </summary>
         /// <param name="manifest">The Manifest that will be used to initialized this MachinationsGameAwareObject.</param>
         /// <param name="onBindersUpdated">When a <see cref="MachinationsGameObject"/> enrolls itself
-        /// using <see cref="MachinationsDataLayer.EnrollGameObject"/>, this event WILL fire if the MachinationsGameLayer
+        /// using <see cref="MachinationsDataLayer.EnrollGameObject"/>, this event WILL fire if the MachinationsDataLayer
         /// has been initialized. So, this is why it is allowed to send an EventHandler callback upon Construction.
         /// </param>
-        public MachinationsGameAwareObject (MachiObjectManifest manifest, EventHandler onBindersUpdated = null) :
+        public MachinationsGameAwareObject (MachinationsObjectManifest manifest, EventHandler onBindersUpdated = null) :
             base(manifest, onBindersUpdated)
         {
         }
@@ -46,7 +46,7 @@ namespace MachinationsUP.Integration.GameObject
         /// <summary>
         /// Called by <see cref="MachinationsDataLayer"/> when initialization is complete.
         /// For all <see cref="MachinationsUP.Integration.Binder.ElementBinder"/>, retrieves their
-        /// required <see cref="MachinationsUP.Integration.Elements.ElementBase"/> from MGL, FOR EACH
+        /// required <see cref="MachinationsUP.Integration.Elements.ElementBase"/> from MDL, FOR EACH
         /// possible <see cref="MachinationsUP.GameEngineAPI.States.StatesAssociation"/>.
         /// Complete override from <see cref="MachinationsUP.Integration.GameObject.MachinationsGameObject"/>.
         /// </summary>
@@ -145,7 +145,7 @@ namespace MachinationsUP.Integration.GameObject
             /*
             //Emit events marked as "to emit".
             if (_manifest.EventsToEmit.Contains(evnt))
-                MachinationsGameLayer.Instance.EmitGameEvent(this, evnt);
+                MachinationsDataLayer.Instance.EmitGameEvent(this, evnt);
             */
         }
 

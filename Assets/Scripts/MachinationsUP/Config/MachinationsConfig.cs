@@ -14,6 +14,11 @@ namespace MachinationsUP.Config
     {
 
         /// <summary>
+        /// TRUE: Settings loaded.
+        /// </summary>
+        static public bool HasSettings { get; set; } = true;
+        
+        /// <summary>
         /// The URL where the Machinations API resides.
         /// </summary>
         public string APIURL { get; set; }
@@ -36,7 +41,7 @@ namespace MachinationsUP.Config
         /// <summary>
         /// Currently used configuration.
         /// </summary>
-        static public MachinationsConfig Instance { get; private set; }
+        static public MachinationsConfig Instance { get; set; }
 
         /// <summary>
         /// Loads settings from XML.

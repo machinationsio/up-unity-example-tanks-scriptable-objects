@@ -12,6 +12,9 @@ using MachinationsUP.Logger;
 
 namespace MachinationsUP.Engines.Unity.BackendConnection
 {
+    /// <summary>
+    /// Wraps SocketIOGlobal, adding Machinations-specific handling.
+    /// </summary>
     public class SocketIOClient
     {
 
@@ -22,8 +25,14 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
 
         #endregion
 
+        /// <summary>
+        /// Socket used for communication.
+        /// </summary>
         private SocketIOGlobal _socket;
 
+        /// <summary>
+        /// Service that owns this Socket.
+        /// </summary>
         private MachinationsService _machinationsService;
 
         /// <summary>
@@ -142,6 +151,7 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
                 //Must close the Socket before we try to connect again.
                 try
                 {
+                    _socket.ClearHandlers();
                     _socket.PrepareClose();
                     _socket.Close();
                 }
@@ -160,43 +170,6 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
             L.D("Connecting in " + waitSeconds + " seconds.");
             Thread.Sleep(waitSeconds * 1000);
             InitSocket();
-            /*
-            //yield return new WaitUntil(() => _connectionAborted || (_socket.IsConnected && SocketOpenReceived && SocketOpenStartReceived));
-
-            if (_connectionAborted)
-            {
-                L.E("MGL Connection failure. Game will proceed with default/cached values!");
-
-                //Cache system active? Load Cache.
-                if (!string.IsNullOrEmpty(cacheDirectoryName)) LoadCache();
-                //Running in offline mode now.
-                IsInOfflineMode = true;
-                OnMachinationsUpdate?.Invoke(this, null);
-            }
-            else
-            {
-                IsConnecting = false;
-                L.D("MGL.Start: Connection achieved.");
-
-                EmitMachinationsAuthRequest();
-
-                yield return new WaitUntil(() => IsAuthenticated || IsInOfflineMode);
-
-                EmitMachinationsInitRequest();
-
-                yield return new WaitUntil(() => IsInitialized || IsInOfflineMode);
-
-                L.D("MGL.Start: Machinations Backend Sync complete. Resuming game.");
-            }
-
-            //Notify Game Engine of Machinations Init Complete.
-            Instance._gameLifecycleProvider?.MachinationsInitComplete();
-            */
-        }
-
-        public void PrepareClose ()
-        {
-            _socket.PrepareClose();
         }
 
         #region Socket IO - Communication with Machinations Back-end
@@ -212,7 +185,7 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
                 {SyncMsgs.JK_AUTH_DIAGRAM_TOKEN, _diagramToken}
             };
 
-            L.D("MGL.EmitMachinationsAuthRequest with gameName " + _gameName + " and diagram token " + _diagramToken);
+            L.D("MDL.EmitMachinationsAuthRequest with gameName " + _gameName + " and diagram token " + _diagramToken);
 
             _socket.Emit(SyncMsgs.SEND_API_AUTHORIZE, new JSONObject(authRequest));
         }
@@ -289,6 +262,7 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
             foreach (string payloadKey in e.data.keys)
                 //For now, only interested in the "SyncMsgs.JK_DIAGRAM_ELEMENTS_LIST" payload.
                 if (payloadKey == SyncMsgs.JK_DIAGRAM_ELEMENTS_LIST)
+                    //TODO: switch to local instance.
                     MachinationsDataLayer.Service.UpdateWithValuesFromMachinations(e.data[SyncMsgs.JK_DIAGRAM_ELEMENTS_LIST].list, true);
         }
 
@@ -315,7 +289,7 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
                 {SyncMsgs.JK_EVENT_GAME_OBJ_NAME, mgo.Name},
                 {SyncMsgs.JK_EVENT_GAME_EVENT, evnt}
             };
-            L.D("MGL.EmitGameEvent " + evnt);
+            L.D("MDL.EmitGameEvent " + evnt);
 
             _socket.Emit(SyncMsgs.SEND_GAME_EVENT, new JSONObject(sync));
         }
@@ -386,54 +360,3 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
 
     }
 }
-
-
-/*
-
-
-        private IEnumerator ConnectToMachinations (int waitSeconds = 0)
-        {
-            L.D("Connecting in " + waitSeconds + " seconds.");
-            yield return new WaitForSeconds(waitSeconds);
-
-            //Notify Game Engine of Machinations Init Start.
-            Instance._gameLifecycleProvider?.MachinationsInitStart();
-
-            //Attempt to init Socket.
-            _connectionAborted = InitSocket() == false;
-
-            yield return new WaitUntil(() => _connectionAborted || (_socket.IsConnected && SocketOpenReceived && SocketOpenStartReceived));
-
-            if (_connectionAborted)
-            {
-                L.E("MGL Connection failure. Game will proceed with default/cached values!");
-
-                //Cache system active? Load Cache.
-                if (!string.IsNullOrEmpty(cacheDirectoryName)) LoadCache();
-                //Running in offline mode now.
-                IsInOfflineMode = true;
-                OnMachinationsUpdate?.Invoke(this, null);
-            }
-            else
-            {
-                IsConnecting = false;
-                L.D("MGL.Start: Connection achieved.");
-
-                EmitMachinationsAuthRequest();
-
-                yield return new WaitUntil(() => IsAuthenticated || IsInOfflineMode);
-
-                EmitMachinationsInitRequest();
-
-                yield return new WaitUntil(() => IsInitialized || IsInOfflineMode);
-
-                L.D("MGL.Start: Machinations Backend Sync complete. Resuming game.");
-            }
-
-            //Notify Game Engine of Machinations Init Complete.
-            Instance._gameLifecycleProvider?.MachinationsInitComplete();
-
-            yield return 1;
-        }
-        
-        */

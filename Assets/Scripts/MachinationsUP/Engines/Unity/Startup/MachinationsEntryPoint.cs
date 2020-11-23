@@ -16,7 +16,6 @@ namespace MachinationsUP.Engines.Unity.Startup
         /// <summary>
         /// Machinations Service instance.
         /// </summary>
-        /// 
         static private MachinationsService _machinationsService;
 
         /// <summary>
@@ -27,18 +26,19 @@ namespace MachinationsUP.Engines.Unity.Startup
         [InitializeOnLoadMethod]
         static public void InitMachinations ()
         {
+            L.Level = LogLevel.Info;
+            
+            //Since Application.dataPath cannot be accessed from other threads (and we need that), storing it in MDL.
+            MachinationsDataLayer.AssetsPath = Application.dataPath;
+            
             //Cannot operate until settings have been defined for Machinations.
             if (!MachinationsConfig.LoadSettings())
             {
+                MachinationsConfig.HasSettings = false;
                 L.W("Machinations Settings do not exist. Please configure Machinations using Tools -> Machinations -> Open Machinations.io Control Panel.");
                 return;
             }
-
-            L.Level = LogLevel.Debug;
-
-            //Since Application.dataPath cannot be accessed from other threads (and we need that), storing it in MDL.
-            MachinationsDataLayer.AssetsPath = Application.dataPath;
-
+            
             //Bootstrap.
             _machinationsService = MachinationsDataLayer.Service = new MachinationsService();
             _socketClient = new SocketIOClient(

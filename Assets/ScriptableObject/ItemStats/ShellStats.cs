@@ -27,7 +27,7 @@ public class ShellStats : ScriptableObject, IMachinationsScriptableObject
     public void OnEnable ()
     {
         //Manifest that defines what the SO uses from Machinations.
-        Manifest = new MachiObjectManifest
+        Manifest = new MachinationsObjectManifest
         {
             Name = "Shell Stats",
             DiagramMappings = new List<DiagramMapping>
@@ -81,7 +81,7 @@ public class ShellStats : ScriptableObject, IMachinationsScriptableObject
 
     #region IMachinationsScriptableObject
 
-    public MachiObjectManifest Manifest { get; private set; }
+    public MachinationsObjectManifest Manifest { get; private set; }
 
     public ScriptableObject SO => this;
 

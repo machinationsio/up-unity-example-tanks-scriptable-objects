@@ -29,15 +29,15 @@ namespace MachinationsUP.Integration.GameObject
         /// </summary>
         public string Name => _name;
 
-        readonly protected MachiObjectManifest _manifest;
+        readonly protected MachinationsObjectManifest _manifest;
 
         /// <summary>
         /// Stores data required to initialize a Machination Game Object.
         /// </summary>
-        public MachiObjectManifest Manifest => _manifest;
+        public MachinationsObjectManifest Manifest => _manifest;
 
         /// <summary>
-        /// Event triggered when MachinationsGameLayer initialization is completed.
+        /// Event triggered when MachinationsDataLayer initialization is completed.
         /// </summary>
         public event EventHandler OnBindersUpdated;
 
@@ -54,10 +54,10 @@ namespace MachinationsUP.Integration.GameObject
         /// </summary>
         /// <param name="manifest">The Manifest that will be used to initialized this MachinationsGameObject.</param>
         /// <param name="onBindersUpdated">When a <see cref="MachinationsGameObject"/> enrolls itself
-        /// using <see cref="MachinationsDataLayer.EnrollGameObject"/>, this event WILL fire if the MachinationsGameLayer
+        /// using <see cref="MachinationsDataLayer.EnrollGameObject"/>, this event WILL fire if the MachinationsDataLayer
         /// has been initialized. So, this is why it is allowed to send an EventHandler callback upon Construction.
         /// </param>
-        public MachinationsGameObject (MachiObjectManifest manifest, EventHandler onBindersUpdated = null)
+        public MachinationsGameObject (MachinationsObjectManifest manifest, EventHandler onBindersUpdated = null)
         {
             _name = manifest.Name;
             _manifest = manifest;
@@ -89,7 +89,7 @@ namespace MachinationsUP.Integration.GameObject
         /// <summary>
         /// Called by <see cref="MachinationsDataLayer"/> when initialization is complete.
         /// For all <see cref="MachinationsUP.Integration.Binder.ElementBinder"/>, retrieves their
-        /// required <see cref="MachinationsUP.Integration.Elements.ElementBase"/> from MGL.
+        /// required <see cref="MachinationsUP.Integration.Elements.ElementBase"/> from MDL.
         /// <param name="isRunningOffline">TRUE: the <see cref="MachinationsDataLayer"/> is running in offline mode.</param>
         /// </summary>
         virtual internal void MGLInitComplete (bool isRunningOffline = false)
@@ -119,7 +119,7 @@ namespace MachinationsUP.Integration.GameObject
         }
 
         /// <summary>
-        /// Notifies any listeners that the MGL Init Request has completed.
+        /// Notifies any listeners that the MDL Init Request has completed.
         /// </summary>
         protected void NotifyBindersUpdated ()
         {

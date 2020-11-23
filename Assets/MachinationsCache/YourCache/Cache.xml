@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MachinationsCache xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.machinations.io">
+  <DiagramMappings>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>15</BaseValue>
+        <CurrentValue>15</CurrentValue>
+        <MaxValue>40</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>102</DiagramElementID>
+      <Name>Player Tank Stats</Name>
+      <PropertyName>Speed</PropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>110</BaseValue>
+        <CurrentValue>110</CurrentValue>
+        <MaxValue>10000</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>107</DiagramElementID>
+      <Name>Shell Stats Enemy</Name>
+      <PropertyName>Force</PropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>100</BaseValue>
+        <CurrentValue>100</CurrentValue>
+        <MaxValue>2000</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>215</DiagramElementID>
+      <Name>Player Tank Stats</Name>
+      <PropertyName>Health</PropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>48</BaseValue>
+        <CurrentValue>48</CurrentValue>
+        <MaxValue
+          i:nil="true" />
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>219</DiagramElementID>
+      <Name>Shell Stats</Name>
+      <PropertyName>Damage</PropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>10</BaseValue>
+        <CurrentValue>10</CurrentValue>
+        <MaxValue>100</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>225</DiagramElementID>
+      <Name>Shell Stats Enemy</Name>
+      <PropertyName>Radius</PropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>208</BaseValue>
+        <CurrentValue>208</CurrentValue>
+        <MaxValue>500</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>230</DiagramElementID>
+      <Name>Enemy Tank Stats</Name>
+      <PropertyName>Health</PropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>3</BaseValue>
+        <CurrentValue>3</CurrentValue>
+        <MaxValue>10</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>245</DiagramElementID>
+      <Name>Shell Stats Enemy</Name>
+      <PropertyName>Cooldown</PropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>100</BaseValue>
+        <CurrentValue>100</CurrentValue>
+        <MaxValue>10000</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>400</DiagramElementID>
+      <Name>Shell Stats</Name>
+      <PropertyName>Force</PropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>10</BaseValue>
+        <CurrentValue>10</CurrentValue>
+        <MaxValue>100</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>401</DiagramElementID>
+      <Name>Shell Stats</Name>
+      <PropertyName>Radius</PropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>100</BaseValue>
+        <CurrentValue>100</CurrentValue>
+        <MaxValue>100</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>402</DiagramElementID>
+      <Name>Shell Stats</Name>
+      <PropertyName>Speed</PropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>10</BaseValue>
+        <CurrentValue>10</CurrentValue>
+        <MaxValue>40</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>900</DiagramElementID>
+      <Name>Enemy Tank Stats</Name>
+      <PropertyName>Speed</PropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>52</BaseValue>
+        <CurrentValue>52</CurrentValue>
+        <MaxValue
+          i:nil="true" />
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>901</DiagramElementID>
+      <Name>Shell Stats Enemy</Name>
+      <PropertyName>Damage</PropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>0</BaseValue>
+        <CurrentValue>0</CurrentValue>
+        <MaxValue>10</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>912</DiagramElementID>
+      <Name>Shell Stats</Name>
+      <PropertyName>Cooldown</PropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>155</BaseValue>
+        <CurrentValue>155</CurrentValue>
+        <MaxValue>300</MaxValue>
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>1000</DiagramElementID>
+      <Name>Shell Stats Enemy</Name>
+      <PropertyName>Speed</PropertyName>
+      <StatesAssoc
+        i:nil="true" />
+    </MachinationsDiagramMapping>
+  </DiagramMappings>
+</MachinationsCache>

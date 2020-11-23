@@ -22,7 +22,7 @@ public class NewObject : ScriptableObject, IMachinationsScriptableObject
     private Dictionary<string, ElementBinder> _binders;
 
     //Manifest that defines what the SO uses from Machinations.
-    static readonly private MachiObjectManifest _manifest = new MachiObjectManifest
+    static readonly private MachinationsObjectManifest _manifest = new MachinationsObjectManifest
     {
         Name = "Player Tank Stats",
         DiagramMappings = new List<DiagramMapping>
@@ -51,7 +51,7 @@ public class NewObject : ScriptableObject, IMachinationsScriptableObject
 
     #region IMachinationsScriptableObject
     
-    public MachiObjectManifest Manifest { get; private set; }
+    public MachinationsObjectManifest Manifest { get; private set; }
     
     public ScriptableObject SO => this;
 

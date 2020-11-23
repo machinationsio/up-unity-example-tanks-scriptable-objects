@@ -25,7 +25,7 @@ public class TankStatsEnemy : ScriptableObject, IMachinationsScriptableObject
     public void OnEnable ()
     {
         //Manifest that defines what the SO uses from Machinations.
-        Manifest = new MachiObjectManifest
+        Manifest = new MachinationsObjectManifest
         {
             Name = "Enemy Tank Stats",
             DiagramMappings = new List<DiagramMapping>
@@ -60,7 +60,7 @@ public class TankStatsEnemy : ScriptableObject, IMachinationsScriptableObject
     
     public ScriptableObject SO => this;
     
-    public MachiObjectManifest Manifest { get; private set; }
+    public MachinationsObjectManifest Manifest { get; private set; }
 
     /// <summary>
     /// Called when Machinations initialization has been completed.

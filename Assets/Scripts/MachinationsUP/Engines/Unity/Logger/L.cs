@@ -9,13 +9,19 @@ namespace MachinationsUP.Logger
         Error = 1,
         Warning = 2,
         Debug = 3,
-        Verbose = 4
+        Info = 4
     }
     
     static public class L
     {
         
         static public LogLevel Level;
+        
+        static public void I(string text, UnityEngine.Object context = null)
+        {
+            if (Level < LogLevel.Info) return;
+            Debug.Log(text, context);
+        }
         
         static public void D (string text, UnityEngine.Object context = null)
         {

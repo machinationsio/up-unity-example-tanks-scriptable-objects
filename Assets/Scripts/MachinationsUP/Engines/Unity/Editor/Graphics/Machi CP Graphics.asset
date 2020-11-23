@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1077c5dfbfbc44d0960498d5656fc1cd, type: 3}
+  m_Name: Machi CP Graphics
+  m_EditorClassIdentifier: 
+  MachinationsIcon: {fileID: 2800000, guid: ece4b99c18230064dabede475489db77, type: 3}
+  BigMachinationsIcon: {fileID: 2800000, guid: 0b38b511110e57d45acf4a73d74bde0f, type: 3}
+  AltMachinationsIcon: {fileID: 2800000, guid: 5954bbac232feb748abe45a95122f359, type: 3}

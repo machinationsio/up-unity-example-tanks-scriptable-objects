@@ -7,7 +7,7 @@ namespace MachinationsUP.Integration.Inventory
     /// <summary>
     /// Stores data required to initialize a Machinations Object from the Machinations Diagram.
     /// </summary>
-    public class MachiObjectManifest
+    public class MachinationsObjectManifest
     {
         
         /// <summary>

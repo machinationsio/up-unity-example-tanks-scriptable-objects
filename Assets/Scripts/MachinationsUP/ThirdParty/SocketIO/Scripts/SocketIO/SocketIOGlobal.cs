@@ -44,6 +44,12 @@ using LogLevel = WebSocketSharp.LogLevel;
 
 namespace SocketIO
 {
+    
+    /// <summary>
+    /// This is a spin-off of SocketIOComponent, but wihout having any reliance on MonoBehavior.
+    /// This works without the Update function, however, it is MANDATORY to call the ExecuteThread()
+    /// to make it do anything. Currently, this is done in the Socket
+    /// </summary>
     public class SocketIOGlobal
     {
 
@@ -55,6 +61,9 @@ namespace SocketIO
         public float ackExpirationTime = 1800f;
         public float pingInterval = 25f;
         public float pingTimeout = 60f;
+
+        public DateTime connectionTimeoutDateTime;
+        public int connectionTimeoutSeconds = 10; //Seconds.
 
         /// <summary>
         /// The path is relative to the Assets folder of your game.
@@ -122,9 +131,13 @@ namespace SocketIO
 
             ws = new WebSocket(url + (string.IsNullOrEmpty(_userKey) ? "" : "&token=" + _userKey));
 
-            //Enable Error Logging.
-            ws.Log.File = Path.Combine(MachinationsDataLayer.AssetsPath, "socket-errorlog-global" + DateTime.Now.ToString("yyyy-MM-dd") + ".txt");
-            ws.Log.Level = LogLevel.Trace;
+            if (L.Level == MachinationsUP.Logger.LogLevel.Debug)
+            {
+                //Enable Error Logging.
+                ws.Log.File = Path.Combine(MachinationsDataLayer.AssetsPath,
+                    "socket-errorlog-global" + DateTime.Now.ToString("yyyy-MM-dd") + ".txt");
+                ws.Log.Level = LogLevel.Trace;
+            }
 
             if (pathToX509Certificate != "")
             {
@@ -216,6 +229,9 @@ namespace SocketIO
 
         public void Connect ()
         {
+            connectionTimeoutDateTime = DateTime.Now.AddSeconds(connectionTimeoutSeconds);
+            L.D("WebSocket: connectionTimeoutDateTime set to " + connectionTimeoutDateTime);
+            
             socketThread = new Thread(RunSocketThread);
             socketThread.Start(ws);
 
@@ -228,7 +244,7 @@ namespace SocketIO
         public void Close ()
         {
             EmitClose();
-            
+
             connected = false;
             ws = null;
         }
@@ -269,6 +285,13 @@ namespace SocketIO
             }
         }
 
+        public void ClearHandlers ()
+        {
+            foreach (string eventName in handlers.Keys)
+                handlers[eventName].Clear();
+        }
+
+
         public void Emit (string ev)
         {
             EmitMessage(-1, string.Format("[\"{0}\"]", ev));
@@ -298,8 +321,13 @@ namespace SocketIO
         private void RunSocketThread (object obj)
         {
             WebSocket webSocket = (WebSocket) obj;
-            while (connected)
+            while (connected || connectionTimeoutDateTime > DateTime.Now)
             {
+                if (!connected && connectionTimeoutDateTime > DateTime.Now)
+                {
+                    L.D("WebSocket: Not connected but waiting before we close the socket.");
+                    continue;
+                }
                 if (webSocket.IsConnected)
                 {
                     Thread.Sleep(reconnectDelay);
@@ -314,11 +342,12 @@ namespace SocketIO
                     {
                         webSocket.Close();
                         connected = false;
-                        OnError(this, new ErrorEventArgs("WebSocket Connection Error", e));
+                        OnError(this, new ErrorEventArgs("WebSocket: Connection Error", e));
                     }
                 }
             }
-
+            
+            L.D("WebSocket: Killing it.");
             webSocket.Close();
         }
 
@@ -402,7 +431,7 @@ namespace SocketIO
                 ws.Send(encoder.Encode(packet));
 #pragma warning disable 168
             }
-            catch (SocketIOException ex)
+            catch (Exception ex)
             {
                 L.D("SocketIOComponent crashed on Send with " + ex.Message + "\r\n" + ex.StackTrace);
 #pragma warning restore 168

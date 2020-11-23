@@ -196,7 +196,7 @@ namespace MachinationsUP.Integration.Binder
             L.D("CreateElementBaseForStateAssoc in ElementBinder [Hash: " + GetHashCode() + "] '" +
                 GetFullName() + "' @ statesAssociation: " + (statesAssociation != null ? statesAssociation.Title : "N/A"));
 
-            //The MachinationsGameLayer is responsible for creating ElementBase.
+            //The MachinationsDataLayer is responsible for creating ElementBase.
             ElementBase newElement = MachinationsDataLayer.Instance.CreateElement(this, statesAssociation);
             if (newElement == null)
             {

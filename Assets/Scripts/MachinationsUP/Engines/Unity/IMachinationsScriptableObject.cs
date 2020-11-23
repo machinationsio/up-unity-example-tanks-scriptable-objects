@@ -15,7 +15,7 @@ namespace MachinationsUP.Engines.Unity
 
         ScriptableObject SO { get; }
         
-        MachiObjectManifest Manifest { get; }
+        MachinationsObjectManifest Manifest { get; }
 
         /// <summary>
         /// Called when Machinations initialization has been completed.

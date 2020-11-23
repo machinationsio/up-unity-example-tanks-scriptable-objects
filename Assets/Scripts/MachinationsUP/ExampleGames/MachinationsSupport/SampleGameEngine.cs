@@ -20,15 +20,15 @@ namespace MachinationsUP.ExampleGames.MachinationsSupport
         public void MachinationsInitStart ()
         {
             L.D("--- PAUSING GAME ---");
-            Time.timeScale = 0;
             AudioListener.pause = true;
+            Time.timeScale = 0;
         }
 
         public void MachinationsInitComplete ()
         {
             L.D("--- RESUMING GAME ---");
-            Time.timeScale = 1;
             AudioListener.pause = true;
+            Time.timeScale = 1;
         }
 
         #endregion
