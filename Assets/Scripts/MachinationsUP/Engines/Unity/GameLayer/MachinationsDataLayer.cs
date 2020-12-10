@@ -328,7 +328,7 @@ namespace MachinationsUP.Engines.Unity
                 if (_instance != null) return _instance;
                 _instance = new MachinationsDataLayer();
                 L.D("MDL created by invocation. Hash is " + _instance.GetHashCode() +
-                    " and User Key is ???????????????????!!!!!!!!!");
+                    " and User Key is " + MachinationsConfig.Instance.UserKey);
                 return _instance;
             }
         }
@@ -705,7 +705,7 @@ namespace MachinationsUP.Engines.Unity
             foreach (DiagramMapping dm in manifest.DiagramMappings)
                 if (dm.GameElementBase != null)
                 {
-                    L.D("EBBS Restoring Serialized Value for '" + dm + "' to " + dm.GameElementBase._serializableValue);
+                    L.D("MDL EnrollScriptableObject: Restoring Serialized Value for '" + dm + "' to " + dm.GameElementBase._serializableValue);
                     dm.GameElementBase.MaxValue = null;
                     dm.GameElementBase.ChangeValueTo(dm.GameElementBase._serializableValue);
                 }
