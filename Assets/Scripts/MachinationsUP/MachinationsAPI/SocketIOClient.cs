@@ -115,10 +115,10 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
                 L.Ex(ex);
             }
 
-            _socket.On(SyncMsgs.RECEIVE_OPEN, OnSocketOpen);
-            _socket.On(SyncMsgs.RECEIVE_OPEN_START, OnSocketOpenStart);
             _socket.On(SyncMsgs.RECEIVE_AUTH_SUCCESS, OnAuthSuccess);
             _socket.On(SyncMsgs.RECEIVE_AUTH_DENY, OnAuthDeny);
+            _socket.On(SyncMsgs.RECEIVE_OPEN, OnSocketOpen);
+            _socket.On(SyncMsgs.RECEIVE_OPEN_START, OnSocketOpenStart);
             _socket.On(SyncMsgs.RECEIVE_GAME_INIT, OnGameInitResponse);
             _socket.On(SyncMsgs.RECEIVE_DIAGRAM_ELEMENTS_UPDATED, OnDiagramElementsUpdated);
             _socket.On(SyncMsgs.RECEIVE_ERROR, OnSocketError);
@@ -127,7 +127,9 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
             _socket.On(SyncMsgs.RECEIVE_GAME_UPDATE_DIAGRAM_ELEMENTS, OnGameUpdateDiagramElementsRequest);
             try
             {
+                L.D("SocketIO: Connect Start.");
                 _socket.Connect();
+                L.D("SocketIO: Connect End.");
             }
             catch (Exception ex)
             {
@@ -146,6 +148,7 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
             //Reconnect on failure.
             if (_connectionAborted && _reconnectionAttempts <= RECONNECTION_ATTEMPTS)
             {
+                L.E("SocketIO: Connection Aborted!");
                 _reconnectionAttempts++;
                 _connectionAborted = false;
                 //Must close the Socket before we try to connect again.
@@ -177,7 +180,7 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
         /// <summary>
         /// Emits the 'Game Auth Request' Socket event.
         /// </summary>
-        private void EmitMachinationsAuthRequest ()
+        public void EmitMachinationsAuthRequest ()
         {
             if (_socket == null)
             {
@@ -201,8 +204,15 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
         private void OnAuthSuccess (SocketIOEvent e)
         {
             L.D("SocketIO: Game Auth Request Result: " + e.data);
+            _machinationsService.AuthSuccess();
             //Initialization complete.
             IsAuthenticated = true;
+        }
+        
+        private void OnAuthDeny (SocketIOEvent e)
+        {
+            L.D("SocketIO: Game Auth Request Failure: " + e.data);
+            HandleConnectionFailure(false);
         }
         
         /// <summary>
@@ -219,6 +229,7 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
             if (!initRequestData)
             {
                 L.D("SocketIO: EmitMachinationsInitRequest: no data has been requested.");
+                _machinationsService.InitComplete(null);
                 return;
             }
 
@@ -274,12 +285,6 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
         {
             L.D("SocketIO: Game Update Diagram Elements Response: " + e.data);
         }
-
-        private void OnAuthDeny (SocketIOEvent e)
-        {
-            L.D("SocketIO: Game Auth Request Failure: " + e.data);
-            HandleConnectionFailure(false);
-        }
         
         /// <summary>
         /// Handles event emission for a MachinationsGameObject.
@@ -304,14 +309,12 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
         {
             SocketOpenReceived = true;
             L.D("[SocketIO] Open received: " + e.name + " " + e.data);
-            if (IsInitialized) EmitMachinationsAuthRequest();
         }
 
         private void OnSocketOpenStart (SocketIOEvent e)
         {
             SocketOpenStartReceived = true;
             L.D("[SocketIO] Open Start received: " + e.name + " " + e.data);
-            if (IsInitialized) EmitMachinationsAuthRequest();
         }
 
         private void OnSocketError (SocketIOEvent e)

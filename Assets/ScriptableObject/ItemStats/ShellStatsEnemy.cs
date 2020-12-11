@@ -51,7 +51,7 @@ public class ShellStatsEnemy : ScriptableObject, IMachinationsScriptableObject
                 {
                     GameElementBase = Force,
                     PropertyName = M_FORCE,
-                    DiagramElementID = 107,
+                    DiagramElementID = 109,
                     DefaultElementBase = new ElementBase(90, null)
                 },
                 new DiagramMapping

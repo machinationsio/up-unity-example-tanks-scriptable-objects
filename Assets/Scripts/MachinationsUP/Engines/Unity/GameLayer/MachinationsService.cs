@@ -12,12 +12,13 @@ namespace MachinationsUP.Engines.Unity.GameComms
     /// </summary>
     public enum State
     {
-
         Idling,
+        WaitingForSocketReady,
+        AuthRequested,
+        AuthSuccess,
+        PreparingForInitRequest,
         InitRequested,
         InitComplete,
-        SyncRequested,
-        GetFromMachinations
 
     }
 
@@ -49,13 +50,15 @@ namespace MachinationsUP.Engines.Unity.GameComms
 
         public bool IsGameRunning { get; set; }
 
+        private bool _initRequested; //TRUE: switch _currentState to PreparingForInitRequest state at the first available time.
+
         public MachinationsService ()
         {
             L.D("Instantiated MachinationsService with Hash: " + GetHashCode());
             _scheduler = new Timer(1000);
             _scheduler.Elapsed += Scheduler_OnElapsed;
             _scheduler.Start();
-            _currentState = State.Idling;
+            _currentState = State.WaitingForSocketReady;
         }
 
         private void Scheduler_OnElapsed (object sender, ElapsedEventArgs e)
@@ -70,26 +73,54 @@ namespace MachinationsUP.Engines.Unity.GameComms
         /// </summary>
         public void ProcessSchedule ()
         {
-            if (!_socketClient.IsInitialized || !_socketClient.IsAuthenticated)
+            if (!_socketClient.IsInitialized)
             {
-                L.D("--- Waiting for Socket Connection ---");
+                L.D("Machinations Service SocketIO Scheduler: Waiting for Socket Connection.");
+                return;
+            }
+            if (_currentState == State.WaitingForSocketReady)
+            {
+                L.D("Machinations Service SocketIO Scheduler: WaitingForSocketReady -> AuthRequested.");
+                _currentState = State.AuthRequested;
+                _socketClient.EmitMachinationsAuthRequest();
+                return;
+            }
+            if (_currentState == State.AuthRequested)
+            {
+                L.D("Machinations Service SocketIO Scheduler: Waiting for Auth Response.");
+                return;
+            }
+            if (_currentState == State.InitRequested)
+            {
+                L.D("Machinations Service SocketIO Scheduler: Waiting for Sync Init Response.");
                 return;
             }
             
             switch (_currentState)
             {
+                case State.AuthSuccess:
+                    L.D("Machinations Service SocketIO Scheduler: Auth Success. Idling.");
+                    _currentState = State.Idling;
+                    break;
+                case State.Idling:
+                    if (_initRequested)
+                    {
+                        L.D("Machinations Service SocketIO Scheduler: Init Requested: Idling -> PreparingForInitRequest.");
+                        _currentState = State.PreparingForInitRequest;
+                    }
+                    break;
+                //Wait at least 1 Timer interval before making the Sync request.
+                case State.PreparingForInitRequest:
+                    L.D("Machinations Service SocketIO Scheduler: Init Requested.");
+                    _currentState = State.InitRequested;
+                    _initRequested = false;
+                    _socketClient.EmitMachinationsInitRequest();
+                    break;
                 case State.InitComplete:
+                    L.D("Machinations Service SocketIO Scheduler: Init Complete. " + _currentState + " -> Idling.");
                     _currentState = State.Idling;
                     MachinationsDataLayer.UpdateSourcesWithValuesFromMachinations(_diagramElementsFromBackEnd);
                     MachinationsDataLayer.SyncComplete();
-                    break;
-                //Wait at least 1 Timer interval before making the Sync request.
-                case State.SyncRequested:
-                    _currentState = State.GetFromMachinations;
-                    break;
-                case State.GetFromMachinations:
-                    _currentState = State.Idling;
-                    _socketClient.EmitMachinationsInitRequest();
                     break;
             }
         }
@@ -111,7 +142,9 @@ namespace MachinationsUP.Engines.Unity.GameComms
         public void ScheduleSync ()
         {
             L.D("MachinationsService.ScheduleSync.");
-            _currentState = State.SyncRequested;
+            _initRequested = true;
+            //Reset wait period.
+            if (_currentState == State.PreparingForInitRequest) _currentState = State.Idling;
         }
 
         #region Communication via Socket IO.
@@ -125,6 +158,13 @@ namespace MachinationsUP.Engines.Unity.GameComms
 
         public void InitComplete (List<JSONObject> diagramElementsFromBackEnd)
         {
+            //Nothing returned?
+            if (diagramElementsFromBackEnd == null)
+            {
+                _currentState = State.Idling;
+                return;
+            }
+
             _diagramElementsFromBackEnd = diagramElementsFromBackEnd;
             _currentState = State.InitComplete;
         }
@@ -154,6 +194,11 @@ namespace MachinationsUP.Engines.Unity.GameComms
         public void PauseSync ()
         {
             throw new System.NotImplementedException();
+        }
+
+        public void AuthSuccess ()
+        {
+            _currentState = State.AuthSuccess;
         }
 
     }

@@ -406,7 +406,7 @@ namespace SocketIO
         {
             if (!connected || !ws.IsConnected)
             {
-                L.D("SocketIOComponent Error: Cannot Emit Message when not connected!");
+                L.E("SocketIOComponent Error: Cannot Emit Message when not connected!");
                 return;
             }
 
@@ -433,7 +433,7 @@ namespace SocketIO
             }
             catch (Exception ex)
             {
-                L.D("SocketIOComponent crashed on Send with " + ex.Message + "\r\n" + ex.StackTrace);
+                L.E("SocketIOComponent crashed on Send with " + ex.Message + "\r\n" + ex.StackTrace);
 #pragma warning restore 168
 #if SOCKET_IO_DEBUG
 				debugMethod.Invoke(ex.ToString());

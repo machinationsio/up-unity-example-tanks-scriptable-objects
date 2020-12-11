@@ -167,7 +167,7 @@ namespace MachinationsUP.Engines.Unity
             //Finalize request by adding all top level items.
             initRequest.Add(SyncMsgs.JK_AUTH_DIAGRAM_TOKEN, JSONObject.CreateStringObject(diagramToken));
             //Wrapping the keys Array inside a JSON Object.
-            initRequest.Add(SyncMsgs.JK_INIT_MACHINATIONS_IDS, new JSONObject(keys));
+            //initRequest.Add(SyncMsgs.JK_INIT_MACHINATIONS_IDS, new JSONObject(keys));
 
             return new JSONObject(initRequest);
         }
@@ -465,16 +465,17 @@ namespace MachinationsUP.Engines.Unity
         }
 
         /// <summary>
-        /// Returns a string that can be later decomposed in order to find an element in a Machinations Diagram.
+        /// Returns a string that details data about a Machinations Element.
         /// </summary>
         /// <param name="binder"></param>
         /// <param name="statesAssociation"></param>
         /// <returns></returns>
-        virtual protected string GetMachinationsUniqueID (ElementBinder binder, StatesAssociation statesAssociation)
+        virtual protected string GetMachinationsElementDescription (ElementBinder binder, StatesAssociation statesAssociation)
         {
-            return (binder.ParentGameObject != null ? binder.ParentGameObject.Name : "!NoParent!") + "." +
-                   binder.GameObjectPropertyName + "." +
-                   (statesAssociation != null ? statesAssociation.Title : "N/A");
+            return "Binder: [Parent: '" + (binder.ParentGameObject != null ? binder.ParentGameObject.Name : "!NoParent!") + "' " +
+                   "Property: '" + binder.GameObjectPropertyName + "' " +
+                   "SAssoc: '" + (statesAssociation != null ? statesAssociation.Title : "N/A") + "'] " +
+                   "[Diagram Mapping: '" + binder.DiagMapping + "']";
         }
 
         /// <summary>
@@ -501,14 +502,14 @@ namespace MachinationsUP.Engines.Unity
 
             //A DiagramMapping MUST have been found for this element.
             if (!found)
-                throw new Exception("MDL.FindSourceElement: machinationsUniqueID '" +
-                                    GetMachinationsUniqueID(elementBinder, statesAssociation) +
+                throw new Exception("MDL.FindSourceElement: '" +
+                                    GetMachinationsElementDescription(elementBinder, statesAssociation) +
                                     "' not found in _sourceElements.");
 
             //If there is an Override defined in the DiagramMapping, immediately returning that ElementBase instead of the one we found.
             if (dm?.OverrideElementBase != null)
             {
-                L.W("Value for " + GetMachinationsUniqueID(elementBinder, statesAssociation) + " has been overriden!");
+                L.W("Value for '" + GetMachinationsElementDescription(elementBinder, statesAssociation) + "' has been overriden!");
                 return dm.OverrideElementBase;
             }
 
@@ -524,7 +525,7 @@ namespace MachinationsUP.Engines.Unity
                 //Nothing found? Throw!
                 if (!isInOfflineMode || (IsInOfflineMode && StrictOfflineMode))
                     throw new Exception("MDL.FindSourceElement: machinationsUniqueID '" +
-                                        GetMachinationsUniqueID(elementBinder, statesAssociation) +
+                                        GetMachinationsElementDescription(elementBinder, statesAssociation) +
                                         "' has not been initialized.");
             }
 
@@ -757,7 +758,7 @@ namespace MachinationsUP.Engines.Unity
             var newElement = sourceElement.Clone(elementBinder);
 
             L.D("MDL.CreateValue complete for machinationsUniqueID '" +
-                GetMachinationsUniqueID(elementBinder, statesAssociation) + "'.");
+                GetMachinationsElementDescription(elementBinder, statesAssociation) + "'.");
 
             return newElement;
         }
