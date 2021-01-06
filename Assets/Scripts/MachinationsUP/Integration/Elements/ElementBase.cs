@@ -15,12 +15,13 @@ namespace MachinationsUP.Integration.Elements
     [Serializable]
     public class ElementBase
     {
+
         /// <summary>
         /// Permits the Unity Property inspector connection. Setting this manually will have no effect over <see cref="CurrentValue"/>.
         /// See <see cref="MachinationsUP.Engines.Unity.EditorExtensions.ElementBaseDrawer"/>
         /// </summary>
         public int _serializableValue;
-        
+
         /// <summary>
         /// The value received from Machinations.
         /// </summary>
@@ -31,7 +32,7 @@ namespace MachinationsUP.Integration.Elements
         /// The DiagramMapping associated with this ElementBase.
         /// </summary>
         public DiagramMapping DiagMapping { get; private set; }
-        
+
         /// <summary>
         /// Parent <see cref="ElementBinder"/>. A Binder contains multiple ElementBase.
         /// </summary>
@@ -99,6 +100,16 @@ namespace MachinationsUP.Integration.Elements
         }
 
         /// <summary>
+        /// When this is constructed by Serialization, the Diagram Mapping needs to be set afterwards.
+        /// </summary>
+        /// <param name="diagramMapping">Diagram Mapping associated with this ElementBase.</param>
+        public void AssignDiagramMapping (DiagramMapping diagramMapping)
+        {
+            if (DiagMapping != null) throw new Exception("You cannot assign a Diagram Mapping when one has already been assigned!");
+            DiagMapping = diagramMapping;
+        }
+
+        /// <summary>
         /// Resets the Current Value to the Base Value.
         /// </summary>
         virtual protected void Reset ()
@@ -111,7 +122,7 @@ namespace MachinationsUP.Integration.Elements
         /// </summary>
         private void Clamp ()
         {
-            if (MaxValue != null && CurrentValue > MaxValue) CurrentValue = (int)MaxValue;
+            if (MaxValue != null && CurrentValue > MaxValue) CurrentValue = (int) MaxValue;
         }
 
         /// <summary>

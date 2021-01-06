@@ -14,6 +14,15 @@ namespace MachinationsUP.Engines.Unity.EditorExtensions
 
         override public void OnGUI (Rect position, SerializedProperty property, GUIContent label)
         {
+            //Get the ElementBase for which this Property Drawer is used.
+            ElementBase eb = fieldInfo.GetValue(property.serializedObject.targetObject) as ElementBase;
+            
+            //Add the diagram ID in the label.
+            if (eb?.DiagMapping != null)
+            {
+                //label.text += " [" + eb.DiagMapping.DiagramElementID + "]";
+            }
+            
             label = EditorGUI.BeginProperty(position, label, property);
             position = EditorGUI.PrefixLabel(position, label); //This will change the value of position (see docs of PrefixLabel).
 
@@ -33,11 +42,13 @@ namespace MachinationsUP.Engines.Unity.EditorExtensions
                 EditorGUI.LabelField(iconPosition, icon);
             }
 
-            //Get the value from ElementBase's member.
-            ElementBase eb = fieldInfo.GetValue(property.serializedObject.targetObject) as ElementBase;
+            //Get the Base Value from ElementBase's member.
             SerializedProperty baseValueProp = property.FindPropertyRelative("_serializableValue");
             //Store it here.
             int baseValue = baseValueProp.intValue;
+            
+            //Can only proceed if we have an ElementBase to work with.
+            if (eb == null) return;
 
             //Edit.
             EditorGUI.BeginChangeCheck();

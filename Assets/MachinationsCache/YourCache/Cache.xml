@@ -21,7 +21,7 @@
         <MaxValue>10000</MaxValue>
         <MinValue>0</MinValue>
       </CachedElementBase>
-      <DiagramElementID>109</DiagramElementID>
+      <DiagramElementID>107</DiagramElementID>
       <Name>Shell Stats Enemy</Name>
       <PropertyName>Force</PropertyName>
       <StatesAssoc
@@ -29,8 +29,8 @@
     </MachinationsDiagramMapping>
     <MachinationsDiagramMapping>
       <CachedElementBase>
-        <BaseValue>100</BaseValue>
-        <CurrentValue>100</CurrentValue>
+        <BaseValue>106</BaseValue>
+        <CurrentValue>106</CurrentValue>
         <MaxValue>2000</MaxValue>
         <MinValue>0</MinValue>
       </CachedElementBase>
@@ -42,8 +42,8 @@
     </MachinationsDiagramMapping>
     <MachinationsDiagramMapping>
       <CachedElementBase>
-        <BaseValue>45</BaseValue>
-        <CurrentValue>45</CurrentValue>
+        <BaseValue>58</BaseValue>
+        <CurrentValue>58</CurrentValue>
         <MaxValue
           i:nil="true" />
         <MinValue>0</MinValue>

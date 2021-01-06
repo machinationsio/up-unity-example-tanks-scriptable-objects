@@ -49,6 +49,7 @@ using System.Security.Authentication;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
+using MachinationsUP.Logger;
 using WebSocketSharp.Net;
 using WebSocketSharp.Net.WebSockets;
 
@@ -3455,6 +3456,7 @@ namespace WebSocketSharp
         throw new ArgumentException (msg, "data");
       }
 
+      L.D("WebSocket about to send: " + data);
       send (Opcode.Text, new MemoryStream (bytes));
     }
 

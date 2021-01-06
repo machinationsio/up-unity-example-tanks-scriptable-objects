@@ -71,7 +71,10 @@ namespace MachinationsUP.Integration.Inventory
         /// </summary>
         public OverwriteRules OvewriteRule { get; set; }
 
-        public ElementBase GameElementBase { get; set; }
+        /// <summary>
+        /// When this Mapping is used inside a Scriptable Object, this will be the Element Base that is represented in the Editor.
+        /// </summary>
+        public ElementBase EditorElementBase { get; set; }
         
         /// <summary>
         /// A Default ElementBase, to be used only during OFFLINE mode.

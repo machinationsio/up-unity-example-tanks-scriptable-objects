@@ -34,35 +34,35 @@ public class ShellStats : ScriptableObject, IMachinationsScriptableObject
             {
                 new DiagramMapping
                 {
-                    GameElementBase = Damage,
+                    EditorElementBase = Damage,
                     PropertyName = M_DAMAGE,
                     DiagramElementID = 219,
                     DefaultElementBase = new ElementBase(10, null)
                 },
                 new DiagramMapping
                 {
-                    GameElementBase = Radius,
+                    EditorElementBase = Radius,
                     PropertyName = M_RADIUS,
                     DiagramElementID = 401,
                     DefaultElementBase = new ElementBase(25, null)
                 },
                 new DiagramMapping
                 {
-                    GameElementBase = Force,
+                    EditorElementBase = Force,
                     PropertyName = M_FORCE,
                     DiagramElementID = 400,
                     DefaultElementBase = new ElementBase(90, null)
                 },
                 new DiagramMapping
                 {
-                    GameElementBase = Speed,
+                    EditorElementBase = Speed,
                     PropertyName = M_SPEED,
                     DiagramElementID = 402,
                     DefaultElementBase = new ElementBase(90, null)
                 },
                 new DiagramMapping
                 {
-                    GameElementBase = ShotCooldown,
+                    EditorElementBase = ShotCooldown,
                     PropertyName = M_COOLDOWN,
                     DiagramElementID = 912,
                     DefaultElementBase = new ElementBase(0, null)

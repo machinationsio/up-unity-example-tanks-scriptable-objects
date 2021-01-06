@@ -167,7 +167,7 @@ namespace MachinationsUP.Engines.Unity
             //Finalize request by adding all top level items.
             initRequest.Add(SyncMsgs.JK_AUTH_DIAGRAM_TOKEN, JSONObject.CreateStringObject(diagramToken));
             //Wrapping the keys Array inside a JSON Object.
-            //initRequest.Add(SyncMsgs.JK_INIT_MACHINATIONS_IDS, new JSONObject(keys));
+            initRequest.Add(SyncMsgs.JK_INIT_MACHINATIONS_IDS, new JSONObject(keys));
 
             return new JSONObject(initRequest);
         }
@@ -704,11 +704,12 @@ namespace MachinationsUP.Engines.Unity
 
             //Restore previously-serialized values.
             foreach (DiagramMapping dm in manifest.DiagramMappings)
-                if (dm.GameElementBase != null)
+                if (dm.EditorElementBase != null)
                 {
-                    L.D("MDL EnrollScriptableObject: Restoring Serialized Value for '" + dm + "' to " + dm.GameElementBase._serializableValue);
-                    dm.GameElementBase.MaxValue = null;
-                    dm.GameElementBase.ChangeValueTo(dm.GameElementBase._serializableValue);
+                    L.D("MDL EnrollScriptableObject: Restoring Serialized Value for '" + dm + "' to " + dm.EditorElementBase._serializableValue);
+                    dm.EditorElementBase.AssignDiagramMapping(dm);
+                    dm.EditorElementBase.MaxValue = null;
+                    dm.EditorElementBase.ChangeValueTo(dm.EditorElementBase._serializableValue);
                 }
 
             //Save this in the Scriptable Objects database.

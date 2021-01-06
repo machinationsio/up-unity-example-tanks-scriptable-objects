@@ -35,35 +35,35 @@ public class ShellStatsEnemy : ScriptableObject, IMachinationsScriptableObject
             {
                 new DiagramMapping
                 {
-                    GameElementBase = Damage,
+                    EditorElementBase = Damage,
                     PropertyName = M_DAMAGE,
                     DiagramElementID = 901,
                     DefaultElementBase = new ElementBase(10, null)
                 },
                 new DiagramMapping
                 {
-                    GameElementBase = Radius,
+                    EditorElementBase = Radius,
                     PropertyName = M_RADIUS,
                     DiagramElementID = 225,
                     DefaultElementBase = new ElementBase(25, null)
                 },
                 new DiagramMapping
                 {
-                    GameElementBase = Force,
+                    EditorElementBase = Force,
                     PropertyName = M_FORCE,
-                    DiagramElementID = 109,
+                    DiagramElementID = 107,
                     DefaultElementBase = new ElementBase(90, null)
                 },
                 new DiagramMapping
                 {
-                    GameElementBase = Speed,
+                    EditorElementBase = Speed,
                     PropertyName = M_SPEED,
                     DiagramElementID = 1000,
                     DefaultElementBase = new ElementBase(90, null)
                 },
                 new DiagramMapping
                 {
-                    GameElementBase = ShotCooldown,
+                    EditorElementBase = ShotCooldown,
                     PropertyName = M_COOLDOWN,
                     DiagramElementID = 245,
                     DefaultElementBase = new ElementBase(0, null)

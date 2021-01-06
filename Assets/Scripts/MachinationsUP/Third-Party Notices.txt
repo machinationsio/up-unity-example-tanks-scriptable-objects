@@ -1,7 +1,9 @@
 ﻿This asset is governed by the Asset Store EULA; however, the following components are governed by the licenses indicated below:
+
 A. SocketIO C#
 License: MIT
 Copyright (c) 2014 Fabio Panettieri, with contributions from Machinations.
+
 B. WebSocket C#
 License: MIT
-Copyright (c) 2009 Adam MacBeth & Copyright (c) 2010-2016 sta.blockhead
+Copyright (c) 2009 Adam MacBeth & Copyright (c) 2010-2016 sta.blockhead.

@@ -451,8 +451,10 @@ namespace SocketIO
 #if SOCKET_IO_DEBUG
 			debugMethod.Invoke("[SocketIO] Raw message: " + e.Data);
 #endif
+            L.D("Received from WebSocket: " + e.Data);
+            
             Packet packet = decoder.Decode(e);
-
+            
             switch (packet.enginePacketType)
             {
                 case EnginePacketType.OPEN:

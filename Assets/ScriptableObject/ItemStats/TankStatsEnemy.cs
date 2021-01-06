@@ -32,14 +32,14 @@ public class TankStatsEnemy : ScriptableObject, IMachinationsScriptableObject
             {
                 new DiagramMapping
                 {
-                    GameElementBase = Health,
+                    EditorElementBase = Health,
                     PropertyName = M_HEALTH,
                     DiagramElementID = 230,
                     DefaultElementBase = new ElementBase(105, null)
                 },
                 new DiagramMapping
                 {
-                    GameElementBase = Speed,
+                    EditorElementBase = Speed,
                     PropertyName = M_SPEED,
                     DiagramElementID = 900,
                     DefaultElementBase = new ElementBase(25, null)

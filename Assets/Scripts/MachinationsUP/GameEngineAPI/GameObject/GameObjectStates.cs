@@ -9,7 +9,7 @@ namespace MachinationsUP.GameEngineAPI.GameObject
     /// designs, contained in different diagrams.
     /// <see cref="MachinationsUP.GameEngineAPI.States.StatesAssociation"/>
     /// </summary>
-    [DataContract(Name = "RubyGameObjectStates", Namespace = "http://www.rubygame.com")]
+    [DataContract(Name = "RubyGameObjectStates", Namespace = "http://www.machinations.io")]
     public enum GameObjectStates
     {
 
