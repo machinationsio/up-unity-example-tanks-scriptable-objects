@@ -160,14 +160,14 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
                     L.Ex(e);
                 }
                 _socket = null;
-                L.D("SocketIO: Attempt #" + _reconnectionAttempts + " to reconnect to Machinations.");
+                L.D("Attempt #" + _reconnectionAttempts + " to reconnect to Machinations.");
                 ConnectToMachinations(3);
             }
         }
 
         private void ConnectToMachinations (int waitSeconds = 0)
         {
-            L.D("SocketIO: Connecting in " + waitSeconds + " seconds.");
+            L.D("Connecting in " + waitSeconds + " seconds.");
             Thread.Sleep(waitSeconds * 1000);
             InitSocket();
         }
@@ -179,17 +179,13 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
         /// </summary>
         private void EmitMachinationsAuthRequest ()
         {
-            if (_socket == null)
-            {
-                throw new Exception("Cannot Emit Auth Request when Socket has been destroyed.");
-            }
             var authRequest = new Dictionary<string, string>
             {
                 {SyncMsgs.JK_AUTH_GAME_NAME, _gameName},
                 {SyncMsgs.JK_AUTH_DIAGRAM_TOKEN, _diagramToken}
             };
 
-            L.D("SocketIO: EmitMachinationsAuthRequest with gameName " + _gameName + " and diagram token " + _diagramToken);
+            L.D("MDL.EmitMachinationsAuthRequest with gameName " + _gameName + " and diagram token " + _diagramToken);
 
             _socket.Emit(SyncMsgs.SEND_API_AUTHORIZE, new JSONObject(authRequest));
         }
@@ -200,7 +196,7 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
         /// <param name="e">Contains Init Data.</param>
         private void OnAuthSuccess (SocketIOEvent e)
         {
-            L.D("SocketIO: Game Auth Request Result: " + e.data);
+            L.D("Game Auth Request Result: " + e.data);
             //Initialization complete.
             IsAuthenticated = true;
         }
@@ -211,14 +207,14 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
         public void EmitMachinationsInitRequest ()
         {
             if (!IsInitialized)
-                throw new Exception("SocketIO: Socket not open!");
-            L.D("SocketIO: EmitMachinationsInitRequest.");
+                throw new Exception("Socket not open!");
+            L.D("SocketIO.EmitMachinationsInitRequest.");
 
             var initRequestData = MachinationsDataLayer.GetInitRequestData(_diagramToken);
             //If there's nothing to request, quit.
             if (!initRequestData)
             {
-                L.D("SocketIO: EmitMachinationsInitRequest: no data has been requested.");
+                L.D("EmitMachinationsInitRequest: no data has been requested.");
                 return;
             }
 
@@ -232,7 +228,7 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
         /// <param name="e">Contains Init Data.</param>
         private void OnGameInitResponse (SocketIOEvent e)
         {
-            L.D("SocketIO: OnGameInitResponse DATA: " + e.data);
+            L.D("OnGameInitResponse DATA: " + e.data);
 
             try
             {
@@ -249,7 +245,7 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
         }
 
         /// <summary>
-        /// Emits the 'Game Update Diagram Elements' Socket event.
+        /// Emits the 'Game Init Request' Socket event.
         /// </summary>
         public void EmitGameUpdateDiagramElementsRequest (JSONObject updateRequest)
         {
@@ -272,12 +268,12 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
 
         private void OnGameUpdateDiagramElementsRequest (SocketIOEvent e)
         {
-            L.D("SocketIO: Game Update Diagram Elements Response: " + e.data);
+            L.D("Game Update Diagram Elements Response: " + e.data);
         }
 
         private void OnAuthDeny (SocketIOEvent e)
         {
-            L.D("SocketIO: Game Auth Request Failure: " + e.data);
+            L.D("Game Auth Request Failure: " + e.data);
             HandleConnectionFailure(false);
         }
         
@@ -293,7 +289,7 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
                 {SyncMsgs.JK_EVENT_GAME_OBJ_NAME, mgo.Name},
                 {SyncMsgs.JK_EVENT_GAME_EVENT, evnt}
             };
-            L.D("SocketIO: EmitGameEvent " + evnt);
+            L.D("MDL.EmitGameEvent " + evnt);
 
             _socket.Emit(SyncMsgs.SEND_GAME_EVENT, new JSONObject(sync));
         }
@@ -335,7 +331,7 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
         /// The Thread will have to handle that.</param>
         private void HandleConnectionFailure (bool calledFromThread)
         {
-            L.E("SocketIO: Failed to connect!");
+            L.E("Failed to connect!");
             _connectionAborted = true;
             _machinationsService.FailedToConnect(false);
         }
