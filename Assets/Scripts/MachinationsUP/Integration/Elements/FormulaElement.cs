@@ -10,19 +10,19 @@ namespace MachinationsUP.Integration.Elements
 {
     /// <summary>
     /// Wraps a Machinations Formula, allowing Element-related access to it.
-    /// <see cref="MachinationsFormula"/>
+    /// <see cref="MnFormula"/>
     /// </summary>
     [DataContract(Name = "MachinationsFormula", Namespace = "http://www.machinations.io")]
     public class FormulaElement : ElementBase
     {
 
-        private MachinationsFormula _mFormula;
+        private MnFormula _mFormula;
 
         /// <summary>
         /// Machinations Formula that is used to determine this Element's value.
         /// </summary>
         [DataMember()]
-        public MachinationsFormula MFormula
+        public MnFormula MFormula
         {
             get => _mFormula;
             private set => _mFormula = value;
@@ -64,7 +64,7 @@ namespace MachinationsUP.Integration.Elements
             base(-1, mapping, parentBinder)
         {
             FormulaString = formulaString;
-            MFormula = new MachinationsFormula(formulaString);
+            MFormula = new MnFormula(formulaString);
             RerunFormulaAtReset = rerunFormulaAtReset;
             RerunFormulaAtEveryAccess = rerunFormulaAtEveryAccess;
             BaseValue = MFormula.Run();
@@ -102,7 +102,7 @@ namespace MachinationsUP.Integration.Elements
         }
 
         /// <summary>
-        /// Returns a duplicate of this Element Base. Required in <see cref="MachinationsDataLayer"/> in CreateElement.
+        /// Returns a duplicate of this Element Base. Required in <see cref="MnDataLayer"/> in CreateElement.
         /// </summary>
         /// <returns></returns>
         override public ElementBase Clone (ElementBinder parentBinder)

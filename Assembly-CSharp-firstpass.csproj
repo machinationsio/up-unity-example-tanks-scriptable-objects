@@ -163,6 +163,9 @@
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>D:/Codez/Machinations/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
+ <Reference Include="UnityEngine.UI">
+ <HintPath>D:/Codez/Machinations/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.Timeline">
  <HintPath>D:/Codez/Machinations/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
  </Reference>
@@ -174,9 +177,6 @@
  </Reference>
  <Reference Include="Unity.TextMeshPro">
  <HintPath>D:/Codez/Machinations/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UI">
- <HintPath>D:/Codez/Machinations/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.UI">
  <HintPath>D:/Codez/Machinations/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>

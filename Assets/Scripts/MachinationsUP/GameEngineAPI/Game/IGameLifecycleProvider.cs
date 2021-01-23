@@ -4,7 +4,7 @@ namespace MachinationsUP.GameEngineAPI.Game
 {
     /// <summary>
     /// Defines a contract that allows a Game Engine to be queried/used by Machinations.
-    /// See <see cref="MachinationsDataLayer"/>.
+    /// See <see cref="MnDataLayer"/>.
     /// </summary>
     public interface IGameLifecycleProvider
     {

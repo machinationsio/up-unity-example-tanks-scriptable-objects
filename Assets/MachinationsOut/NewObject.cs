@@ -6,7 +6,7 @@ using MachinationsUP.Integration.Inventory;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "MachinationsOut/NewObject")]
-public class NewObject : ScriptableObject, IMachinationsScriptableObject
+public class NewObject : ScriptableObject, IMnScriptableObject
 {
 
     public ElementBase Health;
@@ -22,7 +22,7 @@ public class NewObject : ScriptableObject, IMachinationsScriptableObject
     private Dictionary<string, ElementBinder> _binders;
 
     //Manifest that defines what the SO uses from Machinations.
-    static readonly private MachinationsObjectManifest _manifest = new MachinationsObjectManifest
+    static readonly private MnObjectManifest _manifest = new MnObjectManifest
     {
         Name = "Player Tank Stats",
         DiagramMappings = new List<DiagramMapping>
@@ -46,12 +46,12 @@ public class NewObject : ScriptableObject, IMachinationsScriptableObject
     {
         Debug.Log("SO TankStats OnEnable.");
         //Register this SO with the MGL.
-        MachinationsDataLayer.EnrollScriptableObject(this, _manifest);
+        MnDataLayer.EnrollScriptableObject(this, _manifest);
     }
 
     #region IMachinationsScriptableObject
     
-    public MachinationsObjectManifest Manifest { get; private set; }
+    public MnObjectManifest Manifest { get; private set; }
     
     public ScriptableObject SO => this;
 
@@ -66,7 +66,7 @@ public class NewObject : ScriptableObject, IMachinationsScriptableObject
     }
 
     /// <summary>
-    /// Called by the <see cref="MachinationsDataLayer"/> when an element has been updated in the Machinations back-end.
+    /// Called by the <see cref="MnDataLayer"/> when an element has been updated in the Machinations back-end.
     /// </summary>
     /// <param name="diagramMapping">The <see cref="DiagramMapping"/> of the modified element.</param>
     /// <param name="elementBase">The <see cref="ElementBase"/> that was sent from the backend.</param>

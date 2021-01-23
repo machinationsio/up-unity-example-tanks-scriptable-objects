@@ -14,7 +14,7 @@ using UnityEditor;
 using Random = UnityEngine.Random;
 
 [CreateAssetMenu(menuName = "Audio Events/Simple")]
-public class SimpleAudioEvent : AudioEvent, IMachinationsScriptableObject
+public class SimpleAudioEvent : AudioEvent, IMnScriptableObject
 {
 
     public AudioClip[] clips;
@@ -35,7 +35,7 @@ public class SimpleAudioEvent : AudioEvent, IMachinationsScriptableObject
     public void OnEnable ()
     {
         //Manifest that defines what the SO uses from Machinations.
-        Manifest = new MachinationsObjectManifest
+        Manifest = new MnObjectManifest
         {
             Name =  "Sound Event",
             DiagramMappings = new List<DiagramMapping>
@@ -62,12 +62,12 @@ public class SimpleAudioEvent : AudioEvent, IMachinationsScriptableObject
         };
         
         //Register this SO with the MGL.
-        MachinationsDataLayer.EnrollScriptableObject(this, Manifest);
+        MnDataLayer.EnrollScriptableObject(this, Manifest);
     }
 
     #region IMachinationsScriptableObject
     
-    public MachinationsObjectManifest Manifest { get; private set; }
+    public MnObjectManifest Manifest { get; private set; }
     
     public ScriptableObject SO => this;
 
@@ -80,7 +80,7 @@ public class SimpleAudioEvent : AudioEvent, IMachinationsScriptableObject
     }
 
     /// <summary>
-    /// Called by the <see cref="MachinationsDataLayer"/> when an element has been updated in the Machinations back-end.
+    /// Called by the <see cref="MnDataLayer"/> when an element has been updated in the Machinations back-end.
     /// </summary>
     /// <param name="diagramMapping">The <see cref="DiagramMapping"/> of the modified element.</param>
     /// <param name="elementBase">The <see cref="ElementBase"/> that was sent from the backend.</param>

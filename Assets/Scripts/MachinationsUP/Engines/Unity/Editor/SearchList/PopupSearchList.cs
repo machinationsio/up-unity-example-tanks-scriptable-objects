@@ -39,6 +39,9 @@ public class PopupSearchList : PopupWindowContent
     /// </summary>
     private List<SearchListItem> _items;
 
+    /// <summary>
+    /// Tags to be used to filter items.
+    /// </summary>
     private List<ITagProvider> _tags;
 
     private bool _someListItemsHaveTagsWithImages;
@@ -105,7 +108,7 @@ public class PopupSearchList : PopupWindowContent
 
         EditorGUILayout.EndHorizontal();
         
-        MachiCP.DrawUILine(Color.black, 2, 10);
+        DrawLineInInspector(Color.black, 2, 10);
 
         EditorGUILayout.BeginHorizontal();
 
@@ -150,7 +153,7 @@ public class PopupSearchList : PopupWindowContent
                 break;
             }
 
-        MachiCP.DrawUILine(Color.black, 2, 10);
+        DrawLineInInspector(Color.black, 2, 10);
 
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Select:", GUILayout.Width(69));
@@ -181,7 +184,7 @@ public class PopupSearchList : PopupWindowContent
         if (Event.current.type == EventType.Repaint) lastRectBeforeScrollView = GUILayoutUtility.GetLastRect();
         float scrollViewHeight = _height - (lastRectBeforeScrollView.y + lastRectBeforeScrollView.height) - 10;
 
-        MachiCP.DrawUILine(Color.black, 1, 5);
+        DrawLineInInspector(Color.black, 1, 5);
 
         scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.Width(Screen.width - 10), GUILayout.Height(scrollViewHeight));
 
@@ -230,6 +233,16 @@ public class PopupSearchList : PopupWindowContent
         if (useTags && (item.TagProvider == null || !item.TagProvider.Checked))
             return false;
         return true;
+    }
+    
+    static public void DrawLineInInspector (Color color, int thickness = 2, int padding = 10)
+    {
+        Rect r = EditorGUILayout.GetControlRect(GUILayout.Height(padding + thickness));
+        r.height = thickness;
+        r.y += (float) padding / 2;
+        r.x -= 2;
+        r.width += 6;
+        EditorGUI.DrawRect(r, color);
     }
 
 }

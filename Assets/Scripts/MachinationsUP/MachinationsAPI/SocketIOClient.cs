@@ -33,7 +33,7 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
         /// <summary>
         /// Service that owns this Socket.
         /// </summary>
-        private MachinationsService _machinationsService;
+        private MnService _mnService;
 
         /// <summary>
         /// Where to connect for the Machinations API.
@@ -72,19 +72,19 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
         /// <summary>
         /// Prepares and Connects the Socket to the Machinations Backend.
         /// </summary>
-        /// <param name="machinationsService">MachinationsService to interact with for data transactions.</param>
+        /// <param name="mnService">MachinationsService to interact with for data transactions.</param>
         /// <param name="socketURL">The URL where the Machinations API resides.</param>
         /// <param name="userKey">User Key (API key) to use when connecting to the back-end.</param>
         /// <param name="diagramToken">Diagram Token to make requests to.</param>
         /// <param name="gameName">OPTIONAL. Game name.</param>
-        public SocketIOClient (MachinationsService machinationsService, string socketURL, string userKey, string diagramToken,
+        public SocketIOClient (MnService mnService, string socketURL, string userKey, string diagramToken,
             string gameName = null)
         {
             _socketURL = socketURL;
             _userKey = userKey;
             _gameName = gameName;
             _diagramToken = diagramToken;
-            _machinationsService = machinationsService;
+            _mnService = mnService;
 
             _socketPulse = new System.Timers.Timer(1000);
             _socketPulse.Elapsed += SocketPulse_OnElapsed;
@@ -98,6 +98,11 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
         /// </summary>
         public void InitSocket ()
         {
+            if (_socket != null)
+            {
+                _socket.PrepareClose();
+                _socket.Close();
+            }
             _socket = new SocketIOGlobal();
             _socket.autoConnect = false;
             L.D("Instantiated SocketIO with Hash: " + _socket.GetHashCode() + " for URL: " + _socketURL);
@@ -180,7 +185,7 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
         /// <summary>
         /// Emits the 'Game Auth Request' Socket event.
         /// </summary>
-        public void EmitMachinationsAuthRequest ()
+        public void EmitAuthRequest ()
         {
             if (_socket == null)
             {
@@ -204,7 +209,7 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
         private void OnAuthSuccess (SocketIOEvent e)
         {
             L.D("SocketIO: Game Auth Request Result: " + e.data);
-            _machinationsService.AuthSuccess();
+            _mnService.AuthSuccess();
             //Initialization complete.
             IsAuthenticated = true;
         }
@@ -218,18 +223,18 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
         /// <summary>
         /// Emits the 'Game Init Request' Socket event.
         /// </summary>
-        public void EmitMachinationsInitRequest ()
+        public void EmitFullDiagramInitRequest ()
         {
             if (!IsInitialized)
                 throw new Exception("SocketIO: Socket not open!");
             L.D("SocketIO: EmitMachinationsInitRequest.");
 
-            var initRequestData = MachinationsDataLayer.GetInitRequestData(_diagramToken);
+            var initRequestData = MnDataLayer.GetInitRequestData(_diagramToken, true);
             //If there's nothing to request, quit.
             if (!initRequestData)
             {
                 L.D("SocketIO: EmitMachinationsInitRequest: no data has been requested.");
-                _machinationsService.InitComplete(null);
+                _mnService.InitComplete(null);
                 return;
             }
 
@@ -251,7 +256,7 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
                 foreach (string payloadKey in e.data.keys)
                     //For now, only interested in the "SyncMsgs.JK_DIAGRAM_ELEMENTS_LIST" payload.
                     if (payloadKey == SyncMsgs.JK_DIAGRAM_ELEMENTS_LIST)
-                        _machinationsService.InitComplete(e.data[SyncMsgs.JK_DIAGRAM_ELEMENTS_LIST].list);
+                        _mnService.InitComplete(e.data[SyncMsgs.JK_DIAGRAM_ELEMENTS_LIST].list);
             }
             catch (Exception ex)
             {
@@ -278,7 +283,7 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
                 //For now, only interested in the "SyncMsgs.JK_DIAGRAM_ELEMENTS_LIST" payload.
                 if (payloadKey == SyncMsgs.JK_DIAGRAM_ELEMENTS_LIST)
                     //TODO: switch to local instance.
-                    MachinationsDataLayer.Service.UpdateWithValuesFromMachinations(e.data[SyncMsgs.JK_DIAGRAM_ELEMENTS_LIST].list, true);
+                    MnDataLayer.Service.UpdateWithValuesFromMachinations(e.data[SyncMsgs.JK_DIAGRAM_ELEMENTS_LIST].list, true);
         }
 
         private void OnGameUpdateDiagramElementsRequest (SocketIOEvent e)
@@ -291,7 +296,7 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
         /// </summary>
         /// <param name="mgo">MachinationsGameObject that emitted the event.</param>
         /// <param name="evnt">The event that was emitted.</param>
-        public void EmitGameEvent (MachinationsGameObject mgo, string evnt)
+        public void EmitGameEvent (MnGameObject mgo, string evnt)
         {
             var sync = new Dictionary<string, string>
             {
@@ -340,7 +345,7 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
         {
             L.E("SocketIO: Failed to connect!");
             _connectionAborted = true;
-            _machinationsService.FailedToConnect(false);
+            _mnService.FailedToConnect(false);
         }
 
         #endregion

@@ -131,10 +131,10 @@ namespace SocketIO
 
             ws = new WebSocket(url + (string.IsNullOrEmpty(_userKey) ? "" : "&token=" + _userKey));
 
-            if (L.Level == MachinationsUP.Logger.LogLevel.Debug)
+            if (L.Level >= MachinationsUP.Logger.LogLevel.Debug)
             {
                 //Enable Error Logging.
-                ws.Log.File = Path.Combine(MachinationsDataLayer.AssetsPath,
+                ws.Log.File = Path.Combine(MnDataLayer.AssetsPath,
                     "socket-errorlog-global" + DateTime.Now.ToString("yyyy-MM-dd") + ".txt");
                 ws.Log.Level = LogLevel.Trace;
             }
@@ -142,7 +142,7 @@ namespace SocketIO
             if (pathToX509Certificate != "")
             {
                 ws.SslConfiguration.ClientCertificates = new X509CertificateCollection();
-                string certPath = Path.Combine(MachinationsDataLayer.AssetsPath, pathToX509Certificate);
+                string certPath = Path.Combine(MnDataLayer.AssetsPath, pathToX509Certificate);
                 ws.SslConfiguration.ClientCertificates.Add(new X509Certificate(certPath));
             }
 
@@ -217,6 +217,7 @@ namespace SocketIO
             if (socketThread != null)
             {
                 socketThread.Abort();
+                L.D("Aborting Socket Thread.");
             }
 
             if (pingThread != null)
@@ -231,7 +232,7 @@ namespace SocketIO
         {
             connectionTimeoutDateTime = DateTime.Now.AddSeconds(connectionTimeoutSeconds);
             L.D("WebSocket: connectionTimeoutDateTime set to " + connectionTimeoutDateTime);
-            
+
             socketThread = new Thread(RunSocketThread);
             socketThread.Start(ws);
 
@@ -245,6 +246,7 @@ namespace SocketIO
         {
             EmitClose();
 
+            ws.Close();
             connected = false;
             ws = null;
         }
@@ -320,14 +322,20 @@ namespace SocketIO
 
         private void RunSocketThread (object obj)
         {
+            if (obj == null)
+            {
+                throw new Exception("The web socket couldn't be created. Please check if your socket URL is correct.");
+            }
             WebSocket webSocket = (WebSocket) obj;
             while (connected || connectionTimeoutDateTime > DateTime.Now)
             {
                 if (!connected && connectionTimeoutDateTime > DateTime.Now)
                 {
-                    L.D("WebSocket: Not connected but waiting before we close the socket.");
+                    L.D("WebSocket: Not connected but waiting " + reconnectDelay + " seconds before we close the socket.");
+                    Thread.Sleep(500); //Prevent thrashing the thread. Can happen when API server responds with 503.
                     continue;
                 }
+
                 if (webSocket.IsConnected)
                 {
                     Thread.Sleep(reconnectDelay);
@@ -346,7 +354,7 @@ namespace SocketIO
                     }
                 }
             }
-            
+
             L.D("WebSocket: Killing it.");
             webSocket.Close();
         }
@@ -452,9 +460,9 @@ namespace SocketIO
 			debugMethod.Invoke("[SocketIO] Raw message: " + e.Data);
 #endif
             L.D("Received from WebSocket: " + e.Data);
-            
+
             Packet packet = decoder.Decode(e);
-            
+
             switch (packet.enginePacketType)
             {
                 case EnginePacketType.OPEN:

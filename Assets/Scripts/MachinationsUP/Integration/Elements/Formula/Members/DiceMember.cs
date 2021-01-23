@@ -4,7 +4,7 @@ namespace MachinationsUP.Integration.Elements.Formula.Members
 {
     /// <summary>
     /// A simple, humble, Random Number Generator.
-    /// <see cref="MachinationsFormula"/>
+    /// <see cref="MnFormula"/>
     /// </summary>
     public class DiceMember : MemberBase
     {

@@ -6,7 +6,7 @@ using MachinationsUP.Integration.Inventory;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScritableObjects/SomeScriptableObject")]
-public class SomeScriptableObject : ScriptableObject, IMachinationsScriptableObject
+public class SomeScriptableObject : ScriptableObject, IMnScriptableObject
 {
 
     public ElementBase MovementSpeed; //These are all visible in Unity's Property Inspector.
@@ -64,7 +64,7 @@ public class SomeScriptableObject : ScriptableObject, IMachinationsScriptableObj
     
     #region IMachinationsScriptableObject
 
-    public MachinationsObjectManifest Manifest { get; private set; }
+    public MnObjectManifest Manifest { get; private set; }
 
     public ScriptableObject SO => this;
 
@@ -83,7 +83,7 @@ public class SomeScriptableObject : ScriptableObject, IMachinationsScriptableObj
     }
 
     /// <summary>
-    /// Called by the <see cref="MachinationsDataLayer"/> when an element has been updated in the Machinations back-end.
+    /// Called by the <see cref="MnDataLayer"/> when an element has been updated in the Machinations back-end.
     /// </summary>
     /// <param name="diagramMapping">The <see cref="DiagramMapping"/> of the modified element.</param>
     /// <param name="elementBase">The <see cref="ElementBase"/> that was sent from the backend.</param>

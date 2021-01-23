@@ -155,11 +155,11 @@ namespace MachinationsUP.Integration.Elements
         {
             int previousValue = CurrentValue;
             ChangeValueTo(value);
-            MachinationsDataLayer.EmitGameUpdateDiagramElementsRequest(this, previousValue);
+            MnDataLayer.EmitGameUpdateDiagramElementsRequest(this, previousValue);
         }
 
         /// <summary>
-        /// Returns a duplicate of this Element Base. Required in <see cref="MachinationsDataLayer"/> in CreateElement.
+        /// Returns a duplicate of this Element Base. Required in <see cref="MnDataLayer"/> in CreateElement.
         /// </summary>
         /// <param name="parentBinder">Parent Element Binder.</param>
         /// <returns></returns>

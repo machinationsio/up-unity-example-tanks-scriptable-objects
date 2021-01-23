@@ -17,7 +17,7 @@ namespace MachinationsUP.Integration.Binder
     /// on Game and Game Object State (via <see cref="MachinationsUP.GameEngineAPI.States.StatesAssociation"/>). There will be
     /// a separate <see cref="ElementBase"/> for each StatesAssociation.
     ///
-    /// Is a child of either <see cref="MachinationsGameObject"/> or <see cref="EnrolledScriptableObject"/>.
+    /// Is a child of either <see cref="MnGameObject"/> or <see cref="EnrolledScriptableObject"/>.
     /// </summary>
     public class ElementBinder
     {
@@ -27,7 +27,7 @@ namespace MachinationsUP.Integration.Binder
         /// <summary>
         /// Machinations Behavior (Game Object) owning this Binder.
         /// </summary>
-        internal MachinationsGameObject ParentGameObject { get; }
+        internal MnGameObject ParentGameObject { get; }
 
         /// <summary>
         /// Machinations Scriptable Object that owns this Binder.
@@ -37,7 +37,7 @@ namespace MachinationsUP.Integration.Binder
         /// <summary>
         /// The <see cref="MachinationsUP.Integration.Inventory.DiagramMapping"/> which defines how to retrieve & connect this Binder (and
         /// the Game Object Property Name it represents) to the Machinations Diagram.
-        /// <see cref="MachinationsUP.Integration.GameObject.MachinationsGameObject"/>
+        /// <see cref="MnGameObject"/>
         /// </summary>
         public DiagramMapping DiagMapping { get; }
 
@@ -90,7 +90,7 @@ namespace MachinationsUP.Integration.Binder
         /// <param name="parentGameObject">MachinationsGameObject that owns this Binder.</param>
         /// <param name="diagramMapping">The <see cref="MachinationsUP.Integration.Inventory.DiagramMapping"/> that specifies where this
         /// ElementBinder will retrieve its data from.</param>
-        public ElementBinder (MachinationsGameObject parentGameObject, DiagramMapping diagramMapping)
+        public ElementBinder (MnGameObject parentGameObject, DiagramMapping diagramMapping)
         {
             ParentGameObject = parentGameObject ?? throw new Exception("Parent Game Object cannot be null");
             DiagMapping = diagramMapping;
@@ -143,7 +143,7 @@ namespace MachinationsUP.Integration.Binder
                     found = true;
                 }
 
-            if (!found && !MachinationsDataLayer.IsInOfflineMode)
+            if (!found && !MnDataLayer.IsInOfflineMode)
                 throw new Exception("ElementBinder.SelectCurrentElement: Couldn't find ElementBase for " + DebugContext());
         }
 
@@ -187,9 +187,9 @@ namespace MachinationsUP.Integration.Binder
         /// </summary>
         /// <param name="statesAssociation">OPTIONAL. The <see cref="MachinationsUP.GameEngineAPI.States.StatesAssociation"/> for which the Holder is to be created.
         /// If this is not provided, the default value of NULL means that the Holder will use "N/A" as Title
-        /// in the <see cref="MachinationsDataLayer"/> Init Request.</param>
+        /// in the <see cref="MnDataLayer"/> Init Request.</param>
         /// <param name="overwrite">TRUE: overwrite the value if it's already in the <see cref="_elements"/> Dictionary.</param>
-        /// <param name="isRunningOffline">TRUE: the <see cref="MachinationsDataLayer"/> is running in offline mode.</param>
+        /// <param name="isRunningOffline">TRUE: the <see cref="MnDataLayer"/> is running in offline mode.</param>
         public void CreateElementBaseForStateAssoc (StatesAssociation statesAssociation = null, bool overwrite = false,
             bool isRunningOffline = false)
         {
@@ -197,7 +197,7 @@ namespace MachinationsUP.Integration.Binder
                 GetFullName() + "' @ statesAssociation: " + (statesAssociation != null ? statesAssociation.Title : "N/A"));
 
             //The MachinationsDataLayer is responsible for creating ElementBase.
-            ElementBase newElement = MachinationsDataLayer.Instance.CreateElement(this, statesAssociation);
+            ElementBase newElement = MnDataLayer.Instance.CreateElement(this, statesAssociation);
             if (newElement == null)
             {
                 //If no element was found & running offline, just letting it slide.

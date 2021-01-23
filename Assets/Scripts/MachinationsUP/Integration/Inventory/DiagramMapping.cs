@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 using MachinationsUP.GameEngineAPI.States;
 using MachinationsUP.Integration.Binder;
 using MachinationsUP.Integration.Elements;
+using MachinationsUP.Integration.GameObject;
 using MachinationsUP.SyncAPI;
 
 namespace MachinationsUP.Integration.Inventory
@@ -19,8 +20,9 @@ namespace MachinationsUP.Integration.Inventory
         private string _name;
 
         /// <summary>
-        /// The name of the Machinations Game Object that has this property.
-        /// See <see cref="MachinationsUP.Integration.GameObject.MachinationsGameObject"/>
+        /// The name of the Machinations Object that has this property.
+        /// See <see cref="MnGameObject"/>
+        /// See <see cref="MachinationsUP.Engines.Unity.IMnScriptableObject"/>
         /// </summary>
         [DataMember()]
         public string Name

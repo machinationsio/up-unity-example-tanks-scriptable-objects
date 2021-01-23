@@ -2,7 +2,7 @@
 {
     /// <summary>
     /// Base class for all Machination Formula Members.
-    /// <see cref="MachinationsFormula"/>
+    /// <see cref="MnFormula"/>
     /// </summary>
     public class MemberBase
     {

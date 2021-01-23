@@ -67,11 +67,11 @@
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\HttpListenerAsyncResult.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\HttpListenerException.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\Demo\SomeRectangle.cs" />
-     <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\EditorExtensions\MachinationsMainThreadHook.cs" />
+     <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\EditorExtensions\MnMainThreadHook.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\WebSockets\TcpListenerWebSocketContext.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\CloseStatusCode.cs" />
      <Compile Include="Assets\ScriptableObject\Destruction\Destructible.cs" />
-     <Compile Include="Assets\Scripts\MachinationsUP\Config\MachinationsConfig.cs" />
+     <Compile Include="Assets\Scripts\MachinationsUP\Config\MnConfig.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\HttpListenerRequest.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\CloseEventArgs.cs" />
      <Compile Include="Assets\Scripts\Camera\CameraControl.cs" />
@@ -86,7 +86,7 @@
      <Compile Include="Assets\Scripts\MachinationsUP\Integration\Elements\Formula\Members\DiceMember.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\GameEngineAPI\Game\GameStates.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\Scripts\SocketIO\SocketIOGlobal.cs" />
-     <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\IMachinationsScriptableObject.cs" />
+     <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\IMnScriptableObject.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\ByteOrder.cs" />
      <Compile Include="Assets\ScriptableObject\Brains\RandomWalkingTank.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\Integration\Binder\ElementBinder.cs" />
@@ -140,11 +140,11 @@
      <Compile Include="Assets\Scripts\MusicPlayer.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\HttpListenerResponse.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\HttpBasicIdentity.cs" />
-     <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\GameLayer\MachinationsService.cs" />
+     <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\GameLayer\MnService.cs" />
      <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\Scripts\SocketIO\Packet.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\HttpDigestIdentity.cs" />
-     <Compile Include="Assets\Scripts\MachinationsUP\Integration\Inventory\MachinationsObjectManifest.cs" />
+     <Compile Include="Assets\Scripts\MachinationsUP\Integration\Inventory\MnObjectManifest.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Server\HttpServer.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\EnrolledScriptableObject.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\AuthenticationResponse.cs" />
@@ -156,7 +156,7 @@
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\LogData.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Server\ServerState.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\HttpHeaderInfo.cs" />
-     <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\Startup\MachinationsEntryPoint.cs" />
+     <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\Startup\MnEntryPoint.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\Scripts\SocketIO\Ack.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\QueryStringCollection.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\CookieException.cs" />
@@ -173,8 +173,8 @@
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\MessageEventArgs.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\Scripts\SocketIO\SocketIOException.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\AuthenticationChallenge.cs" />
-     <Compile Include="Assets\Scripts\MachinationsUP\Integration\Inventory\MCache.cs" />
-     <Compile Include="Assets\Scripts\MachinationsUP\Integration\GameObject\MachinationsGameObject.cs" />
+     <Compile Include="Assets\Scripts\MachinationsUP\Integration\Inventory\MnCache.cs" />
+     <Compile Include="Assets\Scripts\MachinationsUP\Integration\GameObject\MnGameObject.cs" />
      <Compile Include="Assets\Scripts\UI\UIDirectionControl.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\WebSockets\WebSocketContext.cs" />
      <Compile Include="Assets\ScriptableObject\ItemStats\TankStatsEnemy.cs" />
@@ -188,11 +188,11 @@
      <Compile Include="Assets\ScriptableObject\ItemStats\ShellStats.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\JSONObject\JSONObject.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\GameEngineAPI\GameObject\IGameObjectLifecycleSubscriber.cs" />
-     <Compile Include="Assets\Scripts\MachinationsUP\Integration\Elements\Formula\MachinationsFormula.cs" />
+     <Compile Include="Assets\Scripts\MachinationsUP\Integration\Elements\Formula\MnFormula.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\CompressionMethod.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Fin.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Server\WebSocketSessionManager.cs" />
-     <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\GameLayer\MachinationsDataLayer.cs" />
+     <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\GameLayer\MnDataLayer.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\Integration\Elements\ElementBase.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\HttpHeaderType.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\Integration\Inventory\DiagramMapping.cs" />
@@ -207,17 +207,19 @@
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Opcode.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\Scripts\Test\TestSocketIO.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\WebSocketState.cs" />
-     <Compile Include="Assets\Scripts\MachinationsUP\Integration\GameObject\MachinationsGameAwareObject.cs" />
+     <Compile Include="Assets\Scripts\MachinationsUP\Integration\GameObject\MnGameAwareObject.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Ext.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\LineState.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\ClientSslConfiguration.cs" />
-     <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\EditorExtensions\MachiCPGraphics.cs" />
+     <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\EditorExtensions\MnCPanelGraphics.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\MachinationsAPI\Protocols\UpdateRules.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\ChunkStream.cs" />
      <None Include="Assets\Fonts\Bowlby_One\OFL.txt" />
      <None Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\JSONObject\readme.txt" />
      <None Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\Readme.txt" />
+     <None Include="Assets\socket-errorlog-global2021-01-22.txt" />
      <None Include="Assets\MachinationsCache\AxonnMachi\Cache.xml" />
+     <None Include="Assets\socket-errorlog-global2021-01-23.txt" />
      <None Include="Assets\MachinationsCache\MyCacheDirectory\Cache.xml" />
      <None Include="Assets\MachinationsCache\YourCache\Cache.xml" />
      <None Include="Assets\Scripts\MachinationsUP\Third-Party Notices.txt" />
@@ -231,6 +233,9 @@
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>D:/Codez/Machinations/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
+ <Reference Include="UnityEngine.UI">
+ <HintPath>D:/Codez/Machinations/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.Timeline">
  <HintPath>D:/Codez/Machinations/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
  </Reference>
@@ -242,9 +247,6 @@
  </Reference>
  <Reference Include="Unity.TextMeshPro">
  <HintPath>D:/Codez/Machinations/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UI">
- <HintPath>D:/Codez/Machinations/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.UI">
  <HintPath>D:/Codez/Machinations/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>

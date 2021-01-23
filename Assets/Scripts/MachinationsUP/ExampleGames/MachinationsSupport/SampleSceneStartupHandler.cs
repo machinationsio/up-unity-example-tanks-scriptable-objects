@@ -17,7 +17,7 @@ namespace MachinationsUP.ExampleGames.MachinationsSupport
             //Provide the MachinationsDataLayer with an IGameLifecycleProvider.
             //This will usually be the Game Engine.
             SampleGameEngine engine = new SampleGameEngine();
-            MachinationsDataLayer.Instance.GameLifecycleProvider = engine;
+            MnDataLayer.Instance.GameLifecycleProvider = engine;
             engine.MachinationsInitStart();
 
             L.D("SampleSceneStartupHandler OnBeforeSceneLoadRuntimeMethod.");
