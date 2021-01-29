@@ -540,13 +540,6 @@ namespace SocketIO
                     eventQueue.Enqueue(e);
                 }
             }
-
-            if (packet.socketPacketType == SocketPacketType.ERROR)
-            {
-                //Machinations errors have an ErrorCode in them. When finding such a thing in an Error message, forwarding the Error.
-                if (packet.json.str.IndexOf("ErrorCode") != -1)
-                    EmitEvent(new SocketIOEvent("error", JSONObject.StringObject(packet.json.str)));
-            }
         }
 
         private void OnError (object sender, ErrorEventArgs e)
