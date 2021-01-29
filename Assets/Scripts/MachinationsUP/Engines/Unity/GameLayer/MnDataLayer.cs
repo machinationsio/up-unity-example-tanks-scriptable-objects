@@ -16,6 +16,7 @@ using MachinationsUP.Integration.GameObject;
 using MachinationsUP.Integration.Inventory;
 using MachinationsUP.Logger;
 using UnityEditor;
+using UnityEngine;
 
 namespace MachinationsUP.Engines.Unity
 {
@@ -138,7 +139,7 @@ namespace MachinationsUP.Engines.Unity
             bool noItems = true; //TRUE: nothing to get Init Request for.
 
             initRequest.Add(SyncMsgs.JK_AUTH_DIAGRAM_TOKEN, JSONObject.CreateStringObject(diagramToken));
-            
+
             //If only certain items need to be requested, checking the _sourceElements Map for elements that haven't yet been initialized.
             if (selectiveGet)
             {
@@ -207,11 +208,26 @@ namespace MachinationsUP.Engines.Unity
 
                 //Get the Element Base based on the dictionary of Element Properties.
                 ElementBase elementBase = CreateSourceElementBaseFromProps(elementProperties, diagramMapping);
+                
+                //This is the important line where the ElementBase is assigned to the Source Elements Dictionary, to be used for
+                //cloning elements in the future.
+                _sourceElements[diagramMapping] = elementBase;
+                
+                //Some elements received from the Back-End may be invalid, especially due to the way Formulas currently work (there is no
+                //way to know if a label is a Formula or just a text). See MnFormula constructor.
+                if (elementBase == null)
+                {
+                    //But does this mean that _sourceElements[diagramMapping] = null? Yes it does. And if anybody comes requesting for it,
+                    //there's going to be an error, which is what the expected behavior is. 
+                    continue;
+                }
+
                 L.D("ElementBase created for '" + diagramMapping + "' with Base Value of: " +
                     elementBase.BaseValue);
 
                 //Element already exists but not in Update mode?
-                if (_sourceElements[diagramMapping] != null && !updateFromDiagram)
+                //What?!
+                if (_sourceElements.ContainsKey(diagramMapping) && !updateFromDiagram)
                 {
                     //Bark if a re-init wasn't what caused this duplication.
                     if (!ReInitOngoing)
@@ -223,10 +239,6 @@ namespace MachinationsUP.Engines.Unity
                     continue;
                 }
 
-                //This is the important line where the ElementBase is assigned to the Source Elements Dictionary, to be used for
-                //cloning elements in the future.
-                _sourceElements[diagramMapping] = elementBase;
-
                 //Caching active? Update the Cache.
                 if (!string.IsNullOrEmpty(Instance.cacheDirectoryName))
                 {
@@ -234,7 +246,7 @@ namespace MachinationsUP.Engines.Unity
                     if (!_cache.DiagramMappings.Contains(diagramMapping)) _cache.DiagramMappings.Add(diagramMapping);
                 }
 
-                //When changes occur in the Diagram, the Machinations back-end will notify UP.
+                //When changes occur in the Diagram, the Machinations back-end will notify UP. In this case, we will notify the associated objects.
                 if (updateFromDiagram) NotifyAboutMGLUpdate(diagramMapping, elementBase);
             }
 
@@ -443,7 +455,28 @@ namespace MachinationsUP.Engines.Unity
             {
                 //Only add new targets.
                 if (_sourceElements.ContainsKey(diagramMapping)) continue;
-                _sourceElements.Add(diagramMapping, targets[diagramMapping]);
+                //Check for empty Diagram Mappings.
+                DiagramMapping emptyDM = null;
+                foreach (DiagramMapping sourceDM in _sourceElements.Keys)
+                    //Found an empty Diagram Mapping. First of all, it can't even reach here with the same DiagramElementID (it
+                    //should 'continue' above). Secondly, there is no PropertyName, which is a nonpossible situation :).
+                    if (sourceDM.DiagramElementID == diagramMapping.DiagramElementID && string.IsNullOrEmpty(sourceDM.PropertyName))
+                    {
+                        L.D("Empty DM found for " + sourceDM);
+                        emptyDM = sourceDM;
+                        break;
+                    }
+
+                //No Empty DiagramMapping exists. We can add normaly.
+                if (emptyDM == null) _sourceElements.Add(diagramMapping, targets[diagramMapping]);
+                //When there is an Empty DiagramMapping, switch ElementBase from empty DiagramMapping source, to the incoming source.
+                else
+                {
+                    //Copy the ElementBase from the key at the Empty DiagramMapping, to the incoming key...
+                    _sourceElements.Add(diagramMapping, _sourceElements[emptyDM]);
+                    //.. and removing the empty key.
+                    _sourceElements.Remove(emptyDM);
+                }
             }
         }
 
@@ -526,7 +559,7 @@ namespace MachinationsUP.Engines.Unity
             //If no ElementBase was found.
             if (ret == null)
             {
-                //Search the Cache.
+                //Search the Cache, if it is enabled.
                 if (IsInOfflineMode && HasCache)
                     foreach (DiagramMapping diagramMapping in _cache.DiagramMappings)
                         if (diagramMapping.Matches(elementBinder, statesAssociation, true))
@@ -534,7 +567,7 @@ namespace MachinationsUP.Engines.Unity
 
                 //Nothing found? Throw!
                 if (!isInOfflineMode || (IsInOfflineMode && StrictOfflineMode))
-                    throw new Exception("MDL.FindSourceElement: machinationsUniqueID '" +
+                    throw new Exception("MDL.FindSourceElement: '" +
                                         GetMachinationsElementDescription(elementBinder, statesAssociation) +
                                         "' has not been initialized.");
             }
@@ -564,10 +597,10 @@ namespace MachinationsUP.Engines.Unity
                         if (targetBinder.CurrentElement.DiagMapping.Matches(diagramMapping, true))
                             targetBinder.CurrentElement.Overwrite(elementBase);
                         else
-                        //TODO: during Game State Awareness implementation, consider implementing a function that also overwrites if the current element is NOT the incoming one.
+                            //TODO: during Game State Awareness implementation, consider implementing a function that also overwrites if the current element is NOT the incoming one.
                             _scriptableObjects[imso].Binders[gameObjectPropertyName]
                                 .CreateElementBaseForStateAssoc(diagramMapping.StatesAssoc, true);
-                        
+
                         imso.MGLUpdateSO(diagramMapping, elementBase);
                     }
             }
@@ -591,11 +624,13 @@ namespace MachinationsUP.Engines.Unity
                     return dm;
                 }
 
-            //Couldn't find any Binding for this Machinations Diagram ID.
-            if (diagramMapping == null)
-                throw new Exception("MDL.UpdateWithValuesFromMachinations: Got from the back-end a Machinations Diagram ID (" +
-                                    machinationsDiagramID + ") for which there is no DiagramMapping.");
-            return null;
+            //Couldn't find any Source Element for this Machinations Diagram ID.
+            //This doesn't mean it won't be used, this may just mean it hasn't been requested yet.
+            L.D("MDL.GetDiagramMappingForID: Got from the back-end a Machinations Diagram ID (" +
+                      machinationsDiagramID + ") for which there is no DiagramMapping. Creating an Empty DiagramMapping.");
+            //If any object comes looking for this element ID, this Diagram Mapping will be replaced with that of the requesting element.
+            //See function AddTargets.
+            return new DiagramMapping(int.Parse(machinationsDiagramID));
         }
 
         /// <summary>
@@ -606,12 +641,12 @@ namespace MachinationsUP.Engines.Unity
         static private ElementBase CreateSourceElementBaseFromProps (Dictionary<string, string> elementProperties, DiagramMapping mapping)
         {
             ElementBase elementBase;
-            //Populate value inside Machinations Element.
-            int iValue;
-            string sValue;
-            try
+
+            //Numeric elements get their Value from Resources.
+            if (elementProperties.ContainsKey("resources"))
             {
-                iValue = int.Parse(elementProperties["resources"]);
+                //Populate value inside Machinations Element.
+                int iValue = int.Parse(elementProperties["resources"]);
                 elementBase = new ElementBase(iValue, mapping);
                 //Set MaxValue, if we have from.
                 if (elementProperties.ContainsKey("capacity") && int.TryParse(elementProperties["capacity"],
@@ -620,18 +655,20 @@ namespace MachinationsUP.Engines.Unity
                     elementBase.MaxValue = iValue;
                 }
             }
-            catch
+            //Non-numeric elements can be Formulas, getting their Value from a Label. 
+            else if (elementProperties.ContainsKey("label"))
             {
-                /*
-                if (elementProperties["label"] == null)
+                string sValue = elementProperties["label"];
+                try
                 {
-                    L.E(mapping + " has no valid value! Will return a 0 ElementBase.");
-                    return new ElementBase(0, mapping);
+                    elementBase = new FormulaElement(sValue, mapping, false);
                 }
-                */
-                sValue = elementProperties["label"];
-                elementBase = new FormulaElement(sValue, mapping, false);
+                catch (Exception e)
+                {
+                    return null;
+                }
             }
+            else return null;
 
             return elementBase;
         }

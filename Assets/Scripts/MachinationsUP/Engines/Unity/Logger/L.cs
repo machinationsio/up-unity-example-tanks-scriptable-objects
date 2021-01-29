@@ -55,7 +55,7 @@ namespace MachinationsUP.Logger
         {
             if (Level < LogLevel.Error) return;
             StreamWriter sw = new StreamWriter(LogFilePath, true);
-            sw.WriteLine(ex.Message);
+            sw.WriteLine(DateTime.Now.ToString("u") + ": " + ex.Message);
             sw.WriteLine(ex.Source);
             sw.WriteLine(ex.StackTrace);
             sw.Close();

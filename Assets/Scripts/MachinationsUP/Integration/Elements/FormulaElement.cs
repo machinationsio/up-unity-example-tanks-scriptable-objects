@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using MachinationsUP.Engines.Unity;
 using MachinationsUP.Integration.Binder;
@@ -59,12 +60,19 @@ namespace MachinationsUP.Integration.Elements
         /// <param name="rerunFormulaAtReset">If to recalculate the BaseValue from the Formula at reset.</param>
         /// <param name="rerunFormulaAtEveryAccess">If to recalculate the BaseValue from the Formula each time the CurrentValue is queried.</param>
         /// /// <param name="parentBinder">Parent Element Binder.</param>
-        public FormulaElement (string formulaString, DiagramMapping mapping, bool rerunFormulaAtReset = true, bool rerunFormulaAtEveryAccess = true, 
+        public FormulaElement (string formulaString, DiagramMapping mapping, bool rerunFormulaAtReset = true, bool rerunFormulaAtEveryAccess = true,
             ElementBinder parentBinder = null) :
             base(-1, mapping, parentBinder)
         {
             FormulaString = formulaString;
-            MFormula = new MnFormula(formulaString);
+            try
+            {
+                MFormula = new MnFormula(formulaString);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
             RerunFormulaAtReset = rerunFormulaAtReset;
             RerunFormulaAtEveryAccess = rerunFormulaAtEveryAccess;
             BaseValue = MFormula.Run();

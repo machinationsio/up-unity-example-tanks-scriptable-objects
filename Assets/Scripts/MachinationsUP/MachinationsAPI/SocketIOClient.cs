@@ -4,10 +4,8 @@ using System.Threading;
 using System.Timers;
 using MachinationsUP.Engines.Unity.GameComms;
 using MachinationsUP.SyncAPI;
-using MachinationsUP.Integration.Elements;
 using MachinationsUP.Integration.GameObject;
 using SocketIO;
-using UnityEngine;
 using MachinationsUP.Logger;
 
 namespace MachinationsUP.Engines.Unity.BackendConnection
@@ -222,14 +220,15 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
         
         /// <summary>
         /// Emits the 'Game Init Request' Socket event.
+        /// <param name="selectiveGet">TRUE: get only elements that we don't already have.</param>
         /// </summary>
-        public void EmitFullDiagramInitRequest ()
+        public void EmitDiagramInitRequest (bool selectiveGet)
         {
             if (!IsInitialized)
                 throw new Exception("SocketIO: Socket not open!");
             L.D("SocketIO: EmitMachinationsInitRequest.");
 
-            var initRequestData = MnDataLayer.GetInitRequestData(_diagramToken, true);
+            var initRequestData = MnDataLayer.GetInitRequestData(_diagramToken, selectiveGet);
             //If there's nothing to request, quit.
             if (!initRequestData)
             {

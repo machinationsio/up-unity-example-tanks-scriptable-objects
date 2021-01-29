@@ -1,4 +1,5 @@
-﻿using MachinationsUP.Config;
+﻿using System.IO;
+using MachinationsUP.Config;
 using MachinationsUP.Engines.Unity.BackendConnection;
 using MachinationsUP.Engines.Unity.GameComms;
 using MachinationsUP.Logger;
@@ -27,6 +28,7 @@ namespace MachinationsUP.Engines.Unity.Startup
         static public void InitMachinations ()
         {
             L.Level = LogLevel.Trace;
+            L.LogFilePath = Application.dataPath + "//MachinationsService-Error.log";
             
             //Since Application.dataPath cannot be accessed from other threads (and we need that), storing it in MDL.
             MnDataLayer.AssetsPath = Application.dataPath;

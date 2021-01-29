@@ -77,7 +77,7 @@ namespace MachinationsUP.Integration.Inventory
         /// When this Mapping is used inside a Scriptable Object, this will be the Element Base that is represented in the Editor.
         /// </summary>
         public ElementBase EditorElementBase { get; set; }
-        
+
         /// <summary>
         /// A Default ElementBase, to be used only during OFFLINE mode.
         /// </summary>
@@ -93,6 +93,24 @@ namespace MachinationsUP.Integration.Inventory
         /// An ElementBase that will override the one in the Diagram.
         /// </summary>
         public ElementBase OverrideElementBase { get; set; }
+
+        /// <summary>
+        /// Default constructor. Necessary for field-based initializations.
+        /// </summary>
+        public DiagramMapping ()
+        {
+        }
+
+        /// <summary>
+        /// Constructor that allows specifying the back-end Element ID. Required to place DiagramMappings on items that weren't yet
+        /// requested by the game, but have come during a full diagram init request.
+        /// <see cref="MachinationsUP.Engines.Unity.GameComms.MnService"/>
+        /// <param name="diagramElementID">Machinations Back-end Element ID.</param>
+        /// </summary>
+        public DiagramMapping (int diagramElementID)
+        {
+            DiagramElementID = diagramElementID;
+        }
 
         /// <summary>
         /// Verifies if this DiagramMapping matches the provided criteria.

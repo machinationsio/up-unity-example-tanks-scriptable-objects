@@ -1,0 +1,28 @@
+1/29/2021 5:31:54 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+1/29/2021 5:31:54 AM|Debug|WebSocket.sendHttpRequest:2060|A request to the server:
+                           GET /socket.io/?EIO=4&transport=websocket&token=cfd77ca3-a074-413e-ae08-c1b43c863f00 HTTP/1.1
+                           User-Agent: websocket-sharp/1.0
+                           Host: api.staging.machinations.io
+                           Upgrade: websocket
+                           Connection: Upgrade
+                           Sec-WebSocket-Key: bME2vNUYpOOSQvgbIXRl+g==
+                           Sec-WebSocket-Version: 13
+1/29/2021 5:31:54 AM|Debug|WebSocket.sendHttpRequest:2062|A response to this request:
+                           HTTP/1.1 101 Switching Protocols
+                           Upgrade: websocket
+                           Connection: Upgrade
+                           Sec-WebSocket-Accept: dqx/5wKS4RehdGwisscbJCgbx0s=
+1/29/2021 5:35:25 AM|Warn |Logger.set_Level:154|The current logging level has been changed to Trace.
+1/29/2021 5:35:25 AM|Debug|WebSocket.sendHttpRequest:2060|A request to the server:
+                           GET /socket.io/?EIO=4&transport=websocket&token=cfd77ca3-a074-413e-ae08-c1b43c863f00 HTTP/1.1
+                           User-Agent: websocket-sharp/1.0
+                           Host: api.staging.machinations.io
+                           Upgrade: websocket
+                           Connection: Upgrade
+                           Sec-WebSocket-Key: 5KDRIM08xQ+txrB8zrj83w==
+                           Sec-WebSocket-Version: 13
+1/29/2021 5:35:25 AM|Debug|WebSocket.sendHttpRequest:2062|A response to this request:
+                           HTTP/1.1 101 Switching Protocols
+                           Upgrade: websocket
+                           Connection: Upgrade
+                           Sec-WebSocket-Accept: K6NXCvGIRcI/mZR4JJGF/K6zT2w=

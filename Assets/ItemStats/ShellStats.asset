@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ShellStats
   m_EditorClassIdentifier: 
   Damage:
-    _serializableValue: 56
+    _serializableValue: 58
   Radius:
     _serializableValue: 10
   Force:

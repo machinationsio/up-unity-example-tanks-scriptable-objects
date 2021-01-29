@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using MachinationsUP.Integration.Elements.Formula.Members;
 using MachinationsUP.Logger;
@@ -83,8 +84,10 @@ namespace MachinationsUP.Integration.Elements.Formula
             }
             catch (Exception e)
             {
-                L.E("Failure in parsing Formula: " + formulaString);
-                L.Ex(e);
+                //TODO: this should be handled in a better way, but for now, we have no way of knowing if a label is a Formula or just a text.
+                //L.E("Failure in parsing Formula: " + formulaString);
+                //L.Ex(e);
+                throw e;
             }
 
             //Apply any previous Dice

@@ -4,6 +4,7 @@ using System.Timers;
 using MachinationsUP.Engines.Unity.BackendConnection;
 using MachinationsUP.Engines.Unity.Startup;
 using MachinationsUP.Logger;
+using TMPro;
 
 namespace MachinationsUP.Engines.Unity.GameComms
 {
@@ -24,7 +25,9 @@ namespace MachinationsUP.Engines.Unity.GameComms
     }
 
     /// <summary>
-    /// Supervises communication with Machinations.
+    /// Handles communication with the Machinations back-end.
+    /// TODO: improve state machine.
+    /// TODO: when implementing multiple diagrams support, beware of how full init request is used [EmitFullDiagramInitRequest].
     /// </summary>
     public class MnService
     {
@@ -49,9 +52,21 @@ namespace MachinationsUP.Engines.Unity.GameComms
         /// </summary>
         private List<JSONObject> _diagramElementsFromBackEnd;
 
+        /// <summary>
+        /// Returns whether or not the Diagram has been fully initialized.
+        /// TODO: must be redesigned when implementing support for multiple diagrams.
+        /// </summary>
+        public bool HasPerformedFullDiagramInit { get; set; } = false;
+        
+        /// <summary>
+        /// Is the game running?
+        /// </summary>
         public bool IsGameRunning { get; set; }
 
-        private bool _initRequested; //TRUE: switch _currentState to PreparingForInitRequest state at the first available time.
+        /// <summary>
+        /// TRUE: switch _currentState to PreparingForInitRequest state at the first available time.
+        /// </summary>
+        private bool _initRequested;
 
         public MnService ()
         {
@@ -120,7 +135,9 @@ namespace MachinationsUP.Engines.Unity.GameComms
                         L.D("Machinations Service SocketIO Scheduler: Init Requested.");
                         _currentState = State.InitRequested;
                         _initRequested = false;
-                        _socketClient.EmitFullDiagramInitRequest();
+                        //The first time we get here, we will perform a FULL init request.
+                        _socketClient.EmitDiagramInitRequest(HasPerformedFullDiagramInit);
+                        HasPerformedFullDiagramInit = true; //But subsequent times, we will only ask for whatever is new.
                         break;
                     case State.InitComplete:
                         L.D("Machinations Service SocketIO Scheduler: Init Complete. " + _currentState + " -> Idling.");
@@ -132,8 +149,6 @@ namespace MachinationsUP.Engines.Unity.GameComms
             }
             catch (Exception ex)
             {
-                L.LogFilePath =
-                    @"d:\Codez\Machinations\public-machinations\up-unity-example-tanks-scriptable-objects\Logs\MachinationsService-Error.log";
                 L.ToLogFile("MachinationsService Scheduler Exception Caught:");
                 L.ExToLogFile(ex);
             }
