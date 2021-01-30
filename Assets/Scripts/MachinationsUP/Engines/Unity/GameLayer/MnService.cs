@@ -179,7 +179,6 @@ namespace MachinationsUP.Engines.Unity.GameComms
         #region Communication via Socket IO.
 
         //TODO: to be switched to event-based during next iteration.
-
         public void FailedToConnect (bool loadCache)
         {
             MnDataLayer.SyncFail(loadCache);

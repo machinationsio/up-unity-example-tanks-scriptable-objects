@@ -70,7 +70,7 @@ public class ShellStats : ScriptableObject, IMnScriptableObject
             }
         };
         
-        //Register this SO with the MGL.
+        //Register this SO with the MDL.
         MnDataLayer.EnrollScriptableObject(this, Manifest);
     }
 
@@ -79,7 +79,7 @@ public class ShellStats : ScriptableObject, IMnScriptableObject
         EditorUtility.SetDirty(this);
     }
 
-    #region IMachinationsScriptableObject
+    #region IMnScriptableObject
 
     public MnObjectManifest Manifest { get; private set; }
 

@@ -8,6 +8,9 @@ using UnityEngine.UI;
 public class PopupSearchList : PopupWindowContent
 {
 
+    public delegate void OnButtonPressed_Handler(List<SearchListItem> selectedItems);
+    static public event OnButtonPressed_Handler OnButtonPressed; 
+
     /// <summary>
     /// Current scroll position.
     /// </summary>
@@ -61,7 +64,7 @@ public class PopupSearchList : PopupWindowContent
     public PopupSearchList (int width, List<SearchListItem> items, List<ITagProvider> tags = null)
     {
         _width = width;
-        _height = 450;
+        _height = items.Count == 0 ? 70 : 450;
         _items = items;
         _tags = tags;
 
@@ -74,7 +77,25 @@ public class PopupSearchList : PopupWindowContent
                 if (_maxListItemTagHeight < item.TagProvider.Aspect.height) _maxListItemTagHeight = item.TagProvider.Aspect.height;
             }
 
+        //Set up tags.
         if (tags != null)
+        {
+            //Remove all tags that aren't used by any items.
+            for (int i = _tags.Count - 1; i >= 0; i--)
+            {
+                ITagProvider tag = _tags[i];
+                bool someItemHasThisTag = false;
+                //Check if any of the items have this tag.
+                foreach (SearchListItem item in _items)
+                    if (item.TagProvider == tag)
+                    {
+                        someItemHasThisTag = true;
+                        break;
+                    }
+                if (!someItemHasThisTag) _tags.Remove(tag);
+            }
+
+            //Determine max width/height for a tag image.
             foreach (ITagProvider tag in _tags)
                 if (tag.Aspect != null)
                 {
@@ -82,6 +103,7 @@ public class PopupSearchList : PopupWindowContent
                     if (_maxTagWidth < tag.Aspect.width) _maxTagWidth = tag.Aspect.width;
                     if (_maxTagHeight < tag.Aspect.height) _maxTagHeight = tag.Aspect.height;
                 }
+        }
 
         Debug.Log("Max tag height " + _maxListItemTagHeight);
     }
@@ -93,28 +115,49 @@ public class PopupSearchList : PopupWindowContent
 
     override public void OnGUI (Rect rect)
     {
-        EditorGUILayout.LabelField("Code Generator", EditorStyles.boldLabel);
+        //@@@@@@@@@@@@@@@@@@@@@@@
+        //Show notice if no items there.
+        if (_items.Count == 0)
+        {
+            EditorGUILayout.LabelField("");
+            EditorGUILayout.LabelField("No elements here :(. Either your diagram is empty, or there's some association problem.",
+                EditorStyles.boldLabel);
+            return;
+        }
 
+        //@@@@@@@@@@@@@@@@@@@@@@@
+        //Title.
+        EditorGUILayout.LabelField("Code Generator", EditorStyles.boldLabel);
         EditorGUILayout.BeginHorizontal();
-        
+
+        //@@@@@@@@@@@@@@@@@@@@@@@
+        //Set general UI properties.
         EditorGUIUtility.labelWidth = 70;
+
+        //@@@@@@@@@@@@@@@@@@@@@@@
         //Place the "Search" text field.
         _filterValue = EditorGUILayout.TextField("Search:", _filterValue);
         if (GUILayout.Button("Generate", GUILayout.Width(100)))
         {
             Debug.Log("Generating!");
+            //Send selected items via event.
+            var selectedItems = new List<SearchListItem>();
+            foreach (SearchListItem sli in _items)
+                if (sli.Checked) selectedItems.Add(sli);
+            OnButtonPressed?.Invoke(selectedItems);
             editorWindow.Close();
         }
 
         EditorGUILayout.EndHorizontal();
-        
         DrawLineInInspector(Color.black, 2, 10);
 
+        //@@@@@@@@@@@@@@@@@@@@@@@
+        //Create Tag Buttons.
         EditorGUILayout.BeginHorizontal();
-
         int buttonsPerRow = (int) Math.Floor((double) Screen.width / 65);
         int currentRow = 0;
         int currentButton = 1;
+        //Create Tag filter buttons.
         foreach (ITagProvider node in _tags)
         {
             node.Checked = EditorGUILayout.Toggle(node.Checked, GUILayout.MaxWidth(15),
@@ -145,15 +188,19 @@ public class PopupSearchList : PopupWindowContent
         GUILayout.FlexibleSpace();
         EditorGUILayout.EndHorizontal();
 
+        //@@@@@@@@@@@@@@@@@@@@@@@
+        //Was any Tag filtering done?
         bool anyTagChecked = false;
         foreach (SearchListItem item in _items)
+            //More items may have the same TagProvider, and its Checked property is controlled above, in node.Checked.
             if (item.TagProvider != null && item.TagProvider.Checked)
             {
                 anyTagChecked = true;
                 break;
             }
 
-        DrawLineInInspector(Color.black, 2, 10);
+        //@@@@@@@@@@@@@@@@@@@@@@@
+        //Mass-selection buttons.
 
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Select:", GUILayout.Width(69));
@@ -179,7 +226,10 @@ public class PopupSearchList : PopupWindowContent
         }
 
         EditorGUILayout.EndHorizontal();
-        
+
+        //@@@@@@@@@@@@@@@@@@@@@@@
+        //List of items.
+
         //Since the above UI element the last before the Scroll View, get its rect. We'll need it to determine scroll view height.
         if (Event.current.type == EventType.Repaint) lastRectBeforeScrollView = GUILayoutUtility.GetLastRect();
         float scrollViewHeight = _height - (lastRectBeforeScrollView.y + lastRectBeforeScrollView.height) - 10;
@@ -217,7 +267,7 @@ public class PopupSearchList : PopupWindowContent
                 labelLayoutOptions.Add(GUILayout.Height(_maxListItemTagHeight + (_maxListItemTagHeight / 2)));
             //Add Label.
             EditorGUILayout.LabelField(item.Name, labelLayoutOptions.ToArray());
-            
+
             //Next line!
             EditorGUILayout.EndHorizontal();
         }
@@ -234,7 +284,7 @@ public class PopupSearchList : PopupWindowContent
             return false;
         return true;
     }
-    
+
     static public void DrawLineInInspector (Color color, int thickness = 2, int padding = 10)
     {
         Rect r = EditorGUILayout.GetControlRect(GUILayout.Height(padding + thickness));

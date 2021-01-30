@@ -47,7 +47,7 @@ public class TankStatsEnemy : ScriptableObject, IMnScriptableObject
             }
         };
         
-        //Register this SO with the MGL.
+        //Register this SO with the MDL.
         MnDataLayer.EnrollScriptableObject(this, Manifest);
     }
     

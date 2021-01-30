@@ -22,6 +22,7 @@ namespace MachinationsUP.Engines.Unity
 {
     /// <summary>
     /// The Machinations Data Layer is a Singleton that handles organization of Machinations-related data.
+    /// TODO: better separation between ElementBinder and MnDataLayer
     /// </summary>
     public class MnDataLayer : IGameLifecycleSubscriber, IGameObjectLifecycleSubscriber
     {
@@ -111,160 +112,6 @@ namespace MachinationsUP.Engines.Unity
         #endregion
 
         #endregion
-
-        static public void SyncComplete ()
-        {
-            L.D("MDL.SyncComplete. MachinationsInitComplete.");
-            NotifyAboutMGLInitComplete();
-            Instance._gameLifecycleProvider?.MachinationsInitComplete();
-            ReInitOngoing = true;
-        }
-
-        static public void SyncFail (bool loadCache)
-        {
-            //Cache system active? Load Cache.
-            if (loadCache && !string.IsNullOrEmpty(Instance.cacheDirectoryName)) LoadCache();
-        }
-
-        /// <summary>
-        /// Creates a JSON object which contains all data that we want to request from Machinations.
-        /// </summary>
-        /// <param name="diagramToken">The DiagramToken we want to retrieve elements from.</param>
-        /// <param name="selectiveGet">TRUE: get only elements that we don't already have.</param>
-        /// <returns>A JSON object that contains what we want to request from Machinations.</returns>
-        static public JSONObject GetInitRequestData (string diagramToken, bool selectiveGet)
-        {
-            //Init Request components will be stored as top level items in this Dictionary.
-            var initRequest = new Dictionary<string, JSONObject>();
-            bool noItems = true; //TRUE: nothing to get Init Request for.
-
-            initRequest.Add(SyncMsgs.JK_AUTH_DIAGRAM_TOKEN, JSONObject.CreateStringObject(diagramToken));
-
-            //If only certain items need to be requested, checking the _sourceElements Map for elements that haven't yet been initialized.
-            if (selectiveGet)
-            {
-                //Create individual JSON Objects for each Machination element to retrieve.
-                //This is an Array because this is what the JSON Object Library expects.
-                JSONObject[] keys = new JSONObject [_sourceElements.Keys.Count];
-                int i = 0;
-                foreach (DiagramMapping diagramMapping in _sourceElements.Keys)
-                {
-                    if (_sourceElements[diagramMapping] != null)
-                    {
-                        L.D("Skipping requsting info for already initialized Source Element: " + _sourceElements[diagramMapping]);
-                        continue;
-                    }
-
-                    noItems = false;
-
-                    var item = new Dictionary<string, JSONObject>();
-                    item.Add("id", new JSONObject(diagramMapping.DiagramElementID));
-                    //Create JSON Objects for all props that we have to retrieve.
-                    string[] sprops =
-                    {
-                        SyncMsgs.JP_DIAGRAM_LABEL, SyncMsgs.JP_DIAGRAM_ACTIVATION, SyncMsgs.JP_DIAGRAM_ACTION,
-                        SyncMsgs.JP_DIAGRAM_RESOURCES, SyncMsgs.JP_DIAGRAM_CAPACITY, SyncMsgs.JP_DIAGRAM_OVERFLOW
-                    };
-                    List<JSONObject> props = new List<JSONObject>();
-                    foreach (string sprop in sprops)
-                        props.Add(JSONObject.CreateStringObject(sprop));
-                    //Add props field.
-                    item.Add("props", new JSONObject(props.ToArray()));
-
-                    keys[i++] = new JSONObject(item);
-                }
-
-                if (noItems) return null;
-                //Add the items to the request.
-                initRequest.Add(SyncMsgs.JK_INIT_MACHINATIONS_IDS, new JSONObject(keys));
-            }
-
-            return new JSONObject(initRequest);
-        }
-
-        /// <summary>
-        /// Updates the <see cref="_sourceElements"/> with values from the Machinations Back-end. Only initializes those values
-        /// that have been registered via <see cref="MachinationsUP.Integration.Inventory.DiagramMapping"/>. If entirely new
-        /// values come from the back-end, will throw an Exception.
-        /// </summary>
-        /// <param name="elementsFromBackEnd">List of <see cref="JSONObject"/> received from the Socket IO Component.</param>
-        /// <param name="updateFromDiagram">TRUE: update existing elements. If FALSE, will throw Exceptions on collisions.</param>
-        static public void UpdateSourcesWithValuesFromMachinations (List<JSONObject> elementsFromBackEnd, bool updateFromDiagram = false)
-        {
-            L.D("MDL.UpdateWithValuesFromMachinations: number of elementsFromBackEnd received: " + elementsFromBackEnd.Count);
-            //The response is an Array of key-value pairs PER Machination Diagram ID.
-            //Each of these maps to a certain member of _sourceElements.
-            foreach (JSONObject diagramElement in elementsFromBackEnd)
-            {
-                //Dictionary of SyncMsgs.JP_DIAGRAM_* and their value.
-                var elementProperties = new Dictionary<string, string>();
-                int i = 0;
-                //Get all properties in a Dictionary, since their order is not guaranteed in a list.
-                foreach (string machinationsPropertyName in diagramElement.keys)
-                    elementProperties.Add(machinationsPropertyName, diagramElement[i++].ToString().Replace("\"", ""));
-
-                //Find Diagram Mapping matching the provided Machinations Diagram ID.
-                DiagramMapping diagramMapping = GetDiagramMappingForID(elementProperties["id"]);
-
-                //Get the Element Base based on the dictionary of Element Properties.
-                ElementBase elementBase = CreateSourceElementBaseFromProps(elementProperties, diagramMapping);
-                
-                //This is the important line where the ElementBase is assigned to the Source Elements Dictionary, to be used for
-                //cloning elements in the future.
-                _sourceElements[diagramMapping] = elementBase;
-                
-                //Some elements received from the Back-End may be invalid, especially due to the way Formulas currently work (there is no
-                //way to know if a label is a Formula or just a text). See MnFormula constructor.
-                if (elementBase == null)
-                {
-                    //But does this mean that _sourceElements[diagramMapping] = null? Yes it does. And if anybody comes requesting for it,
-                    //there's going to be an error, which is what the expected behavior is. 
-                    continue;
-                }
-
-                L.D("ElementBase created for '" + diagramMapping + "' with Base Value of: " +
-                    elementBase.BaseValue);
-
-                //Element already exists but not in Update mode?
-                //What?!
-                if (_sourceElements.ContainsKey(diagramMapping) && !updateFromDiagram)
-                {
-                    //Bark if a re-init wasn't what caused this duplication.
-                    if (!ReInitOngoing)
-                        throw new Exception(
-                            "MDL.UpdateWithValuesFromMachinations: A Source Element already exists for this DiagramMapping: " +
-                            diagramMapping +
-                            ". Perhaps you wanted to update it? Then, invoke this function with update: true.");
-                    //When re-initializing, go to the next element directly.
-                    continue;
-                }
-
-                //Caching active? Update the Cache.
-                if (!string.IsNullOrEmpty(Instance.cacheDirectoryName))
-                {
-                    diagramMapping.CachedElementBase = elementBase;
-                    if (!_cache.DiagramMappings.Contains(diagramMapping)) _cache.DiagramMappings.Add(diagramMapping);
-                }
-
-                //When changes occur in the Diagram, the Machinations back-end will notify UP. In this case, we will notify the associated objects.
-                if (updateFromDiagram) NotifyAboutMGLUpdate(diagramMapping, elementBase);
-            }
-
-            //If this was a re-initialization.
-            if (ReInitOngoing)
-            {
-                ReInitOngoing = false;
-                L.D("MDL.UpdateWithValuesFromMachinations ReInitOngoing. MachinationsInitComplete.");
-                //Notify Game Engine of Machinations Init Complete.
-                Instance._gameLifecycleProvider?.MachinationsInitComplete();
-            }
-
-            //Send Update notification to all listeners.
-            OnMachinationsUpdate?.Invoke(Instance, null);
-            //Caching active? Save the cache now.
-            if (!string.IsNullOrEmpty(Instance.cacheDirectoryName)) SaveCache();
-            L.D("MDL.UpdateWithValuesFromMachinations: number of source elements: " + _sourceElements.Count);
-        }
 
         #region Implementation of IGameLifecycleSubscriber
 
@@ -356,21 +203,6 @@ namespace MachinationsUP.Engines.Unity
         }
 
         #endregion
-
-        static public void Prepare ()
-        {
-            L.D("MDL.Start: Pausing game during initialization. MachinationsInitStart.");
-
-            foreach (MnGameObject mgo in _gameObjects)
-                AddTargets(mgo.Manifest.GetMachinationsDiagramTargets());
-
-            //TODO: re-think re-init concept. Bind together the two calls below in one single Sync location. 
-            ReInitOngoing = true;
-            Instance._gameLifecycleProvider?.MachinationsInitStart();
-            Service.ScheduleSync();
-
-            L.D("MDL Awake.");
-        }
 
         #region Internal Functionality
 
@@ -474,6 +306,9 @@ namespace MachinationsUP.Engines.Unity
                 {
                     //Copy the ElementBase from the key at the Empty DiagramMapping, to the incoming key...
                     _sourceElements.Add(diagramMapping, _sourceElements[emptyDM]);
+                    //Transfer back-end properties to the proper DiagramMapping.
+                    diagramMapping.Label = emptyDM.Label;
+                    diagramMapping.Type = emptyDM.Type;
                     //.. and removing the empty key.
                     _sourceElements.Remove(emptyDM);
                 }
@@ -642,23 +477,26 @@ namespace MachinationsUP.Engines.Unity
         {
             ElementBase elementBase;
 
+            //Initialize Diagram Mapping properties.
+            mapping.Type = elementProperties[SyncMsgs.JP_DIAGRAM_ELEMENT_TYPE];
+            mapping.Label = elementProperties[SyncMsgs.JP_DIAGRAM_LABEL];
             //Numeric elements get their Value from Resources.
-            if (elementProperties.ContainsKey("resources"))
+            if (elementProperties.ContainsKey(SyncMsgs.JP_DIAGRAM_RESOURCES))
             {
                 //Populate value inside Machinations Element.
-                int iValue = int.Parse(elementProperties["resources"]);
+                int iValue = int.Parse(elementProperties[SyncMsgs.JP_DIAGRAM_RESOURCES]);
                 elementBase = new ElementBase(iValue, mapping);
                 //Set MaxValue, if we have from.
-                if (elementProperties.ContainsKey("capacity") && int.TryParse(elementProperties["capacity"],
+                if (elementProperties.ContainsKey(SyncMsgs.JP_DIAGRAM_CAPACITY) && int.TryParse(elementProperties[SyncMsgs.JP_DIAGRAM_CAPACITY],
                     out iValue) && iValue != -1 && iValue != 0)
                 {
                     elementBase.MaxValue = iValue;
                 }
             }
             //Non-numeric elements can be Formulas, getting their Value from a Label. 
-            else if (elementProperties.ContainsKey("label"))
+            else if (elementProperties.ContainsKey(SyncMsgs.JP_DIAGRAM_LABEL))
             {
-                string sValue = elementProperties["label"];
+                string sValue = elementProperties[SyncMsgs.JP_DIAGRAM_LABEL];
                 try
                 {
                     elementBase = new FormulaElement(sValue, mapping, false);
@@ -731,6 +569,187 @@ namespace MachinationsUP.Engines.Unity
         #endregion
 
         #region Public Methods
+
+        /// <summary>
+        /// Returns all Diagram Mappings that are currently registered in the MDL.
+        /// </summary>
+        static public List<DiagramMapping> GetRegisteredMappings ()
+        {
+            return _sourceElements.Keys.ToList();
+        }
+        
+        static public void Prepare ()
+        {
+            L.D("MDL.Start: Pausing game during initialization. MachinationsInitStart.");
+
+            foreach (MnGameObject mgo in _gameObjects)
+                AddTargets(mgo.Manifest.GetMachinationsDiagramTargets());
+
+            //TODO: re-think re-init concept. Bind together the two calls below in one single Sync location. 
+            ReInitOngoing = true;
+            Instance._gameLifecycleProvider?.MachinationsInitStart();
+            Service.ScheduleSync();
+
+            L.D("MDL Awake.");
+        }
+        
+        static public void SyncComplete ()
+        {
+            L.D("MDL.SyncComplete. MachinationsInitComplete.");
+            NotifyAboutMGLInitComplete();
+            Instance._gameLifecycleProvider?.MachinationsInitComplete();
+            ReInitOngoing = true;
+        }
+
+        static public void SyncFail (bool loadCache)
+        {
+            //Cache system active? Load Cache.
+            if (loadCache && !string.IsNullOrEmpty(Instance.cacheDirectoryName)) LoadCache();
+        }
+        
+        /// <summary>
+        /// Creates a JSON object which contains all data that we want to request from Machinations.
+        /// </summary>
+        /// <param name="diagramToken">The DiagramToken we want to retrieve elements from.</param>
+        /// <param name="selectiveGet">TRUE: get only elements that we don't already have.</param>
+        /// <returns>A JSON object that contains what we want to request from Machinations.</returns>
+        static public JSONObject GetInitRequestData (string diagramToken, bool selectiveGet)
+        {
+            //Init Request components will be stored as top level items in this Dictionary.
+            var initRequest = new Dictionary<string, JSONObject>();
+            bool noItems = true; //TRUE: nothing to get Init Request for.
+
+            initRequest.Add(SyncMsgs.JK_AUTH_DIAGRAM_TOKEN, JSONObject.CreateStringObject(diagramToken));
+
+            //If only certain items need to be requested, checking the _sourceElements Map for elements that haven't yet been initialized.
+            if (selectiveGet)
+            {
+                //Create individual JSON Objects for each Machination element to retrieve.
+                //This is an Array because this is what the JSON Object Library expects.
+                JSONObject[] keys = new JSONObject [_sourceElements.Keys.Count];
+                int i = 0;
+                foreach (DiagramMapping diagramMapping in _sourceElements.Keys)
+                {
+                    if (_sourceElements[diagramMapping] != null)
+                    {
+                        L.D("Skipping requsting info for already initialized Source Element: " + _sourceElements[diagramMapping]);
+                        continue;
+                    }
+
+                    noItems = false;
+
+                    var item = new Dictionary<string, JSONObject>();
+                    item.Add(SyncMsgs.JP_DIAGRAM_ID, new JSONObject(diagramMapping.DiagramElementID));
+                    //Create JSON Objects for all props that we have to retrieve.
+                    string[] sprops =
+                    {
+                        SyncMsgs.JP_DIAGRAM_LABEL, SyncMsgs.JP_DIAGRAM_ACTIVATION, SyncMsgs.JP_DIAGRAM_ACTION,
+                        SyncMsgs.JP_DIAGRAM_RESOURCES, SyncMsgs.JP_DIAGRAM_CAPACITY, SyncMsgs.JP_DIAGRAM_OVERFLOW
+                    };
+                    List<JSONObject> props = new List<JSONObject>();
+                    foreach (string sprop in sprops)
+                        props.Add(JSONObject.CreateStringObject(sprop));
+                    //Add props field.
+                    item.Add("props", new JSONObject(props.ToArray()));
+
+                    keys[i++] = new JSONObject(item);
+                }
+
+                if (noItems) return null;
+                //Add the items to the request.
+                initRequest.Add(SyncMsgs.JK_INIT_MACHINATIONS_IDS, new JSONObject(keys));
+            }
+
+            return new JSONObject(initRequest);
+        }
+
+        /// <summary>
+        /// Updates the <see cref="_sourceElements"/> with values from the Machinations Back-end. Only initializes those values
+        /// that have been registered via <see cref="MachinationsUP.Integration.Inventory.DiagramMapping"/>. If entirely new
+        /// values come from the back-end, will throw an Exception.
+        /// </summary>
+        /// <param name="elementsFromBackEnd">List of <see cref="JSONObject"/> received from the Socket IO Component.</param>
+        /// <param name="updateFromDiagram">TRUE: update existing elements. If FALSE, will throw Exceptions on collisions.</param>
+        static public void UpdateSourcesWithValuesFromMachinations (List<JSONObject> elementsFromBackEnd, bool updateFromDiagram = false)
+        {
+            L.D("MDL.UpdateWithValuesFromMachinations: number of elementsFromBackEnd received: " + elementsFromBackEnd.Count);
+            //The response is an Array of key-value pairs PER Machination Diagram ID.
+            //Each of these maps to a certain member of _sourceElements.
+            foreach (JSONObject diagramElement in elementsFromBackEnd)
+            {
+                //Dictionary of SyncMsgs.JP_DIAGRAM_* and their value.
+                var elementProperties = new Dictionary<string, string>();
+                int i = 0;
+                //Get all properties in a Dictionary, since their order is not guaranteed in a list.
+                foreach (string machinationsPropertyName in diagramElement.keys)
+                    elementProperties.Add(machinationsPropertyName, diagramElement[i++].ToString().Replace("\"", ""));
+
+                //Find Diagram Mapping matching the provided Machinations Diagram ID.
+                DiagramMapping diagramMapping = GetDiagramMappingForID(elementProperties[SyncMsgs.JP_DIAGRAM_ID]);
+
+                //Get the Element Base based on the dictionary of Element Properties.
+                ElementBase elementBase = CreateSourceElementBaseFromProps(elementProperties, diagramMapping);
+                
+                //This is the important line where the ElementBase is assigned to the Source Elements Dictionary, to be used for
+                //cloning elements in the future.
+                _sourceElements[diagramMapping] = elementBase;
+                
+                //Some elements received from the Back-End may be invalid, especially due to the way Formulas currently work (there is no
+                //way to know if a label is a Formula or just a text). See MnFormula constructor.
+                if (elementBase == null)
+                {
+                    //But does this mean that _sourceElements[diagramMapping] = null? Yes it does. And if anybody comes requesting for it,
+                    //there's going to be an error, which is what the expected behavior is. 
+                    continue;
+                }
+
+                L.D("ElementBase created for '" + diagramMapping + "' with Base Value of: " +
+                    elementBase.BaseValue);
+
+                //This element already exists and we're not in update mode.
+                if (_sourceElements.ContainsKey(diagramMapping) && !updateFromDiagram)
+                {
+                    //Initially, we would throw an exception for such situations.
+                    //But since we're now doing full re-init, this situation doesn't present a problem anymore.
+                    /*
+                    //Bark if a re-init wasn't what caused this duplication.
+                    if (!ReInitOngoing)
+                        throw new Exception(
+                            "MDL.UpdateWithValuesFromMachinations: A Source Element already exists for this DiagramMapping: " +
+                            diagramMapping +
+                            ". Perhaps you wanted to update it? Then, invoke this function with update: true.");
+                    //When re-initializing, go to the next element directly.
+                    */
+                    //Go to the next element directly, skipping update notifications.
+                    continue;
+                }
+
+                //Caching active? Update the Cache.
+                if (!string.IsNullOrEmpty(Instance.cacheDirectoryName))
+                {
+                    diagramMapping.CachedElementBase = elementBase;
+                    if (!_cache.DiagramMappings.Contains(diagramMapping)) _cache.DiagramMappings.Add(diagramMapping);
+                }
+
+                //When changes occur in the Diagram, the Machinations back-end will notify UP. In this case, we will notify the associated objects.
+                if (updateFromDiagram) NotifyAboutMGLUpdate(diagramMapping, elementBase);
+            }
+
+            //If this was a re-initialization.
+            if (ReInitOngoing)
+            {
+                ReInitOngoing = false;
+                L.D("MDL.UpdateWithValuesFromMachinations ReInitOngoing. MachinationsInitComplete.");
+                //Notify Game Engine of Machinations Init Complete.
+                Instance._gameLifecycleProvider?.MachinationsInitComplete();
+            }
+
+            //Send Update notification to all listeners.
+            OnMachinationsUpdate?.Invoke(Instance, null);
+            //Caching active? Save the cache now.
+            if (!string.IsNullOrEmpty(Instance.cacheDirectoryName)) SaveCache();
+            L.D("MDL.UpdateWithValuesFromMachinations: number of source elements: " + _sourceElements.Count);
+        }
 
         /// <summary>
         /// Registers a <see cref="MnObjectManifest"/> to make sure that during Initialization, the MDL
@@ -861,8 +880,8 @@ namespace MachinationsUP.Engines.Unity
 
             //The item will be a Dictionary comprising of "id" and "props". The "props" will contain the properties to update.
             var item = new Dictionary<string, JSONObject>();
-            item.Add("id", new JSONObject(sourceElement.ParentElementBinder.DiagMapping.DiagramElementID));
-            item.Add("type", JSONObject.CreateStringObject("resources"));
+            item.Add(SyncMsgs.JP_DIAGRAM_ID, new JSONObject(sourceElement.ParentElementBinder.DiagMapping.DiagramElementID));
+            item.Add(SyncMsgs.JP_DIAGRAM_ELEMENT_TYPE, JSONObject.CreateStringObject(SyncMsgs.JP_DIAGRAM_RESOURCES));
             item.Add("timeStamp", new JSONObject(DateTime.Now.Ticks));
             item.Add("parameter", JSONObject.CreateStringObject("number"));
             item.Add("previous", new JSONObject(previousValue));

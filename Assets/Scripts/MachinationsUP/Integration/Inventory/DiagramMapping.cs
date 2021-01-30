@@ -30,6 +30,32 @@ namespace MachinationsUP.Integration.Inventory
             get => _name;
             set => _name = value;
         }
+        
+        private string _type;
+
+        /// <summary>
+        /// The type of Machinations Element this is. Currently taken as string, directly from the server response.
+        /// TODO: convert to enum.
+        /// </summary>
+        [DataMember()]
+        public string Type
+        {
+            get => _type;
+            set => _type = value;
+        }
+        
+        private string _label;
+
+        /// <summary>
+        /// String Label in the Diagram.
+        /// </summary>
+        [DataMember()]
+        public string Label
+        {
+            get => _label;
+            set => _label = value;
+        }
+
 
         private string _propertyName;
 

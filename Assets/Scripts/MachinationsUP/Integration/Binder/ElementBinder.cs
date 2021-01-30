@@ -182,6 +182,7 @@ namespace MachinationsUP.Integration.Binder
             SelectCurrentElement();
         }
 
+        //TODO: might need relocation to MnDataLayer.
         /// <summary>
         /// Retrieves a <see cref="ElementBase"/> for the desired StatesAssociation.
         /// </summary>
