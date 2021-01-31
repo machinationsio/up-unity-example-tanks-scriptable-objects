@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using MachinationsUP.Config;
 using MachinationsUP.Engines.Unity.Editor.Graphics;
+using MachinationsUP.Engines.Unity.GameComms;
 using MachinationsUP.Integration.Inventory;
 using UnityEditor;
 using UnityEngine;
@@ -79,6 +80,7 @@ namespace MachinationsUP.Engines.Unity.Editor
         /// </summary>
         void OnGUI ()
         {
+            //Wait until MnConfig instance is created.
             if (MnConfig.Instance == null && MnConfig.HasSettings) return;
             if (!_restoredFromSettings && MnConfig.HasSettings && MnConfig.Instance != null)
             {
@@ -285,7 +287,15 @@ namespace MachinationsUP.Engines.Unity.Editor
         {
             //Only saving settings if there are any.
             if (!_restoredFromSettings && MnConfig.HasSettings) return;
-            MnConfig.Instance = new MnConfig();
+            //Create Settings instance if none exists.
+            if (MnConfig.Instance == null) MnConfig.Instance = new MnConfig();
+            //Connection details changed. Must reconnect.
+            if (MnConfig.Instance.APIURL != _APIURL || MnConfig.Instance.UserKey != _userKey || MnConfig.Instance.DiagramToken != _diagramToken)
+            {
+                L.D("Reconnecting socket due to connection changes");
+                MnDataLayer.Service.Restart(_APIURL, _userKey, _diagramToken);
+            }
+            //Save details.
             MnConfig.Instance.APIURL = _APIURL;
             MnConfig.Instance.UserKey = _userKey;
             MnConfig.Instance.GameName = _gameName;

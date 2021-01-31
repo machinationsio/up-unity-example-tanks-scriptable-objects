@@ -36,19 +36,19 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
         /// <summary>
         /// Where to connect for the Machinations API.
         /// </summary>
-        readonly private string _socketURL;
+        private string _socketURL;
 
         /// <summary>
         /// The User Key under which to make all API calls. This can be retrieved from
         /// the Machinations product.
         /// </summary>
-        readonly private string _userKey;
+        private string _userKey;
 
         //TODO: Diagram Token system will soon be upgraded to support multiple diagrams.
         /// <summary>
         /// The Machinations Diagram Token will be used to identify ONE Diagram that this game is connected to.
         /// </summary>
-        readonly private string _diagramToken;
+        private string _diagramToken;
 
         /// <summary>
         /// Game name is be used for associating a game with multiple diagrams.
@@ -93,14 +93,24 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
 
         /// <summary>
         /// Initializes the Socket IO component.
+        /// <param name="socketURL">The URL where the Machinations API resides.</param>
+        /// <param name="userKey">User Key (API key) to use when connecting to the back-end.</param>
+        /// <param name="diagramToken">Diagram Token to make requests to.</param>
         /// </summary>
-        public void InitSocket ()
+        public void InitSocket (string socketURL = "", string userKey = "", string diagramToken = "")
         {
+            //Apply new URL if needed.
+            if (socketURL != "") _socketURL = socketURL;
+            if (userKey != "") _userKey = userKey;
+            if (diagramToken != "") _diagramToken = diagramToken;
+            //Close socket.
             if (_socket != null)
             {
                 _socket.PrepareClose();
                 _socket.Close();
+                _socket = null;
             }
+
             _socket = new SocketIOGlobal();
             _socket.autoConnect = false;
             L.D("Instantiated SocketIO with Hash: " + _socket.GetHashCode() + " for URL: " + _socketURL);
@@ -165,6 +175,7 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
                 {
                     L.Ex(e);
                 }
+
                 _socket = null;
                 L.D("SocketIO: Attempt #" + _reconnectionAttempts + " to reconnect to Machinations.");
                 ConnectToMachinations(3);
@@ -189,6 +200,7 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
             {
                 throw new Exception("Cannot Emit Auth Request when Socket has been destroyed.");
             }
+
             var authRequest = new Dictionary<string, string>
             {
                 {SyncMsgs.JK_AUTH_GAME_NAME, _gameName},
@@ -211,13 +223,13 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
             //Initialization complete.
             IsAuthenticated = true;
         }
-        
+
         private void OnAuthDeny (SocketIOEvent e)
         {
             L.D("SocketIO: Game Auth Request Failure: " + e.data);
             HandleConnectionFailure(false);
         }
-        
+
         /// <summary>
         /// Emits the 'Game Init Request' Socket event.
         /// <param name="selectiveGet">TRUE: get only elements that we don't already have.</param>
@@ -270,7 +282,7 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
         {
             _socket.Emit(SyncMsgs.SEND_GAME_UPDATE_DIAGRAM_ELEMENTS, updateRequest);
         }
-        
+
         /// <summary>
         /// Occurs when the game has received an update from Machinations because some Diagram elements were changed.
         /// </summary>
@@ -289,7 +301,7 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
         {
             L.D("SocketIO: Game Update Diagram Elements Response: " + e.data);
         }
-        
+
         /// <summary>
         /// Handles event emission for a MachinationsGameObject.
         /// </summary>
@@ -306,7 +318,7 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
 
             _socket.Emit(SyncMsgs.SEND_GAME_EVENT, new JSONObject(sync));
         }
-        
+
         #region Socket IO Core Events
 
         private void OnSocketOpen (SocketIOEvent e)
@@ -332,7 +344,7 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
             L.D("[SocketIO::" + _socket.GetHashCode() + "] !!!! Close received: " + e.name + " DATA:" + e.data);
             HandleConnectionFailure(true);
         }
-        
+
         #endregion
 
         /// <summary>

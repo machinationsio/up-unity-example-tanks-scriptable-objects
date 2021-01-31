@@ -104,8 +104,6 @@ public class PopupSearchList : PopupWindowContent
                     if (_maxTagHeight < tag.Aspect.height) _maxTagHeight = tag.Aspect.height;
                 }
         }
-
-        Debug.Log("Max tag height " + _maxListItemTagHeight);
     }
 
     override public Vector2 GetWindowSize ()

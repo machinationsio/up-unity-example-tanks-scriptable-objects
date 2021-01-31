@@ -229,5 +229,17 @@ namespace MachinationsUP.Engines.Unity.GameComms
             _currentState = State.AuthSuccess;
         }
 
+        /// <summary>
+        /// Restarts the Service to apply eventual new connection data.
+        /// <param name="socketURL">The URL where the Machinations API resides.</param>
+        /// <param name="userKey">User Key (API key) to use when connecting to the back-end.</param>
+        /// <param name="diagramToken">Diagram Token to make requests to.</param>
+        /// </summary>
+        public void Restart (string socketURL = "", string userKey = "", string diagramToken = "")
+        {
+            _currentState = State.WaitingForSocketReady;
+            _socketClient.InitSocket(socketURL, userKey, diagramToken);
+        }
+
     }
 }
