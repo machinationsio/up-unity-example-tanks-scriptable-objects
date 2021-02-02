@@ -15,8 +15,6 @@ using MachinationsUP.Integration.Elements;
 using MachinationsUP.Integration.GameObject;
 using MachinationsUP.Integration.Inventory;
 using MachinationsUP.Logger;
-using UnityEditor;
-using UnityEngine;
 
 namespace MachinationsUP.Engines.Unity
 {
@@ -84,7 +82,7 @@ namespace MachinationsUP.Engines.Unity
         /// Game Object Property Name and the <see cref="ElementBase"/> that will serve as a Source value
         /// to all values that will be created by the MachinationsDataLayer.
         /// </summary>
-        static readonly private Dictionary<DiagramMapping, ElementBase> _sourceElements =
+        static private Dictionary<DiagramMapping, ElementBase> _sourceElements =
             new Dictionary<DiagramMapping, ElementBase>();
 
         /// <summary>
@@ -104,7 +102,8 @@ namespace MachinationsUP.Engines.Unity
         static readonly private List<MnGameAwareObject> _gameAwareObjects = new List<MnGameAwareObject>();
 
         /// <summary>
-        /// Dictionary with Scriptable Objects and their associated Binders (per Game Object Property name).
+        /// Dictionary with Scriptable Objects and their associated <see cref="EnrolledScriptableObject"/> (which contains
+        /// Binders per Game Object Property name for the Scriptable Object).
         /// </summary>
         static readonly private Dictionary<IMnScriptableObject, EnrolledScriptableObject> _scriptableObjects =
             new Dictionary<IMnScriptableObject, EnrolledScriptableObject>();
@@ -462,7 +461,7 @@ namespace MachinationsUP.Engines.Unity
             //Couldn't find any Source Element for this Machinations Diagram ID.
             //This doesn't mean it won't be used, this may just mean it hasn't been requested yet.
             L.D("MDL.GetDiagramMappingForID: Got from the back-end a Machinations Diagram ID (" +
-                      machinationsDiagramID + ") for which there is no DiagramMapping. Creating an Empty DiagramMapping.");
+                machinationsDiagramID + ") for which there is no DiagramMapping. Creating an Empty DiagramMapping.");
             //If any object comes looking for this element ID, this Diagram Mapping will be replaced with that of the requesting element.
             //See function AddTargets.
             return new DiagramMapping(int.Parse(machinationsDiagramID));
@@ -478,8 +477,8 @@ namespace MachinationsUP.Engines.Unity
             ElementBase elementBase;
 
             //Initialize Diagram Mapping properties.
-            mapping.Type = elementProperties[SyncMsgs.JP_DIAGRAM_ELEMENT_TYPE];
-            mapping.Label = elementProperties[SyncMsgs.JP_DIAGRAM_LABEL];
+            if (elementProperties.ContainsKey(SyncMsgs.JP_DIAGRAM_ELEMENT_TYPE)) mapping.Type = elementProperties[SyncMsgs.JP_DIAGRAM_ELEMENT_TYPE];
+            if (elementProperties.ContainsKey(SyncMsgs.JP_DIAGRAM_LABEL)) mapping.Label = elementProperties[SyncMsgs.JP_DIAGRAM_LABEL];
             //Numeric elements get their Value from Resources.
             if (elementProperties.ContainsKey(SyncMsgs.JP_DIAGRAM_RESOURCES))
             {
@@ -577,14 +576,23 @@ namespace MachinationsUP.Engines.Unity
         {
             return _sourceElements.Keys.ToList();
         }
-        
+
+        /// <summary>
+        /// Resets the MDL's data pool, so that new data may come fresh.
+        /// </summary>
+        static public void ResetData ()
+        {
+            _sourceElements = new Dictionary<DiagramMapping, ElementBase>();
+            foreach (MnGameObject mgo in _gameObjects)
+                AddTargets(mgo.Manifest.GetMachinationsDiagramTargets());
+            foreach (EnrolledScriptableObject eso in _scriptableObjects.Values)
+                AddTargets(eso.Manifest.GetMachinationsDiagramTargets());
+        }
+
         static public void Prepare ()
         {
             L.D("MDL.Start: Pausing game during initialization. MachinationsInitStart.");
-
-            foreach (MnGameObject mgo in _gameObjects)
-                AddTargets(mgo.Manifest.GetMachinationsDiagramTargets());
-
+            ResetData();
             //TODO: re-think re-init concept. Bind together the two calls below in one single Sync location. 
             ReInitOngoing = true;
             Instance._gameLifecycleProvider?.MachinationsInitStart();
@@ -592,7 +600,7 @@ namespace MachinationsUP.Engines.Unity
 
             L.D("MDL Awake.");
         }
-        
+
         static public void SyncComplete ()
         {
             L.D("MDL.SyncComplete. MachinationsInitComplete.");
@@ -606,7 +614,7 @@ namespace MachinationsUP.Engines.Unity
             //Cache system active? Load Cache.
             if (loadCache && !string.IsNullOrEmpty(Instance.cacheDirectoryName)) LoadCache();
         }
-        
+
         /// <summary>
         /// Creates a JSON object which contains all data that we want to request from Machinations.
         /// </summary>
@@ -689,11 +697,11 @@ namespace MachinationsUP.Engines.Unity
 
                 //Get the Element Base based on the dictionary of Element Properties.
                 ElementBase elementBase = CreateSourceElementBaseFromProps(elementProperties, diagramMapping);
-                
+
                 //This is the important line where the ElementBase is assigned to the Source Elements Dictionary, to be used for
                 //cloning elements in the future.
                 _sourceElements[diagramMapping] = elementBase;
-                
+
                 //Some elements received from the Back-End may be invalid, especially due to the way Formulas currently work (there is no
                 //way to know if a label is a Formula or just a text). See MnFormula constructor.
                 if (elementBase == null)

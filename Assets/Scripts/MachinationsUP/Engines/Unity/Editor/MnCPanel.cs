@@ -248,11 +248,7 @@ namespace MachinationsUP.Engines.Unity.Editor
                 diagramMappings += "\t\tPropertyName = M_" + identifierName.ToUpper() + ",\r\n";
                 diagramMappings += "\t\tDiagramElementID = " + dm.DiagramElementID + ",\r\n";
                 diagramMappings += "\t}";
-
-                if (dm.DiagramElementID == 911)
-                {
-                    L.D("salut");
-                }
+                
                 //Init Function:
                 //Health = binders[M_HEALTH].CurrentElement;
                 initFunction += "\t" + identifierName + " = " + "binders[M_" + identifierName.ToUpper() + "].CurrentElement;\r\n";

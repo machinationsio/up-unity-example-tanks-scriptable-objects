@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <MnConfig xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <APIURL>wss://api.staging.machinations.io/socket.io/?EIO=4&amp;transport=websocket</APIURL>
-  <UserKey>cfd77ca3-a074-413e-ae08-c1b43c863f00</UserKey>
-  <DiagramToken>9ef6a96f-ef94-4ea0-9247-17eaf6a5ad83</DiagramToken>
+  <UserKey>10f60a88-c8c4-40e4-a413-981881b5d405</UserKey>
+  <DiagramToken>66fd05e7-7d4a-442e-b85d-ec6fbcdd341c</DiagramToken>
   <GameName>Tanks</GameName>
 </MnConfig>

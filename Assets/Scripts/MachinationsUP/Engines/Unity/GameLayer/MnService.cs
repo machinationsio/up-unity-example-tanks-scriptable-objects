@@ -56,7 +56,7 @@ namespace MachinationsUP.Engines.Unity.GameComms
         /// Returns whether or not the Diagram has been fully initialized.
         /// TODO: must be redesigned when implementing support for multiple diagrams.
         /// </summary>
-        public bool HasPerformedFullDiagramInit { get; set; } = false;
+        private bool HasPerformedFullDiagramInit { get; set; }
         
         /// <summary>
         /// Is the game running?
@@ -93,7 +93,12 @@ namespace MachinationsUP.Engines.Unity.GameComms
             {
                 if (!_socketClient.IsInitialized)
                 {
-                    L.D("Machinations Service SocketIO Scheduler: Waiting for Socket Connection.");
+                    L.D("Machinations Service SocketIO Scheduler: Waiting for Socket Connection. Current State: "  + _currentState);
+                    if (_currentState != State.WaitingForSocketReady)
+                    {
+                        L.E("Invalid state given the fact that the socket is not even initialized.");
+                        FreshStart();
+                    }
                     return;
                 }
 
@@ -122,6 +127,8 @@ namespace MachinationsUP.Engines.Unity.GameComms
                     case State.AuthSuccess:
                         L.D("Machinations Service SocketIO Scheduler: Auth Success. Idling.");
                         _currentState = State.Idling;
+                        //Make sure we request init at first start.
+                        if (!HasPerformedFullDiagramInit) _initRequested = true;
                         break;
                     case State.Idling:
                         if (_initRequested)
@@ -155,6 +162,16 @@ namespace MachinationsUP.Engines.Unity.GameComms
         }
 
         /// <summary>
+        /// Prepares the service for a clean (re)start.
+        /// </summary>
+        private void FreshStart ()
+        {
+            _currentState = State.WaitingForSocketReady;
+            _initRequested = false;
+            HasPerformedFullDiagramInit = false;
+        }
+
+        /// <summary>
         /// Sets up the Socket to use for communicating with the Machinations back-end.
         /// Gets called by <see cref="MnEntryPoint"/>.
         /// </summary>
@@ -181,6 +198,7 @@ namespace MachinationsUP.Engines.Unity.GameComms
         //TODO: to be switched to event-based during next iteration.
         public void FailedToConnect (bool loadCache)
         {
+            FreshStart();
             MnDataLayer.SyncFail(loadCache);
         }
 
@@ -237,7 +255,9 @@ namespace MachinationsUP.Engines.Unity.GameComms
         /// </summary>
         public void Restart (string socketURL = "", string userKey = "", string diagramToken = "")
         {
-            _currentState = State.WaitingForSocketReady;
+            FreshStart();
+            //TODO: determine if this is really necessary.
+            //MnDataLayer.ResetData();
             _socketClient.InitSocket(socketURL, userKey, diagramToken);
         }
 

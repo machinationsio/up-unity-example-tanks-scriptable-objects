@@ -335,13 +335,13 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
 
         private void OnSocketError (SocketIOEvent e)
         {
-            L.D("[SocketIO::" + _socket.GetHashCode() + "] !!!! Error received: " + e.name + " DATA: " + e.data + " ");
+            L.D("[SocketIO::" + _socket?.GetHashCode() + "] !!!! Error received: " + e?.name + " DATA: " + e?.data + " ");
             HandleConnectionFailure(true);
         }
 
         private void OnSocketClose (SocketIOEvent e)
         {
-            L.D("[SocketIO::" + _socket.GetHashCode() + "] !!!! Close received: " + e.name + " DATA:" + e.data);
+            L.D("[SocketIO::" + _socket?.GetHashCode() + "] !!!! Close received: " + e?.name + " DATA:" + e?.data);
             HandleConnectionFailure(true);
         }
 

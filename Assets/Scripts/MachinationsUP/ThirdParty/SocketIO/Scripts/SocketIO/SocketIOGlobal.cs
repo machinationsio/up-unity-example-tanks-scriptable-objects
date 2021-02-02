@@ -72,11 +72,6 @@ namespace SocketIO
         /// </summary>
         public string pathToX509Certificate = "";
 
-        public WebSocket socket
-        {
-            get { return ws; }
-        }
-
         public string sid { get; set; }
 
         public bool IsConnected => connected && ws.IsConnected;
@@ -245,10 +240,8 @@ namespace SocketIO
         public void Close ()
         {
             EmitClose();
-
-            ws.Close();
+            ws?.Close();
             connected = false;
-            ws = null;
         }
 
         public void On (string ev, Action<SocketIOEvent> callback)
@@ -423,7 +416,7 @@ namespace SocketIO
 
         private void EmitClose ()
         {
-            if (!connected) return;
+            if (!connected || ws == null) return;
             EmitPacket(new Packet(EnginePacketType.MESSAGE, SocketPacketType.DISCONNECT, 0, "/", -1, new JSONObject("")));
             EmitPacket(new Packet(EnginePacketType.CLOSE));
         }
