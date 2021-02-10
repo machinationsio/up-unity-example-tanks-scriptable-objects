@@ -186,6 +186,7 @@ namespace MachinationsUP.Engines.Unity.BackendConnection
         {
             L.D("SocketIO: Connecting in " + waitSeconds + " seconds.");
             Thread.Sleep(waitSeconds * 1000);
+            _mnService.FailedToConnect(false);
             InitSocket();
         }
 

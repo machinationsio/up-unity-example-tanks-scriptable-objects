@@ -142,6 +142,14 @@ namespace MachinationsUP.Engines.Unity.Editor
                     if (dm.Type == null) continue;
                     //Handling NULL labels.
                     if (dm.Label == null) dm.Label = "[no label]";
+                    //Temporary fix of corrupted diagram elements.
+                    dm.Label = dm.Label.Replace("<span>", "");
+                    dm.Label = dm.Label.Replace("</span>", "");
+                    dm.Label = dm.Label.Replace("<span/>", "");
+                    dm.Label = dm.Label.Replace("<br>", "");
+                    dm.Label = dm.Label.Replace("</br>", "");
+                    dm.Label = dm.Label.Replace("<br/>", "");
+                    //Now create the SearchListItem.
                     var sli = new SearchListItem {ID = dm.DiagramElementID, Name = dm.Label, TagProvider = _usedTypes[dm.Type], AttachedObject = dm};
                     searchListItems.Add(sli);
                 }
@@ -240,13 +248,15 @@ namespace MachinationsUP.Engines.Unity.Editor
                 //{
                 //    PropertyName = M_HEALTH,
                 //    DiagramElementID = 215,
-                //    DefaultElementBase = new ElementBase(105)
+                //    EditorElementBase = Health,
                 //},
                 if (diagramMappings.Length > 0) diagramMappings += ",\r\n";
                 diagramMappings += "\tnew DiagramMapping\r\n";
                 diagramMappings += "\t{\r\n";
                 diagramMappings += "\t\tPropertyName = M_" + identifierName.ToUpper() + ",\r\n";
                 diagramMappings += "\t\tDiagramElementID = " + dm.DiagramElementID + ",\r\n";
+                diagramMappings += "\t\tEditorElementBase = " + identifierName + "\r\n";
+                
                 diagramMappings += "\t}";
                 
                 //Init Function:
