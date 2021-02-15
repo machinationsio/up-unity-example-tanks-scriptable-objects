@@ -108,7 +108,7 @@
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\HttpRequest.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Server\HttpRequestEventArgs.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\LogLevel.cs" />
-     <Compile Include="Assets\MachinationsOut\Keep.cs" />
+     <Compile Include="Assets\MachinationsUP\GeneratedCode\Keep.cs" />
      <Compile Include="Assets\ScriptableObject\GameSession\GameState.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\PayloadData.cs" />
      <Compile Include="Assets\ScriptableObject\GameSession\GameSettings.cs" />
@@ -215,6 +215,7 @@
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\ChunkStream.cs" />
      <None Include="Assets\Fonts\Bowlby_One\OFL.txt" />
      <None Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\JSONObject\readme.txt" />
+     <None Include="Assets\socket-errorlog-global2021-02-15.txt" />
      <None Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\Readme.txt" />
      <None Include="Assets\MachinationsCache\AxonnMachi\Cache.xml" />
      <None Include="Assets\MachinationsCache\MyCacheDirectory\Cache.xml" />

@@ -179,7 +179,8 @@ namespace MachinationsUP.Engines.Unity.Editor
         {
             if (selecteditems.Count == 0) return;
             //Read code generation template.
-            string template = File.ReadAllText(Path.Combine(Application.dataPath, "MachinationsTemplates", "Template.cst"));
+            //TODO: make this path configurable.
+            string template = File.ReadAllText(Path.Combine(Application.dataPath, "MachinationsUP/GeneratorTemplates", "Template.cst"));
             //Create up a unique class name.
             string className = "GeneratedSO_" + DateTime.Now.ToString("yyyyMMdd_HHmmss").Replace(" ", "");
             template = template.Replace("<<CLASS NAME>>", className);
@@ -271,9 +272,10 @@ namespace MachinationsUP.Engines.Unity.Editor
 
             //Make sure the directory exists & write file.
             Directory.CreateDirectory(Path.Combine(Application.dataPath, "MachinationsOut"));
-            File.WriteAllText(Path.Combine(Application.dataPath, "MachinationsOut", className + ".cs"), template);
+            //TODO: make this path configurable.
+            File.WriteAllText(Path.Combine(Application.dataPath, "MachinationsUP/GeneratedCode", className + ".cs"), template);
             //Notify of GREAT SUCCESS.
-            ShowNotification(new GUIContent("Class " + className + " created in your Assets/MachinationsOut directory."), 10);
+            ShowNotification(new GUIContent("Class " + className + " created in your Assets/MachinationsUP/GeneratedCode directory."), 10);
         }
 
         void OnEnable ()
