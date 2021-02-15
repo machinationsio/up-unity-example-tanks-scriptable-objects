@@ -1,4 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <MachinationsCache xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.machinations.io">
-  <DiagramMappings />
+  <DiagramMappings>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>170</BaseValue>
+        <CurrentValue>170</CurrentValue>
+        <MaxValue
+          i:nil="true" />
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <DiagramElementID>219</DiagramElementID>
+      <Label>Player Damage</Label>
+      <Name>Shell Stats</Name>
+      <PropertyName>Damage</PropertyName>
+      <StatesAssoc
+        i:nil="true" />
+      <Type>Pool</Type>
+    </MachinationsDiagramMapping>
+  </DiagramMappings>
 </MachinationsCache>

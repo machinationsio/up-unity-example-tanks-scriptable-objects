@@ -21,14 +21,14 @@ namespace MachinationsUP.Engines.Unity
         /// Called when Machinations initialization has been completed.
         /// </summary>
         /// <param name="binders">The Binders for this Object.</param>
-        void MGLInitCompleteSO (Dictionary<string, ElementBinder> binders);
+        void MDLInitCompleteSO (Dictionary<string, ElementBinder> binders);
 
         /// <summary>
         /// Called by the <see cref="MnDataLayer"/> when an element has been updated in the Machinations back-end.
         /// </summary>
         /// <param name="diagramMapping">The <see cref="DiagramMapping"/> of the modified element.</param>
         /// <param name="elementBase">The <see cref="ElementBase"/> that was sent from the backend.</param>
-        void MGLUpdateSO (DiagramMapping diagramMapping = null, ElementBase elementBase = null);
+        void MDLUpdateSO (DiagramMapping diagramMapping = null, ElementBase elementBase = null);
 
     }
 }

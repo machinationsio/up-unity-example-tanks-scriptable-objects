@@ -219,7 +219,7 @@ namespace MachinationsUP.Engines.Unity
             {
                 _scriptableObjects[so].Binders = CreateBindersForScriptableObject(_scriptableObjects[so]);
                 //Notify Scriptable Objects that they are ready.
-                so.MGLInitCompleteSO(_scriptableObjects[so].Binders);
+                so.MDLInitCompleteSO(_scriptableObjects[so].Binders);
             }
 
             //_gameObjects is cloned as a new Array because the collection MAY be modified during MachinationsGameObject.MGLInitComplete.
@@ -435,7 +435,7 @@ namespace MachinationsUP.Engines.Unity
                             _scriptableObjects[imso].Binders[gameObjectPropertyName]
                                 .CreateElementBaseForStateAssoc(diagramMapping.StatesAssoc, true);
 
-                        imso.MGLUpdateSO(diagramMapping, elementBase);
+                        imso.MDLUpdateSO(diagramMapping, elementBase);
                     }
             }
 

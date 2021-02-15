@@ -3,5 +3,5 @@
   <APIURL>wss://api.machinations.io/socket.io/?EIO=4&amp;transport=websocket</APIURL>
   <UserKey>57b4b3b8-224c-45b4-b2e4-b89f2c484448</UserKey>
   <DiagramToken>087ec358-b709-4f67-a5c1-b2abc5b0bd46</DiagramToken>
-  <GameName>Tanks</GameName>
+  <GameName>UP Demo</GameName>
 </MnConfig>

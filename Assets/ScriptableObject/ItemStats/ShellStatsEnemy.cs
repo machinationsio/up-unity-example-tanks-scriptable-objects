@@ -90,7 +90,7 @@ public class ShellStatsEnemy : ScriptableObject, IMnScriptableObject
     /// Called when Machinations initialization has been completed.
     /// </summary>
     /// <param name="binders">The Binders for this Object.</param>
-    public void MGLInitCompleteSO (Dictionary<string, ElementBinder> binders)
+    public void MDLInitCompleteSO (Dictionary<string, ElementBinder> binders)
     {
         Damage = binders[M_DAMAGE].CurrentElement;
         Radius = binders[M_RADIUS].CurrentElement;
@@ -104,7 +104,7 @@ public class ShellStatsEnemy : ScriptableObject, IMnScriptableObject
     /// </summary>
     /// <param name="diagramMapping">The <see cref="DiagramMapping"/> of the modified element.</param>
     /// <param name="elementBase">The <see cref="ElementBase"/> that was sent from the backend.</param>
-    public void MGLUpdateSO (DiagramMapping diagramMapping = null, ElementBase elementBase = null)
+    public void MDLUpdateSO (DiagramMapping diagramMapping = null, ElementBase elementBase = null)
     {
     }
 
