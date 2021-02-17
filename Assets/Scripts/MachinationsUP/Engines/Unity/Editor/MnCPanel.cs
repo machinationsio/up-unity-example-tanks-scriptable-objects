@@ -301,7 +301,7 @@ namespace MachinationsUP.Engines.Unity.Editor
             if (MnConfig.Instance.APIURL != _APIURL || MnConfig.Instance.UserKey != _userKey || MnConfig.Instance.DiagramToken != _diagramToken)
             {
                 L.D("Reconnecting socket due to connection changes");
-                MnDataLayer.Service.Restart(_APIURL, _userKey, _diagramToken);
+                MnDataLayer.Service?.Restart(_APIURL, _userKey, _diagramToken);
             }
             //Save details.
             MnConfig.Instance.APIURL = _APIURL;

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MachinationsUP.Engines.Unity;
 using MachinationsUP.Integration.Binder;
 using MachinationsUP.Integration.Elements;
@@ -24,6 +25,8 @@ public class ShellStats : ScriptableObject, IMnScriptableObject
     private const string M_SPEED = "Speed";
     private const string M_COOLDOWN = "Cooldown";
 
+    public event EventHandler OnUpdatedFromMachinations;
+    
     public void OnEnable ()
     {
         //Manifest that defines what the SO uses from Machinations.

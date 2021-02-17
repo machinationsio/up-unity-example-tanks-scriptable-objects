@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Timers;
 using MachinationsUP.Engines.Unity.BackendConnection;
 using MachinationsUP.Engines.Unity.Startup;
@@ -57,7 +58,7 @@ namespace MachinationsUP.Engines.Unity.GameComms
         /// TODO: must be redesigned when implementing support for multiple diagrams.
         /// </summary>
         private bool HasPerformedFullDiagramInit { get; set; }
-        
+
         /// <summary>
         /// Is the game running?
         /// </summary>
@@ -67,6 +68,12 @@ namespace MachinationsUP.Engines.Unity.GameComms
         /// TRUE: switch _currentState to PreparingForInitRequest state at the first available time.
         /// </summary>
         private bool _initRequested;
+
+        /// <summary>
+        /// Used to process back-end updates on the main thread. When these updates are processed directly in the Socket Thread,
+        /// game object (scene) updates would crash, because they need to be processed on the main thread. 
+        /// </summary>
+        private List<KeyValuePair<List<JSONObject>, bool>> _updatesFromBackEnd = new List<KeyValuePair<List<JSONObject>, bool>>();
 
         public MnService ()
         {
@@ -91,17 +98,29 @@ namespace MachinationsUP.Engines.Unity.GameComms
         {
             try
             {
+                //Execute any updates from the back-end.
+                while (_updatesFromBackEnd.Count > 0)
+                {
+                    MnDataLayer.UpdateSourcesWithValuesFromMachinations(_updatesFromBackEnd[0].Key, _updatesFromBackEnd[0].Value);
+                    _updatesFromBackEnd.RemoveAt(0);
+                }
+                
+                //Rudimentary State Machine:
+
+                //Socket not yet ready?
                 if (!_socketClient.IsInitialized)
                 {
-                    L.D("Machinations Service SocketIO Scheduler: Waiting for Socket Connection. Current State: "  + _currentState);
+                    L.D("Machinations Service SocketIO Scheduler: Waiting for Socket Connection. Current State: " + _currentState);
                     if (_currentState != State.WaitingForSocketReady)
                     {
                         L.E("Invalid state given the fact that the socket is not even initialized.");
                         FreshStart();
                     }
+
                     return;
                 }
 
+                //If the socket isn't yet ready, starting the Auth process.
                 if (_currentState == State.WaitingForSocketReady)
                 {
                     L.D("Machinations Service SocketIO Scheduler: WaitingForSocketReady -> AuthRequested.");
@@ -110,18 +129,21 @@ namespace MachinationsUP.Engines.Unity.GameComms
                     return;
                 }
 
+                //Wait for Auth.
                 if (_currentState == State.AuthRequested)
                 {
                     L.D("Machinations Service SocketIO Scheduler: Waiting for Auth Response.");
                     return;
                 }
 
+                //Wait for Init.
                 if (_currentState == State.InitRequested)
                 {
                     L.D("Machinations Service SocketIO Scheduler: Waiting for Sync Init Response.");
                     return;
                 }
 
+                //When everything is connected, switching through the following states:
                 switch (_currentState)
                 {
                     case State.AuthSuccess:
@@ -136,6 +158,7 @@ namespace MachinationsUP.Engines.Unity.GameComms
                             L.D("Machinations Service SocketIO Scheduler: Init Requested: Idling -> PreparingForInitRequest.");
                             _currentState = State.PreparingForInitRequest;
                         }
+
                         break;
                     //Wait at least 1 Timer interval before making the Sync request.
                     case State.PreparingForInitRequest:
@@ -225,7 +248,7 @@ namespace MachinationsUP.Engines.Unity.GameComms
         /// <param name="updateFromDiagram"></param>
         public void UpdateWithValuesFromMachinations (List<JSONObject> elementsFromBackEnd, bool updateFromDiagram = false)
         {
-            MnDataLayer.UpdateSourcesWithValuesFromMachinations(elementsFromBackEnd, updateFromDiagram);
+            _updatesFromBackEnd.Add(new KeyValuePair<List<JSONObject>, bool>(elementsFromBackEnd, updateFromDiagram));
         }
 
         /// <summary>

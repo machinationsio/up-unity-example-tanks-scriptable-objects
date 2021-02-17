@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: MyScriptable Object
   m_EditorClassIdentifier: 
   MovementSpeed:
-    _serializableValue: 7
+    _serializableValue: 10
   SizeX:
-    _serializableValue: 4444
+    _serializableValue: 100
   SizeY:
-    _serializableValue: 189
+    _serializableValue: 100
+  SizeZ:
+    _serializableValue: 100
   ChangeDirectionTime:
-    _serializableValue: 103
+    _serializableValue: 102

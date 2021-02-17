@@ -451,7 +451,6 @@ namespace MachinationsUP.Engines.Unity
         /// </summary>
         static private DiagramMapping GetDiagramMappingForID (string machinationsDiagramID)
         {
-            DiagramMapping diagramMapping = null;
             foreach (DiagramMapping dm in _sourceElements.Keys)
                 if (dm.DiagramElementID == int.Parse(machinationsDiagramID))
                 {
@@ -500,7 +499,7 @@ namespace MachinationsUP.Engines.Unity
                 {
                     elementBase = new FormulaElement(sValue, mapping, false);
                 }
-                catch (Exception e)
+                catch
                 {
                     return null;
                 }
@@ -879,7 +878,7 @@ namespace MachinationsUP.Engines.Unity
         }
 
         /// <summary>
-        /// Emits the 'Game Init Request' Socket event.
+        /// Emits the 'Game Update Request' Socket event. Called by <see cref="ElementBase"/> in function ChangeValueFromEditor.
         /// </summary>
         static public void EmitGameUpdateDiagramElementsRequest (ElementBase sourceElement, int previousValue)
         {
@@ -904,6 +903,22 @@ namespace MachinationsUP.Engines.Unity
             updateRequest.Add(SyncMsgs.JK_INIT_MACHINATIONS_IDS, new JSONObject(keys));
 
             L.D("MDL.EmitMachinationsUpdateElementsRequest.");
+
+            //When an element is changed from the editor, making sure that any Scriptable Object related to it
+            //also gets an update notification, because game objects may listen to the update event.
+            bool found = false;
+            foreach (EnrolledScriptableObject so in _scriptableObjects.Values)
+            {
+                foreach (DiagramMapping dm in so.MScriptableObject.Manifest.DiagramMappings)
+                    //TODO: why does this not work directly with the ElementBase and instead requires Diagram Mapping comparison?
+                    if (dm.EditorElementBase.DiagMapping == sourceElement.DiagMapping)
+                    {
+                        so.MScriptableObject.MDLUpdateSO(dm, sourceElement);
+                        found = true;
+                        break;
+                    }
+                if (found) break;
+            }
 
             Service.EmitGameUpdateDiagramElementsRequest(new JSONObject(updateRequest));
         }

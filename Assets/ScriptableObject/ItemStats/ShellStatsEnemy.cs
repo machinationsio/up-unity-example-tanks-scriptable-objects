@@ -25,6 +25,8 @@ public class ShellStatsEnemy : ScriptableObject, IMnScriptableObject
     private const string M_SPEED = "Speed";
     private const string M_COOLDOWN = "Cooldown";
     
+    public event EventHandler OnUpdatedFromMachinations;
+    
     public void OnEnable ()
     {
         //Manifest that defines what the SO uses from Machinations.

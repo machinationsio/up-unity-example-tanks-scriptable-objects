@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MachinationsUP.Engines.Unity;
 using MachinationsUP.GameEngineAPI.Game;
 using MachinationsUP.GameEngineAPI.GameObject;
@@ -21,6 +22,8 @@ public class TankStatsEnemy : ScriptableObject, IMnScriptableObject
 
     private const string M_HEALTH = "Health";
     private const string M_SPEED = "Speed";
+    
+    public event EventHandler OnUpdatedFromMachinations;
 
     public void OnEnable ()
     {

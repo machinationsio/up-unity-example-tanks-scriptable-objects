@@ -54,9 +54,17 @@ namespace MachinationsUP.Config
 
             FileStream fs = new FileStream(cacheFilePath, FileMode.Open);
             XmlSerializer xs = new XmlSerializer(typeof(MnConfig));
-            MnConfig config = (MnConfig) xs.Deserialize(fs);
-            fs.Close();
-            Instance = config;
+            try
+            {
+                MnConfig config = (MnConfig) xs.Deserialize(fs);
+                fs.Close();
+                Instance = config;
+            }
+            catch 
+            {
+                return false;
+            }
+
             return true;
         }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MachinationsUP.Integration.Binder;
 using MachinationsUP.Integration.Elements;
 using MachinationsUP.Integration.Inventory;
@@ -13,6 +14,11 @@ namespace MachinationsUP.Engines.Unity
     public interface IMnScriptableObject
     {
 
+        /// <summary>
+        /// If not null, you MUST invoke this in MDLUpdateSO.
+        /// </summary>
+        event EventHandler OnUpdatedFromMachinations;
+        
         ScriptableObject SO { get; }
         
         MnObjectManifest Manifest { get; }

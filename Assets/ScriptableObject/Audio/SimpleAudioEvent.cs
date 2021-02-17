@@ -30,7 +30,7 @@ public class SimpleAudioEvent : AudioEvent, IMnScriptableObject
 
     private const string M_MAX_SOUND_LOW_HEALTH = "MaxSoundLowHealth";
 
-
+    public event EventHandler OnUpdatedFromMachinations;
 
     public void OnEnable ()
     {
