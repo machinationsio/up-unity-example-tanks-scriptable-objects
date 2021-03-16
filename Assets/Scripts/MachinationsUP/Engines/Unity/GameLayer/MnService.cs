@@ -5,7 +5,6 @@ using System.Timers;
 using MachinationsUP.Engines.Unity.BackendConnection;
 using MachinationsUP.Engines.Unity.Startup;
 using MachinationsUP.Logger;
-using TMPro;
 
 namespace MachinationsUP.Engines.Unity.GameComms
 {

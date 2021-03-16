@@ -653,14 +653,16 @@ PlayerSettings:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled:
-    Analytics: 0
+    Analytics: 1
     Build: 0
     Collab: 0
     ErrorHub: 0
+    Game Performance: 0
     Game_Performance: 0
     Hub: 0
     Purchasing: 0
     UNet: 0
+    Unity Ads: 0
     Unity_Ads: 0
   luminIcon:
     m_Name: 
@@ -674,10 +676,10 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  cloudProjectId: 22b11485-9297-4dc8-98b3-b4fa40a3d72a
+  cloudProjectId: 6ba407d5-b00c-4586-bbbc-a60f45e46e23
   framebufferDepthMemorylessMode: 0
-  projectName: e75f467238349b044aa2bf6168205914
-  organizationId: jamesb
+  projectName: UniteBoston2015TrainingDay
+  organizationId: axonn
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

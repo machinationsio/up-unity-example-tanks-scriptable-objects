@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using MachinationsUP.Engines.Unity.Editor;
 using UnityEngine;
 using UnityEditor;
-using UnityEngine.UI;
 
 public class PopupSearchList : PopupWindowContent
 {
