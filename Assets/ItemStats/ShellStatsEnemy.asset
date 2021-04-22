@@ -17,7 +17,7 @@ MonoBehaviour:
   Radius:
     _serializableValue: 10
   Force:
-    _serializableValue: 110
+    _serializableValue: 200
   Speed:
     _serializableValue: 155
   ShotCooldown:

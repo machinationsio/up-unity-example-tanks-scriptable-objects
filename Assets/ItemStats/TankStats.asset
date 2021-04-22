@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: TankStats
   m_EditorClassIdentifier: 
   Health:
-    _serializableValue: 220
+    _serializableValue: 200
   Speed:
     _serializableValue: 15
