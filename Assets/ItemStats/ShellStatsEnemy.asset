@@ -15,7 +15,7 @@ MonoBehaviour:
   Damage:
     _serializableValue: 54
   Radius:
-    _serializableValue: 10
+    _serializableValue: 15
   Force:
     _serializableValue: 200
   Speed:

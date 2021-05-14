@@ -887,7 +887,7 @@ namespace MachinationsUP.Engines.Unity
 
             //The item will be a Dictionary comprising of "id" and "props". The "props" will contain the properties to update.
             var item = new Dictionary<string, JSONObject>();
-            item.Add(SyncMsgs.JP_DIAGRAM_ID, new JSONObject(sourceElement.ParentElementBinder.DiagMapping.DiagramElementID));
+            item.Add(SyncMsgs.JP_DIAGRAM_ID, new JSONObject(sourceElement.DiagMapping.DiagramElementID));
             item.Add(SyncMsgs.JP_DIAGRAM_ELEMENT_TYPE, JSONObject.CreateStringObject(SyncMsgs.JP_DIAGRAM_RESOURCES));
             item.Add("timeStamp", new JSONObject(DateTime.Now.Ticks));
             item.Add("parameter", JSONObject.CreateStringObject("number"));
@@ -911,7 +911,7 @@ namespace MachinationsUP.Engines.Unity
             {
                 foreach (DiagramMapping dm in so.MScriptableObject.Manifest.DiagramMappings)
                     //TODO: why does this not work directly with the ElementBase and instead requires Diagram Mapping comparison?
-                    if (dm.EditorElementBase.DiagMapping == sourceElement.DiagMapping)
+                    if (dm.EditorElementBase != null && dm.EditorElementBase.DiagMapping == sourceElement.DiagMapping)
                     {
                         so.MScriptableObject.MDLUpdateSO(dm, sourceElement);
                         found = true;

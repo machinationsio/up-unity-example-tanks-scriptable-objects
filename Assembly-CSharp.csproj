@@ -204,10 +204,16 @@
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\HttpListenerAsyncResult.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\EditorExtensions\MnCPanelGraphics.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\ErrorEventArgs.cs" />
+     <None Include="Assets\socket-errorlog-global2021-05-11.txt" />
      <None Include="Assets\Fonts\Bowlby_One\OFL.txt" />
      <None Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\JSONObject\readme.txt" />
+     <None Include="Assets\socket-errorlog-global2021-04-29.txt" />
+     <None Include="Assets\socket-errorlog-global2021-05-14.txt" />
+     <None Include="Assets\socket-errorlog-global2021-05-12.txt" />
      <None Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\Readme.txt" />
+     <None Include="Assets\socket-errorlog-global2021-05-07.txt" />
      <None Include="Assets\MachinationsCache\AxonnMachi\Cache.xml" />
+     <None Include="Assets\socket-errorlog-global2021-04-22.txt" />
      <None Include="Assets\MachinationsCache\MyCacheDirectory\Cache.xml" />
      <None Include="Assets\socket-errorlog-global2020-11-15.txt" />
      <None Include="Assets\MachinationsCache\YourCache\Cache.xml" />

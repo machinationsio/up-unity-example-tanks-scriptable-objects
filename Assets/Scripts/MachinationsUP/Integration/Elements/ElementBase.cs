@@ -34,7 +34,7 @@ namespace MachinationsUP.Integration.Elements
         public DiagramMapping DiagMapping { get; private set; }
 
         /// <summary>
-        /// Parent <see cref="ElementBinder"/>. A Binder contains multiple ElementBase.
+        /// Parent <see cref="ElementBinder"/>. A Binder contains multiple ElementBase, to facilitate Game State Awareness.
         /// </summary>
         internal ElementBinder ParentElementBinder { get; }
 
