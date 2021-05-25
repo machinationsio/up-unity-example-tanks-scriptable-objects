@@ -12,21 +12,34 @@ public class ShellStatsEnemy : ScriptableObject, IMnScriptableObject
 {
 
     //Machinations.
-    
+
     public ElementBase Damage;
     public ElementBase Radius;
     public ElementBase Force;
     public ElementBase Speed;
     public ElementBase ShotCooldown;
+    public ElementBase ShotCooldownBuff;
+    public ElementBase ExplosionForceBuff;
+    public ElementBase ExplosionRadiusBuff;
+    public ElementBase DamageBuff;
+
+    public float CurrentShotCooldownBuff;
+    public float CurrentExplosionForceBuff;
+    public float CurrentExplosionRadiusBuff;
+    public float CurrentDamageBuff;
 
     private const string M_DAMAGE = "Damage";
     private const string M_RADIUS = "Radius";
     private const string M_FORCE = "Force";
     private const string M_SPEED = "Speed";
     private const string M_COOLDOWN = "Cooldown";
-    
+    private const string M_COOLDOWN_BUFF = "CooldownBuff";
+    private const string M_EXPLOSION_FORCE_BUFF = "ExplosionForceBuff";
+    private const string M_EXPLOSION_RADIUS_BUFF = "ExplosionRadiusBuff";
+    private const string M_DAMAGE_BUFF = "DamageBuff";
+
     public event EventHandler OnUpdatedFromMachinations;
-    
+
     public void OnEnable ()
     {
         //Manifest that defines what the SO uses from Machinations.
@@ -69,6 +82,34 @@ public class ShellStatsEnemy : ScriptableObject, IMnScriptableObject
                     PropertyName = M_COOLDOWN,
                     DiagramElementID = 245,
                     DefaultElementBase = new ElementBase(0, null)
+                },
+                new DiagramMapping
+                {
+                    EditorElementBase = ShotCooldownBuff,
+                    PropertyName = M_COOLDOWN_BUFF,
+                    DiagramElementID = 245000,
+                    DefaultElementBase = new ElementBase(1, null)
+                },
+                new DiagramMapping
+                {
+                    EditorElementBase = ExplosionForceBuff,
+                    PropertyName = M_EXPLOSION_FORCE_BUFF,
+                    DiagramElementID = 400003,
+                    DefaultElementBase = new ElementBase(0, null)
+                },
+                new DiagramMapping
+                {
+                    EditorElementBase = ExplosionRadiusBuff,
+                    PropertyName = M_EXPLOSION_RADIUS_BUFF,
+                    DiagramElementID = 400003,
+                    DefaultElementBase = new ElementBase(0, null)
+                },
+                new DiagramMapping
+                {
+                    EditorElementBase = DamageBuff,
+                    PropertyName = M_DAMAGE_BUFF,
+                    DiagramElementID = 400003,
+                    DefaultElementBase = new ElementBase(0, null)
                 }
             }
         };
@@ -76,16 +117,16 @@ public class ShellStatsEnemy : ScriptableObject, IMnScriptableObject
         //Register this SO with the MDL.
         MnDataLayer.EnrollScriptableObject(this, Manifest);
     }
-    
+
     public void OnDisable ()
     {
         EditorUtility.SetDirty(this);
     }
 
     #region IMachinationsScriptableObject
-    
+
     public ScriptableObject SO => this;
-    
+
     public MnObjectManifest Manifest { get; private set; }
 
     /// <summary>
@@ -99,6 +140,10 @@ public class ShellStatsEnemy : ScriptableObject, IMnScriptableObject
         Force = binders[M_FORCE].CurrentElement;
         Speed = binders[M_SPEED].CurrentElement;
         ShotCooldown = binders[M_COOLDOWN].CurrentElement;
+        ShotCooldownBuff = binders[M_COOLDOWN_BUFF].CurrentElement;
+        ExplosionForceBuff = binders[M_EXPLOSION_FORCE_BUFF].CurrentElement;
+        ExplosionRadiusBuff = binders[M_EXPLOSION_RADIUS_BUFF].CurrentElement;
+        DamageBuff = binders[M_DAMAGE_BUFF].CurrentElement;
     }
 
     /// <summary>

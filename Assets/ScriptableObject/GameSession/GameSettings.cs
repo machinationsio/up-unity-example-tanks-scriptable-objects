@@ -109,7 +109,7 @@ public class GameSettings : ScriptableObject
 
 	public bool ShouldFinishGame()
 	{
-		return GameState.Instance.RoundNumber >= NumberOfRounds;
+		return GameState.Instance.RoundNumber >= 10; // NumberOfRounds; //Apparently changing this from Game Settings object doesn't work, so hardcodin'.
 	}
 
 	public void OnBeginRound()
@@ -130,7 +130,7 @@ public class GameSettings : ScriptableObject
 
 	public bool ShouldFinishRound()
 	{
-		return GameState.Instance.players.Count(p => p.IsAlive) <= 1;
+		return GameState.Instance.PlayerControlledTankIsDead || GameState.Instance.players.Count(p => p.IsAlive) <= 1;
 	}
 
 	public GameState.PlayerState GetGameWinner()

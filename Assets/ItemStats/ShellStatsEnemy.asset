@@ -13,12 +13,24 @@ MonoBehaviour:
   m_Name: ShellStatsEnemy
   m_EditorClassIdentifier: 
   Damage:
-    _serializableValue: 54
+    _serializableValue: 50
   Radius:
-    _serializableValue: 15
+    _serializableValue: 10
   Force:
-    _serializableValue: 200
+    _serializableValue: 100
   Speed:
-    _serializableValue: 155
+    _serializableValue: 150
   ShotCooldown:
     _serializableValue: 3
+  ShotCooldownBuff:
+    _serializableValue: 2
+  ExplosionForceBuff:
+    _serializableValue: 1200
+  ExplosionRadiusBuff:
+    _serializableValue: 10
+  DamageBuff:
+    _serializableValue: 100
+  CurrentShotCooldownBuff: 0
+  CurrentExplosionForceBuff: 0
+  CurrentExplosionRadiusBuff: 0
+  CurrentDamageBuff: 0

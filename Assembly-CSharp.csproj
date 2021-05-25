@@ -12,7 +12,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{935863bc-c568-27b2-256b-c4b9a8d83198}</ProjectGuid>
+    <ProjectGuid>{09ff15e4-abab-c22d-cd26-b674139199d5}</ProjectGuid>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -54,6 +54,7 @@
      <Compile Include="Assets\Scripts\MachinationsUP\Integration\Elements\FormulaElement.cs" />
      <Compile Include="Assets\ScriptableObject\Brains\RandomWalkingTank.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\ReadBufferState.cs" />
+     <Compile Include="Assets\Scripts\Tank\Loot.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\WebSocket.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\ClientSslConfiguration.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\Scripts\SocketIO\Parser.cs" />
@@ -69,6 +70,7 @@
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\Scripts\Test\TestSocketIO.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\MachinationsAPI\Protocols\SyncMsgs.cs" />
      <Compile Include="Assets\ScriptableObject\ItemStats\TankStatsEnemy.cs" />
+     <Compile Include="Assets\ScriptableObject\ItemStats\BuffDropRatios.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\JSONObject\JSONObject.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\HttpHeaderType.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\Integration\Binder\ElementBinder.cs" />
@@ -152,6 +154,7 @@
      <Compile Include="Assets\Scripts\MachinationsUP\Integration\Elements\Formula\Members\DiceMember.cs" />
      <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\Scripts\SocketIO\SocketIOException.cs" />
+     <Compile Include="Assets\Scripts\Shell\ShellExplosionEnemy.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Server\WebSocketServiceManager.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\HttpRequestHeader.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\AuthenticationChallenge.cs" />
@@ -204,20 +207,20 @@
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\HttpListenerAsyncResult.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\EditorExtensions\MnCPanelGraphics.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\ErrorEventArgs.cs" />
-     <None Include="Assets\socket-errorlog-global2021-05-11.txt" />
      <None Include="Assets\Fonts\Bowlby_One\OFL.txt" />
      <None Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\JSONObject\readme.txt" />
-     <None Include="Assets\socket-errorlog-global2021-04-29.txt" />
      <None Include="Assets\socket-errorlog-global2021-05-14.txt" />
-     <None Include="Assets\socket-errorlog-global2021-05-12.txt" />
      <None Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\Readme.txt" />
-     <None Include="Assets\socket-errorlog-global2021-05-07.txt" />
+     <None Include="Assets\socket-errorlog-global2021-05-15.txt" />
+     <None Include="Assets\socket-errorlog-global2021-05-24.txt" />
      <None Include="Assets\MachinationsCache\AxonnMachi\Cache.xml" />
-     <None Include="Assets\socket-errorlog-global2021-04-22.txt" />
+     <None Include="Assets\3D Items - Mega Pack\Read Me.txt" />
      <None Include="Assets\MachinationsCache\MyCacheDirectory\Cache.xml" />
-     <None Include="Assets\socket-errorlog-global2020-11-15.txt" />
+     <None Include="Assets\socket-errorlog-global2021-05-16.txt" />
+     <None Include="Assets\socket-errorlog-global2021-05-23.txt" />
      <None Include="Assets\MachinationsCache\YourCache\Cache.xml" />
      <None Include="Assets\Scripts\MachinationsUP\Third-Party Notices.txt" />
+     <None Include="Assets\socket-errorlog-global2021-05-22.txt" />
      <None Include="Assets\MachinationsSettings.xml" />
      <Reference Include="UnityEngine">
      <HintPath>C:/Program Files/Unity Editors/2021.1.3f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
@@ -796,36 +799,36 @@
      <HintPath>C:/Program Files/Unity Editors/2021.1.3f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
      </Reference>
      <Reference Include="Unity.VSCode.Editor">
-     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects-webinar/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.TextMeshPro.Editor">
-     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects-webinar/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.VisualStudio.Editor">
-     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
+     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects-webinar/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Timeline.Editor">
-     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects-webinar/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Timeline">
-     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects-webinar/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
      </Reference>
      <Reference Include="Unity.TextMeshPro">
-     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects-webinar/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
      </Reference>
      <Reference Include="UnityEditor.UI">
-     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects-webinar/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Rider.Editor">
-     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects-webinar/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
      </Reference>
      <Reference Include="UnityEngine.UI">
-     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects-webinar/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
      </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{c1abe86d-c234-b75f-237f-55397cd30f72}</Project>
+      <Project>{69de27b8-199c-9b76-d0bf-21822dda38c8}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
     </ProjectReference>
   </ItemGroup>

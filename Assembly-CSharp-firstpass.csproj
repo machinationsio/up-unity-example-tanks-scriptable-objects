@@ -12,7 +12,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{c1abe86d-c234-b75f-237f-55397cd30f72}</ProjectGuid>
+    <ProjectGuid>{69de27b8-199c-9b76-d0bf-21822dda38c8}</ProjectGuid>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -722,31 +722,31 @@
      <HintPath>C:/Program Files/Unity Editors/2021.1.3f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
      </Reference>
      <Reference Include="Unity.VSCode.Editor">
-     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects-webinar/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.TextMeshPro.Editor">
-     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects-webinar/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.VisualStudio.Editor">
-     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
+     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects-webinar/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Timeline.Editor">
-     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects-webinar/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Timeline">
-     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects-webinar/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
      </Reference>
      <Reference Include="Unity.TextMeshPro">
-     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects-webinar/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
      </Reference>
      <Reference Include="UnityEditor.UI">
-     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects-webinar/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Rider.Editor">
-     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects-webinar/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
      </Reference>
      <Reference Include="UnityEngine.UI">
-     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects-webinar/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
      </Reference>
   </ItemGroup>
   <ItemGroup>

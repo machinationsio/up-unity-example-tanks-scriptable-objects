@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44504875, g: 0.49464083, b: 0.57373863, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &4
 LightmapSettings:
@@ -337,6 +337,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!223 &575313011
 Canvas:
   m_ObjectHideFlags: 0
@@ -596,6 +597,10 @@ PrefabInstance:
       value: -30.92
       objectReference: {fileID: 0}
     - target: {fileID: 488946, guid: 312c52d27be2d2d42acea3ccebc4694b, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 488946, guid: 312c52d27be2d2d42acea3ccebc4694b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -608,6 +613,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 488946, guid: 312c52d27be2d2d42acea3ccebc4694b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 488946, guid: 312c52d27be2d2d42acea3ccebc4694b, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -618,14 +627,6 @@ PrefabInstance:
     - target: {fileID: 488946, guid: 312c52d27be2d2d42acea3ccebc4694b, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 488946, guid: 312c52d27be2d2d42acea3ccebc4694b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 488946, guid: 312c52d27be2d2d42acea3ccebc4694b, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 312c52d27be2d2d42acea3ccebc4694b, type: 3}
@@ -829,9 +830,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54a000792783c934885973b761b3f96f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_NumRoundsToWin: 5
-  m_StartDelay: 3
-  m_EndDelay: 3
+  m_NumRoundsToWin: 10
+  m_StartDelay: 1
+  m_EndDelay: 1
   m_CameraControl: {fileID: 1771596988}
   m_MessageText: {fileID: 102963701}
   m_TankPrefab: {fileID: 114000011236013548, guid: 756d3a6506f2f8241b4e8badde68567a,

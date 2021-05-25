@@ -9,26 +9,24 @@ public class ShellExplosion : MonoBehaviour
     public AudioSource m_ExplosionAudio; // Reference to the audio that will play on explosion.
     public AudioEvent m_ExplosionAudioEvent;
     public ShellStats m_ShellStats;
-
     public ShellStatsEnemy m_ShellStatsEnemy;
 
     //public float m_MaxDamage = 100f;                    // The amount of damage done if the explosion is centred on a tank.
     //public float m_ExplosionForce = 1000f;              // The amount of force added to a tank at the centre of the explosion.
-    public float m_MaxLifeTime = 2f; // The time in seconds before the shell is removed.
+    public float m_MaxLifeTime = 20f; // The time in seconds before the shell is removed.
     //public float m_ExplosionRadius = 5f;                // The maximum distance away from the explosion tanks can be and are still affected.
 
 
     private void Start ()
     {
         // If it isn't destroyed by then, destroy the shell after it's lifetime.
-        Destroy(gameObject, m_MaxLifeTime);
+        Destroy(gameObject, 20f);
     }
 
     private void OnCollisionEnter (Collision collision)
     {
-        //Because we don't know who's projectile this is, checking against the largest radius.
-        //Of course, we could know who's projectile this is, but I don't have time to investigate / add the feature :D.
-        float radius = Math.Max(m_ShellStatsEnemy.Radius.CurrentValue, m_ShellStats.Radius.CurrentValue);
+        Debug.Log("Player Projectile Entering Colission");
+        float radius = m_ShellStats.Radius.CurrentValue;
         // Collect all the colliders in a sphere from the shell's current position to a radius of the explosion radius.
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
 
@@ -38,23 +36,9 @@ public class ShellExplosion : MonoBehaviour
             // ... and find their rigidbody.
             Rigidbody targetRigidbody = colliders[i].GetComponent<Rigidbody>();
 
-            float projectileRadius;
-            float projectileForce;
-            float projectileDamage;
-
-            //Differentiate Shell Stats based on enemy / player tank.
-            if (PlayerControlledTank.Instance.TankRigidBody == targetRigidbody)
-            {
-                projectileRadius = m_ShellStats.Radius.CurrentValue;
-                projectileForce = m_ShellStats.Force.CurrentValue;
-                projectileDamage = m_ShellStats.Damage.CurrentValue;
-            }
-            else
-            {
-                projectileRadius = m_ShellStatsEnemy.Radius.CurrentValue;
-                projectileForce = m_ShellStatsEnemy.Force.CurrentValue;
-                projectileDamage = m_ShellStatsEnemy.Damage.CurrentValue;
-            }
+            float projectileRadius = m_ShellStats.Radius.CurrentValue + m_ShellStats.CurrentExplosionRadiusBuff;
+            float projectileForce = m_ShellStats.Force.CurrentValue + m_ShellStats.CurrentExplosionForceBuff;
+            float projectileDamage = m_ShellStats.Damage.CurrentValue;
 
             if (targetRigidbody)
             {
@@ -79,14 +63,15 @@ public class ShellExplosion : MonoBehaviour
         m_ExplosionAudioEvent.Play(m_ExplosionAudio);
 
         // Once the particles have finished, destroy the gameobject they are on.
-        Destroy(m_ExplosionParticles.gameObject, m_ExplosionParticles.duration);
+        Destroy(m_ExplosionParticles.gameObject, m_ExplosionParticles.duration+1);
 
         GetComponent<Renderer>().enabled = false;
         GetComponent<Collider>().enabled = false;
         GetComponent<Light>().enabled = false;
         GetComponent<Rigidbody>().isKinematic = true;
 
-        // Destroy the shell.
+        Debug.Log("Destroying player shell");
+        //Destroy the shell.
         Destroy(gameObject, m_ExplosionAudio.clip.length / m_ExplosionAudio.pitch);
     }
 

@@ -12,7 +12,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{fec4eeef-800a-2267-60b8-c536c2b34cbd}</ProjectGuid>
+    <ProjectGuid>{88a1d4c7-ab76-2264-889a-cd52055536d8}</ProjectGuid>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -301,7 +301,7 @@
      <HintPath>C:/Program Files/Unity Editors/2021.1.3f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
      </Reference>
      <Reference Include="nunit.framework">
-     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects/Library/PackageCache/com.unity.ext.nunit@1.0.6/net35/unity-custom/nunit.framework.dll</HintPath>
+     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects-webinar/Library/PackageCache/com.unity.ext.nunit@1.0.6/net35/unity-custom/nunit.framework.dll</HintPath>
      </Reference>
      <Reference Include="mscorlib">
      <HintPath>C:/Program Files/Unity Editors/2021.1.3f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -649,46 +649,46 @@
      <HintPath>C:/Program Files/Unity Editors/2021.1.3f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/Facades/System.Xml.XPath.XDocument.dll</HintPath>
      </Reference>
      <Reference Include="UnityEngine.TestRunner">
-     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
+     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects-webinar/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
      </Reference>
      <Reference Include="UnityEditor.TestRunner">
-     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
+     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects-webinar/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
      </Reference>
      <Reference Include="Unity.VSCode.Editor">
-     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects-webinar/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.TextMeshPro.Editor">
-     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects-webinar/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.VisualStudio.Editor">
-     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
+     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects-webinar/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Timeline.Editor">
-     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects-webinar/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Timeline">
-     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects-webinar/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
      </Reference>
      <Reference Include="Unity.TextMeshPro">
-     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects-webinar/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
      </Reference>
      <Reference Include="UnityEditor.UI">
-     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects-webinar/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Rider.Editor">
-     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects-webinar/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
      </Reference>
      <Reference Include="UnityEngine.UI">
-     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+     <HintPath>D:/Codez/Machinations/UP/public-machinations/up-unity-example-tanks-scriptable-objects-webinar/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
      </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{c1abe86d-c234-b75f-237f-55397cd30f72}</Project>
+      <Project>{69de27b8-199c-9b76-d0bf-21822dda38c8}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
     </ProjectReference>
     <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{935863bc-c568-27b2-256b-c4b9a8d83198}</Project>
+      <Project>{09ff15e4-abab-c22d-cd26-b674139199d5}</Project>
       <Name>Assembly-CSharp</Name>
     </ProjectReference>
   </ItemGroup>
