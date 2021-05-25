@@ -32,6 +32,12 @@ namespace MachinationsUP.Logger
             if (Level < LogLevel.Debug) return;
             Debug.Log(text, context);
         }
+        
+        static public void T (string text, UnityEngine.Object context = null)
+        {
+            if (Level < LogLevel.Trace) return;
+            Debug.Log(text, context);
+        }
 
         static public void W (string text, UnityEngine.Object context = null)
         {

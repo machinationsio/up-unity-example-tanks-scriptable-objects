@@ -52,37 +52,38 @@ public class ShellStatsEnemy : ScriptableObject, IMnScriptableObject
                 {
                     EditorElementBase = Damage,
                     PropertyName = M_DAMAGE,
-                    DiagramElementID = 901,
+                    DiagramElementID = 8916,
                     DefaultElementBase = new ElementBase(10, null)
                 },
                 new DiagramMapping
                 {
                     EditorElementBase = Radius,
                     PropertyName = M_RADIUS,
-                    DiagramElementID = 225,
+                    DiagramElementID = 8914,
                     DefaultElementBase = new ElementBase(25, null)
                 },
                 new DiagramMapping
                 {
                     EditorElementBase = Force,
                     PropertyName = M_FORCE,
-                    DiagramElementID = 107,
+                    DiagramElementID = 8913,
                     DefaultElementBase = new ElementBase(90, null)
                 },
                 new DiagramMapping
                 {
                     EditorElementBase = Speed,
                     PropertyName = M_SPEED,
-                    DiagramElementID = 1000,
+                    DiagramElementID = 8915,
                     DefaultElementBase = new ElementBase(90, null)
                 },
                 new DiagramMapping
                 {
                     EditorElementBase = ShotCooldown,
                     PropertyName = M_COOLDOWN,
-                    DiagramElementID = 245,
+                    DiagramElementID = 8918,
                     DefaultElementBase = new ElementBase(0, null)
                 },
+                //BUFFS.
                 new DiagramMapping
                 {
                     EditorElementBase = ShotCooldownBuff,

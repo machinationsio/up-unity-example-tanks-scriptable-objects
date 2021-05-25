@@ -20,12 +20,11 @@ public class ShellExplosionEnemy : MonoBehaviour
     private void Start ()
     {
         // If it isn't destroyed by then, destroy the shell after it's lifetime.
-        Destroy(gameObject, 20f);
+        Destroy(gameObject, m_MaxLifeTime);
     }
 
     private void OnCollisionEnter (Collision collision)
     {
-        Debug.Log("Enemy Projectile Entering Colission");
         float radius = m_ShellStatsEnemy.Radius.CurrentValue;
         // Collect all the colliders in a sphere from the shell's current position to a radius of the explosion radius.
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
@@ -70,7 +69,6 @@ public class ShellExplosionEnemy : MonoBehaviour
         GetComponent<Light>().enabled = false;
         GetComponent<Rigidbody>().isKinematic = true;
 
-        Debug.Log("Destroying enemy shell");
         // Destroy the shell.
         Destroy(gameObject, m_ExplosionAudio.clip.length / m_ExplosionAudio.pitch);
     }

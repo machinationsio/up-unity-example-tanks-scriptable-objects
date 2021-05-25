@@ -42,21 +42,22 @@ public class TankStats : ScriptableObject, IMnScriptableObject
                 {
                     EditorElementBase = Health,
                     PropertyName = M_HEALTH,
-                    DiagramElementID = 215,
-                    DefaultElementBase = new ElementBase(105, null)
+                    DiagramElementID = 8919,
+                    DefaultElementBase = new ElementBase(550, null)
                 },
                 new DiagramMapping
                 {
                     EditorElementBase = Speed,
                     PropertyName = M_SPEED,
-                    DiagramElementID = 102,
+                    DiagramElementID = 8908,
                     DefaultElementBase = new ElementBase(25, null)
                 },
+                //BUFFS.
                 new DiagramMapping
                 {
                     EditorElementBase = HealthBuff,
                     PropertyName = M_HEALTH_BUFF,
-                    DiagramElementID = 100002,
+                    DiagramElementID = 9134,
                     DefaultElementBase = new ElementBase(10, null)
                 },
                 new DiagramMapping

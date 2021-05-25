@@ -459,7 +459,7 @@ namespace MachinationsUP.Engines.Unity
 
             //Couldn't find any Source Element for this Machinations Diagram ID.
             //This doesn't mean it won't be used, this may just mean it hasn't been requested yet.
-            L.D("MDL.GetDiagramMappingForID: Got from the back-end a Machinations Diagram ID (" +
+            L.T("MDL.GetDiagramMappingForID: Got from the back-end a Machinations Diagram ID (" +
                 machinationsDiagramID + ") for which there is no DiagramMapping. Creating an Empty DiagramMapping.");
             //If any object comes looking for this element ID, this Diagram Mapping will be replaced with that of the requesting element.
             //See function AddTargets.

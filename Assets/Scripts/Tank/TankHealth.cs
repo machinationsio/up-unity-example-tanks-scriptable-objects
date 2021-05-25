@@ -187,7 +187,6 @@ public class TankHealth : MonoBehaviour
         //When a tank dies, we're going to offer a... reward... hehehehe.
         var dropRates = m_DropRatios.GetDropRates();
         var rnd = Random.Range(1, dropRates.Count);
-        GameObject loot;
         Debug.Log("Buff randomized weight: " + rnd);
         switch (dropRates[rnd])
         {

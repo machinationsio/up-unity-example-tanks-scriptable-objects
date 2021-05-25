@@ -53,37 +53,38 @@ public class ShellStats : ScriptableObject, IMnScriptableObject
                 {
                     EditorElementBase = Damage,
                     PropertyName = M_DAMAGE,
-                    DiagramElementID = 219,
+                    DiagramElementID = 8907,
                     DefaultElementBase = new ElementBase(10, null)
                 },
                 new DiagramMapping
                 {
                     EditorElementBase = Radius,
                     PropertyName = M_RADIUS,
-                    DiagramElementID = 401,
+                    DiagramElementID = 8905,
                     DefaultElementBase = new ElementBase(25, null)
                 },
                 new DiagramMapping
                 {
                     EditorElementBase = Force,
                     PropertyName = M_FORCE,
-                    DiagramElementID = 400,
+                    DiagramElementID = 8904,
                     DefaultElementBase = new ElementBase(90, null)
                 },
                 new DiagramMapping
                 {
                     EditorElementBase = Speed,
                     PropertyName = M_SPEED,
-                    DiagramElementID = 402,
+                    DiagramElementID = 8906,
                     DefaultElementBase = new ElementBase(90, null)
                 },
                 new DiagramMapping
                 {
                     EditorElementBase = ShotCooldown,
                     PropertyName = M_COOLDOWN,
-                    DiagramElementID = 912,
+                    DiagramElementID = 8909,
                     DefaultElementBase = new ElementBase(0, null)
                 },
+                //BUFFS.
                 new DiagramMapping
                 {
                     EditorElementBase = ShotCooldownBuff,

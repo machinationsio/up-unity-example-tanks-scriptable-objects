@@ -20,7 +20,7 @@ public class ShellExplosion : MonoBehaviour
     private void Start ()
     {
         // If it isn't destroyed by then, destroy the shell after it's lifetime.
-        Destroy(gameObject, 20f);
+        Destroy(gameObject, m_MaxLifeTime);
     }
 
     private void OnCollisionEnter (Collision collision)
