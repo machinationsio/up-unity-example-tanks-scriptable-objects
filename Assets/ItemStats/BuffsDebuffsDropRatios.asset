@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Damage:
     _serializableValue: 1681
-  D1EnemyLifeIncreasedWeight: 1
-  D2ExplosionForceWeight: 111
-  D3ExplosionRadiusWeight: 1
-  D4EnemyCooldownDecreasedWeight: 1
-  D5EnemyDamageIncreasedWeight: 1
-  D6PlayerCooldownIncreasedWeight: 1
-  D7PlayerProjectileSpeedDecreasedWeight: 1
-  D8PlayerSpeedDecreasedWeight: 1
-  D9PlayerLifeDecreasedWeight: 1
+  EnemyLifeIncreasedWeight: 1
+  ExplosionForceWeight: 1
+  ExplosionRadiusWeight: 1
+  EnemyCooldownDecreasedWeight: 1
+  EnemyDamageIncreasedWeight: 1
+  PlayerCooldownIncreasedWeight: 1
+  PlayerProjectileSpeedDecreasedWeight: 400
+  PlayerSpeedDecreasedWeight: 1
+  PlayerLifeDecreasedWeight: 1
+  EnemySpeedIncreasedWeight: 1

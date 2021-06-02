@@ -15,7 +15,10 @@ MonoBehaviour:
   Health:
     _serializableValue: 201
   Speed:
-    _serializableValue: 11
+    _serializableValue: 10
   HealthBuff:
-    _serializableValue: 100
+    _serializableValue: 200
+  SpeedBuff:
+    _serializableValue: 10
   CurrentHealthBuff: 0
+  CurrentSpeedBuff: 0

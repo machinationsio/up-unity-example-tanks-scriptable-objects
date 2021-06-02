@@ -40,6 +40,7 @@ public class GameSettings : ScriptableObject
 					availableBrains = Resources.FindObjectsOfTypeAll<TankBrain>();
 					#endif
 
+					MainMenuController.AvailableTankBrains = availableBrains;
 					_cachedBrain = availableBrains.FirstOrDefault(b => b.name == BrainName);
 				}
 				return _cachedBrain;

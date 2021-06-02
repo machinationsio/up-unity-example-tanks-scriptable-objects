@@ -20,12 +20,15 @@ public class TankStatsEnemy : ScriptableObject, IMnScriptableObject
     public ElementBase Health;
     public ElementBase Speed;
     public ElementBase HealthBuff;
+    public ElementBase SpeedBuff;
     
     public float CurrentHealthBuff;
+    public float CurrentSpeedBuff;
 
     private const string M_HEALTH = "Health";
     private const string M_SPEED = "Speed";
     private const string M_HEALTH_BUFF = "HealthBuff";
+    private const string M_SPEED_BUFF = "SpeedBuff";
     
     public event EventHandler OnUpdatedFromMachinations;
 
@@ -58,6 +61,13 @@ public class TankStatsEnemy : ScriptableObject, IMnScriptableObject
                     PropertyName = M_HEALTH_BUFF,
                     DiagramElementID = 900000,
                     DefaultElementBase = new ElementBase(25, null)
+                },
+                new DiagramMapping
+                {
+                    EditorElementBase = SpeedBuff,
+                    PropertyName = M_SPEED_BUFF,
+                    DiagramElementID = 100002,
+                    DefaultElementBase = new ElementBase(10, null)
                 }
             }
         };
@@ -86,6 +96,7 @@ public class TankStatsEnemy : ScriptableObject, IMnScriptableObject
         Health = binders[M_HEALTH].CurrentElement;
         Speed = binders[M_SPEED].CurrentElement;
         HealthBuff = binders[M_HEALTH_BUFF].CurrentElement;
+        SpeedBuff = binders[M_SPEED_BUFF].CurrentElement;
     }
 
     /// <summary>

@@ -9,7 +9,7 @@ public class MainMenuController : MonoBehaviour
 	public GameSettings GameSettingsTemplate;
 
 	public Color[] AvailableColors;
-	public TankBrain[] AvailableTankBrains;
+	public static TankBrain[] AvailableTankBrains;
 
 	public UnityEngine.UI.Button PanelSwitcher;
 	public GameObject PlayersPanel;

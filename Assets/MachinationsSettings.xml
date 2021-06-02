@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <MnConfig xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <APIURL>wss://api.machinations.io/socket.io/?EIO=4&amp;transport=websocket</APIURL>
-  <UserKey>57b4b3b8-224c-45b4-b2e4-b89f2c484448</UserKey>
-  <DiagramToken>0b33ba4a-16d0-4fc9-b201-c57989f4d649</DiagramToken>
+  <APIURL>wss://api.staging.machinations.io/socket.io/?EIO=4&amp;transport=websocket</APIURL>
+  <UserKey>10f60a88-c8c4-40e4-a413-981881b5d405</UserKey>
+  <DiagramToken>d76ae331-1a4f-481b-8bff-ad087d1a5961</DiagramToken>
   <GameName>UP Demo</GameName>
 </MnConfig>

@@ -115,6 +115,7 @@
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\HttpRequest.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\LogData.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\EnrolledScriptableObject.cs" />
+     <Compile Include="Assets\ScriptableObject\Brains\ZombieSniper.cs" />
      <Compile Include="Assets\Scripts\Camera\CameraControl.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\Demo\SomeRectangle.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\WebSocketFrame.cs" />
@@ -213,7 +214,6 @@
      <None Include="Assets\MachinationsCache\AxonnMachi\Cache.xml" />
      <None Include="Assets\3D Items - Mega Pack\Read Me.txt" />
      <None Include="Assets\MachinationsCache\MyCacheDirectory\Cache.xml" />
-     <None Include="Assets\socket-errorlog-global2021-05-25.txt" />
      <None Include="Assets\MachinationsCache\YourCache\Cache.xml" />
      <None Include="Assets\Scripts\MachinationsUP\Third-Party Notices.txt" />
      <None Include="Assets\MachinationsSettings.xml" />

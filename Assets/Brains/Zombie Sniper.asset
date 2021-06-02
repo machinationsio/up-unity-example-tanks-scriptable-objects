@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70d1b3b8db794ef481ee8d5c2abb22dd, type: 3}
+  m_Name: Zombie Sniper
+  m_EditorClassIdentifier: 
+  TankRigidBody: {fileID: 0}
+  enemyTankStats: {fileID: 11400000, guid: 53f83837c82a15c4584794577962c73d, type: 2}
+  aimAngleThreshold: 2
+  chargeTimePerDistance:
+    minValue: 0
+    maxValue: 0
+  timeBetweenShots:
+    minValue: 2
+    maxValue: 6
+  moveTime:
+    minValue: 6.059305
+    maxValue: 6.995704

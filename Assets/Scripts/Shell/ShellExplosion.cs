@@ -25,7 +25,6 @@ public class ShellExplosion : MonoBehaviour
 
     private void OnCollisionEnter (Collision collision)
     {
-        Debug.Log("Player Projectile Entering Colission");
         float radius = m_ShellStats.Radius.CurrentValue;
         // Collect all the colliders in a sphere from the shell's current position to a radius of the explosion radius.
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
@@ -70,7 +69,6 @@ public class ShellExplosion : MonoBehaviour
         GetComponent<Light>().enabled = false;
         GetComponent<Rigidbody>().isKinematic = true;
 
-        Debug.Log("Destroying player shell");
         //Destroy the shell.
         Destroy(gameObject, m_ExplosionAudio.clip.length / m_ExplosionAudio.pitch);
     }

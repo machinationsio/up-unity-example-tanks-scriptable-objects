@@ -10637,6 +10637,8 @@ MonoBehaviour:
     type: 3}
   m_PlayerSpeedDecreasedDeBuffIcon: {fileID: 1000010150394258, guid: 5d79a905b1344024680226edf221c3f8,
     type: 3}
+  m_EnemySpeedIncreasedBuffIcon: {fileID: 190324, guid: d1f32cbf9dcb3e44aa3a5936c1bed709,
+    type: 3}
   m_PlayerLifeDecreasedDeBuffIcon: {fileID: 153936, guid: b738efcfa9250d14a8482ee0ce4cb142,
     type: 3}
   m_DropRatios: {fileID: 11400000, guid: 761cdef6bec49f141be127fedea8d5e3, type: 2}
