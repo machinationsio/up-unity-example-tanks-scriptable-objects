@@ -131,13 +131,19 @@ public class TankHealth : MonoBehaviour
             gotExtraLife = false;
         }
 
-        if (gotExtraLife == false && GameState.Instance.EnemiesMustGetExtraLife != 0 &&
+        //Global reset for gotExtraLife.
+        if (GameState.Instance.EnemiesMustGetExtraLife == 0)
+        {
+            gotExtraLife = false;
+        }
+
+        if (!gotExtraLife && GameState.Instance.EnemiesMustGetExtraLife != 0 &&
             this != PlayerControlledTank.PlayerControlledTankHealth)
         {
             Debug.Log("Getting Extra Life");
             TakeDamage(-GameState.Instance.EnemiesMustGetExtraLife);
-            gotExtraLife = true;
             timeSinceGotExtraLife = Time.time;
+            gotExtraLife = true;
         }
     }
 
@@ -155,6 +161,8 @@ public class TankHealth : MonoBehaviour
 
         // Reduce current health by the amount of damage done.
         m_CurrentHealth -= amount;
+        //Say it.
+        L.T("Life set to: " + m_CurrentHealth + " (delta of " + amount + ")");
 
         // Change the UI elements appropriately.
         SetHealthUI();
@@ -170,13 +178,15 @@ public class TankHealth : MonoBehaviour
     private void SetHealthUI ()
     {
         // Set the slider's value appropriately.
-        m_Slider.value = m_CurrentHealth;
+        m_Slider.value = m_CurrentHealth * 100 / (this == PlayerControlledTank.PlayerControlledTankHealth
+            ? m_TankStats.Health.CurrentValue - m_TankStats.CurrentHealthBuff
+            : m_TankStatsEnemy.Health.CurrentValue + m_TankStatsEnemy.CurrentHealthBuff);
 
         // Interpolate the color of the bar between the choosen colours based on the current percentage of the starting health.
         m_FillImage.color = Color.Lerp(m_ZeroHealthColor, m_FullHealthColor,
             m_CurrentHealth / (this == PlayerControlledTank.PlayerControlledTankHealth
-                ? m_TankStats.Health.CurrentValue
-                : m_TankStatsEnemy.Health.CurrentValue));
+                ? m_TankStats.Health.CurrentValue - m_TankStats.CurrentHealthBuff
+                : m_TankStatsEnemy.Health.CurrentValue + m_TankStatsEnemy.CurrentHealthBuff));
     }
 
 
@@ -207,63 +217,65 @@ public class TankHealth : MonoBehaviour
 
         switch (dropRates[rnd])
         {
-            case (int) Drops.EnemyLifeIncreasedWeight: //D1EnemyLifeIncreased
+            case (int) Drops.EnemyLifeBuff: //D1EnemyLifeIncreased
                 Debug.Log("Buffing Enemy Life with " + m_TankStatsEnemy.HealthBuff.CurrentValue);
                 Instantiate(m_EnemyLifeBuffIcon, transform.position, Quaternion.identity);
                 m_TankStatsEnemy.CurrentHealthBuff +=
                     m_TankStatsEnemy.HealthBuff.CurrentValue; //This is rather useless, since Health buffs are applied instantly.
                 //Only modify health of enemy tanks.
                 GameState.Instance.EnemiesMustGetExtraLife = m_TankStatsEnemy.HealthBuff.CurrentValue;
+                SetHealthUI();
                 break;
-            case (int) Drops.ExplosionForceWeight:
+            case (int) Drops.ExplosionForceBuff:
                 Debug.Log("Buffing Explosion Force (for everybody) with " + m_ShellStatsEnemy.ExplosionForceBuff.CurrentValue);
                 Instantiate(m_ExplosionForceBuffIcon, transform.position, Quaternion.identity);
                 m_ShellStatsEnemy.CurrentExplosionForceBuff += m_ShellStatsEnemy.ExplosionForceBuff.CurrentValue;
                 m_ShellStats.CurrentExplosionForceBuff += m_ShellStats.ExplosionForceBuff.CurrentValue;
                 break;
-            case (int) Drops.ExplosionRadiusWeight:
+            case (int) Drops.ExplosionRadiusBuff:
                 Debug.Log("Buffing Explosion Radius (for everybody) with " + m_ShellStatsEnemy.ExplosionRadiusBuff.CurrentValue);
                 Instantiate(m_ExplosionRadiusBuffIcon, transform.position, Quaternion.identity);
                 m_ShellStatsEnemy.CurrentExplosionRadiusBuff += m_ShellStatsEnemy.ExplosionRadiusBuff.CurrentValue;
                 m_ShellStats.CurrentExplosionRadiusBuff += m_ShellStats.ExplosionRadiusBuff.CurrentValue;
                 break;
-            case (int) Drops.EnemyCooldownDecreasedWeight:
+            case (int) Drops.EnemyCooldownBuff:
                 Debug.Log("Buffing Enemy Cooldown with -" + m_ShellStatsEnemy.ShotCooldownBuff.CurrentValue);
                 Instantiate(m_EnemyCooldownDecreasedBuffIcon, transform.position, Quaternion.identity);
                 m_ShellStatsEnemy.CurrentShotCooldownBuff -= m_ShellStatsEnemy.ShotCooldownBuff.CurrentValue;
                 break;
-            case (int) Drops.EnemyDamageIncreasedWeight:
+            case (int) Drops.EnemyDamageBuff:
                 Debug.Log("Buffing Enemy Damage with " + m_ShellStatsEnemy.DamageBuff.CurrentValue);
                 Instantiate(m_EnemyDamageIncreasedBuffIcon, transform.position, Quaternion.identity);
                 m_ShellStatsEnemy.CurrentDamageBuff += m_ShellStatsEnemy.DamageBuff.CurrentValue;
                 break;
-            case (int) Drops.PlayerCooldownIncreasedWeight:
-                Debug.Log("DeBuffing Player Cooldown with " + m_ShellStats.ShotCooldownBuff.CurrentValue);
+            case (int) Drops.PlayerCooldownBuff:
+                Debug.Log("Buffing Player Cooldown with " + m_ShellStats.ShotCooldownBuff.CurrentValue);
                 Instantiate(m_PlayerCooldownIncreasedDeBuffIcon, transform.position, Quaternion.identity);
                 m_ShellStats.CurrentShotCooldownBuff += m_ShellStats.ShotCooldownBuff.CurrentValue;
                 break;
-            case (int) Drops.PlayerProjectileSpeedDecreasedWeight:
-                Debug.Log("Buffing Player Projectile Speed with " + m_ShellStats.ShellSpeedBuff.CurrentValue);
+            case (int) Drops.PlayerProjectileSpeedBuff:
+                Debug.Log("Buffing Player Projectile Speed with -" + m_ShellStats.ShellSpeedBuff.CurrentValue);
                 Instantiate(m_PlayerProjectileSpeedDecreasedDeBuffIcon, transform.position, Quaternion.identity);
-                m_ShellStats.CurrentShellSpeedBuff += m_ShellStats.ShellSpeedBuff.CurrentValue;
+                m_ShellStats.CurrentShellSpeedBuff -= m_ShellStats.ShellSpeedBuff.CurrentValue;
                 if (m_ShellStats.Speed.CurrentValue + m_ShellStats.CurrentShellSpeedBuff < 2)
-                    m_ShellStats.CurrentShellSpeedBuff = -m_ShellStats.Speed.CurrentValue + 2;
+                    m_ShellStats.CurrentShellSpeedBuff = -m_ShellStats.Speed.CurrentValue - 2;
                 break;
-            case (int) Drops.PlayerSpeedDecreasedWeight:
-                Debug.Log("Buffing Player Speed with " + m_TankStats.SpeedBuff.CurrentValue);
+            case (int) Drops.PlayerSpeedBuff:
+                Debug.Log("DeBuffing Player Speed with -" + m_TankStats.SpeedBuff.CurrentValue);
                 Instantiate(m_PlayerSpeedDecreasedDeBuffIcon, transform.position, Quaternion.identity);
-                m_TankStats.CurrentSpeedBuff += m_TankStats.SpeedBuff.CurrentValue;
-                if (m_TankStats.CurrentSpeedBuff < 2) m_TankStats.CurrentSpeedBuff = 2;
+                m_TankStats.CurrentSpeedBuff -= m_TankStats.SpeedBuff.CurrentValue;
+                if (m_TankStats.Speed.CurrentValue + m_TankStats.CurrentSpeedBuff < 2)
+                    m_TankStats.CurrentSpeedBuff = -m_TankStats.Speed.CurrentValue - 2;
                 break;
-            case (int) Drops.PlayerLifeDecreasedWeight:
-                Debug.Log("DeBuffing Player Life with " + m_TankStats.HealthBuff.CurrentValue);
+            case (int) Drops.PlayerLifeBuff:
+                Debug.Log("DeBuffing Player Life with -" + m_TankStats.HealthBuff.CurrentValue);
                 Instantiate(m_PlayerLifeDecreasedDeBuffIcon, transform.position, Quaternion.identity);
-                m_TankStats.CurrentHealthBuff +=
+                m_TankStats.CurrentHealthBuff -=
                     m_TankStats.HealthBuff.CurrentValue; //This is rather useless, since Health buffs are applied instantly.
                 //Only modify health of PLAYER tank.
-                GameState.Instance.PlayerMustTakeDamage = -m_TankStats.HealthBuff.CurrentValue;
+                GameState.Instance.PlayerMustTakeDamage = m_TankStats.HealthBuff.CurrentValue;
                 break;
-            case (int) Drops.EnemySpeedIncreasedWeight:
+            case (int) Drops.EnemySpeedBuff:
                 Debug.Log("Buffing Enemy Speed with " + m_TankStatsEnemy.SpeedBuff.CurrentValue);
                 Instantiate(m_EnemySpeedIncreasedBuffIcon, transform.position, Quaternion.identity);
                 m_TankStatsEnemy.CurrentSpeedBuff += m_TankStatsEnemy.SpeedBuff.CurrentValue;

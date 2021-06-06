@@ -60,7 +60,7 @@ namespace MachinationsUP.Integration.Inventory
 
             foreach (DiagramMapping diagramMapping in DiagramMappings)
             {
-                diagramMapping.Name = Name;
+                diagramMapping.ManifestName = Name;
                 //If StatesAssociations were defined and this Property is found, create a separate
                 //machinationsUniqueID *per* StateAssociation.
                 if (StatesAssociationsPerPropertyName != null &&
@@ -107,7 +107,10 @@ namespace MachinationsUP.Integration.Inventory
 
         override public string ToString ()
         {
-            return "MachinationsGameObjectManifest for " + Name;
+            string ret = "MachinationsGameObjectManifest for " + Name + ". Maps the following MachinationsElementIDs: ";
+            foreach (DiagramMapping dm in DiagramMappings)
+                ret += dm.DiagramElementID + ",";
+            return ret.Substring(0, ret.Length-1);
         }
 
         /// <summary>

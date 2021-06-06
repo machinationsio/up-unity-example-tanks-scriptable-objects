@@ -41,11 +41,17 @@
         public const string JP_DIAGRAM_ID = "id";
         public const string JP_DIAGRAM_ELEMENT_TYPE = "type";
         public const string JP_DIAGRAM_LABEL = "label";
+        public const string JP_DIAGRAM_FORMULA = "formula";
         public const string JP_DIAGRAM_ACTIVATION = "activation";
         public const string JP_DIAGRAM_ACTION = "action";
         public const string JP_DIAGRAM_RESOURCES = "resources";
         public const string JP_DIAGRAM_CAPACITY = "capacity";
         public const string JP_DIAGRAM_OVERFLOW = "overflow";
+        //Machination Diagram Element Types.
+        public const string JP_ELETYPE_POOL = "Pool";
+        public const string JP_ELETYPE_RESOURCE_CONNECTION = "Resource Connection";
+        public const string JP_ELETYPE_STATE_CONNECTION = "State Connection";
+        public const string JP_ELETYPE_REGISTER = "Register";
 
     }
 }

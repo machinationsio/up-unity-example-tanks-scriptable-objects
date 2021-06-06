@@ -27,7 +27,7 @@ namespace MachinationsUP.Engines.Unity.Startup
         [InitializeOnLoadMethod]
         static public void InitMachinations ()
         {
-            L.Level = LogLevel.Debug;
+            L.Level = LogLevel.Trace;
             L.LogFilePath = Application.dataPath + "//MachinationsService-Error.log";
             
             //Since Application.dataPath cannot be accessed from other threads (and we need that), storing it in MDL.

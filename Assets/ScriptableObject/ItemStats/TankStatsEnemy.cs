@@ -59,14 +59,14 @@ public class TankStatsEnemy : ScriptableObject, IMnScriptableObject
                 {
                     EditorElementBase = HealthBuff,
                     PropertyName = M_HEALTH_BUFF,
-                    DiagramElementID = 900000,
+                    DiagramElementID = 9120,
                     DefaultElementBase = new ElementBase(25, null)
                 },
                 new DiagramMapping
                 {
                     EditorElementBase = SpeedBuff,
                     PropertyName = M_SPEED_BUFF,
-                    DiagramElementID = 100002,
+                    DiagramElementID = 9301,
                     DefaultElementBase = new ElementBase(10, null)
                 }
             }

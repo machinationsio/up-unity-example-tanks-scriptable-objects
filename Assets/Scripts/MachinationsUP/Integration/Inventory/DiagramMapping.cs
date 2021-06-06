@@ -4,6 +4,7 @@ using MachinationsUP.GameEngineAPI.States;
 using MachinationsUP.Integration.Binder;
 using MachinationsUP.Integration.Elements;
 using MachinationsUP.Integration.GameObject;
+using MachinationsUP.Logger;
 using MachinationsUP.SyncAPI;
 
 namespace MachinationsUP.Integration.Inventory
@@ -17,7 +18,7 @@ namespace MachinationsUP.Integration.Inventory
     public class DiagramMapping
     {
 
-        private string _name;
+        private string _manifestName;
 
         /// <summary>
         /// The name of the Machinations Object that has this property.
@@ -25,12 +26,12 @@ namespace MachinationsUP.Integration.Inventory
         /// See <see cref="MachinationsUP.Engines.Unity.IMnScriptableObject"/>
         /// </summary>
         [DataMember()]
-        public string Name
+        public string ManifestName
         {
-            get => _name;
-            set => _name = value;
+            get => _manifestName;
+            set => _manifestName = value;
         }
-        
+
         private string _type;
 
         /// <summary>
@@ -43,7 +44,7 @@ namespace MachinationsUP.Integration.Inventory
             get => _type;
             set => _type = value;
         }
-        
+
         private string _label;
 
         /// <summary>
@@ -67,6 +68,24 @@ namespace MachinationsUP.Integration.Inventory
         {
             get => _propertyName;
             set => _propertyName = value;
+        }
+
+        private string _crossManifestName;
+
+        /// <summary>
+        /// When calling the Matches function, if a CrossManifestName has been specified, the Machinations Game Object Name will
+        /// be IGNORED during the comparison. This functionality is used when the same DiagramElementsID is used in MULTIPLE Manifests.
+        /// This is necessary because without it, this DiagramMapping CANNOT be used to match with the proper one over
+        /// in MnDataLayer _sourceElements. This is because different Game Objects or Scriptable Objects may use different names inside
+        /// their Manifests. This property allows us to define cross-Manifest names that remove this limitation while allowing us to
+        /// keep a single array of unique Source Elements (which is also easier to manage & conceptualize). Then again, perhaps this comment
+        /// is harder to conceptualize. But hey, life's tough, welcome to Axonn's over-engineered coding (or is it?).
+        /// </summary>
+        [DataMember()]
+        public string CrossManifestName
+        {
+            get => _crossManifestName;
+            set => _crossManifestName = value;
         }
 
         private StatesAssociation _statesAssociation;
@@ -148,7 +167,7 @@ namespace MachinationsUP.Integration.Inventory
         public bool Matches (string name, string propertyName, StatesAssociation statesAssociation,
             bool stringifyStatesAssociation)
         {
-            return Name == name && PropertyName == propertyName &&
+            return (ManifestName == name || CrossManifestName != null && CrossManifestName == name) && PropertyName == propertyName &&
                    (
                        (stringifyStatesAssociation &&
                         (
@@ -166,14 +185,19 @@ namespace MachinationsUP.Integration.Inventory
         /// <param name="elementBinder">Element Binder to verify.</param>
         /// <param name="statesAssociation">States Association to verify.</param>
         /// <param name="stringifyStatesAssociation">In the case of cached States Association, string values will be used for comparison.</param>
-        public bool Matches (ElementBinder elementBinder, StatesAssociation statesAssociation, bool stringifyStatesAssociation)
+        /// <param name="universalName"></param>
+        public bool Matches (ElementBinder elementBinder, StatesAssociation statesAssociation, bool stringifyStatesAssociation,
+            string universalName = null)
         {
-            return Matches(
-                elementBinder.ParentGameObject != null
+            string nameMatch;
+            if (universalName != null)
+                nameMatch = universalName;
+            else
+                nameMatch = elementBinder.ParentGameObject != null
                     ? elementBinder.ParentGameObject.Name
-                    : elementBinder.ParentScriptableObject?.Manifest.Name
-                , elementBinder.GameObjectPropertyName, statesAssociation,
-                stringifyStatesAssociation);
+                    : elementBinder.ParentScriptableObject?.Manifest.Name;
+
+            return Matches(nameMatch, elementBinder.GameObjectPropertyName, statesAssociation, stringifyStatesAssociation);
         }
 
         /// <summary>
@@ -183,13 +207,13 @@ namespace MachinationsUP.Integration.Inventory
         /// <param name="stringifyStatesAssociation">In the case of cached States Association, string values will be used for comparison.</param>
         public bool Matches (DiagramMapping diagramMapping, bool stringifyStatesAssociation)
         {
-            return Matches(diagramMapping.Name, diagramMapping.PropertyName, diagramMapping.StatesAssoc,
+            return Matches(diagramMapping.ManifestName, diagramMapping.PropertyName, diagramMapping.StatesAssoc,
                 stringifyStatesAssociation);
         }
 
         override public string ToString ()
         {
-            return "DiagramMapping for " + Name + "." + PropertyName + "." +
+            return "DiagramMapping for " + ManifestName + "." + PropertyName + "." +
                    (_statesAssociation != null ? _statesAssociation.Title : "N/A") +
                    " bound to DiagramID: " + DiagramElementID;
         }

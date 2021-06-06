@@ -323,6 +323,7 @@ namespace MachinationsUP.Engines.Unity
         {
             var ret = new Dictionary<string, ElementBinder>();
             MnObjectManifest manifest = eso.Manifest;
+            L.D("Creating binders for " + eso.Manifest);
             foreach (DiagramMapping dm in manifest.DiagramMappings)
             {
                 ElementBinder eb = new ElementBinder(eso, dm); //The Binder will NOT have any Parent Game Object.
@@ -365,23 +366,24 @@ namespace MachinationsUP.Engines.Unity
         {
             ElementBase ret = null; //ElementBase to return.
             DiagramMapping dm = null; //Matching Diagram Mapping.
-            bool found = false;
+            bool foundMapping = false;
             //Search all Diagram Mappings to see which one matches the provided Binder and States Association.
             foreach (DiagramMapping diagramMapping in _sourceElements.Keys)
+            {
                 //Check if we got a match with the requested Binder-per-State. If using cache, will check States Associations as Strings.
-                if (diagramMapping.Matches(elementBinder, statesAssociation, HasCache))
+                if (diagramMapping.Matches(elementBinder, statesAssociation, HasCache, diagramMapping.CrossManifestName))
                 {
                     ret = _sourceElements[diagramMapping];
-                    found = true;
+                    foundMapping = true;
                     dm = diagramMapping; //Save the Diagram Mapping that was found to match this Binder-per-State.
                     break;
                 }
+            }
 
             //A DiagramMapping MUST have been found for this element.
-            if (!found)
-                throw new Exception("MDL.FindSourceElement: '" +
-                                    GetMachinationsElementDescription(elementBinder, statesAssociation) +
-                                    "' not found in _sourceElements.");
+            if (!foundMapping)
+                throw new Exception("MDL.FindSourceElement: _sourceElements has no Diagram Mapping key for '" +
+                                    GetMachinationsElementDescription(elementBinder, statesAssociation) + ".");
 
             //If there is an Override defined in the DiagramMapping, immediately returning that ElementBase instead of the one we found.
             if (dm?.OverrideElementBase != null)
@@ -401,9 +403,9 @@ namespace MachinationsUP.Engines.Unity
 
                 //Nothing found? Throw!
                 if (!isInOfflineMode || (IsInOfflineMode && StrictOfflineMode))
-                    throw new Exception("MDL.FindSourceElement: '" +
+                    throw new Exception("MDL.FindSourceElement could not find any ElementBase in _sourceElements for: '" +
                                         GetMachinationsElementDescription(elementBinder, statesAssociation) +
-                                        "' has not been initialized.");
+                                        "'.");
             }
 
             return ret;
@@ -420,8 +422,19 @@ namespace MachinationsUP.Engines.Unity
             //Notify Scriptable Objects that are affected by what changed in this update.
             foreach (IMnScriptableObject imso in _scriptableObjects.Keys)
             {
+                if (imso.Manifest.Name != elementBase.DiagMapping.ManifestName)
+                    continue;
+
+                if (_scriptableObjects[imso].Binders == null)
+                {
+                    L.W("There are no Binders defined yet for Scriptable Object with Manifest " + imso.Manifest +
+                        ". For some reason this Scriptable Object wasn't enrolled properly.");
+                    _scriptableObjects[imso].Binders = CreateBindersForScriptableObject(_scriptableObjects[imso]);
+                    //continue;
+                }
+
                 //Find matching Binder by checking Machinations Object Property names.
-                //Reminder: _scriptableObjects[imso] is a Dictionary of that Machinations Scriptable Object's Game Property Names.
+                //Reminder: _scriptableObjects[imso] is a Dictionary of a Machinations Scriptable Object's Game Property Names and the associated Binder.
                 foreach (string gameObjectPropertyName in _scriptableObjects[imso].Binders.Keys)
                     //Found the incoming Property Name.
                     if (gameObjectPropertyName == diagramMapping.PropertyName)
@@ -442,7 +455,7 @@ namespace MachinationsUP.Engines.Unity
             //Notify all registered Machinations Game Objects, if they have 
             foreach (MnGameObject mgo in _gameObjects)
                 //When we find a registered Game Object that matches this Diagram Mapping asking it to update its Binder.
-                if (mgo.Name == diagramMapping.Name)
+                if (mgo.Name == diagramMapping.ManifestName)
                     mgo.UpdateBinder(diagramMapping, elementBase);
         }
 
@@ -476,7 +489,8 @@ namespace MachinationsUP.Engines.Unity
             ElementBase elementBase;
 
             //Initialize Diagram Mapping properties.
-            if (elementProperties.ContainsKey(SyncMsgs.JP_DIAGRAM_ELEMENT_TYPE)) mapping.Type = elementProperties[SyncMsgs.JP_DIAGRAM_ELEMENT_TYPE];
+            if (elementProperties.ContainsKey(SyncMsgs.JP_DIAGRAM_ELEMENT_TYPE))
+                mapping.Type = elementProperties[SyncMsgs.JP_DIAGRAM_ELEMENT_TYPE];
             if (elementProperties.ContainsKey(SyncMsgs.JP_DIAGRAM_LABEL)) mapping.Label = elementProperties[SyncMsgs.JP_DIAGRAM_LABEL];
             //Numeric elements get their Value from Resources.
             if (elementProperties.ContainsKey(SyncMsgs.JP_DIAGRAM_RESOURCES))
@@ -485,16 +499,20 @@ namespace MachinationsUP.Engines.Unity
                 int iValue = int.Parse(elementProperties[SyncMsgs.JP_DIAGRAM_RESOURCES]);
                 elementBase = new ElementBase(iValue, mapping);
                 //Set MaxValue, if we have from.
-                if (elementProperties.ContainsKey(SyncMsgs.JP_DIAGRAM_CAPACITY) && int.TryParse(elementProperties[SyncMsgs.JP_DIAGRAM_CAPACITY],
+                if (elementProperties.ContainsKey(SyncMsgs.JP_DIAGRAM_CAPACITY) && int.TryParse(
+                    elementProperties[SyncMsgs.JP_DIAGRAM_CAPACITY],
                     out iValue) && iValue != -1 && iValue != 0)
                 {
                     elementBase.MaxValue = iValue;
                 }
             }
-            //Non-numeric elements can be Formulas, getting their Value from a Label. 
-            else if (elementProperties.ContainsKey(SyncMsgs.JP_DIAGRAM_LABEL))
+            //These Element Types have values inside Formulas.
+            else if (mapping.Type == SyncMsgs.JP_ELETYPE_STATE_CONNECTION
+                     || mapping.Type == SyncMsgs.JP_ELETYPE_RESOURCE_CONNECTION || mapping.Type == SyncMsgs.JP_ELETYPE_REGISTER)
             {
-                string sValue = elementProperties[SyncMsgs.JP_DIAGRAM_LABEL];
+                if (!elementProperties.ContainsKey(SyncMsgs.JP_DIAGRAM_FORMULA))
+                    return null;
+                string sValue = elementProperties[SyncMsgs.JP_DIAGRAM_FORMULA];
                 try
                 {
                     elementBase = new FormulaElement(sValue, mapping, false);
@@ -694,10 +712,15 @@ namespace MachinationsUP.Engines.Unity
                 //Find Diagram Mapping matching the provided Machinations Diagram ID.
                 DiagramMapping diagramMapping = GetDiagramMappingForID(elementProperties[SyncMsgs.JP_DIAGRAM_ID]);
 
+                if (diagramMapping.ManifestName == null)
+                {
+                    L.D("here");
+                }
+
                 //Get the Element Base based on the dictionary of Element Properties.
                 ElementBase elementBase = CreateSourceElementBaseFromProps(elementProperties, diagramMapping);
 
-                //This is the important line where the ElementBase is assigned to the Source Elements Dictionary, to be used for
+                //This is the important line (oh so important :D) where the ElementBase is assigned to the Source Elements Dictionary, to be used for
                 //cloning elements in the future.
                 _sourceElements[diagramMapping] = elementBase;
 
@@ -705,29 +728,18 @@ namespace MachinationsUP.Engines.Unity
                 //way to know if a label is a Formula or just a text). See MnFormula constructor.
                 if (elementBase == null)
                 {
-                    //But does this mean that _sourceElements[diagramMapping] = null? Yes it does. And if anybody comes requesting for it,
-                    //there's going to be an error, which is what the expected behavior is. 
+                    L.T("MDL.UpdateSourcesWithValuesFromMachinations: Failed to create ElementBase for '" + diagramMapping + "'. Its value is possibly incompatible.");
+                    //But does this mean that _sourceElements will have no ElementBase for this diagramMapping? [_sourceElements[diagramMapping] = null]
+                    //Yes, it does. And if anybody comes requesting for it, there's going to be an error, which is EXACTLY what the expected behavior is.
                     continue;
                 }
 
-                L.D("ElementBase created for '" + diagramMapping + "' with Base Value of: " +
+                L.D("MDL.UpdateSourcesWithValuesFromMachinations: ElementBase created for '" + diagramMapping + "' with Base Value of: " +
                     elementBase.BaseValue);
 
                 //This element already exists and we're not in update mode.
                 if (_sourceElements.ContainsKey(diagramMapping) && !updateFromDiagram)
                 {
-                    //Initially, we would throw an exception for such situations.
-                    //But since we're now doing full re-init, this situation doesn't present a problem anymore.
-                    /*
-                    //Bark if a re-init wasn't what caused this duplication.
-                    if (!ReInitOngoing)
-                        throw new Exception(
-                            "MDL.UpdateWithValuesFromMachinations: A Source Element already exists for this DiagramMapping: " +
-                            diagramMapping +
-                            ". Perhaps you wanted to update it? Then, invoke this function with update: true.");
-                    //When re-initializing, go to the next element directly.
-                    */
-                    //Go to the next element directly, skipping update notifications.
                     continue;
                 }
 
@@ -779,14 +791,15 @@ namespace MachinationsUP.Engines.Unity
         static public void EnrollScriptableObject (IMnScriptableObject imso,
             MnObjectManifest manifest)
         {
-            L.D("MDL EnrollScriptableObject: " + manifest);
+            L.D("MDL EnrollScriptableObject: enrolling: " + manifest);
             DeclareManifest(manifest);
 
             //Restore previously-serialized values.
             foreach (DiagramMapping dm in manifest.DiagramMappings)
                 if (dm.EditorElementBase != null)
                 {
-                    L.D("MDL EnrollScriptableObject: Restoring Serialized Value for '" + dm + "' to " + dm.EditorElementBase._serializableValue);
+                    L.D("MDL EnrollScriptableObject [" + imso.GetType() + "] : Restoring Serialized Value for '" + dm + "' to " +
+                        dm.EditorElementBase._serializableValue);
                     dm.EditorElementBase.AssignDiagramMapping(dm);
                     dm.EditorElementBase.MaxValue = null;
                     dm.EditorElementBase.ChangeValueTo(dm.EditorElementBase._serializableValue);
@@ -794,7 +807,24 @@ namespace MachinationsUP.Engines.Unity
 
             //Save this in the Scriptable Objects database.
             if (!_scriptableObjects.ContainsKey(imso))
+            {
                 _scriptableObjects[imso] = new EnrolledScriptableObject {MScriptableObject = imso, Manifest = manifest};
+                /*
+                if (imso.Manifest.DiagramMappings.Count > 0)
+                    //
+                    foreach (DiagramMapping dm in _sourceElements.Keys)
+                    {
+                        //No ElementBase created yet for this DiagramMapping!
+                        if (_sourceElements[dm] == null) continue;
+                        //
+                        if (dm.DiagramElementID == imso.Manifest.DiagramMappings[0].DiagramElementID)
+                        {
+                            _scriptableObjects[imso].Binders = CreateBindersForScriptableObject(_scriptableObjects[imso]);
+                            break;
+                        }
+                    }
+                    */
+            }
 
             //Schedule a sync for any new addition.
             Service?.ScheduleSync();
@@ -917,6 +947,7 @@ namespace MachinationsUP.Engines.Unity
                         found = true;
                         break;
                     }
+
                 if (found) break;
             }
 

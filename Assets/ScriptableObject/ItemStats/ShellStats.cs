@@ -89,28 +89,30 @@ public class ShellStats : ScriptableObject, IMnScriptableObject
                 {
                     EditorElementBase = ShotCooldownBuff,
                     PropertyName = M_COOLDOWN_BUFF,
-                    DiagramElementID = 400003,
+                    DiagramElementID = 9130,
                     DefaultElementBase = new ElementBase(0, null)
                 },
                 new DiagramMapping
                 {
                     EditorElementBase = ExplosionForceBuff,
                     PropertyName = M_EXPLOSION_FORCE_BUFF,
-                    DiagramElementID = 400003,
+                    DiagramElementID = 9237,
+                    CrossManifestName = "ExplosionForce",
                     DefaultElementBase = new ElementBase(0, null)
                 },
                 new DiagramMapping
                 {
                     EditorElementBase = ExplosionRadiusBuff,
                     PropertyName = M_EXPLOSION_RADIUS_BUFF,
-                    DiagramElementID = 400003,
+                    DiagramElementID = 9238,
+                    CrossManifestName = "ExplosionRadius",
                     DefaultElementBase = new ElementBase(0, null)
                 },
                 new DiagramMapping
                 {
                     EditorElementBase = ShellSpeedBuff,
                     PropertyName = M_SHELL_SPEED_BUFF,
-                    DiagramElementID = 400002,
+                    DiagramElementID = 9032,
                     DefaultElementBase = new ElementBase(0, null)
                 }
             }

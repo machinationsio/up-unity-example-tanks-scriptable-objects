@@ -45,6 +45,7 @@ public class GameState : ScriptableObject
     public bool PlayerControlledTankIsDead;
     public int PlayerMustTakeDamage;
     public int EnemiesMustGetExtraLife;
+    public int EnemiesMustGetExtraLifeCount;
 
     public int RoundNumber;
 

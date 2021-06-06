@@ -10,16 +10,16 @@ using UnityEngine;
 public enum Drops
 {
 
-    EnemyLifeIncreasedWeight = 1,
-    ExplosionForceWeight = 2,
-    ExplosionRadiusWeight = 3,
-    EnemyCooldownDecreasedWeight = 4,
-    EnemyDamageIncreasedWeight = 5,
-    PlayerCooldownIncreasedWeight = 6,
-    PlayerProjectileSpeedDecreasedWeight = 7,
-    PlayerSpeedDecreasedWeight = 8,
-    PlayerLifeDecreasedWeight = 9,
-    EnemySpeedIncreasedWeight = 10
+    EnemyLifeBuff = 1,
+    ExplosionForceBuff = 2,
+    ExplosionRadiusBuff = 3,
+    EnemyCooldownBuff = 4,
+    EnemyDamageBuff = 5,
+    PlayerCooldownBuff = 6,
+    PlayerProjectileSpeedBuff = 7,
+    PlayerSpeedBuff = 8,
+    PlayerLifeBuff = 9,
+    EnemySpeedBuff = 10
 
 }
 
@@ -29,7 +29,7 @@ public class BuffDropRatios : ScriptableObject, IMnScriptableObject
 
     //Machinations.
 
-    public ElementBase Damage;
+    public ElementBase MEnemyLifeIncreaseWeight;
 
     public int EnemyLifeIncreasedWeight;
     public int ExplosionForceWeight;
@@ -42,7 +42,7 @@ public class BuffDropRatios : ScriptableObject, IMnScriptableObject
     public int PlayerLifeDecreasedWeight;
     public int EnemySpeedIncreasedWeight;
 
-    private const string M_DAMAGE = "Damage";
+    private const string M_ENEMY_LIFE_INCREASED = "EnemyLifeIncreasedWeight";
 
     readonly private List<int> _dropRates = new List<int>();
 
@@ -53,14 +53,14 @@ public class BuffDropRatios : ScriptableObject, IMnScriptableObject
         //Manifest that defines what the SO uses from Machinations.
         Manifest = new MnObjectManifest
         {
-            Name = "Shell Stats",
+            Name = "Drop Ratios",
             DiagramMappings = new List<DiagramMapping>
             {
                 new DiagramMapping
                 {
-                    EditorElementBase = Damage,
-                    PropertyName = M_DAMAGE,
-                    DiagramElementID = 219,
+                    EditorElementBase = MEnemyLifeIncreaseWeight,
+                    PropertyName = M_ENEMY_LIFE_INCREASED,
+                    DiagramElementID = 9135,
                     DefaultElementBase = new ElementBase(10, null)
                 },
             }
@@ -113,7 +113,7 @@ public class BuffDropRatios : ScriptableObject, IMnScriptableObject
     /// <param name="binders">The Binders for this Object.</param>
     public void MDLInitCompleteSO (Dictionary<string, ElementBinder> binders)
     {
-        Damage = binders[M_DAMAGE].CurrentElement;
+        MEnemyLifeIncreaseWeight = binders[M_ENEMY_LIFE_INCREASED].CurrentElement;
     }
 
     /// <summary>

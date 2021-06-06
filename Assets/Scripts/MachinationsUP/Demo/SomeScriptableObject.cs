@@ -71,7 +71,7 @@ public class SomeScriptableObject : ScriptableObject, IMnScriptableObject
         };
     
         //Register this Scriptable Object with the MDL.
-        MnDataLayer.EnrollScriptableObject(this, Manifest);
+        //MnDataLayer.EnrollScriptableObject(this, Manifest);
     }
     
     #region IMachinationsScriptableObject

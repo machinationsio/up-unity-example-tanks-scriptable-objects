@@ -60,21 +60,28 @@ namespace MachinationsUP.Integration.Elements
         /// <param name="rerunFormulaAtReset">If to recalculate the BaseValue from the Formula at reset.</param>
         /// <param name="rerunFormulaAtEveryAccess">If to recalculate the BaseValue from the Formula each time the CurrentValue is queried.</param>
         /// /// <param name="parentBinder">Parent Element Binder.</param>
-        public FormulaElement (string formulaString, DiagramMapping mapping, bool rerunFormulaAtReset = true, bool rerunFormulaAtEveryAccess = true,
+        public FormulaElement (string formulaString, DiagramMapping mapping, bool rerunFormulaAtReset = true,
+            bool rerunFormulaAtEveryAccess = true,
             ElementBinder parentBinder = null) :
             base(-1, mapping, parentBinder)
+        {
+            RerunFormulaAtReset = rerunFormulaAtReset;
+            RerunFormulaAtEveryAccess = rerunFormulaAtEveryAccess;
+            InitFromFormulaString(formulaString);
+        }
+
+        private void InitFromFormulaString (string formulaString)
         {
             FormulaString = formulaString;
             try
             {
-                MFormula = new MnFormula(formulaString);
+                MFormula = new MnFormula(FormulaString);
             }
             catch (Exception e)
             {
                 throw e;
             }
-            RerunFormulaAtReset = rerunFormulaAtReset;
-            RerunFormulaAtEveryAccess = rerunFormulaAtEveryAccess;
+
             BaseValue = MFormula.Run();
             base.Reset();
         }
@@ -96,7 +103,11 @@ namespace MachinationsUP.Integration.Elements
 
                 return _currentValue;
             }
-            protected set => _currentValue = value;
+            protected set
+            {
+                _currentValue = value;
+                _serializableValue = value;
+            }
         }
 
         /// <summary>
@@ -107,6 +118,15 @@ namespace MachinationsUP.Integration.Elements
             if (RerunFormulaAtReset)
                 BaseValue = MFormula.Run();
             base.Reset();
+        }
+
+        /// <summary>
+        /// Ovewrites this ELementBase's data with the provided one.
+        /// </summary>
+        /// <param name="with">New data.</param>
+        override public void Overwrite (ElementBase with)
+        {
+            InitFromFormulaString(((FormulaElement) with).FormulaString);
         }
 
         /// <summary>

@@ -88,28 +88,30 @@ public class ShellStatsEnemy : ScriptableObject, IMnScriptableObject
                 {
                     EditorElementBase = ShotCooldownBuff,
                     PropertyName = M_COOLDOWN_BUFF,
-                    DiagramElementID = 245000,
+                    DiagramElementID = 9126,
                     DefaultElementBase = new ElementBase(1, null)
                 },
                 new DiagramMapping
                 {
                     EditorElementBase = ExplosionForceBuff,
                     PropertyName = M_EXPLOSION_FORCE_BUFF,
-                    DiagramElementID = 400003,
+                    DiagramElementID = 9237,
+                    CrossManifestName = "ExplosionForce",
                     DefaultElementBase = new ElementBase(0, null)
                 },
                 new DiagramMapping
                 {
                     EditorElementBase = ExplosionRadiusBuff,
                     PropertyName = M_EXPLOSION_RADIUS_BUFF,
-                    DiagramElementID = 400003,
+                    DiagramElementID = 9238,
+                    CrossManifestName = "ExplosionRadius",
                     DefaultElementBase = new ElementBase(0, null)
                 },
                 new DiagramMapping
                 {
                     EditorElementBase = DamageBuff,
                     PropertyName = M_DAMAGE_BUFF,
-                    DiagramElementID = 400003,
+                    DiagramElementID = 9125,
                     DefaultElementBase = new ElementBase(0, null)
                 }
             }

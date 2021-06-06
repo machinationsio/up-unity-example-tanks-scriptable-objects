@@ -194,7 +194,7 @@ namespace MachinationsUP.Integration.Binder
         public void CreateElementBaseForStateAssoc (StatesAssociation statesAssociation = null, bool overwrite = false,
             bool isRunningOffline = false)
         {
-            L.D("CreateElementBaseForStateAssoc in ElementBinder [Hash: " + GetHashCode() + "] '" +
+            L.D("CreateElementBaseForStateAssoc in ElementBinder [Hash: " + GetHashCode() + "] [DiagramMapping: " + DiagMapping + "] '" +
                 GetFullName() + "' @ statesAssociation: " + (statesAssociation != null ? statesAssociation.Title : "N/A"));
 
             //The MachinationsDataLayer is responsible for creating ElementBase.

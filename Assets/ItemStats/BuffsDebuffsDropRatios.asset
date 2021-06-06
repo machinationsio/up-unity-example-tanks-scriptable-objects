@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8db3cb69cd604116a2bad6adeeb3702f, type: 3}
   m_Name: BuffsDebuffsDropRatios
   m_EditorClassIdentifier: 
-  Damage:
-    _serializableValue: 1681
-  EnemyLifeIncreasedWeight: 1
-  ExplosionForceWeight: 1
-  ExplosionRadiusWeight: 1
-  EnemyCooldownDecreasedWeight: 1
-  EnemyDamageIncreasedWeight: 1
-  PlayerCooldownIncreasedWeight: 1
-  PlayerProjectileSpeedDecreasedWeight: 400
-  PlayerSpeedDecreasedWeight: 1
-  PlayerLifeDecreasedWeight: 1
-  EnemySpeedIncreasedWeight: 1
+  MEnemyLifeIncreasedWeight:
+    _serializableValue: 10
+  EnemyLifeIncreasedWeight: 40
+  ExplosionForceWeight: 40
+  ExplosionRadiusWeight: 40
+  EnemyCooldownDecreasedWeight: 40
+  EnemyDamageIncreasedWeight: 40
+  PlayerCooldownIncreasedWeight: 40
+  PlayerProjectileSpeedDecreasedWeight: 40
+  PlayerSpeedDecreasedWeight: 40
+  PlayerLifeDecreasedWeight: 40
+  EnemySpeedIncreasedWeight: 4000
