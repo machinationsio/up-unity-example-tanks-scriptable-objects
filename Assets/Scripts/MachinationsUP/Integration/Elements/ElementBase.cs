@@ -138,9 +138,10 @@ namespace MachinationsUP.Integration.Elements
 
         /// <summary>
         /// Changes the Value of the ElementBase to the given one.
+        /// IMPORTANT: see override in <see cref="FormulaElement"/>.
         /// </summary>
         /// <param name="value">New Value.</param>
-        public void ChangeValueTo (int value)
+        virtual public void ChangeValueTo (int value)
         {
             CurrentValue = value;
             Clamp();
@@ -170,6 +171,7 @@ namespace MachinationsUP.Integration.Elements
 
         /// <summary>
         /// Ovewrites this ELementBase's data with the provided one.
+        /// IMPORTANT: see override in <see cref="FormulaElement"/>.
         /// </summary>
         /// <param name="with">New data.</param>
         virtual public void Overwrite (ElementBase with)
@@ -182,7 +184,7 @@ namespace MachinationsUP.Integration.Elements
 
         override public string ToString ()
         {
-            return BaseValue.ToString();
+            return "ElementBase: CurrentValue: " + CurrentValue + " BaseValue: " + BaseValue + " MinValue: " + MinValue + " MaxValue: " + MaxValue;
         }
 
     }

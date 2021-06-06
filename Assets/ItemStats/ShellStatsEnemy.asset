@@ -25,12 +25,12 @@ MonoBehaviour:
   ShotCooldownBuff:
     _serializableValue: 2
   ExplosionForceBuff:
-    _serializableValue: 100
+    _serializableValue: 600
   ExplosionRadiusBuff:
-    _serializableValue: 10
+    _serializableValue: 20
   DamageBuff:
-    _serializableValue: 1
+    _serializableValue: 51
   CurrentShotCooldownBuff: 0
   CurrentExplosionForceBuff: 0
   CurrentExplosionRadiusBuff: 0
-  CurrentDamageBuff: 0
+  CurrentDamageBuff: 51

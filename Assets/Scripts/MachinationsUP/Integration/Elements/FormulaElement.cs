@@ -121,6 +121,18 @@ namespace MachinationsUP.Integration.Elements
         }
 
         /// <summary>
+        /// Changes the Value of the FormulaElement to the given one.
+        /// IMPORTANT: it overrides the ElementBase function. This will set the BaseValue and trigger base.Reset().
+        /// </summary>
+        /// <param name="value">New Value.</param>
+        override public void ChangeValueTo (int value)
+        {
+            //Since the value is changed to an int (can happen when set from the editor!), putting it directly INSTEAD OF formula.
+            //In the future, when we allow for the Formula to be edited, this functionality may be changed.
+            InitFromFormulaString(value.ToString());
+        }
+
+        /// <summary>
         /// Ovewrites this ELementBase's data with the provided one.
         /// </summary>
         /// <param name="with">New data.</param>
@@ -140,7 +152,8 @@ namespace MachinationsUP.Integration.Elements
 
         override public string ToString ()
         {
-            return "F: " + MFormula;
+            return "FormulaElement: Formula: " + MFormula + "CurrentValue: " + CurrentValue + " BaseValue: " + BaseValue + " MinValue: " +
+                   MinValue + " MaxValue: " + MaxValue;
         }
 
     }

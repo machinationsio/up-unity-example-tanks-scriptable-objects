@@ -1,4 +1,52 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <MachinationsCache xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.machinations.io">
-  <DiagramMappings />
+  <DiagramMappings>
+    <MachinationsDiagramMapping>
+      <CachedElementBase>
+        <BaseValue>600</BaseValue>
+        <CurrentValue>600</CurrentValue>
+        <MaxValue
+          i:nil="true" />
+        <MinValue>0</MinValue>
+      </CachedElementBase>
+      <CrossManifestName
+        i:nil="true" />
+      <DiagramElementID>9237</DiagramElementID>
+      <Label>Projectile force buff</Label>
+      <ManifestName
+        i:nil="true" />
+      <PropertyName
+        i:nil="true" />
+      <StatesAssoc
+        i:nil="true" />
+      <Type>Pool</Type>
+    </MachinationsDiagramMapping>
+    <MachinationsDiagramMapping>
+      <CachedElementBase
+        i:type="MachinationsFormula">
+        <BaseValue>55</BaseValue>
+        <CurrentValue>55</CurrentValue>
+        <MaxValue
+          i:nil="true" />
+        <MinValue>0</MinValue>
+        <FormulaString>55</FormulaString>
+        <MFormula>
+          <FormulaString>55</FormulaString>
+        </MFormula>
+        <RerunFormulaAtEveryAccess>true</RerunFormulaAtEveryAccess>
+        <RerunFormulaAtReset>false</RerunFormulaAtReset>
+      </CachedElementBase>
+      <CrossManifestName
+        i:nil="true" />
+      <DiagramElementID>9136</DiagramElementID>
+      <Label>Proj Force Weight</Label>
+      <ManifestName
+        i:nil="true" />
+      <PropertyName
+        i:nil="true" />
+      <StatesAssoc
+        i:nil="true" />
+      <Type>Resource Connection</Type>
+    </MachinationsDiagramMapping>
+  </DiagramMappings>
 </MachinationsCache>

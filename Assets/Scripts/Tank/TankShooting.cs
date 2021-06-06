@@ -57,7 +57,7 @@ public class TankShooting : MonoBehaviour
             : m_ShellStatsEnemy.ShotCooldown.CurrentValue + m_ShellStatsEnemy.CurrentShotCooldownBuff;
 
         //Cap cooldown.
-        if (shotCooldown < 0.5f) shotCooldown = 0.5f;
+        if (shotCooldown < 0.2f) shotCooldown = 0.2f;
         //L.D("Shot Cooldown: " + shotCooldown);
 
         if (timeSinceShot < shotCooldown) return;

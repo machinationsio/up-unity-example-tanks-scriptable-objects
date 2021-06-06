@@ -16,11 +16,11 @@ MonoBehaviour:
   enemyTankStats: {fileID: 11400000, guid: 53f83837c82a15c4584794577962c73d, type: 2}
   aimAngleThreshold: 2
   chargeTimePerDistance:
-    minValue: 0
-    maxValue: 0
+    minValue: 0.005520872
+    maxValue: 0.00786188
   timeBetweenShots:
-    minValue: 2
-    maxValue: 6
+    minValue: 4
+    maxValue: 5
   moveTime:
-    minValue: 6.059305
-    maxValue: 6.995704
+    minValue: 0.8700776
+    maxValue: 1.8064756

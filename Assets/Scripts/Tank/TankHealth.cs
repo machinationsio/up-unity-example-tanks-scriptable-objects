@@ -214,10 +214,11 @@ public class TankHealth : MonoBehaviour
         Debug.Log("Randomization to: " + dropRates.Count);
         Debug.Log("Randomization Buff randomized weight: " + rnd);
 
-
+        //Here, we apply various buffs/debuffs, with possible safety margins in some cases.
+        //Some of these COULD HAVE BEEN DONE IN A BETTER WAY. Keep in mind we just hacked an existing example.
         switch (dropRates[rnd])
         {
-            case (int) Drops.EnemyLifeBuff: //D1EnemyLifeIncreased
+            case (int) Drops.EnemyLifeBuff:
                 Debug.Log("Buffing Enemy Life with " + m_TankStatsEnemy.HealthBuff.CurrentValue);
                 Instantiate(m_EnemyLifeBuffIcon, transform.position, Quaternion.identity);
                 m_TankStatsEnemy.CurrentHealthBuff +=
@@ -242,6 +243,8 @@ public class TankHealth : MonoBehaviour
                 Debug.Log("Buffing Enemy Cooldown with -" + m_ShellStatsEnemy.ShotCooldownBuff.CurrentValue);
                 Instantiate(m_EnemyCooldownDecreasedBuffIcon, transform.position, Quaternion.identity);
                 m_ShellStatsEnemy.CurrentShotCooldownBuff -= m_ShellStatsEnemy.ShotCooldownBuff.CurrentValue;
+                if (m_ShellStatsEnemy.ShotCooldown.CurrentValue + m_ShellStatsEnemy.CurrentShotCooldownBuff < 0)
+                    m_ShellStatsEnemy.CurrentShotCooldownBuff = -m_ShellStatsEnemy.ShotCooldown.CurrentValue;
                 break;
             case (int) Drops.EnemyDamageBuff:
                 Debug.Log("Buffing Enemy Damage with " + m_ShellStatsEnemy.DamageBuff.CurrentValue);

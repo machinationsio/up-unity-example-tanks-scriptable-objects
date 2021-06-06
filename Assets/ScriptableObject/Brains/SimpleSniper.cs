@@ -21,9 +21,10 @@ public class SimpleSniper : TankBrain
 	{
 		var shooting = tank.GetComponent<TankShooting>();
 		
+		var cooldown = shooting.m_ShellStatsEnemy.ShotCooldown.CurrentValue + shooting.m_ShellStatsEnemy.CurrentShotCooldownBuff;
 		//Cooldown is set from Shell Stats.
-		timeBetweenShots.minValue = shooting.m_ShellStatsEnemy.ShotCooldown.CurrentValue - 2;
-		timeBetweenShots.maxValue = shooting.m_ShellStatsEnemy.ShotCooldown.CurrentValue + 2;
+		timeBetweenShots.minValue = cooldown;
+		timeBetweenShots.maxValue = cooldown + 1;
 		
 		GameObject target = tank.Remember<GameObject>("target");
 		var movement = tank.GetComponent<TankMovement>();

@@ -422,15 +422,25 @@ namespace MachinationsUP.Engines.Unity
             //Notify Scriptable Objects that are affected by what changed in this update.
             foreach (IMnScriptableObject imso in _scriptableObjects.Keys)
             {
-                if (imso.Manifest.Name != elementBase.DiagMapping.ManifestName)
+                bool foundCrossManifestMapping = false;
+                //When the Diagram Mapping is for a cross-manifest item, we have to check if the current Scriptable Object has it.
+                if (diagramMapping.CrossManifestName != null)
+                    foreach (DiagramMapping dm in imso.Manifest.DiagramMappings)
+                        if (diagramMapping.CrossManifestName == dm.CrossManifestName)
+                        {
+                            foundCrossManifestMapping = true;
+                            break;
+                        }
+
+                //Skip to the next Scriptable Object if this one has nothing to do with the provided Manifest.
+                if (!foundCrossManifestMapping && imso.Manifest.Name != elementBase.DiagMapping.ManifestName)
                     continue;
 
                 if (_scriptableObjects[imso].Binders == null)
                 {
                     L.W("There are no Binders defined yet for Scriptable Object with Manifest " + imso.Manifest +
-                        ". For some reason this Scriptable Object wasn't enrolled properly.");
+                        ". Will attempt to create them now.");
                     _scriptableObjects[imso].Binders = CreateBindersForScriptableObject(_scriptableObjects[imso]);
-                    //continue;
                 }
 
                 //Find matching Binder by checking Machinations Object Property names.
@@ -711,12 +721,7 @@ namespace MachinationsUP.Engines.Unity
 
                 //Find Diagram Mapping matching the provided Machinations Diagram ID.
                 DiagramMapping diagramMapping = GetDiagramMappingForID(elementProperties[SyncMsgs.JP_DIAGRAM_ID]);
-
-                if (diagramMapping.ManifestName == null)
-                {
-                    L.D("here");
-                }
-
+                
                 //Get the Element Base based on the dictionary of Element Properties.
                 ElementBase elementBase = CreateSourceElementBaseFromProps(elementProperties, diagramMapping);
 
@@ -728,7 +733,8 @@ namespace MachinationsUP.Engines.Unity
                 //way to know if a label is a Formula or just a text). See MnFormula constructor.
                 if (elementBase == null)
                 {
-                    L.T("MDL.UpdateSourcesWithValuesFromMachinations: Failed to create ElementBase for '" + diagramMapping + "'. Its value is possibly incompatible.");
+                    L.T("MDL.UpdateSourcesWithValuesFromMachinations: Failed to create ElementBase for '" + diagramMapping +
+                        "'. Its value is possibly incompatible.");
                     //But does this mean that _sourceElements will have no ElementBase for this diagramMapping? [_sourceElements[diagramMapping] = null]
                     //Yes, it does. And if anybody comes requesting for it, there's going to be an error, which is EXACTLY what the expected behavior is.
                     continue;
@@ -922,7 +928,7 @@ namespace MachinationsUP.Engines.Unity
             item.Add("timeStamp", new JSONObject(DateTime.Now.Ticks));
             item.Add("parameter", JSONObject.CreateStringObject("number"));
             item.Add("previous", new JSONObject(previousValue));
-            item.Add("value", new JSONObject(sourceElement.CurrentValue));
+            item.Add(sourceElement is FormulaElement ? "formula" : "value", new JSONObject(sourceElement.CurrentValue));
 
             JSONObject[] keys = new JSONObject [1];
             keys[0] = new JSONObject(item);
