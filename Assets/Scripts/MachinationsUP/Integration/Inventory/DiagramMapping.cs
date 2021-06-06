@@ -167,13 +167,19 @@ namespace MachinationsUP.Integration.Inventory
         public bool Matches (string name, string propertyName, StatesAssociation statesAssociation,
             bool stringifyStatesAssociation)
         {
-            return (ManifestName == name || CrossManifestName != null && CrossManifestName == name) && PropertyName == propertyName &&
+            //A DiagramMapping matches some criteria IF:
+            //The Manifest name is the same OR, there is a CrossManifestName for this property
+            return (ManifestName == name || CrossManifestName != null && CrossManifestName == name)
+                   //The property name matches.
+                   && PropertyName == propertyName &&
                    (
+                       //The StatesAssociation matches, either stringified or...
                        (stringifyStatesAssociation &&
                         (
                             (StatesAssoc == null && statesAssociation == null) ||
                             (StatesAssoc != null && statesAssociation != null && StatesAssoc.ToString() == statesAssociation.ToString())))
                        ||
+                       //In Object form.
                        (!stringifyStatesAssociation && StatesAssoc == statesAssociation)
                    );
         }
