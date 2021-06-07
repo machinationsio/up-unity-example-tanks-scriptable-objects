@@ -21,7 +21,7 @@ MonoBehaviour:
   Speed:
     _serializableValue: 110
   ShotCooldown:
-    _serializableValue: 0
+    _serializableValue: 1
   ShotCooldownBuff:
     _serializableValue: 2
   ExplosionForceBuff:

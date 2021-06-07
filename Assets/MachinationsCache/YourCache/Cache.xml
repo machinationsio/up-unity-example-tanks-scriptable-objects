@@ -1,32 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <MachinationsCache xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.machinations.io">
-  <DiagramMappings>
-    <MachinationsDiagramMapping>
-      <CachedElementBase
-        i:type="MachinationsFormula">
-        <BaseValue>3</BaseValue>
-        <CurrentValue>3</CurrentValue>
-        <MaxValue
-          i:nil="true" />
-        <MinValue>0</MinValue>
-        <FormulaString>3</FormulaString>
-        <MFormula>
-          <FormulaString>3</FormulaString>
-        </MFormula>
-        <RerunFormulaAtEveryAccess>true</RerunFormulaAtEveryAccess>
-        <RerunFormulaAtReset>false</RerunFormulaAtReset>
-      </CachedElementBase>
-      <CrossManifestName
-        i:nil="true" />
-      <DiagramElementID>9126</DiagramElementID>
-      <Label>AI cooldown buff</Label>
-      <ManifestName
-        i:nil="true" />
-      <PropertyName
-        i:nil="true" />
-      <StatesAssoc
-        i:nil="true" />
-      <Type>Resource Connection</Type>
-    </MachinationsDiagramMapping>
-  </DiagramMappings>
+  <DiagramMappings />
 </MachinationsCache>

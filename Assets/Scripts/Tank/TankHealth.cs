@@ -260,15 +260,15 @@ public class TankHealth : MonoBehaviour
                 Debug.Log("Buffing Player Projectile Speed with -" + m_ShellStats.ShellSpeedBuff.CurrentValue);
                 Instantiate(m_PlayerProjectileSpeedDecreasedDeBuffIcon, transform.position, Quaternion.identity);
                 m_ShellStats.CurrentShellSpeedBuff -= m_ShellStats.ShellSpeedBuff.CurrentValue;
-                if (m_ShellStats.Speed.CurrentValue + m_ShellStats.CurrentShellSpeedBuff < 2)
-                    m_ShellStats.CurrentShellSpeedBuff = -m_ShellStats.Speed.CurrentValue - 2;
+                if (m_ShellStats.Speed.CurrentValue + m_ShellStats.CurrentShellSpeedBuff < 5)
+                    m_ShellStats.CurrentShellSpeedBuff = -m_ShellStats.Speed.CurrentValue + 5;
                 break;
             case (int) Drops.PlayerSpeedBuff:
                 Debug.Log("DeBuffing Player Speed with -" + m_TankStats.SpeedBuff.CurrentValue);
                 Instantiate(m_PlayerSpeedDecreasedDeBuffIcon, transform.position, Quaternion.identity);
                 m_TankStats.CurrentSpeedBuff -= m_TankStats.SpeedBuff.CurrentValue;
                 if (m_TankStats.Speed.CurrentValue + m_TankStats.CurrentSpeedBuff < 2)
-                    m_TankStats.CurrentSpeedBuff = -m_TankStats.Speed.CurrentValue - 2;
+                    m_TankStats.CurrentSpeedBuff = -m_TankStats.Speed.CurrentValue + 2;
                 break;
             case (int) Drops.PlayerLifeBuff:
                 Debug.Log("DeBuffing Player Life with -" + m_TankStats.HealthBuff.CurrentValue);

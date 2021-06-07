@@ -22,6 +22,8 @@ public class MainMenuController : MonoBehaviour
 	}
 
 	void Start () {
+		AudioListener.pause = true;
+		
 		if (System.IO.File.Exists(SavedSettingsPath))
 			GameSettings.LoadFromJSON(SavedSettingsPath);
 		else

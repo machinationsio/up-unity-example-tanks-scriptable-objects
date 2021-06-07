@@ -67,9 +67,9 @@ namespace MachinationsUP.Engines.Unity.EditorExtensions
                 L.D("The element's value is " + eb.CurrentValue);
                 */
                 baseValueProp.intValue = newValue;
-                L.D("Set basevalue to " + newValue);
+                L.T("Set basevalue to " + newValue);
                 eb.ChangeValueFromEditor(newValue);
-                L.D("The element's value is " + eb.CurrentValue);
+                L.T("The element's value is " + eb.CurrentValue);
             }
 
             EditorGUI.EndProperty();
