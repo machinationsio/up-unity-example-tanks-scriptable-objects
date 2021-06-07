@@ -33,4 +33,4 @@ MonoBehaviour:
   CurrentShotCooldownBuff: 0
   CurrentExplosionForceBuff: 0
   CurrentExplosionRadiusBuff: 0
-  CurrentDamageBuff: 51
+  CurrentDamageBuff: 0

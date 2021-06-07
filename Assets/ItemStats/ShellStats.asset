@@ -30,7 +30,7 @@ MonoBehaviour:
     _serializableValue: 20
   ShellSpeedBuff:
     _serializableValue: 51
-  CurrentShotCooldownBuff: 2
+  CurrentShotCooldownBuff: 0
   CurrentExplosionForceBuff: 0
   CurrentExplosionRadiusBuff: 0
-  CurrentShellSpeedBuff: -102
+  CurrentShellSpeedBuff: 0

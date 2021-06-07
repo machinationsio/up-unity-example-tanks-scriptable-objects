@@ -721,7 +721,7 @@ namespace MachinationsUP.Engines.Unity
 
                 //Find Diagram Mapping matching the provided Machinations Diagram ID.
                 DiagramMapping diagramMapping = GetDiagramMappingForID(elementProperties[SyncMsgs.JP_DIAGRAM_ID]);
-                
+
                 //Get the Element Base based on the dictionary of Element Properties.
                 ElementBase elementBase = CreateSourceElementBaseFromProps(elementProperties, diagramMapping);
 
@@ -924,11 +924,16 @@ namespace MachinationsUP.Engines.Unity
             //The item will be a Dictionary comprising of "id" and "props". The "props" will contain the properties to update.
             var item = new Dictionary<string, JSONObject>();
             item.Add(SyncMsgs.JP_DIAGRAM_ID, new JSONObject(sourceElement.DiagMapping.DiagramElementID));
-            item.Add(SyncMsgs.JP_DIAGRAM_ELEMENT_TYPE, JSONObject.CreateStringObject(SyncMsgs.JP_DIAGRAM_RESOURCES));
+            //We will set the TYPE of update message to FORMULA or RESOURCES based on what sort of ElementBase this is.
+            //Ideally, this should be named "target", because it's about what type of value it affects.
+            item.Add(SyncMsgs.JP_DIAGRAM_ELEMENT_TYPE,
+                sourceElement is FormulaElement
+                    ? JSONObject.CreateStringObject(SyncMsgs.JP_DIAGRAM_FORMULA)
+                    : JSONObject.CreateStringObject(SyncMsgs.JP_DIAGRAM_RESOURCES));
             item.Add("timeStamp", new JSONObject(DateTime.Now.Ticks));
             item.Add("parameter", JSONObject.CreateStringObject("number"));
             item.Add("previous", new JSONObject(previousValue));
-            item.Add(sourceElement is FormulaElement ? "formula" : "value", new JSONObject(sourceElement.CurrentValue));
+            item.Add("value", new JSONObject(sourceElement.CurrentValue));
 
             JSONObject[] keys = new JSONObject [1];
             keys[0] = new JSONObject(item);
