@@ -64,6 +64,8 @@
      <Compile Include="Assets\Scripts\Managers\TankManager.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\IMnScriptableObject.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\ChunkedRequestStream.cs" />
+     <Compile Include="Assets\MachinationsUP\GeneratedCode\GeneratedSO_20210609_122103.cs" />
+     <Compile Include="Assets\MachinationsUP\GeneratedCode\GeneratedSO_20210610_181931.cs" />
      <Compile Include="Assets\ScriptableObject\Audio\SimpleAudioEvent.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\Logger\L.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\EndPointListener.cs" />
@@ -115,7 +117,7 @@
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\HttpRequest.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\LogData.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\EnrolledScriptableObject.cs" />
-     <Compile Include="Assets\ScriptableObject\Brains\ZombieSniper.cs" />
+     <Compile Include="Assets\ScriptableObject\Brains\ChasingSniper.cs" />
      <Compile Include="Assets\Scripts\Camera\CameraControl.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\Demo\SomeRectangle.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\WebSocketFrame.cs" />
@@ -208,14 +210,16 @@
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\Net\HttpListenerAsyncResult.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\Engines\Unity\EditorExtensions\MnCPanelGraphics.cs" />
      <Compile Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\WebsocketSharp\ErrorEventArgs.cs" />
-     <None Include="Assets\socket-errorlog-global2021-06-06.txt" />
+     <None Include="Assets\socket-errorlog-global2021-06-08.txt" />
      <None Include="Assets\Fonts\Bowlby_One\OFL.txt" />
      <None Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\JSONObject\readme.txt" />
      <None Include="Assets\Scripts\MachinationsUP\ThirdParty\SocketIO\Readme.txt" />
+     <None Include="Assets\socket-errorlog-global2021-06-10.txt" />
      <None Include="Assets\MachinationsCache\AxonnMachi\Cache.xml" />
-     <None Include="Assets\socket-errorlog-global2021-06-07.txt" />
      <None Include="Assets\3D Items - Mega Pack\Read Me.txt" />
      <None Include="Assets\MachinationsCache\MyCacheDirectory\Cache.xml" />
+     <None Include="Assets\socket-errorlog-global2021-06-09.txt" />
+     <None Include="Assets\socket-errorlog-global2021-06-11.txt" />
      <None Include="Assets\MachinationsCache\YourCache\Cache.xml" />
      <None Include="Assets\Scripts\MachinationsUP\Third-Party Notices.txt" />
      <None Include="Assets\MachinationsSettings.xml" />

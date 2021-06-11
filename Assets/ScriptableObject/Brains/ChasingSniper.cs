@@ -7,8 +7,8 @@ using MachinationsUP.Integration.Binder;
 using MachinationsUP.Integration.Elements;
 using MachinationsUP.Integration.Inventory;
 
-[CreateAssetMenu(menuName = "Brains/Zombie sniper")]
-public class ZombieSniper : TankBrain
+[CreateAssetMenu(menuName = "Brains/Chasing sniper")]
+public class ChasingSniper : TankBrain
 {
 
     public TankStatsEnemy enemyTankStats;
@@ -55,7 +55,7 @@ public class ZombieSniper : TankBrain
             bool clockwise = Vector3.Cross(desiredForward, tank.transform.forward).y > 0;
             movement.Steer(0f, clockwise ? -1 : 1);
         }
-        // Zombie tank advances slowly towards player.
+        // Chasing tank advances slowly towards player.
         else
         {
             //But only close enough to kill.

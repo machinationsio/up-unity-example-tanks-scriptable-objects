@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70d1b3b8db794ef481ee8d5c2abb22dd, type: 3}
-  m_Name: Zombie Sniper
+  m_Name: Chasing Sniper
   m_EditorClassIdentifier: 
   TankRigidBody: {fileID: 0}
   enemyTankStats: {fileID: 11400000, guid: 53f83837c82a15c4584794577962c73d, type: 2}

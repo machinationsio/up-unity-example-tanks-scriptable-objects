@@ -15,20 +15,20 @@ MonoBehaviour:
   EnemyLifeBuffWeight:
     _serializableValue: 55
   ExplosionForceBuffWeight:
-    _serializableValue: 55
+    _serializableValue: 20
   ExplosionRadiusBuffWeight:
     _serializableValue: 55
   EnemyCooldownBuffWeight:
-    _serializableValue: 55
+    _serializableValue: 1000
   EnemyDamageBuffWeight:
-    _serializableValue: 55
+    _serializableValue: 71
   PlayerCooldownBuffWeight:
     _serializableValue: 55
   PlayerProjectileSpeedBuffWeight:
     _serializableValue: 55
   PlayerSpeedBuffWeight:
-    _serializableValue: 5522
+    _serializableValue: 55
   PlayerLifeBuffWeight:
     _serializableValue: 55
   EnemySpeedBuffWeight:
-    _serializableValue: 55
+    _serializableValue: 100

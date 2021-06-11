@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ShellStats
   m_EditorClassIdentifier: 
   Damage:
-    _serializableValue: 80
+    _serializableValue: 150
   Radius:
     _serializableValue: 10
   Force:
@@ -29,7 +29,7 @@ MonoBehaviour:
   ExplosionRadiusBuff:
     _serializableValue: 20
   ShellSpeedBuff:
-    _serializableValue: 51
+    _serializableValue: 40
   CurrentShotCooldownBuff: 0
   CurrentExplosionForceBuff: 0
   CurrentExplosionRadiusBuff: 0

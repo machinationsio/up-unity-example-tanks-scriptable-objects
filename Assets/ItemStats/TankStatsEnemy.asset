@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: TankStatsEnemy
   m_EditorClassIdentifier: 
   Health:
-    _serializableValue: 200
+    _serializableValue: 420
   Speed:
     _serializableValue: 15
   HealthBuff:
     _serializableValue: 200
   SpeedBuff:
-    _serializableValue: 31
+    _serializableValue: 15
   CurrentHealthBuff: 0
   CurrentSpeedBuff: 0
